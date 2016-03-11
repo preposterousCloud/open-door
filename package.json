@@ -1,12 +1,13 @@
 {
-  "name": "redux-todo",
+  "name": "open-door",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "babel": "babel",
-    "babel-node": "babel-node"
+    "babel-node": "babel-node",
+    "install-all": "npm install && cd ./native && npm install && cd .."
   },
   "author": "",
   "license": "ISC",

@@ -11,7 +11,7 @@ import React, {
   View
 } from 'react-native';
 
-class ReduxTodo extends Component {
+class opendoor extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -19,11 +19,10 @@ class ReduxTodo extends Component {
           Welcome to React Native!
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit index.ios.js
+          To get started, edit index.android.js
         </Text>
         <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
+          Shake or press menu button for dev menu
         </Text>
       </View>
     );
@@ -49,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('ReduxTodo', () => ReduxTodo);
+AppRegistry.registerComponent('opendoor', () => opendoor);
