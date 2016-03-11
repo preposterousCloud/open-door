@@ -11,5 +11,11 @@
       "no-dupe-keys": 0,
       "no-shadow": 0,
       "new-cap": 0
+    },
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "ecmaFeatures": {
+        "jsx": true
     }
+  }
 }
