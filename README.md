@@ -40,3 +40,10 @@ Figure out the direct steps here
  - Debug will show warnings and display error messages
  - Release will hide warnings and quit on errors
 - Press Play (&#8984;R) to load onto your iOS device
+
+## Setup type definitions (optional)
+If you setup your editor to use .tsd files, you will be able to get autocomplete on NPM modules
+
+1. Run `npm install -g tsd'
+2. Run `tsd install` from the project root
+3. Add a tsd/typescript plugin to your editor of choice
