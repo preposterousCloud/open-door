@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs"
+    },
+    "exclude": [
+        "node_modules", "web/node_modules", "native/ios", "native/android", "native/node_modules"
+    ]
+}
