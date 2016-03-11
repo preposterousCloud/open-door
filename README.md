@@ -11,7 +11,7 @@ Requirements:
 - npm [install here](http://blog.npmjs.org/post/85484771375/how-to-install-npm)
 - rnpm [install here](https://github.com/rnpm/rnpm)
 
-Run 'npm install' from the root directory
+Run 'npm run install:all' from the root directory
 
 ```
 $ npm install
@@ -40,3 +40,10 @@ Figure out the direct steps here
  - Debug will show warnings and display error messages
  - Release will hide warnings and quit on errors
 - Press Play (&#8984;R) to load onto your iOS device
+
+## Setup type definitions (optional)
+If you setup your editor to use .tsd files, you will be able to get autocomplete on NPM modules
+
+1. Run `npm install -g tsd'
+2. Run `tsd install` from the project root
+3. Add a tsd/typescript plugin to your editor of choice

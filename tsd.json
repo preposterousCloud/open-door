@@ -1,0 +1,72 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "react-native/react-native.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "react/react.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "react/react-global.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "react/react-dom.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "react/react-addons-create-fragment.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "react/react-addons-css-transition-group.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "react/react-addons-transition-group.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "react/react-addons-linked-state-mixin.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "react/react-addons-perf.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "react/react-addons-pure-render-mixin.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "react/react-addons-test-utils.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "react/react-addons-update.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "redux/redux.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "express/express.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "node/node.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "mime/mime.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "serve-static/serve-static.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "sequelize/sequelize.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "bluebird/bluebird.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "lodash/lodash.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    },
+    "validator/validator.d.ts": {
+      "commit": "552fe5d3e45ef9c8ecd3eda2b6a24d2546c438f4"
+    }
+  }
+}
