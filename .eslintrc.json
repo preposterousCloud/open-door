@@ -1,7 +1,7 @@
 {
     "extends": "airbnb",
     "plugins": [
-        "react"
+        "react-native"
     ],
     "rules": {
       "no-console": 0,
@@ -10,7 +10,8 @@
       "no-unused-vars": 0,
       "no-dupe-keys": 0,
       "no-shadow": 0,
-      "new-cap": 0
+      "new-cap": 0,
+      "no-use-before-define": 0
     },
     "parserOptions": {
       "ecmaVersion": 6,
