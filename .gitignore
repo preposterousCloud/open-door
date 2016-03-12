@@ -28,3 +28,7 @@ node_modules
 
 #TSD/Typings
 typings
+
+opendoor.pem
+
+.awscode
