@@ -1,9 +1,6 @@
 import React, { Text, View, ListView, Component } from 'react-native';
 import styles from '../../styles/Feed/feedStyles.js';
 import FeedListRow from './FeedListRow.js';
-
-// const reduceStuff = require('../../sharedNative/reducers.js');
-// import { reducer, store } from './reducers.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 
 const MOCK_ROW_DATA = [
