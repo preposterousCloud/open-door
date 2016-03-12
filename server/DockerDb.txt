@@ -1,0 +1,3 @@
+//Running the following in the terminal will create a new Postgres docker container with the user, pw and db values set in the line
+
+docker run -p 5432:5432 --name openDoorPostgres -e POSTGRES_USER=opendoor -e POSTGRES_PASSWORD=password -e POSTGRES_DB=opendoor -d postgres
