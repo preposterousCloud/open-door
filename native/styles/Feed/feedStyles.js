@@ -7,4 +7,11 @@ module.exports = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#EEE',
   },
+  listView: {
+    paddingTop: 20,
+    backgroundColor: '#ededed',
+  },
+  rightContainer: {
+    flex: 1,
+  },
 });
