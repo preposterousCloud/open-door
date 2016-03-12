@@ -1,5 +1,5 @@
-const auth = require('./auth');
-const utils = require('./utils.js');
+// const auth = require('./auth');
+// const utils = require('./utils.js');
 
 module.exports = (app) => {
   // Test
