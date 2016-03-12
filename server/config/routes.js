@@ -1,7 +1,12 @@
-const auth = require('./auth');
-const utils = require('./utils.js');
+// const auth = require('./auth');
+// const utils = require('./utils.js');
 
 module.exports = (app) => {
+  // Test
+  app.get('/', (req, res) => {
+    res.json('Whatup, AWS!');
+  });
+
   // // Auth
   // app.get('/auth/signedin');
 
