@@ -14,21 +14,19 @@ const {
   Navigator,
 } = React;
 
+const configureScene = (route) => (
+  route.sceneConfig || Navigator.SceneConfigs.FloatFromBottom
+);
+const renderScene = (route, navigator) => {
+  if (route.component) {
+    return React.createElement(route.component, { navigator, route });
+  }
+};
 const opendoor = () => (
   <Navigator
-    initialRoute = {{
-      component: Feed,
-    }}
-    configureScene = {(route) => {
-      return route.sceneConfig || Navigator.SceneConfigs.FloatFromBottom;
-    }}
-    renderScene = {
-      (route, navigator) => {
-        if (route.component) {
-          return React.createElement(route.component, { navigator, route });
-        }
-      }
-    }
+    initialRoute = {{ component: Feed }}
+    configureScene = {configureScene}
+    renderScene = {renderScene}
   / >
 );
 
