@@ -1,10 +1,13 @@
-import React, { Text, View, ListView, Component } from 'react-native';
 import styles from '../../styles/Feed/feedStyles.js';
 import FeedListRow from './FeedListRow.js';
-
-// const reduceStuff = require('../../sharedNative/reducers.js');
-// import { reducer, store } from './reducers.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+import NavigationBar from 'react-native-navbar';
+import React, {
+  Text,
+  View,
+  ListView,
+  Component,
+ } from 'react-native';
 
 const MOCK_ROW_DATA = [
   'aardvark',
@@ -29,7 +32,9 @@ const a = new ListView.DataSource({
 
 const Feed = () => (
   <View style={styles.container}>
-    <Text>Hello, World!</Text>
+    <NavigationBar
+      title="Hey Whatsup Hello"
+    />
     <ListView
       dataSource={a}
       renderRow={FeedListRow}

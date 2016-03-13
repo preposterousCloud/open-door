@@ -48,5 +48,3 @@ module.exports = {
   reducer,
   store,
 };
-// let reducer = combineReducers({ visibilityFilter, todos });
-// let store = createStore(reducer);
