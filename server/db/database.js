@@ -12,17 +12,19 @@ const Sequelize = require('sequelize');
  * @param (String) 'prod' uses configured PROD settings, 'test' uses in memory sqlite
  * @returns (Sequelize)
  */
-const _InjectDBConfig = (environment) => {
-  var sequelize;
-  if (environment === 'prod') {
+const _InjectDBConfig = (config) => {
+  let sequelize;
+  if (config.env === 'prod') {
     sequelize = new Sequelize(config.dbName, config.dbUser, config.dbPassword, {
       dialect: 'postgres',
       quoteIdentifiers: false, // quoteIdentifiers is a Postgres only option
       port: config.dbPort,
       host: config.dbHost,
+      logging: config.env,
     });
-  } else if (environment === 'test') {
-    sequelize = new Sequelize('opendoor', 'opendoor', null, { dialect: 'sqlite', storage: ':memory', force: true });
+  } else if (config.env === 'test') {
+    sequelize = new Sequelize('opendoor', 'opendoor', null, { dialect: 'sqlite', storage: ':memory'
+      , force: true, logging: config.logging });
   } else {
     throw Error('Unsupported SQL config.');
   }
@@ -62,8 +64,9 @@ const _InjectDBConfig = (environment) => {
     Group,
     Event,
     sequelize,
+    Sequelize,
   };
 };
 
-module.exports = { db: _InjectDBConfig('prod'),
+module.exports = { db: _InjectDBConfig({ env: 'prod', logging: false }),
     _InjectDBConfig };
