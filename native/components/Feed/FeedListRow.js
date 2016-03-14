@@ -1,14 +1,36 @@
 import React, { Text, View } from 'react-native';
 import styles from '../../styles/Feed/feedStyles.js';
 
-const FeedListRow = (rowText) => (
-  <View>
-    <View style={styles.listEntryView}>
-      <Text style={styles.group}>
-        {rowText}
-      </Text>
+import Accordion from 'react-native-accordion';
+
+const FeedListRow = (rowText) => {
+  const header = (
+    <View>
+      <View style={styles.listEntryView}>
+        <Text style={styles.group}>
+          {rowText}
+        </Text>
+      </View>
     </View>
-  </View>
-);
+  );
+
+  const content = (
+    <View>
+      <View>
+        <Text style={styles.group}>
+          {'sup yo'}
+        </Text>
+      </View>
+    </View>
+  );
+
+  return (
+    <Accordion
+      header={header}
+      content={content}
+      easing="easeOutCubic"
+    />
+  );
+};
 
 module.exports = FeedListRow;
