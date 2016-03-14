@@ -1,5 +1,6 @@
 import styles from '../../styles/Feed/feedStyles.js';
 import FeedListRow from './FeedListRow.js';
+import FeedNavbar from './FeedNavbar.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavigationBar from 'react-native-navbar';
 import React, {
@@ -7,6 +8,7 @@ import React, {
   View,
   ListView,
   Component,
+  TouchableHighlight,
  } from 'react-native';
 
 const MOCK_ROW_DATA = [
@@ -32,9 +34,7 @@ const a = new ListView.DataSource({
 
 const Feed = () => (
   <View style={styles.container}>
-    <NavigationBar
-      title="Hey Whatsup Hello"
-    />
+    <FeedNavbar />
     <ListView
       dataSource={a}
       renderRow={FeedListRow}
