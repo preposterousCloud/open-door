@@ -1,19 +1,21 @@
 import styles from '../../styles/Event/eventStyles.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import NavigationBar from 'react-native-navbar';
+import NavBar from '../Shared/NavBar.js';
 import React, { View, Text } from 'react-native';
 
-const rightNavButton = {
-  title: 'Next',
-  handler: () => console.log('hello!'),
+const leftNavButton = {
+  title: 'Back',
+  handler: () => {
+    console.log('back button pressed!');
+    store.getState().navigator.pop();
+  },
 };
 
 const EventDetails = () => (
   <View>
-    <NavigationBar
-      title={{ title: 'Event Details' }}
-      rightButton={rightNavButton}
-      style={styles.navBar}
+    <NavBar
+      title={ 'Event Details' }
+      leftButton={leftNavButton}
     />
     <Text>Title: {store.getState().focusEventDetails.title}</Text>
     <Text>Address: {store.getState().focusEventDetails.address}</Text>
