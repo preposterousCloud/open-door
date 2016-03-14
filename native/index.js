@@ -1,7 +1,3 @@
-/**
- * Entry point file
- */
-
 import Feed from './components/Feed/Feed.js';
 import { reducer, store } from './sharedNative/reducers/reducers.js';
 import React from 'react-native';
