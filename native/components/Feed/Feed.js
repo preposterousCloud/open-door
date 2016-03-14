@@ -1,6 +1,6 @@
 import styles from '../../styles/Feed/feedStyles.js';
 import FeedList from './FeedList.js';
-import FeedNavbar from './FeedNavbar.js';
+import FeedNavbar from '../Shared/NavBar.js';
 import NavigationBar from 'react-native-navbar';
 import React, {
   Text,
@@ -11,7 +11,9 @@ import React, {
 
 const Feed = () => (
   <View style={styles.container}>
-    <FeedNavbar />
+    <FeedNavbar
+      title={ 'Event Feed' }
+    />
     <FeedList />
   </View>
 );
