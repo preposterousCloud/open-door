@@ -6,6 +6,10 @@ module.exports = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#AAA',
   },
+  scrollView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   listView: {
     paddingTop: 20,
     backgroundColor: '#FBA',
