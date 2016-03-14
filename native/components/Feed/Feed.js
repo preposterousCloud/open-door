@@ -1,6 +1,6 @@
 import styles from '../../styles/Feed/feedStyles.js';
 import FeedListRow from './FeedListRow.js';
-import FeedNavbar from './FeedNavbar.js';
+import NavBar from '../Shared/NavBar.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavigationBar from 'react-native-navbar';
 import React, {
@@ -32,9 +32,17 @@ const a = new ListView.DataSource({
   rowHasChanged: (row1, row2) => row1 !== row2,
 }).cloneWithRows(store.getState().mockData);
 
+const rightNavButton = {
+  title: 'Derecha',
+  handler: () => alert('hello!'),
+};
+
 const Feed = () => (
   <View style={styles.container}>
-    <FeedNavbar />
+    <NavBar
+      title={'Event Feed'}
+      rightButton={rightNavButton}
+    />
     <ListView
       dataSource={a}
       renderRow={FeedListRow}
