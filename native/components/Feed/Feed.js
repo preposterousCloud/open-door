@@ -1,6 +1,6 @@
 import styles from '../../styles/Feed/feedStyles.js';
 import FeedList from './FeedList.js';
-import FeedNavbar from '../Shared/NavBar.js';
+import NavBar from '../Shared/NavBar.js';
 import EventDetails from '../Event/EventDetails.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavigationBar from 'react-native-navbar';
@@ -32,7 +32,7 @@ const rightNavButton = {
 
 const Feed = () => (
   <View style={styles.container}>
-    <FeedNavbar
+    <NavBar
       title={ 'Event Feed' }
       rightButton={rightNavButton}
     />
