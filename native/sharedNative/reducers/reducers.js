@@ -1,31 +1,7 @@
-function visibilityFilter(state = 'SHOW_ALL', action) {
+function navigator(state = {}, action) {
   switch (action.type) {
-    case 'SET_VISIBILITY_FILTER':
-      return action.filter;
-    default:
-      return state;
-  }
-}
-
-function todos(state = [], action) {
-  switch (action.type) {
-    case 'ADD_TODO':
-      return [
-        ...state,
-        {
-          text: action.text,
-          completed: false,
-        },
-      ];
-    case 'COMPLETE_TODO':
-      return state.map((todo, index) => {
-        if (index === action.index) {
-          return Object.assign({}, todo, {
-            completed: true,
-          });
-        }
-        return todo;
-      });
+    case 'SET_APP_NAVIGATOR':
+      return action.navigator;
     default:
       return state;
   }
@@ -39,9 +15,19 @@ function mockData(state = [], action) {
       return state;
   }
 }
+
+function focusEventDetails(state = {}, action) {
+  switch (action.type) {
+    case 'SET_FOCUS_EVENT':
+      return action.data || state;
+    default:
+      return state;
+  }
+}
+
 import { combineReducers, createStore } from 'redux';
 
-const reducer = combineReducers({ visibilityFilter, todos, mockData });
+const reducer = combineReducers({ navigator, mockData, focusEventDetails });
 const store = createStore(reducer);
 
 module.exports = {
