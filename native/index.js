@@ -19,6 +19,10 @@ const configureScene = (route) => (
 );
 
 const renderScene = (route, navigator) => {
+  store.dispatch({
+    type: 'SET_APP_NAVIGATOR',
+    navigator,
+  });
   if (route.component) {
     return React.createElement(route.component, { navigator, route });
   }
@@ -29,7 +33,7 @@ const opendoor = () => (
     initialRoute = {{ component: Feed }}
     configureScene = {configureScene}
     renderScene = {renderScene}
-  / >
+  />
 );
 
 AppRegistry.registerComponent('opendoor', () => opendoor);
