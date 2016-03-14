@@ -11,3 +11,7 @@ module.exports = function User(sequelizeInstance) {
     user_name: Sequelize.STRING,
   });
 };
+
+// To add a user to a group you could do either of the following
+  // userInstance.addGroup(groupObj)  or addGroups (plural) and pass an array
+  // groupInstance.addUser(userObj) or addUsers (plural)
