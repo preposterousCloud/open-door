@@ -19,14 +19,23 @@ export const resetDbWithDummy = (sequelizeInstance) => {
   .then((users) => {
     newUsers = users;
 
-    const newEventTemps = [db.Event.makeEvent(newUsers[0], 'Partay',
-        Date.now(),
-        Date.now(),
-        '123 Main Street',
-        'Apt 4',
-        'San Francisco',
-        'CA',
-        '94107')];
+    const newEventTemps = [db.Event.makeEventTemplate(newUsers[0], 'Partay',
+          Date.now(),
+          Date.now(),
+          '123 Main Street',
+          'Apt 4',
+          'San Francisco',
+          'CA',
+          '94107',
+          [newUsers[1]]),
+        db.Event.makeEventTemplate(newUsers[0], 'Partay #2',
+          Date.now(),
+          Date.now(),
+          null,
+          null,
+          null,
+          null,
+          null)];
     return Sequelize.Promise.map(newEventTemps, event => db.Event.createEvent(event));
   })
   .then((events) => {
@@ -35,6 +44,6 @@ export const resetDbWithDummy = (sequelizeInstance) => {
   })
   .then(() => {
     // Signup 2nd user for the first event we created
-    return newUsers[1].addEvent(newEvents[0]);
+    // return newUsers[1].addEvent(newEvents[0]);
   });
 };

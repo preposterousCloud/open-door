@@ -31,9 +31,7 @@ const _InjectDBConfig = (config) => {
 
   const User = require('../models/User')(sequelize);
 
-  const Group = sequelize.define('Group', {
-    name: Sequelize.STRING,
-  });
+  const Group = require('../models/Group')(sequelize);
 
   const Event = require('../models/Event')(sequelize);
 
@@ -46,7 +44,7 @@ const _InjectDBConfig = (config) => {
   Group.belongsToMany(Event, { through: 'rel_group_event' });
   Event.belongsToMany(Group, { through: 'rel_group_event' });
 
-  Event.belongsTo(User, { as: 'host_user' });
+  Event.belongsTo(User, { as: 'hostUser' });
 
   return {
     User,
