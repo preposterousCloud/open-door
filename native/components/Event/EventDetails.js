@@ -11,7 +11,7 @@ const leftNavButton = {
   },
 };
 
-const EventDetails = (props) => (
+const EventDetails = () => (
   <View>
     <NavBar
       title={ 'Event Details' }
@@ -22,9 +22,5 @@ const EventDetails = (props) => (
     <Text>Host: {store.getState().focusEventDetails.host}</Text>
   </View>
 );
-
-EventDetails.propTypes = {
-  route: React.PropTypes.object,
-};
 
 module.exports = EventDetails;
