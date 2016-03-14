@@ -1,5 +1,6 @@
 import styles from '../../styles/Feed/feedStyles.js';
 import FeedListRow from './FeedListRow.js';
+import FeedNavbar from './FeedNavbar.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavigationBar from 'react-native-navbar';
 import React, {
@@ -7,6 +8,7 @@ import React, {
   View,
   ListView,
   Component,
+  TouchableHighlight,
  } from 'react-native';
 
 const MOCK_ROW_DATA = [
@@ -30,11 +32,26 @@ const a = new ListView.DataSource({
   rowHasChanged: (row1, row2) => row1 !== row2,
 }).cloneWithRows(store.getState().mockData);
 
+const pageTitle = (
+  <Text style={styles.pageTitle}>Hey Whatsup Hello</Text>
+);
+const exampleFunction = () => { console.log('im in love with the cocoa'); };
+
+const backButton = (
+  <TouchableHighlight onPress={exampleFunction} underlayColor={'white'}>
+    <Text>Hey!</Text>
+  </TouchableHighlight>
+);
+
+const addButton = (
+  <TouchableHighlight onPress={exampleFunction} underlayColor={'white'}>
+    <Text>Ho!</Text>
+  </TouchableHighlight>
+);
+
 const Feed = () => (
   <View style={styles.container}>
-    <NavigationBar
-      title="Hey Whatsup Hello"
-    />
+    <FeedNavbar />
     <ListView
       dataSource={a}
       renderRow={FeedListRow}
