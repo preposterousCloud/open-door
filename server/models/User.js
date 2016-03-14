@@ -4,6 +4,10 @@
  */
 
 const UserDbModel = require('../db/database').User;
+const Sequelize = require('sequelize');
 
-export const User = Object.assign({}, UserDbModel);
-
+module.exports = function User(sequelizeInstance) {
+  return sequelizeInstance.define('User', {
+    user_name: Sequelize.STRING,
+  });
+};

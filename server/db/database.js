@@ -23,30 +23,19 @@ const _InjectDBConfig = (config) => {
       logging: config.env,
     });
   } else if (config.env === 'test') {
-    sequelize = new Sequelize('opendoor', 'opendoor', null, { dialect: 'sqlite', storage: ':memory'
-      , force: true, logging: config.logging });
+    sequelize = new Sequelize('opendoor', 'opendoor', null, { dialect: 'sqlite', storage: ':memory',
+      force: true, logging: config.logging });
   } else {
     throw Error('Unsupported SQL config.');
   }
 
-  const User = sequelize.define('User', {
-    user_name: Sequelize.STRING,
-  });
+  const User = require('../models/User')(sequelize);
 
   const Group = sequelize.define('Group', {
     name: Sequelize.STRING,
   });
 
-  const Event = sequelize.define('Event', {
-    name: Sequelize.STRING,
-    start_date_utc: Sequelize.DATE,
-    end_date_utc: Sequelize.DATE,
-    address_street_1: Sequelize.STRING,
-    address_street_2: Sequelize.STRING,
-    city: Sequelize.STRING,
-    state_abbrev: Sequelize.STRING,
-    postal_code: Sequelize.STRING,
-  });
+  const Event = require('../models/Event')(sequelize);
 
   User.belongsToMany(Group, { through: 'rel_user_group' });
   Group.belongsToMany(User, { through: 'rel_user_group' });

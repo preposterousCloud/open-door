@@ -1,14 +1,40 @@
+const Sequelize = require('sequelize');
 
-module.exports.makeEvent = function (name, startDateUtc, endDateUtc, address1, address2, city, stateAbbrev, postalCode) {
-  return {
-    name,
-    start_date_utc: startDateUtc,
-    end_date_utc: endDateUtc,
-    address_street_1: address1,
-    address_street_2: address2,
-    city: city,
-    state_abbrev: stateAbbrev,
-    postal_code: postalCode,
-  };
+module.exports = function Event(sequelizeInstance) {
+  const event = sequelizeInstance.define('Event', {
+    name: Sequelize.STRING,
+    startDateUtc: Sequelize.DATE,
+    endDateUtc: Sequelize.DATE,
+    addressStreet1: Sequelize.STRING,
+    addressStreet2: Sequelize.STRING,
+    city: Sequelize.STRING,
+    stateAbbrev: Sequelize.STRING,
+    postalCode: Sequelize.STRING,
+  }, {
+    classMethods: {
+      createEvent: function createEvent(eventObj) {
+        return this.create(eventObj)
+        .then((event) => {
+          return event.setHost_user(eventObj.hostUser)
+          .then(() => {return event;});
+        });
+      },
+      makeEvent: function makeEvent(hostUser, name, startDateUtc, endDateUtc, addressStreet1
+        , addressStreet2, city, stateAbbrev, postalCode) {
+        return {
+          hostUser,
+          name,
+          startDateUtc,
+          endDateUtc,
+          addressStreet1,
+          addressStreet2,
+          city,
+          stateAbbrev,
+          postalCode,
+        };
+      },
+    },
+  });
+
+  return event;
 };
-

@@ -1,20 +1,9 @@
-'use strict';
 
 const db = require('./../server/db/database').db;
 const Sequelize = db.Sequelize;
-const makeEvent = require('./../server/models/Event').makeEvent;
 
 const newUserTemps = [{ user_name: 'vcipriani' }, { user_name: 'user2' }];
 let newUsers;
-
-const newEventTemps = [makeEvent('Partay',
-        Date.now(),
-        Date.now(),
-        '123 Main Street',
-        'Apt 4',
-        'San Francisco',
-        'CA',
-        '94107')];
 let newEvents;
 
 /**
@@ -29,12 +18,20 @@ export const resetDbWithDummy = (sequelizeInstance) => {
   })
   .then((users) => {
     newUsers = users;
-    return Sequelize.Promise.map(newEventTemps, event => db.Event.create(event));
+
+    const newEventTemps = [db.Event.makeEvent(newUsers[0], 'Partay',
+        Date.now(),
+        Date.now(),
+        '123 Main Street',
+        'Apt 4',
+        'San Francisco',
+        'CA',
+        '94107')];
+    return Sequelize.Promise.map(newEventTemps, event => db.Event.createEvent(event));
   })
   .then((events) => {
     newEvents = events;
-    // Assign newUsers[0] as host of all events created
-    return events.map((event, index) => event.setHost_user(newUsers[0]));
+    return newEvents;
   })
   .then(() => {
     // Signup 2nd user for the first event we created
