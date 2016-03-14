@@ -13,11 +13,6 @@ module.exports = StyleSheet.create({
   rightContainer: {
     flex: 1,
   },
-  pageTitle: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#00F',
-  },
   navBar: {
     // enter some styles here
   },
