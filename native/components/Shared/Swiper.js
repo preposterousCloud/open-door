@@ -28,27 +28,15 @@ const scrollToSetDoor = () => {
   });
 };
 
-const _goToSetDoor = () => {
-  store.getState().swiperRef.scrollTo(1);
-};
-
-const _goToProfile = () => {
-  store.getState().swiperRef.scrollTo(-1);
-};
-
 const rightNavButton = {
   title: 'My Door',
   handler: scrollToSetDoor,
 };
 
-const leftNavButton = {
-  title: 'Profile',
-  handler: _goToProfile,
-};
-
 const _onMomentumScrollEnd = (e, state) => {
   // this.setState({ index: state.index });
-  StatusBarIOS.setHidden(state.index === 1);
+  // StatusBarIOS.setHidden(state.index === 1);
+  console.log('scrolled');
 };
 
 class SwiperBase extends React.Component {
