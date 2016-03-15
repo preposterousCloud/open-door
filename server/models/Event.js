@@ -18,7 +18,7 @@ module.exports = function Event(sequelizeInstance) {
     {
       classMethods: {
         createEvent: function createEvent(eventObj) {
-          return this.create(eventObj)
+          return this.rawCreate(eventObj)
           .then((event) => {
             return event.setHostUser(eventObj.hostUser)
             .then(() => {return event;});
@@ -62,7 +62,7 @@ module.exports = function Event(sequelizeInstance) {
             include: [{ model: seq.models.User,
               where: { id: user.id } }],
           });
-          
+
           const groupInvites = this.findAll({
             include: [{ model: seq.models.Group,
               where: { id: { $in: user.Groups.map(group => group.id) } } }],
@@ -77,5 +77,11 @@ module.exports = function Event(sequelizeInstance) {
         },
       },
     });
+  // API users should use our createEvent and not sequelize create because it
+  // doesn't set the necessary fields
+  event.rawCreate = event.create;
+  event.create = () => {
+    throw Error('Use .createEvent instead. If you want the native sequelize method use .rawCreate');
+  };
   return event;
 };
