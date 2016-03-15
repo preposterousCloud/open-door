@@ -1,5 +1,6 @@
 import styles from '../../styles/Shared/sharedStyles.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+
 import NavigationBar from 'react-native-navbar';
 import React, { View } from 'react-native';
 

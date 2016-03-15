@@ -1,5 +1,5 @@
 import styles from '../../styles/Feed/feedStyles.js';
-import FeedList from './FeedList.js';
+import Feed from '../Feed/Feed.js';
 import NavBar from '../Shared/NavBar.js';
 import SetDoor from '../Door/SetDoor.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
@@ -27,19 +27,26 @@ const scrollToSetDoor = () => {
   });
 };
 
+const _goToSetDoor = () => {
+  store.getState().swiperRef.scrollTo(1);
+};
+
 const rightNavButton = {
   title: 'My Door',
   handler: scrollToSetDoor,
 };
 
-const Feed = () => (
+const SwiperBase = () => (
   <View style={styles.container}>
-    <NavBar
-      title={ 'Event Feed' }
-      rightButton={rightNavButton}
-    />
-    <FeedList />
+    <Swiper
+      showsButtons={false}
+      loop={false}
+      showsPagination={false}
+    >
+      <Feed />
+      <SetDoor />
+    </Swiper>
   </View>
 );
 
-module.exports = Feed;
+module.exports = SwiperBase;
