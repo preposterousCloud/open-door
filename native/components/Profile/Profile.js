@@ -15,11 +15,11 @@ const Profile = () => (
   <View>
     <NavBar
       title={ 'Profile' }
-      leftButton={rightNavButton}
+      rightButton={rightNavButton}
     />
-    <Text>Title: {store.getState().focusEventDetails.title}</Text>
-    <Text>Address: {store.getState().focusEventDetails.address}</Text>
-    <Text>Host: {store.getState().focusEventDetails.host}</Text>
+    <Text>Name: {store.getState().focusEventDetails.title}</Text>
+    <Text>Home Address: {store.getState().focusEventDetails.address}</Text>
+    <Text>Best Friend: {store.getState().focusEventDetails.host}</Text>
   </View>
 );
 
