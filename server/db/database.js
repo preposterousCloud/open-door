@@ -2,9 +2,8 @@
  * This file defines our database schema.  You can instantiate a new DB or reset your existing DB
  * with the command sequelize.sync({ force: true });
  */
-
+'use strict';
 const config = require('../config');
-
 const Sequelize = require('sequelize');
 
 /**
@@ -12,19 +11,19 @@ const Sequelize = require('sequelize');
  * @param (String) 'prod' uses configured PROD settings, 'test' uses in memory sqlite
  * @returns (Sequelize)
  */
-const _InjectDBConfig = (config) => {
+const _InjectDBConfig = (params) => {
   let sequelize;
-  if (config.env === 'prod') {
+  if (params.env === 'prod') {
     sequelize = new Sequelize(config.dbName, config.dbUser, config.dbPassword, {
       dialect: 'postgres',
       quoteIdentifiers: false, // quoteIdentifiers is a Postgres only option
       port: config.dbPort,
       host: config.dbHost,
-      logging: config.env,
+      logging: params.logging,
     });
-  } else if (config.env === 'test') {
+  } else if (params.env === 'test') {
     sequelize = new Sequelize('opendoor', 'opendoor', null, { dialect: 'sqlite', storage: ':memory',
-      force: true, logging: config.logging });
+      force: true, logging: params.logging });
   } else {
     throw Error('Unsupported SQL config.');
   }
