@@ -64,7 +64,7 @@ export const resetDbWithDummy = (sequelizeInstance) => {
           'San Francisco',
           'CA',
           '94107'),
-        db.Event.makeEventTemplate(newUsers[0], 'Partay #4',
+        db.Event.makeEventTemplate(newUsers[0], 'Group Party',
           Date.now(),
           Date.now(),
           '123 Main Street',
