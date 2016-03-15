@@ -22,7 +22,7 @@ module.exports = (app) => {
   app.post('/api/users/', User.createUser);
   // app.put('/api/users/');
   // app.delete('/api/users/');
-
+  app.get('/api/users/:arg', User.getUser);
   // // Events
   app.get('/api/events', Event.getEvents);
   app.post('/api/events', Event.createEvent);

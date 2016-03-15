@@ -37,7 +37,7 @@ module.exports = function Event(sequelizeInstance) {
             return Promise.all([a, b]).then(() => event);
           });
         },
-        makeEventTemplate: function makeEvent(hostUser, name, startDateUtc, endDateUtc
+        makeEventTemplate: function makeEventTemplate(hostUser, name, startDateUtc, endDateUtc
         , addressStreet1, addressStreet2, city, stateAbbrev, postalCode, users, groups) {
           return {
             hostUser,

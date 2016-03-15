@@ -36,3 +36,25 @@ module.exports.getUsers = function getUsers(req, res) {
   });
 };
 
+module.exports.getUser = function getUser(req, res) {
+  const arg = req.params.arg;
+  const isInt = !isNaN(parseInt(arg, 10));
+
+  let searchObj;
+  if (isInt) {
+    searchObj = { id: parseInt(arg, 10) };
+  } else if (typeof arg === 'string') {
+    searchObj = { userName: arg };
+  } else {
+    res.status(404).send('Invalid param. Provide ID or username');
+  }
+
+  db.User.getUser(searchObj)
+  .then((data) => {
+    res.json(data);
+  })
+  .catch((err) => {
+    console.error(err, err.stack);
+    res.status(500).send('Unknown server problem');
+  });
+};
