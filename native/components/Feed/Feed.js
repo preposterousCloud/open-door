@@ -45,7 +45,6 @@ const Feed = (props) => {
   );
 };
 
-
 Feed.propTypes = {
   swipeRight: React.PropTypes.function,
 };
