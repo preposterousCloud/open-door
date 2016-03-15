@@ -12,13 +12,17 @@ describe('Data Integration Tests', () => {
     .then(() => done());
   });
 
-  let createdUser;
-  pit('User2 can view Partay', () => {
-    return db.User.findOne({
-      where: { user_name: 'user2' },
-      include: [{ model: db.Event }] })
-    .then((data) => {
-      expect(data.Events[0].name).toBe('Partay');
+  pit('Make sure user can see all of the parties they should have access to', () => {
+    return db.User.findOne({ where: { user_name: 'user2' },
+      include: [{ model: db.Group }] })
+    .then(user => {
+      return db.Event.getEventsForUser(user);
+    })
+    .then(data => {
+      expect(data[0].name).toBe('Partay'); // Event the user is invited to
+      expect(data[1].name).toBe('Partay #2'); // Event the user created
+      expect(data[2].name).toBe('Group Party'); // Event one of the user's groups was invited to
+      expect(data.length).toBe(3); // The user should have exactly 3 parties, any more and access could be broken
     });
   });
 
@@ -28,4 +32,8 @@ describe('Data Integration Tests', () => {
       expect(data.dataValues.hostUserId).toBe(1);
     });
   });
+  
+  pit('Test Playground', () => {
+
+  }); 
 });
