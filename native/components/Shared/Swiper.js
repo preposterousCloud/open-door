@@ -15,40 +15,8 @@ import React, {
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
 
-const scrollToSetDoor = () => {
-  store.dispatch({
-    type: 'SET_FOCUS_EVENT',
-    data: {
-      user: 'Old Greg',
-      doorStatus: 'CLOSED',
-    },
-  });
-  store.getState().navigator.push({
-    component: SetDoor,
-  });
-};
-
-const _goToSetDoor = () => {
-  store.getState().swiperRef.scrollTo(1);
-};
-
-const _goToProfile = () => {
-  store.getState().swiperRef.scrollTo(-1);
-};
-
-const rightNavButton = {
-  title: 'My Door',
-  handler: scrollToSetDoor,
-};
-
-const leftNavButton = {
-  title: 'Profile',
-  handler: _goToProfile,
-};
-
 const _onMomentumScrollEnd = (e, state) => {
-  // this.setState({ index: state.index });
-  StatusBarIOS.setHidden(state.index === 1);
+  console.log('scrolled');
 };
 
 class SwiperBase extends React.Component {
@@ -66,12 +34,6 @@ class SwiperBase extends React.Component {
     const boundSwipeRight = this.swipeRight.bind(this);
     const boundSwipeLeft = this.swipeLeft.bind(this);
 
-    // currently not in use
-    store.dispatch({
-      type: 'SET_SWIPE_RIGHT',
-      ref: this.refs.scrollView,
-    });
-
     return (
       <Swiper
         ref="scrollView"
@@ -81,27 +43,12 @@ class SwiperBase extends React.Component {
         index={1}
         onMomentumScrollEnd ={boundMomentumScrollEnd}
       >
-        <Profile />
-        <Feed swipeRight={boundSwipeRight} />
-        <SetDoor />
+        <Profile swipeRight={boundSwipeRight} />
+        <Feed swipeRight={boundSwipeRight} swipeLeft={boundSwipeLeft} />
+        <SetDoor swipeLeft={boundSwipeLeft} />
       </Swiper>
    );
   }
 }
-
-// const SwiperBase = () => (
-//   <View style={styles.container}>
-//     <Swiper
-//       index={1}
-//       showsButtons={false}
-//       loop={false}
-//       showsPagination={false}
-//     >
-//       <Profile />
-//       <Feed />
-//       <SetDoor />
-//     </Swiper>
-//   </View>
-// );
 
 module.exports = SwiperBase;

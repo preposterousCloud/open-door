@@ -2,6 +2,7 @@ import styles from '../../styles/Feed/feedStyles.js';
 import FeedList from './FeedList.js';
 import NavBar from '../Shared/NavBar.js';
 import SetDoor from '../Door/SetDoor.js';
+import Profile from '../Profile/Profile.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
   Text,
@@ -14,24 +15,15 @@ import React, {
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
 
-const scrollToSetDoor = () => {
-  store.dispatch({
-    type: 'SET_FOCUS_EVENT',
-    data: {
-      user: 'Old Greg',
-      doorStatus: 'CLOSED',
-    },
-  });
-  store.getState().navigator.push({
-    component: SetDoor,
-  });
-};
-
-
 const Feed = (props) => {
   const rightNavButton = {
     title: 'My Door',
     handler: props.swipeRight,
+  };
+
+  const leftNavButton = {
+    title: 'Profile',
+    handler: props.swipeLeft,
   };
 
   return (
@@ -39,6 +31,7 @@ const Feed = (props) => {
       <NavBar
         title={store.getState().user.userName}
         rightButton={rightNavButton}
+        leftButton={leftNavButton}
       />
       <FeedList />
     </View>
@@ -47,6 +40,7 @@ const Feed = (props) => {
 
 Feed.propTypes = {
   swipeRight: React.PropTypes.function,
+  swipeLeft: React.PropTypes.function,
 };
 
 module.exports = Feed;
