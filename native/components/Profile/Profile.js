@@ -3,16 +3,13 @@ import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import React, { View, Text } from 'react-native';
 
-const rightNavButton = {
-  title: 'Back',
-  handler: () => {
-    console.log('back button pressed!');
-    store.getState().navigator.pop();
-  },
-};
-
-const Profile = () => (
-  <View>
+const Profile = (props) => {
+  const rightNavButton = {
+    title: '>',
+    handler: props.swipeRight,
+  };
+  return (
+    <View>
     <NavBar
       title={ 'Profile' }
       rightButton={rightNavButton}
@@ -21,6 +18,11 @@ const Profile = () => (
     <Text>Home Address: {store.getState().focusEventDetails.address}</Text>
     <Text>Best Friend: {store.getState().focusEventDetails.host}</Text>
   </View>
-);
+  );
+};
+
+Profile.propTypes = {
+  swipeRight: React.PropTypes.function,
+};
 
 module.exports = Profile;
