@@ -25,15 +25,17 @@ store.dispatch({
   type: 'SET_MOCK_DATA',
   data: MOCK_ROW_DATA,
 });
-
-const a = new ListView.DataSource({
-  rowHasChanged: (row1, row2) => row1 !== row2,
-}).cloneWithRows(store.getState().mockData);
+const a = () => (new ListView.DataSource(
+  {
+    rowHasChanged: (row1, row2) => row1 !== row2,
+  })
+  .cloneWithRows(store.getState().user.Events.map(event => event.name))
+);
 
 const FeedList = () => (
   <View style={styles.container}>
     <ListView
-      dataSource={a}
+      dataSource={a()}
       renderRow={FeedListRow}
       style={styles.listView}
     />
