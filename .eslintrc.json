@@ -11,7 +11,10 @@
       "no-dupe-keys": 0,
       "no-shadow": 0,
       "new-cap": 0,
-      "no-use-before-define": 0
+      "arrow-body-style": [0, "as-needed"],
+      "no-use-before-define": 1,
+      "object-shorthand": 0 ,
+      "strict": 0
     },
     "parserOptions": {
       "ecmaVersion": 6,

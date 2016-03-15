@@ -29,6 +29,8 @@ node_modules
 #TSD/Typings
 typings
 
-opendoor.pem
+#in memory sqlite database (that for some reason gets written to disk)
+:memory
 
+opendoor.pem
 .awscode
