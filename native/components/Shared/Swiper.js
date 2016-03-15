@@ -12,6 +12,7 @@ import React, {
  } from 'react-native';
 
 import NavigationBar from 'react-native-navbar';
+import Swiper from 'react-native-swiper';
 
 const scrollToSetDoor = () => {
   store.dispatch({
@@ -35,22 +36,17 @@ const rightNavButton = {
   handler: scrollToSetDoor,
 };
 
-const Swiper = () => {
-  const swiperRef = (
-    <View style={styles.container}>
-      <NavBar
-        title={ 'Event Feed' }
-        rightButton={rightNavButton}
-      />
+const SwiperBase = () => (
+  <View style={styles.container}>
+    <Swiper
+      showsButtons={false}
+      loop={false}
+      showsPagination={false}
+    >
       <Feed />
-    </View>
-  );
+      <SetDoor />
+    </Swiper>
+  </View>
+);
 
-  store.dispatch({
-    type: 'SET_SCROLL_EVENT',
-    data: swiperRef,
-  });
-  return swiperRef;
-};
-
-module.exports = Swiper;
+module.exports = SwiperBase;

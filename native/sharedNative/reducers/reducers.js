@@ -7,15 +7,6 @@ function navigator(state = {}, action) {
   }
 }
 
-function swiperRef(state = {}, action) {
-  switch (action.type) {
-    case 'SET_SCROLL_EVENT':
-      return action.data;
-    default:
-      return state;
-  }
-}
-
 function mockData(state = [], action) {
   switch (action.type) {
     case 'SET_MOCK_DATA':
