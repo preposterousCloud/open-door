@@ -51,9 +51,9 @@ class SwiperBase extends React.Component {
         index={1}
         onMomentumScrollEnd ={boundMomentumScrollEnd}
       >
-        <Profile />
+        <Profile swipeRight={boundSwipeRight} />
         <Feed swipeRight={boundSwipeRight} swipeLeft={boundSwipeLeft} />
-        <SetDoor />
+        <SetDoor swipeLeft={boundSwipeLeft} />
       </Swiper>
    );
   }
