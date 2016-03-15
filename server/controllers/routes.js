@@ -2,6 +2,7 @@
 // const auth = require('./auth');
 // const utils = require('./utils.js');
 const User = require('./User');
+const Event = require('./Event');
 
 module.exports = (app) => {
   // Test
@@ -23,8 +24,8 @@ module.exports = (app) => {
   // app.delete('/api/users/');
 
   // // Events
-  // app.get('/api/events');
-  // app.post('/api/events');
+  app.get('/api/events', Event.getEvents);
+  app.post('/api/events', Event.createEvent);
   // app.put('/api/events');
   // app.delete('/api/events');
 

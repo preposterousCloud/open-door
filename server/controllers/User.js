@@ -1,7 +1,6 @@
 'use strict';
 
 const db = require('../db/database').db;
-const _ = require('underscore');
 
 const _mapUser = (user) => {
   return {
@@ -9,6 +8,7 @@ const _mapUser = (user) => {
     userName: user.userName,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
+    Groups: user.Groups,
   };
 };
 

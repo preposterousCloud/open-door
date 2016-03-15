@@ -19,5 +19,3 @@ db.sequelize.sync({ force: true })
   console.error(`${err.name}: ${err.message}`);
   process.exit(1);
 });
-
-

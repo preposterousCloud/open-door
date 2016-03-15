@@ -22,7 +22,7 @@ describe('Data Integration Tests', () => {
     .then(data => {
       // The user should have exactly 3 parties, any more and access could be broken
       expect(data.length).toBe(3);
-      
+
       const expectedParties = ['Partay', // Event the user is invited to]
       'Partay #2', // Event the user created
       'Group Party']; // Event one of the user's groups was invited to
