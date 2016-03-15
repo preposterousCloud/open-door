@@ -24,12 +24,11 @@ describe('Data Integration Tests', () => {
       expect(data.length).toBe(3);
       
       const expectedParties = ['Partay', // Event the user is invited to]
-      'Partaay #2', // Event the user created
+      'Partay #2', // Event the user created
       'Group Party']; // Event one of the user's groups was invited to
       const containsAllParties = data.reduce((memo, party) => {
         return memo && expectedParties.indexOf(party.name) > -1;
       }, true);
-      
       expect(containsAllParties).toBe(true);
     });
   });
