@@ -1,5 +1,5 @@
 import styles from '../../styles/Feed/feedStyles.js';
-import Feed from './Feed.js';
+import Feed from '../Feed/Feed.js';
 import NavBar from '../Shared/NavBar.js';
 import SetDoor from '../Door/SetDoor.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
@@ -15,7 +15,7 @@ import NavigationBar from 'react-native-navbar';
 
 const scrollToSetDoor = () => {
   store.dispatch({
-    type: 'SET_SCROLL_EVENT',
+    type: 'SET_FOCUS_EVENT',
     data: {
       user: 'Old Greg',
       doorStatus: 'CLOSED',
@@ -38,7 +38,11 @@ const rightNavButton = {
 const Swiper = () => {
   const swiperRef = (
     <View style={styles.container}>
-        <Feed />
+      <NavBar
+        title={ 'Event Feed' }
+        rightButton={rightNavButton}
+      />
+      <Feed />
     </View>
   );
 

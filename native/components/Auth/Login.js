@@ -1,4 +1,4 @@
-import Feed from '../Feed/Feed.js';
+import Swiper from '../Shared/Swiper.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
   View,
@@ -6,15 +6,15 @@ import React, {
   TouchableOpacity,
  } from 'react-native';
 
-const goToFeed = () => {
+const goToMain = () => {
   store.getState().navigator.push({
-    component: Feed,
+    component: Swiper,
   });
 };
 
 const Login = () => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <TouchableOpacity onPress={goToFeed}>
+    <TouchableOpacity onPress={goToMain}>
       <Text>Login</Text>
     </TouchableOpacity>
   </View>
