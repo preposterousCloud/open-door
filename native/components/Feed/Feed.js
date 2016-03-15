@@ -1,43 +1,53 @@
 import styles from '../../styles/Feed/feedStyles.js';
 import FeedList from './FeedList.js';
 import NavBar from '../Shared/NavBar.js';
-import EventDetails from '../Event/EventDetails.js';
+import SetDoor from '../Door/SetDoor.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import NavigationBar from 'react-native-navbar';
 import React, {
   Text,
   View,
   Component,
   TouchableHighlight,
+  ScrollView,
  } from 'react-native';
 
-const navToExampleEvent = () => {
+import NavigationBar from 'react-native-navbar';
+import Swiper from 'react-native-swiper';
+
+const scrollToSetDoor = () => {
   store.dispatch({
     type: 'SET_FOCUS_EVENT',
     data: {
-      title: 'Polar Quest!',
-      address: '944 Market St., San Francisco, CA',
-      host: 'Old Greg',
+      user: 'Old Greg',
+      doorStatus: 'CLOSED',
     },
   });
   store.getState().navigator.push({
-    component: EventDetails,
+    component: SetDoor,
   });
 };
 
-const rightNavButton = {
-  title: 'Derecha',
-  handler: navToExampleEvent,
+
+const Feed = (props) => {
+  const rightNavButton = {
+    title: 'My Door',
+    handler: props.swipeRight,
+  };
+
+  return (
+    <View style={styles.container}>
+      <NavBar
+        title={ 'Event Feed' }
+        rightButton={rightNavButton}
+      />
+      <FeedList />
+    </View>
+  );
 };
 
-const Feed = () => (
-  <View style={styles.container}>
-    <NavBar
-      title={ 'Event Feed' }
-      rightButton={rightNavButton}
-    />
-    <FeedList />
-  </View>
-);
+
+Feed.propTypes = {
+  swipeRight: React.PropTypes.function,
+};
 
 module.exports = Feed;

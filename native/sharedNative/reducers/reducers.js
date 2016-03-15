@@ -25,9 +25,24 @@ function focusEventDetails(state = {}, action) {
   }
 }
 
+function swiperRef(state = {}, action) {
+  switch (action.type) {
+    case 'SET_SWIPER_REF':
+      return action.ref || state;
+    default:
+      return state;
+  }
+}
+
 import { combineReducers, createStore } from 'redux';
 
-const reducer = combineReducers({ navigator, mockData, focusEventDetails });
+const reducer = combineReducers({
+  navigator,
+  mockData,
+  focusEventDetails,
+  swiperRef,
+});
+
 const store = createStore(reducer);
 
 module.exports = {
