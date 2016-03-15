@@ -1,4 +1,4 @@
-import Feed from './components/Feed/Feed.js';
+import Login from './components/Auth/Login.js';
 import { reducer, store } from './sharedNative/reducers/reducers.js';
 import React from 'react-native';
 const {
@@ -26,7 +26,7 @@ const renderScene = (route, navigator) => {
 
 const opendoor = () => (
   <Navigator
-    initialRoute = {{ component: Feed }}
+    initialRoute = {{ component: Login }}
     configureScene = {configureScene}
     renderScene = {renderScene}
   />
