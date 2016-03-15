@@ -3,7 +3,18 @@ import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import React, { View, Text } from 'react-native';
 
+const getDoorData = () => {
+  store.dispatch({
+    type: 'SET_FOCUS_EVENT',
+    data: {
+      user: 'Old Greg',
+      doorStatus: 'CLOSED',
+    },
+  });
+};
+
 const SetDoor = (props) => {
+  getDoorData();
   const leftNavButton = {
     title: '<',
     handler: props.swipeLeft,
