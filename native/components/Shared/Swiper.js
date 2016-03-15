@@ -1,5 +1,5 @@
 import styles from '../../styles/Feed/feedStyles.js';
-import FeedList from './FeedList.js';
+import Feed from './Feed.js';
 import NavBar from '../Shared/NavBar.js';
 import SetDoor from '../Door/SetDoor.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
@@ -12,11 +12,10 @@ import React, {
  } from 'react-native';
 
 import NavigationBar from 'react-native-navbar';
-import Swiper from 'react-native-swiper';
 
 const scrollToSetDoor = () => {
   store.dispatch({
-    type: 'SET_FOCUS_EVENT',
+    type: 'SET_SCROLL_EVENT',
     data: {
       user: 'Old Greg',
       doorStatus: 'CLOSED',
@@ -27,19 +26,27 @@ const scrollToSetDoor = () => {
   });
 };
 
+const _goToSetDoor = () => {
+  store.getState().swiperRef.scrollTo(1);
+};
+
 const rightNavButton = {
   title: 'My Door',
   handler: scrollToSetDoor,
 };
 
-const Feed = () => (
-  <View style={styles.container}>
-    <NavBar
-      title={ 'Event Feed' }
-      rightButton={rightNavButton}
-    />
-    <FeedList />
-  </View>
-);
+const Swiper = () => {
+  const swiperRef = (
+    <View style={styles.container}>
+        <Feed />
+    </View>
+  );
 
-module.exports = Feed;
+  store.dispatch({
+    type: 'SET_SCROLL_EVENT',
+    data: swiperRef,
+  });
+  return swiperRef;
+};
+
+module.exports = Swiper;

@@ -9,6 +9,7 @@
     "react-native": "^0.21.0",
     "react-native-accordion": "^0.2.4",
     "react-native-navbar": "^1.2.2",
+    "react-native-swiper": "^1.4.3",
     "redux": "^3.3.1"
   },
   "devDependencies": {
