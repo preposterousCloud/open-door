@@ -1,5 +1,7 @@
+'use strict';
 // const auth = require('./auth');
 // const utils = require('./utils.js');
+const User = require('./User');
 
 module.exports = (app) => {
   // Test
@@ -15,8 +17,8 @@ module.exports = (app) => {
   // app.get('/auth/facebook/callback');
 
   // // User Profiles
-  // app.get('/api/users/');
-  // app.post('/api/users/');
+  app.get('/api/users/', User.getUsers);
+  app.post('/api/users/', User.createUser);
   // app.put('/api/users/');
   // app.delete('/api/users/');
 
