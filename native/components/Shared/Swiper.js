@@ -1,6 +1,6 @@
 import styles from '../../styles/Feed/feedStyles.js';
 import Feed from '../Feed/Feed.js';
-import NavBar from '../Shared/NavBar.js';
+import Profile from '../Profile/Profile.js';
 import SetDoor from '../Door/SetDoor.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
@@ -31,18 +31,29 @@ const _goToSetDoor = () => {
   store.getState().swiperRef.scrollTo(1);
 };
 
+const _goToProfile = () => {
+  store.getState().swiperRef.scrollTo(-1);
+};
+
 const rightNavButton = {
   title: 'My Door',
   handler: scrollToSetDoor,
 };
 
+const leftNavButton = {
+  title: 'Profile',
+  handler: _goToProfile,
+};
+
 const SwiperBase = () => (
   <View style={styles.container}>
     <Swiper
+      index={1}
       showsButtons={false}
       loop={false}
       showsPagination={false}
     >
+      <Profile />
       <Feed />
       <SetDoor />
     </Swiper>
