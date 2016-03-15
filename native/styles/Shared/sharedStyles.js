@@ -4,19 +4,14 @@ module.exports = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-  },
-  scrollView: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    backgroundColor: '#AAA',
   },
   listView: {
-    backgroundColor: '#FFF',
+    paddingTop: 20,
+    backgroundColor: '#FBA',
   },
-  listEntryView: {
-    flexDirection: 'row',
-    padding: 20,
-    borderTopWidth: 1,
-    borderColor: '#DDD',
+  rightContainer: {
+    flex: 1,
   },
   navBar: {
     // enter some styles here
