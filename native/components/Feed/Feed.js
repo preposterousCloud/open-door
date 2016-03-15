@@ -27,19 +27,27 @@ const scrollToSetDoor = () => {
   });
 };
 
-const rightNavButton = {
-  title: 'My Door',
-  handler: scrollToSetDoor,
+
+const Feed = (props) => {
+  const rightNavButton = {
+    title: 'My Door',
+    handler: props.swipeRight,
+  };
+
+  return (
+    <View style={styles.container}>
+      <NavBar
+        title={ 'Event Feed' }
+        rightButton={rightNavButton}
+      />
+      <FeedList />
+    </View>
+  );
 };
 
-const Feed = () => (
-  <View style={styles.container}>
-    <NavBar
-      title={ 'Event Feed' }
-      rightButton={rightNavButton}
-    />
-    <FeedList />
-  </View>
-);
+
+Feed.propTypes = {
+  swipeRight: React.PropTypes.function,
+};
 
 module.exports = Feed;
