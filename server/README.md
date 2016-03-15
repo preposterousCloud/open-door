@@ -9,5 +9,7 @@
 
 ### Setup Config
 1. Copy config.example.js to config.js and update based on your Postgres install and other dependencies
-2. Run ./db/initDb.js to initialize the database.  Running this file will delete any existing DB of the sam ename
+2. To create the tables run the following from the root dir to initialize the database.  Add setDummyData as a param if you  
+want to have dummy data created in the db.  
+  `node server/db/initDb.js` or `node server/db/initDb.js setDummyData` 
 
