@@ -8,7 +8,7 @@ const Sequelize = require('sequelize');
 
 module.exports = function User(sequelizeInstance) {
   return sequelizeInstance.define('User', {
-    user_name: Sequelize.STRING,
+    userName: Sequelize.STRING,
   });
 };
 

@@ -14,7 +14,7 @@ describe('Data Integration Tests', () => {
   });
 
   pit('Make sure user can see all of the parties they should have access to', () => {
-    return db.User.findOne({ where: { user_name: 'user2' },
+    return db.User.findOne({ where: { userName: 'user2' },
       include: [{ model: db.Group }] })
     .then(user => {
       return db.Event.getEventsForUser(user);

@@ -1,10 +1,10 @@
 'use strict';
 
-const newUserTemps = [{ user_name: 'vcipriani' },
-{ user_name: 'user2' },
-{ user_name: 'user3' },
-{ user_name: 'user4' },
-{ user_name: 'user5' }];
+const newUserTemps = [{ userName: 'vcipriani' },
+{ userName: 'user2' },
+{ userName: 'user3' },
+{ userName: 'user4' },
+{ userName: 'user5' }];
 
 const newGroupTemps = [{ name: 'HackReactor' },
 ];
