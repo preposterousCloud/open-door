@@ -16,7 +16,6 @@ const _InjectDBConfig = (params) => {
   if (params.env === 'prod') {
     sequelize = new Sequelize(config.dbName, config.dbUser, config.dbPassword, {
       dialect: 'postgres',
-      quoteIdentifiers: false, // quoteIdentifiers is a Postgres only option
       port: config.dbPort,
       host: config.dbHost,
       logging: params.logging,
