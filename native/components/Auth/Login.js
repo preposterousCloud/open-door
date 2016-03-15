@@ -1,3 +1,4 @@
+import styles from '../../styles/Auth/authStyles.js';
 import Swiper from '../Shared/Swiper.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
@@ -13,7 +14,7 @@ const goToMain = () => {
 };
 
 const Login = () => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  <View style={styles.loginButton}>
     <TouchableOpacity onPress={goToMain}>
       <Text>Login</Text>
     </TouchableOpacity>
