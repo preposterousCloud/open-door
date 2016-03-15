@@ -15,20 +15,6 @@ import React, {
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
 
-const scrollToSetDoor = () => {
-  store.dispatch({
-    type: 'SET_FOCUS_EVENT',
-    data: {
-      user: 'Old Greg',
-      doorStatus: 'CLOSED',
-    },
-  });
-  store.getState().navigator.push({
-    component: SetDoor,
-  });
-};
-
-
 const Feed = (props) => {
   const rightNavButton = {
     title: 'My Door',
