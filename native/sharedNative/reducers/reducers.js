@@ -34,16 +34,28 @@ function swiperRef(state = {}, action) {
   }
 }
 
-import { combineReducers, createStore } from 'redux';
+function user(state = {}, action) {
+  switch (action.type) {
+    case 'SET_USER': {
+      return action.user || state;
+    }
+    default:
+      return state;
+  }
+}
+
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 const reducer = combineReducers({
   navigator,
   mockData,
   focusEventDetails,
   swiperRef,
+  user,
 });
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunk));
 
 module.exports = {
   reducer,

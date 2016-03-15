@@ -7,16 +7,38 @@ import React, {
   TouchableOpacity,
  } from 'react-native';
 
-const goToMain = () => {
-  store.getState().navigator.push({
-    component: Swiper,
+const setUser = (userName) => {
+  return (dispatch) => {
+    const url = 'http://' + 'localhost' + ':3000/api/users/user2';
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((user) => {
+      return dispatch({
+        type: 'SET_USER',
+        user: JSON.parse(user._bodyInit),
+      });
+    });
+  };
+};
+const buttonNav = () => {
+  store.dispatch(
+    setUser('user2')
+  )
+  .then(() => {
+    store.getState().navigator.push({
+      component: Swiper,
+    });
   });
 };
 
 const Login = () => (
   <View style={styles.loginButton}>
-    <TouchableOpacity onPress={goToMain}>
-      <Text>Login</Text>
+    <TouchableOpacity onPress={buttonNav}>
+      <Text>user2</Text>
     </TouchableOpacity>
   </View>
 );

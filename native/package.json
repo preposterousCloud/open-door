@@ -10,7 +10,8 @@
     "react-native-accordion": "^0.2.4",
     "react-native-navbar": "^1.2.2",
     "react-native-swiper": "^1.4.3",
-    "redux": "^3.3.1"
+    "redux": "^3.3.1",
+    "redux-thunk": "^2.0.1"
   },
   "devDependencies": {
     "babel-preset-react-native": "^1.5.2"

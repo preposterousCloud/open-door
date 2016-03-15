@@ -37,14 +37,13 @@ const Feed = (props) => {
   return (
     <View style={styles.container}>
       <NavBar
-        title={ 'Event Feed' }
+        title={store.getState().user.userName}
         rightButton={rightNavButton}
       />
       <FeedList />
     </View>
   );
 };
-
 
 Feed.propTypes = {
   swipeRight: React.PropTypes.function,
