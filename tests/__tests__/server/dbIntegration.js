@@ -5,7 +5,7 @@ jest.autoMockOff();
 
 const _ = require('underscore');
 const db = require('../../../server/db/database')._InjectDBConfig({ env: 'test', logging: false });
-const resetDbWithDummy = require('./../../dummyData').resetDbWithDummy;
+const resetDbWithDummy = require('./../../dummyData');
 
 describe('Data Integration Tests', () => {
   beforeAll((done) => {
