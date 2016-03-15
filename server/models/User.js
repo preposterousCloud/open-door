@@ -2,6 +2,8 @@
  * Here we map out any User methods we need and return a new Pseudoclassical class
  * which extend the DB user.
  */
+
+'use strict';
 const Sequelize = require('sequelize');
 
 module.exports = function User(sequelizeInstance) {
