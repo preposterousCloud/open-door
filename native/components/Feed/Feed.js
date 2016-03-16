@@ -1,9 +1,3 @@
-import styles from '../../styles/Feed/feedStyles.js';
-import FeedList from './FeedList.js';
-import NavBar from '../Shared/NavBar.js';
-import SetDoor from '../Door/SetDoor.js';
-import FriendsGroups from '../Friends-Groups/Friends-Groups.js';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
   Text,
   View,
@@ -14,6 +8,13 @@ import React, {
 
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
+
+import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+import styles from '../../styles/Feed/feedStyles.js';
+import FeedList from './FeedList.js';
+import NavBar from '../Shared/NavBar.js';
+import SetDoor from '../Door/SetDoor.js';
+import FriendsGroups from '../Friends-Groups/Friends-Groups.js';
 
 const Feed = (props) => {
   const rightNavButton = {
