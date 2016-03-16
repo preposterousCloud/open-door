@@ -6,4 +6,14 @@ module.exports = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  userInput: {
+    height: 50,
+    padding: 4,
+    margin: 40,
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: '#616161',
+    borderRadius: 4,
+    color: '#616161',
+  },
 });
