@@ -48,6 +48,7 @@ class SwiperBase extends React.Component {
     const FeedContainer = connect(state => {
       return {
         events: state.user.Events,
+        userName: state.user.userName,
         swipeLeft: this.swipeLeft,
         swipeRight: this.swipeRight,
       };
