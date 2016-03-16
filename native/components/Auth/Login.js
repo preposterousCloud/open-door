@@ -21,7 +21,20 @@ const buttonNav = (userName) => {
     } else {
       Alert.alert(`${userName}`, 'not found', [
         { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-        { text: 'Create', onPress: () => console.log('OK Pressed'), style: 'default' },
+        {
+          text: 'Create',
+          onPress: () => {
+            store.dispatch(api.createUser(userName))
+            .then((action) => {
+              if (action) {
+                store.getState().navigation.navigator.push({
+                  component: Swiper,
+                });
+              }
+            });
+          },
+          style: 'default',
+        },
       ]);
     }
   });

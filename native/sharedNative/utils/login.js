@@ -1,35 +1,53 @@
 import { reducer, store } from '../reducers/reducers.js';
 const config = require('../config/config.js');
 
+
+// Helper Functions
+const statusOK = res => (res.status >= 200 && res.status <= 299);
+
+const validateBody = res => {
+  if (statusOK(res)) {
+    return JSON.parse(res._bodyInit);
+  }
+  throw new Error('User Creation Failed');
+};
+
+const catchErr = (err) => {
+  console.log(err);
+  return null;
+};
+
+const headers = { 'Content-Type': 'application/json' };
+
+// HTTP methods
 const setUser = (userName) => {
-  return (dispatch) => {
+  return dispatch => {
     const url = `${config.apiUrl}users/${userName}`;
     return fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
     })
-    .then(res => {
-      if (res.status === 200) {
-        return JSON.parse(res._bodyInit);
-      }
-      throw new Error('User Not Found');
+    .then(validateBody)
+    .then(user => dispatch({ type: 'SET_USER', user }))
+    .catch(catchErr);
+  };
+};
+
+const createUser = (userName) => {
+  return dispatch => {
+    const url = `${config.apiUrl}users`;
+    return fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({ userName }),
+      headers,
     })
-    .then((user) => {
-      console.log('user?', user);
-      return dispatch({
-        type: 'SET_USER',
-        user: user,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      return null;
-    });
+    .then(validateBody)
+    .then(user => dispatch(setUser(user.userName)))
+    .catch(catchErr);
   };
 };
 
 module.exports = {
   setUser,
+  createUser,
 };
