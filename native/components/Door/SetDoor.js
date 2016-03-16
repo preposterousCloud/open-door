@@ -11,7 +11,7 @@ const SetDoor = (props) => {
   };
 
   let DoorStatus;
-  if (store.getState().currentEvent) {
+  if (props.currentEvent) {
     doorStatus = 'PARTY TIME';
   } else {
     doorStatus = 'BOOO!';
@@ -37,6 +37,7 @@ const SetDoor = (props) => {
 
 SetDoor.propTypes = {
   swipeLeft: React.PropTypes.function,
+  currentEvent: React.PropTypes.object,
 };
 
 module.exports = SetDoor;
