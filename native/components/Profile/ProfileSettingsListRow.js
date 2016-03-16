@@ -19,6 +19,14 @@ const ProfileSettingsListRow = () => (
     <View style={styles.listEntryView}>
       <Text style={styles.group}>Address: TODO</Text>
     </View>
+    <View style={styles.listEntryViewDef}>
+      <View style={styles.pullLeft}>
+        <Text style={styles.group}>Defaults</Text>
+      </View>
+      <View style={styles.pullRight}>
+        <Text style={styles.group}>></Text>
+      </View>
+    </View>
   </View>
 );
 
