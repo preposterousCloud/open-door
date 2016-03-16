@@ -1,14 +1,16 @@
-import Login from './components/Auth/Login.js';
-import { reducer, store } from './sharedNative/reducers/reducers.js';
-import React from 'react-native';
-const {
+import React, {
   AppRegistry,
   Component,
   StyleSheet,
   Text,
   View,
   Navigator,
-} = React;
+} from 'react-native';
+
+import { Provider } from 'react-redux';
+
+import { reducer, store } from './sharedNative/reducers/reducers.js';
+import Login from './components/Auth/Login.js';
 
 const configureScene = (route) => (
   route.sceneConfig || Navigator.SceneConfigs.FloatFromBottom
@@ -25,11 +27,13 @@ const renderScene = (route, navigator) => {
 };
 
 const opendoor = () => (
-  <Navigator
-    initialRoute = {{ component: Login }}
-    configureScene = {configureScene}
-    renderScene = {renderScene}
-  />
+  <Provider store={store} >
+    <Navigator
+      initialRoute = {{ component: Login }}
+      configureScene = {configureScene}
+      renderScene = {renderScene}
+    />
+  </Provider>
 );
 
 AppRegistry.registerComponent('opendoor', () => opendoor);
