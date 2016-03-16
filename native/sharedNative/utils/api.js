@@ -9,5 +9,14 @@ export const postEvent = (event) => {
       'Content-Type': 'application/json',
     },
   })
-  .then(event => event._bodyInit);
+  .then(event => JSON.parse(event._bodyInit));
+};
+
+export const closeEvent = (event) => {
+  console.log(event);
+  const url = `${config.apiUrl}events/${event.id}/closeEvent`;
+  return fetch(url, {
+    method: 'POST',
+  })
+  .then(event => JSON.parse(event._bodyInit));
 };
