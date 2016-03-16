@@ -1,12 +1,17 @@
 {
   "name": "opendoor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "react-native": "^0.21.0"
+    "react-native": "^0.21.0",
+    "react-native-accordion": "^0.2.4",
+    "react-native-navbar": "^1.2.2",
+    "react-native-swiper": "^1.4.3",
+    "redux": "^3.3.1",
+    "redux-thunk": "^2.0.1"
   },
   "devDependencies": {
     "babel-preset-react-native": "^1.5.2"

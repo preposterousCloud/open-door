@@ -1,0 +1,9 @@
+{
+   "env": {
+       "jest": true,
+       "jasmine": true
+   },
+   "rules": {
+     "no-var": 0 
+   }
+}
