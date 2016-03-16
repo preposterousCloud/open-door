@@ -18,7 +18,6 @@ module.exports = function User(sequelizeInstance) {
           include: [{ model: seq.models.Group }],
         })
         .then((user) => {
-          console.log('here');
           foundUser = user;
           return seq.models.Event.getEventsForUser(user);
         })
