@@ -1,3 +1,4 @@
+import styles from '../../styles/Door/doorStyles.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
