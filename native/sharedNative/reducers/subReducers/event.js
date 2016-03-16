@@ -1,6 +1,6 @@
-import actions from '../../ActionTypes';
+const actions = require('../../ActionTypes');
 
-export function currentEvent(state = {}, action) {
+export function currentEvent(state = null, action) {
   switch (action.type) {
     case actions.SET_ACTIVE_EVENT:
       return action.data;
@@ -8,4 +8,3 @@ export function currentEvent(state = {}, action) {
       return state;
   }
 }
-
