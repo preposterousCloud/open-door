@@ -3,19 +3,7 @@ import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import React, { View, Text } from 'react-native';
 
-const getProfileData = () => {
-  store.dispatch({
-    type: 'SET_FOCUS_EVENT',
-    data: {
-      name: 'Old Greg',
-      address: '16 Underwood Dr.',
-      host: 'Blue',
-    },
-  });
-};
-
 const Profile = (props) => {
-  getProfileData();
   const rightNavButton = {
     title: '>',
     handler: props.swipeRight,
@@ -26,9 +14,9 @@ const Profile = (props) => {
       title={ 'Profile' }
       rightButton={rightNavButton}
     />
-    <Text>Name: {store.getState().event.focusEventDetails.name}</Text>
-    <Text>Home Address: {store.getState().event.focusEventDetails.address}</Text>
-    <Text>Best Friend: {store.getState().event.focusEventDetails.host}</Text>
+    <Text>Name: {store.getState().user.userName}</Text>
+    <Text>Nickname: TODO</Text>
+    <Text>Address: TODO</Text>
   </View>
   );
 };
