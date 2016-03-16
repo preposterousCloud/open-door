@@ -3,7 +3,7 @@ import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import React, { View, Text } from 'react-native';
 
-const FriendsGroups = (props) => {
+const Social = (props) => {
   const rightNavButton = {
     title: '>',
     handler: props.swipeRight,
@@ -18,8 +18,8 @@ const FriendsGroups = (props) => {
   );
 };
 
-FriendsGroups.propTypes = {
+Social.propTypes = {
   swipeRight: React.PropTypes.function,
 };
 
-module.exports = FriendsGroups;
+module.exports = Social;
