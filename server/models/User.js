@@ -14,7 +14,7 @@ module.exports = function User(sequelizeInstance) {
     classMethods: {
       getUser: function getUser(whereObj) {
         let foundUser;
-        return this.findOne({ where: whereObj, 
+        return this.findOne({ where: whereObj,
           include: [{ model: seq.models.Group }],
         })
         .then((user) => {
