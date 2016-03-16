@@ -34,7 +34,7 @@ const Feed = (props) => {
         rightButton={rightNavButton}
         leftButton={leftNavButton}
       />
-      <FeedList />
+      <FeedList events={props.events} />
     </View>
   );
 };
