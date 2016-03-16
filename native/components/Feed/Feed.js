@@ -2,7 +2,7 @@ import styles from '../../styles/Feed/feedStyles.js';
 import FeedList from './FeedList.js';
 import NavBar from '../Shared/NavBar.js';
 import SetDoor from '../Door/SetDoor.js';
-import Profile from '../Profile/Profile.js';
+import FriendsGroups from '../Friends-Groups/Friends-Groups.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
   Text,
@@ -22,7 +22,7 @@ const Feed = (props) => {
   };
 
   const leftNavButton = {
-    title: 'Profile',
+    title: 'Friends/Groups',
     handler: props.swipeLeft,
   };
 

@@ -1,38 +1,64 @@
-import styles from '../../styles/Event/eventStyles.js';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import NavBar from '../Shared/NavBar.js';
-import React, { View, Text } from 'react-native';
+import React, {
+  View,
+  Text,
+  TouchableOpacity,
+  } from 'react-native';
 
-const getDoorData = () => {
-  store.dispatch({
-    type: 'SET_FOCUS_EVENT',
-    data: {
-      user: 'Old Greg',
-      doorStatus: 'CLOSED',
-    },
+import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+const actions = require('../../sharedNative/actions/actions');
+
+import styles from '../../styles/Door/doorStyles.js';
+import NavBar from '../Shared/NavBar.js';
+import Profile from '../Profile/Profile.js';
+
+
+const settingsNav = () => {
+  store.getState().navigation.navigator.push({
+    component: Profile,
   });
 };
 
 const SetDoor = (props) => {
-  getDoorData();
   const leftNavButton = {
     title: '<',
     handler: props.swipeLeft,
   };
+
+  let DoorStatus;
+  if (props.currentEvent) {
+    doorStatus = 'PARTY TIME';
+  } else {
+    doorStatus = 'BOOO!';
+  }
+
+  const toggleDoor = () => {
+    const dummyEvent = { name: 'Party' };
+    store.dispatch(actions.toggleEvent(dummyEvent));
+  };
   return (
-    <View>
+    <View style={styles.container}>
     <NavBar
-      title={ 'Event Details' }
+      title={ 'My Door' }
       leftButton={leftNavButton}
     />
-    <Text>User: {store.getState().event.focusEventDetails.user}</Text>
-    <Text>Door Status: {store.getState().event.focusEventDetails.doorStatus}</Text>
+
+    <TouchableOpacity onPress={toggleDoor}>
+      <Text>DOOR</Text>
+    </TouchableOpacity>
+    <Text> {doorStatus} </Text>
+
+    <View style={styles.footer}>
+      <TouchableOpacity style={styles.pullRight} onPress={settingsNav}>
+      <Text>Settings</Text>
+      </TouchableOpacity>
+    </View>
   </View>
   );
 };
 
 SetDoor.propTypes = {
   swipeLeft: React.PropTypes.function,
+  currentEvent: React.PropTypes.object,
 };
 
 module.exports = SetDoor;

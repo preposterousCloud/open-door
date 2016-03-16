@@ -1,12 +1,10 @@
-import { combineReducers } from 'redux';
+const actions = require('../../ActionTypes');
 
-function focusEventDetails(state = {}, action) {
+export function currentEvent(state = null, action) {
   switch (action.type) {
-    case 'SET_FOCUS_EVENT':
-      return action.data || state;
+    case actions.SET_ACTIVE_EVENT:
+      return action.data;
     default:
       return state;
   }
 }
-
-module.exports = combineReducers({ focusEventDetails });
