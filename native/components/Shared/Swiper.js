@@ -56,7 +56,7 @@ class SwiperBase extends React.Component {
       >
         <Profile swipeRight={this.swipeRight} />
         <Feed swipeRight={this.swipeRight} swipeLeft={this.swipeLeft} />
-        <Door store={store} />
+        <Door />
       </Swiper>
    );
   }
