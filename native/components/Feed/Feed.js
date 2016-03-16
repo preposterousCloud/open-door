@@ -14,7 +14,7 @@ import styles from '../../styles/Feed/feedStyles.js';
 import FeedList from './FeedList.js';
 import NavBar from '../Shared/NavBar.js';
 import SetDoor from '../Door/SetDoor.js';
-import FriendsGroups from '../Friends-Groups/Friends-Groups.js';
+import Social from '../Social/Social.js';
 
 const Feed = (props) => {
   const rightNavButton = {
@@ -23,7 +23,7 @@ const Feed = (props) => {
   };
 
   const leftNavButton = {
-    title: 'Friends/Groups',
+    title: 'Social',
     handler: props.swipeLeft,
   };
 

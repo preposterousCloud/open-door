@@ -11,7 +11,7 @@ const Social = (props) => {
   return (
     <View>
     <NavBar
-      title={ 'Friends & Groups' }
+      title={ 'Social' }
       rightButton={rightNavButton}
     />
   </View>
