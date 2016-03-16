@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 
 import styles from '../../styles/Feed/feedStyles.js';
 import Feed from '../Feed/Feed.js';
-import Profile from '../Profile/Profile.js';
+import Social from '../Social/Social.js';
 import SetDoor from '../Door/SetDoor.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 
@@ -36,15 +36,29 @@ class SwiperBase extends React.Component {
     console.log('scrolled');
   }
 
-  mapStateToProps(state) {
-    return {
-      currentEvent: state.currentEvent,
-      swipeLeft: this.swipeLeft,
-    };
-  }
-
   render() {
-    const Door = connect(this.mapStateToProps)(SetDoor);
+    const DoorContainer = connect(state => {
+      return {
+        currentEvent: state.currentEvent,
+        swipeLeft: this.swipeLeft,
+      };
+    })(SetDoor);
+
+    const FeedContainer = connect(state => {
+      return {
+        events: state.user.Events,
+        swipeLeft: this.swipeLeft,
+        swipeRight: this.swipeRight,
+      };
+    })(Feed);
+
+    const SocialContainer = connect(state => {
+      return {
+        user: state.user,
+        swipeRight: this.swipeRight,
+      };
+    })(Social);
+
     return (
       <Swiper
         ref="scrollView"
@@ -54,9 +68,9 @@ class SwiperBase extends React.Component {
         index={1}
         onMomentumScrollEnd ={this._onMomentumScrollEndMomentumScrollEnd}
       >
-        <Profile swipeRight={this.swipeRight} />
-        <Feed swipeRight={this.swipeRight} swipeLeft={this.swipeLeft} />
-        <Door />
+        <SocialContainer />
+        <FeedContainer />
+        <DoorContainer />
       </Swiper>
    );
   }
