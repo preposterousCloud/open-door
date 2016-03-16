@@ -24,7 +24,10 @@ module.exports = function User(sequelizeInstance) {
             return user;
           });
         })
-        .catch((err) => { console.log(err); });
+        .catch((err) => {
+          console.log(err);
+          return null;
+        });
       },
     },
   });
