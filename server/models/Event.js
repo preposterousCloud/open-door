@@ -16,11 +16,18 @@ module.exports = function Event(sequelizeInstance) {
       postalCode: Sequelize.STRING,
     },
     {
+      instanceMethods: {
+        closeEvent: function closeEvent() {
+          this.endDateUtc = Date.now();
+          return this.save();
+        },
+      },
       classMethods: {
         createEvent: function createEvent(eventObj) {
+          // TODO - check and make sure session user is equal to the hostUserId in the request
           return this.rawCreate(eventObj)
           .then((event) => {
-            return event.setHostUser(eventObj.hostUser)
+            return event.setHostUser(eventObj.hostUserId)
             .then(() => {return event;});
           })
           .then((event) => {
@@ -40,7 +47,7 @@ module.exports = function Event(sequelizeInstance) {
         makeEventTemplate: function makeEventTemplate(hostUser, name, startDateUtc, endDateUtc
         , addressStreet1, addressStreet2, city, stateAbbrev, postalCode, users, groups) {
           return {
-            hostUser,
+            hostUserId: hostUser.id,
             name,
             startDateUtc,
             endDateUtc,

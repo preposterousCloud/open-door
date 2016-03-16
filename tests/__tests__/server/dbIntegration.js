@@ -39,4 +39,15 @@ describe('Data Integration Tests', () => {
       expect(data.dataValues.hostUserId).toBe(1);
     });
   });
+  
+  pit('Make sure Event can be closed', () => {
+    return db.Event.findOne({})
+    .then((event) => {
+      event.closeEvent()
+      .then((updatedEvent) => {
+        console.log(updatedEvent);
+        expect(updatedEvent.getEndDateUtc).toBe(true);
+      });
+    });
+  });
 });
