@@ -26,9 +26,9 @@ const Profile = (props) => {
       title={ 'Profile' }
       rightButton={rightNavButton}
     />
-    <Text>Name: {store.getState().focusEventDetails.name}</Text>
-    <Text>Home Address: {store.getState().focusEventDetails.address}</Text>
-    <Text>Best Friend: {store.getState().focusEventDetails.host}</Text>
+    <Text>Name: {store.getState().event.focusEventDetails.name}</Text>
+    <Text>Home Address: {store.getState().event.focusEventDetails.address}</Text>
+    <Text>Best Friend: {store.getState().event.focusEventDetails.host}</Text>
   </View>
   );
 };

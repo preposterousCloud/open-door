@@ -25,8 +25,8 @@ const SetDoor = (props) => {
       title={ 'Event Details' }
       leftButton={leftNavButton}
     />
-    <Text>User: {store.getState().focusEventDetails.user}</Text>
-    <Text>Door Status: {store.getState().focusEventDetails.doorStatus}</Text>
+    <Text>User: {store.getState().event.focusEventDetails.user}</Text>
+    <Text>Door Status: {store.getState().event.focusEventDetails.doorStatus}</Text>
   </View>
   );
 };
