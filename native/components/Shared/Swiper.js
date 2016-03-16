@@ -1,8 +1,3 @@
-import styles from '../../styles/Feed/feedStyles.js';
-import Feed from '../Feed/Feed.js';
-import FriendsGroups from '../Friends-Groups/Friends-Groups.js';
-import SetDoor from '../Door/SetDoor.js';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
   Text,
   View,
@@ -11,15 +6,23 @@ import React, {
   ScrollView,
   StatusBarIOS,
  } from 'react-native';
-
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
+import { connect } from 'react-redux';
 
-const _onMomentumScrollEnd = (e, state) => {
-  console.log('scrolled');
-};
+import styles from '../../styles/Feed/feedStyles.js';
+import Feed from '../Feed/Feed.js';
+import Profile from '../Profile/Profile.js';
+import SetDoor from '../Door/SetDoor.js';
+import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 
 class SwiperBase extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onMomentumScrollEnd = this._onMomentumScrollEnd.bind(this);
+    this.swipeRight = this.swipeRight.bind(this);
+    this.swipeLeft = this.swipeLeft.bind(this);
+  }
 
   swipeRight() {
     this.refs.scrollView.scrollTo(1);
@@ -29,11 +32,19 @@ class SwiperBase extends React.Component {
     this.refs.scrollView.scrollTo(-1);
   }
 
-  render() {
-    const boundMomentumScrollEnd = _onMomentumScrollEnd.bind(this);
-    const boundSwipeRight = this.swipeRight.bind(this);
-    const boundSwipeLeft = this.swipeLeft.bind(this);
+  _onMomentumScrollEnd(e, state) {
+    console.log('scrolled');
+  }
 
+  mapStateToProps(state) {
+    return {
+      currentEvent: state.currentEvent,
+      swipeLeft: this.swipeLeft,
+    };
+  }
+
+  render() {
+    const Door = connect(this.mapStateToProps)(SetDoor);
     return (
       <Swiper
         ref="scrollView"
@@ -41,11 +52,11 @@ class SwiperBase extends React.Component {
         loop={false}
         showsPagination={false}
         index={1}
-        onMomentumScrollEnd ={boundMomentumScrollEnd}
+        onMomentumScrollEnd ={this._onMomentumScrollEndMomentumScrollEnd}
       >
-        <FriendsGroups swipeRight={boundSwipeRight} />
-        <Feed swipeRight={boundSwipeRight} swipeLeft={boundSwipeLeft} />
-        <SetDoor swipeLeft={boundSwipeLeft} />
+        <Profile swipeRight={this.swipeRight} />
+        <Feed swipeRight={this.swipeRight} swipeLeft={this.swipeLeft} />
+        <Door store={store} />
       </Swiper>
    );
   }

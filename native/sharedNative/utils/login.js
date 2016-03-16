@@ -1,9 +1,9 @@
-const baseUrl = 'http://localhost:3000/api/';
 import { reducer, store } from '../reducers/reducers.js';
+const config = require('../config/config.js');
 
 const setUser = (userName) => {
   return (dispatch) => {
-    const url = `${baseUrl}users/${userName}`;
+    const url = `${config.apiUrl}users/${userName}`;
     return fetch(url, {
       method: 'GET',
       headers: {
