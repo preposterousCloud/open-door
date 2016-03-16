@@ -51,10 +51,11 @@ module.exports.getUser = function getUser(req, res) {
 
   db.User.getUser(searchObj)
   .then((data) => {
+    if (!data) { throw new Error('User Not Found - User Controller 54:18'); }
     res.json(data);
   })
   .catch((err) => {
     console.error(err, err.stack);
-    res.status(500).send('Unknown server problem');
+    res.status(404).send(null);
   });
 };

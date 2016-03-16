@@ -1,8 +1,22 @@
-import styles from '../../styles/Event/eventStyles.js';
+import React, {
+  View,
+  Text,
+  TouchableOpacity,
+  } from 'react-native';
+
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import NavBar from '../Shared/NavBar.js';
-import React, { View, Text, TouchableOpacity } from 'react-native';
 const actions = require('../../sharedNative/actions/actions');
+
+import styles from '../../styles/Door/doorStyles.js';
+import NavBar from '../Shared/NavBar.js';
+import Profile from '../Profile/Profile.js';
+
+
+const settingsNav = () => {
+  store.getState().navigation.navigator.push({
+    component: Profile,
+  });
+};
 
 const SetDoor = (props) => {
   const leftNavButton = {
@@ -22,15 +36,22 @@ const SetDoor = (props) => {
     store.dispatch(actions.toggleEvent(dummyEvent));
   };
   return (
-    <View>
+    <View style={styles.container}>
     <NavBar
-      title={ 'Event Details' }
+      title={ 'My Door' }
       leftButton={leftNavButton}
     />
+
     <TouchableOpacity onPress={toggleDoor}>
       <Text>DOOR</Text>
     </TouchableOpacity>
     <Text> {doorStatus} </Text>
+
+    <View style={styles.footer}>
+      <TouchableOpacity style={styles.pullRight} onPress={settingsNav}>
+      <Text>Settings</Text>
+      </TouchableOpacity>
+    </View>
   </View>
   );
 };
