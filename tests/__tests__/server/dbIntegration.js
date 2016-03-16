@@ -12,11 +12,15 @@ describe('Data Integration Tests', () => {
     resetDbWithDummy(db)
     .then(() => done());
   });
-
+  
+  //We set this the first time we find it so we can use it in later tests
+  var user2;
+  
   pit('Make sure user can see all of the parties they should have access to', () => {
     return db.User.findOne({ where: { userName: 'user2' },
       include: [{ model: db.Group }] })
     .then(user => {
+      user2 = user;
       return db.Event.getEventsForUser(user);
     })
     .then(data => {
@@ -40,13 +44,20 @@ describe('Data Integration Tests', () => {
     });
   });
   
-  pit('Make sure Event can be closed', () => {
-    return db.Event.findOne({})
+  pit('Make sure Event can be closed and user cannot see it', () => {
+    return db.Event.findOne({ where: { name: 'Partay #2' } })
     .then((event) => {
-      event.closeEvent()
+      expect(event.endDateUtc).toEqual(null);
+      return event.closeEvent()
       .then((updatedEvent) => {
-        console.log(updatedEvent);
-        expect(updatedEvent.getEndDateUtc).toBe(true);
+        expect(updatedEvent.endDateUtc).toBeTruthy();
+        return db.Event.getEventsForUser(user2);
+      })
+      .then((events) => {
+        // Length of filtered array should be 0 - ie. false;
+        var containsClosedEvent = events.filter(e => e.name === 'Partay #2').length;
+        console.log(containsClosedEvent);
+        expect(containsClosedEvent).toBeFalsy();
       });
     });
   });
