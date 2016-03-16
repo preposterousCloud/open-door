@@ -1,4 +1,4 @@
-import styles from '../../styles/Friends-Groups/friends-groupsStyles.js';
+import styles from '../../styles/Social/socialStyles.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import React, { View, Text } from 'react-native';
