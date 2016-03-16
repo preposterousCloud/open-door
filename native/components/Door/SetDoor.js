@@ -1,6 +1,6 @@
-import styles from '../../styles/Event/eventStyles.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
+import Profile from '../Profile/Profile.js';
 import React, { View, Text } from 'react-native';
 
 const getDoorData = () => {
@@ -13,6 +13,12 @@ const getDoorData = () => {
   });
 };
 
+const settingsNav = () => {
+  store.getState().navigation.navigator.push({
+    component: Profile,
+  });
+};
+
 const SetDoor = (props) => {
   getDoorData();
   const leftNavButton = {
@@ -20,13 +26,18 @@ const SetDoor = (props) => {
     handler: props.swipeLeft,
   };
   return (
-    <View>
+    <View style={styles.container}>
     <NavBar
-      title={ 'Event Details' }
+      title={ 'My Door' }
       leftButton={leftNavButton}
     />
     <Text>User: {store.getState().event.focusEventDetails.user}</Text>
     <Text>Door Status: {store.getState().event.focusEventDetails.doorStatus}</Text>
+    <View style={styles.footer}>
+      <View style={styles.pullRight}>
+      <Text>Settings</Text>
+      </View>
+    </View>
   </View>
   );
 };
