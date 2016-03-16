@@ -1,4 +1,7 @@
 const config = require('./../config/config');
+import {
+  headers,
+} from './helpers.js';
 
 export const postEvent = (event) => {
   const url = `${config.apiUrl}events`;
