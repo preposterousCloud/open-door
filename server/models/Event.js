@@ -68,15 +68,17 @@ module.exports = function Event(sequelizeInstance) {
           const userInvites = this.findAll({
             include: [{ model: seq.models.User,
               where: { id: user.id } }],
+            where: { endDateUtc: null },
           });
 
           const groupInvites = this.findAll({
             include: [{ model: seq.models.Group,
               where: { id: { $in: user.Groups.map(group => group.id) } } }],
+            where: { endDateUtc: null },
           });
 
           const personalEvents = this.findAll({
-            where: { hostUserId: user.id },
+            where: { hostUserId: user.id, endDateUtc: null },
           });
 
           return Promise.all([userInvites, groupInvites, personalEvents])
