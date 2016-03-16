@@ -1,4 +1,4 @@
-import styles from '../../styles/Event/eventStyles.js';
+import styles from '../../styles/Profile/profileStyles.js';
 import ProfileSettingsListRow from './ProfileSettingsListRow.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {

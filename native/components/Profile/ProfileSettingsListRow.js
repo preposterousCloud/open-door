@@ -1,4 +1,4 @@
-import styles from '../../styles/Event/eventStyles.js';
+import styles from '../../styles/Profile/profileStyles.js';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
   Text,
