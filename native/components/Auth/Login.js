@@ -1,12 +1,13 @@
-import Swiper from '../Shared/Swiper.js';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
   Alert,
   View,
   Text,
   TouchableOpacity,
   TextInput,
- } from 'react-native';
+} from 'react-native';
+
+import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+import Swiper from '../Shared/Swiper.js';
 import styles from '../../styles/Auth/authStyles.js';
 import api from '../../sharedNative/utils/login.js';
 
