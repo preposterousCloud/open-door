@@ -30,7 +30,7 @@ const Feed = (props) => {
   return (
     <View style={styles.container}>
       <NavBar
-        title={store.getState().user.userName}
+        title={props.userName}
         rightButton={rightNavButton}
         leftButton={leftNavButton}
       />
