@@ -13,12 +13,15 @@ const _mapUser = (user) => {
 };
 
 module.exports.createUser = function createUser(req, res) {
+  console.log('req body userName:', req.body.userName);
   if (!req.body.userName) {
     res.status(404).send('Make sure to include a user name and appropriate properties');
   } else {
     db.User.create({ userName: req.body.userName })
     .then((user) => res.json(_mapUser(user)))
+    // .then((user) => res.status(201).send('User Created'))
     .catch((err) => {
+      console.log('in the error block!');
       console.error(err);
       res.status(500).send('Unknown server problem');
     });

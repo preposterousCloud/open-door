@@ -30,6 +30,35 @@ const setUser = (userName) => {
   };
 };
 
+const createUser = (userName) => {
+  return (dispatch) => {
+    const url = `${config.apiUrl}users`;
+    return fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({ userName: userName }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(res => {
+      console.log('response got back:', res);
+      if (res.status >= 200 && res.status <= 299) {
+        return JSON.parse(res._bodyInit);
+      }
+      throw new Error('User Creation Failed');
+    })
+    .then((user) => {
+      console.log('user being set:', user);
+      return store.dispatch(setUser(user.userName));
+    })
+    .catch((err) => {
+      console.log(err);
+      return null;
+    });
+  };
+};
+
 module.exports = {
   setUser,
+  createUser,
 };
