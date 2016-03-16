@@ -9,17 +9,17 @@ import React, {
   TouchableHighlight,
  } from 'react-native';
 
-const a = () => (new ListView.DataSource(
-  {
-    rowHasChanged: (row1, row2) => row1 !== row2,
-  })
-  .cloneWithRows(store.getState().user.Events.map(event => event.name))
-);
+const convertEventsToDataSource = (events) => {
+  return (new ListView.DataSource(
+      { rowHasChanged: (row1, row2) => row1 !== row2 }
+    ).cloneWithRows(events.map(event => event.name))
+  );
+};
 
-const FeedList = () => (
+const FeedList = (props) => (
   <View style={styles.container}>
     <ListView
-      dataSource={a()}
+      dataSource={convertEventsToDataSource(props.events)}
       renderRow={FeedListRow}
       style={styles.listView}
     />
