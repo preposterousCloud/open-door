@@ -14,7 +14,8 @@ module.exports = function User(sequelizeInstance) {
     classMethods: {
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,
-          include: [{ model: seq.models.Group }],
+          include: [{ model: seq.models.Group },
+            { model: seq.models.User, as: 'friend' }],
         })
         .then((user) => {
           if (!user) { throw new Error('User not found'); }
@@ -38,6 +39,10 @@ module.exports = function User(sequelizeInstance) {
           return Promise.all([getEvents, getCurrentEvent]).then((proms) => {
             user.dataValues.Events = proms[0];
             user.dataValues.currentEvent = proms[1];
+            user.dataValues.friends = user.dataValues.friend.map((friend) => {
+              return { id: friend.id, userName: friend.userName };
+            });
+            delete user.dataValues.friend;
             return user;
           });
         })
