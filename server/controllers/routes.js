@@ -3,6 +3,7 @@
 // const utils = require('./utils.js');
 const User = require('./User');
 const Event = require('./Event');
+const Group = require('./Group')
 
 module.exports = (app) => {
   // Test
@@ -44,5 +45,5 @@ module.exports = (app) => {
 
   // // Groups
   // app.get('/api/friends/groups');
-  // app.post('/api/friends/groups');
+  app.post('/api/friends/groups', Group.createGroup);
 };
