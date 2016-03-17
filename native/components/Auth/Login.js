@@ -9,7 +9,8 @@ import React, {
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import Swiper from '../Shared/Swiper.js';
 import styles from '../../styles/Auth/authStyles.js';
-import api from '../../sharedNative/utils/login.js';
+import { attemptLogin, createUser } from '../../sharedNative/actions/actions.js';
+
 
 const advanceToSwiper = () => (store.getState()
   .navigation.navigator.push({
@@ -17,14 +18,14 @@ const advanceToSwiper = () => (store.getState()
   })
 );
 
-const createUser = (userName) => {
-  store.dispatch(api.createUser(userName))
-  .then((action) => {
-    if (action) {
-      advanceToSwiper();
-    }
-  });
-};
+// const createUser = (userName) => {
+//   store.dispatch(api.createUser(userName))
+//   .then((action) => {
+//     if (action) {
+//       advanceToSwiper();
+//     }
+//   });
+// };
 
 const cancelButton = {
   text: 'Cancel',
@@ -32,32 +33,56 @@ const cancelButton = {
   style: 'cancel',
 };
 
-const attemptLogin = (userName) => {
-  store.dispatch(api.setUser(userName))
-  .then((action) => {
-    if (action) {
+// const attemptLogin = (userName) => {
+//   store.dispatch(api.setUser(userName))
+//   .then((action) => {
+//     if (action) {
+//       advanceToSwiper();
+//     } else {
+//       Alert.alert(`${userName}`, 'not found', [
+//         cancelButton,
+//         { text: 'Create', onPress: () => createUser(userName), style: 'default' },
+
+const buttonNav = (userName) => {
+  store.dispatch(attemptLogin(userName))
+  .then((user) => {
+    console.log('should be a userObj:', user);
+    if (user) {
+      console.log('should advance!');
       advanceToSwiper();
     } else {
       Alert.alert(`${userName}`, 'not found', [
         cancelButton,
-        { text: 'Create', onPress: () => createUser(userName), style: 'default' },
+        {
+          text: 'Create',
+          onPress: () => {
+            store.dispatch(createUser(userName))
+            .then((user) => {
+              console.log('user after create', user);
+              if (user) {
+                advanceToSwiper();
+              }
+            });
+          },
+          style: 'default',
+        },
       ]);
     }
   });
 };
 
-const loginWithUser1 = () => attemptLogin('user1');
-const loginWithUser2 = () => attemptLogin('user2');
-const loginWithUser3 = () => attemptLogin('user3');
-const loginWithUser4 = () => attemptLogin('user4');
-const loginWithUser5 = () => attemptLogin('user5');
+const loginWithUser1 = () => buttonNav('user1');
+const loginWithUser2 = () => buttonNav('user2');
+const loginWithUser3 = () => buttonNav('user3');
+const loginWithUser4 = () => buttonNav('user4');
+const loginWithUser5 = () => buttonNav('user5');
 
 let userName;
 
 const updateUserName = newUserName => { userName = newUserName; };
 const loginWithUser = () => {
   console.log(userName);
-  attemptLogin(userName);
+  buttonNav(userName);
 };
 
 const Login = () => (

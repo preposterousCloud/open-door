@@ -31,8 +31,10 @@ const SetDoor = (props) => {
     doorStatus = 'BOOO!';
   }
 
-  const toggleDoor = () => {
-    const dummyEvent = { name: 'Party' };
+  const toggleDoor = (user) => {
+    // We blindly send the event object. in the scenario we are disabling the current event
+    // it wont be used
+    const dummyEvent = { name: 'Party', hostUserId: user.id };
     store.dispatch(actions.toggleEvent(dummyEvent));
   };
   return (
@@ -41,8 +43,8 @@ const SetDoor = (props) => {
       title={ 'My Door' }
       leftButton={leftNavButton}
     />
-
-    <TouchableOpacity onPress={toggleDoor}>
+    
+    <TouchableOpacity onPress={() => toggleDoor(props.user)}>
       <Text>DOOR</Text>
     </TouchableOpacity>
     <Text> {doorStatus} </Text>

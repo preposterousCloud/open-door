@@ -25,7 +25,7 @@ describe('Data Integration Tests', () => {
     expect(store.getState().currentEvent.name).toEqual(testEvent.name);
 
     // Disable current event and confirm it was cleared
-    store.dispatch(actions.toggleEvent());
+    store.dispatch(actions.setActiveEvent(null));
     expect(store.getState().currentEvent).toEqual(null);
   });
 });
