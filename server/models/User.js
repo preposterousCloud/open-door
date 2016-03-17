@@ -29,6 +29,33 @@ module.exports = function User(sequelizeInstance) {
           return null;
         });
       },
+      addFriend: function addFriend(friendId) {
+        // check to see if friendId is < userId
+        // createFriendship(Math.min(friendId, userId), Math.max(friendId, userId))
+        return 5;
+      },
+      getEventsForUser: function getEventsForUser(user) {
+        if (!user.Groups) {
+          throw Error('Invalid User object.  Make sure you are including the users groups');
+        }
+
+        const userInvites = this.findAll({
+          include: [{ model: seq.models.User,
+            where: { id: user.id } }],
+        });
+
+        const groupInvites = this.findAll({
+          include: [{ model: seq.models.Group,
+            where: { id: { $in: user.Groups.map(group => group.id) } } }],
+        });
+
+        const personalEvents = this.findAll({
+          where: { hostUserId: user.id },
+        });
+
+        return Promise.all([userInvites, groupInvites, personalEvents])
+        .then((allEvents) => allEvents.reduce((memo, current) => memo.concat(current)));
+      },
     },
   });
 };
