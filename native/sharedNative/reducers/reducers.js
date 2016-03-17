@@ -2,6 +2,7 @@ import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import navigation from './subReducers/navigation.js';
 import user from './subReducers/user.js';
+import allUsers from './subReducers/allUsers.js';
 const actions = require('../ActionTypes');
 
 const app = (state = { isLoading: false }, action) => {
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   app,
   navigation,
   user,
+  allUsers,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));

@@ -10,4 +10,4 @@ function allUsers(state = [], action) {
   }
 }
 
-module.exports = user;
+module.exports = allUsers;
