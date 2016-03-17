@@ -40,7 +40,6 @@ class SwiperBase extends React.Component {
     const DoorContainer = connect(state => {
       return {
         user: state.user,
-        currentEvent: state.currentEvent,
         swipeLeft: this.swipeLeft,
       };
     })(SetDoor);

@@ -25,7 +25,7 @@ const SetDoor = (props) => {
   };
 
   let DoorStatus;
-  if (props.currentEvent) {
+  if (props.user.currentEvent) {
     doorStatus = 'PARTY TIME';
   } else {
     doorStatus = 'BOOO!';
@@ -60,7 +60,7 @@ const SetDoor = (props) => {
 
 SetDoor.propTypes = {
   swipeLeft: React.PropTypes.function,
-  currentEvent: React.PropTypes.object,
+  user: React.PropTypes.object,
 };
 
 module.exports = SetDoor;
