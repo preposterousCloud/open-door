@@ -4,21 +4,24 @@ module.exports = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-  },
-  scrollView: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    backgroundColor: '#DF2309',
   },
   listView: {
     backgroundColor: '#FFF',
   },
-  listEntryView: {
+  socialF: {
+    justifyContent: 'center',
     flexDirection: 'row',
-    padding: 20,
+    padding: 50,
     borderTopWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#DDD',
   },
-  navBar: {
-    // enter some styles here
+  socialG: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    padding: 50,
+    borderBottomWidth: 1,
+    borderColor: '#DDD',
   },
 });
