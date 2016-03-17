@@ -12,6 +12,27 @@ module.exports = function User(sequelizeInstance) {
     userName: Sequelize.STRING,
   }, {
     classMethods: {
+      addFriendship: function addFriendship(userId1, userId2) {
+        // We put the smaller user ID on the left so we always know what the relationship looks like
+        // for any given friendship
+        const addFriendToOne = this.findOne({ where: { id: userId1 } })
+        .then(user => user.addFriend(userId2));
+        
+        const addFriendToTwo = this.findOne({ where: { id: userId2 } })
+        .then(user => user.addFriend(userId1));
+        
+        return Promise.all([addFriendToOne, addFriendToTwo]);
+      },
+      removeFriendship: function removeFriendship(userId1, userId2) {
+        // Same as above, we sort the IDs
+        const removeFriendFromOne = this.findOne({ where: { id: userId1 } })
+        .then(user => user.removeFriend(userId2));
+        
+        const removeFriendFromTwo = this.findOne({ where: { id: userId2 } })
+        .then(user => user.removeFriend(userId1));
+        
+        return Promise.all([removeFriendFromOne, removeFriendFromTwo]);
+      },
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,
           include: [{ model: seq.models.Group },
@@ -50,11 +71,6 @@ module.exports = function User(sequelizeInstance) {
           console.log(err);
           return null;
         });
-      },
-      addFriend: function addFriend(friendId) {
-        // check to see if friendId is < userId
-        // createFriendship(Math.min(friendId, userId), Math.max(friendId, userId))
-        return 5;
       },
       getEventsForUser: function getEventsForUser(user) {
         if (!user.Groups) {

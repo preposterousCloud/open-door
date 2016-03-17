@@ -24,19 +24,21 @@ module.exports = (app) => {
   // app.put('/api/users/');
   // app.delete('/api/users/');
   app.get('/api/users/:arg', User.getUser);
-  
+
   // Events
   app.get('/api/events', Event.getEvents);
   app.post('/api/events', Event.createEvent);
   app.post('/api/events/:id/:action', Event.actionReducer);
-  
+
   // app.put('/api/events');
   // app.delete('/api/events');
 
   // // Friends
   //   // Friends list
   // app.get('/api/friends');
-  // app.post('/api/friends');
+  app.post('/api/friends/add', User.addFriendship);
+  app.post('/api/friends/remove', User.removeFriendship);
+
   //   // Friend requests
   // app.get('/api/friends/request');
   // app.post('/api/friends/request');
