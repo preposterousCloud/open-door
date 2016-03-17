@@ -23,9 +23,12 @@ module.exports = (app) => {
   // app.put('/api/users/');
   // app.delete('/api/users/');
   app.get('/api/users/:arg', User.getUser);
-  // // Events
+  
+  // Events
   app.get('/api/events', Event.getEvents);
   app.post('/api/events', Event.createEvent);
+  app.post('/api/events/:id/:action', Event.actionReducer);
+  
   // app.put('/api/events');
   // app.delete('/api/events');
 

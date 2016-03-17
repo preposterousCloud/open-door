@@ -1,6 +1,20 @@
 const a = require('../ActionTypes');
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import { postEvent } from '../utils/api';
+import { postEvent, closeEvent, getUser, postUser } from '../utils/api';
+
+const catchErr = (err) => {
+  console.log(err);
+  return null;
+};
+
+/** *****************************************************
+ * Normal Action Creators
+ * ************************************************** */
+export function setLoading(loadingState) {
+  return {
+    type: a.TOGGLE_LOADING,
+    data: loadingState,
+  };
+}
 
 export function setActiveEvent(event) {
   console.log('set event', event);
@@ -17,27 +31,71 @@ export function createEvent(event) {
   };
 }
 
-export function setLoading(loadingState) {
-  console.log('set loading', loadingState)
+export function setUser(user) {
   return {
-    type: a.TOGGLE_LOADING,
-    data: loadingState,
+    type: a.SET_USER,
+    user: user,
+  };
+}
+
+/** *****************************************************
+ * Async Thunk Action Creators
+ * ************************************************** */
+export function createUser(userName) {
+  return dispatch => {
+    return postUser(userName)
+    .then(user => {
+      dispatch(setUser(user));
+      return user;
+    })
+    .catch(catchErr);
+  };
+}
+
+export function attemptLogin(userName) {
+  return dispatch => {
+    return getUser(userName)
+    .then(user => {
+      if (user) {
+        console.log('Log in user');
+        dispatch(setUser(user));
+        return true;
+      }
+      return false;
+    });
+  };
+}
+
+export function refreshUser() {
+  console.log('>>>>>>>>>>Refreshing Users');
+  return (dispatch, getState) => {
+    const userId = getState().user.id;
+    dispatch(setLoading(true));
+
+    return getUser(userId)
+    .then(user => dispatch(setUser(user)))
+    .then(dispatch(setLoading(false)));
   };
 }
 
 export function toggleEvent(event) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(setLoading(true));
-    if (store.getState().currentEvent) {
-      // Async close event
-      dispatch(setLoading(false));
-      return dispatch(setActiveEvent(null));
+    if (getState().currentEvent) {
+      closeEvent(getState().currentEvent)
+      .then((event) => {
+        dispatch(setLoading(false));
+        dispatch(setActiveEvent(null));
+        dispatch(refreshUser());
+      });
+    } else {
+      return postEvent(event)
+      .then((event) => {
+        dispatch(setActiveEvent(event));
+        dispatch(setLoading(false));
+        dispatch(refreshUser());
+        return event;
+      });
     }
-    return postEvent(event)
-    .then((event) => {
-      dispatch(setActiveEvent(event));
-      dispatch(setLoading(false));
-      return event;
-    });
   };
 }
