@@ -13,9 +13,7 @@ import { attemptLogin, createUser } from '../../sharedNative/actions/actions.js'
 
 
 const advanceToSwiper = () => (store.getState()
-  .navigation.navigator.push({
-    component: Swiper,
-  })
+  .navigation.navigator.push({ component: Swiper })
 );
 
 const cancelButton = {
@@ -38,7 +36,6 @@ const alertUserNotFound = (userName) => {
 const loginWith = (userName) => {
   store.dispatch(attemptLogin(userName))
   .then(userFound => {
-    console.log('what do we get from the dispatch?', userFound);
     if (userFound) {
       advanceToSwiper();
     } else {
