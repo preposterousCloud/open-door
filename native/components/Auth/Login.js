@@ -17,47 +17,47 @@ const advanceToSwiper = () => (store.getState()
   })
 );
 
-const createUser = (userName) => {
-  store.dispatch(api.createUser(userName))
-  .then((action) => {
-    if (action) {
-      advanceToSwiper();
-    }
-  });
-};
-
 const cancelButton = {
   text: 'Cancel',
   onPress: () => console.log('Cancel Pressed'),
   style: 'cancel',
 };
 
-const attemptLogin = (userName) => {
-  store.dispatch(api.setUser(userName))
-  .then((action) => {
-    if (action) {
+const alertUserNotFound = (userName) => {
+  Alert.alert(`${userName}`, 'not found', [
+    cancelButton,
+    { text: 'Create',
+      onPress: () => store.dispatch(createUser(userName))
+      .then(user => user && advanceToSwiper()),
+      style: 'default',
+    },
+  ]);
+};
+
+const loginWith = (userName) => {
+  store.dispatch(attemptLogin(userName))
+  .then(userFound => {
+    console.log('what do we get from the dispatch?', userFound);
+    if (userFound) {
       advanceToSwiper();
     } else {
-      Alert.alert(`${userName}`, 'not found', [
-        cancelButton,
-        { text: 'Create', onPress: () => createUser(userName), style: 'default' },
-      ]);
+      alertUserNotFound(userName);
     }
   });
 };
 
-const loginWithUser1 = () => attemptLogin('user1');
-const loginWithUser2 = () => attemptLogin('user2');
-const loginWithUser3 = () => attemptLogin('user3');
-const loginWithUser4 = () => attemptLogin('user4');
-const loginWithUser5 = () => attemptLogin('user5');
+const loginWithUser1 = () => loginWith('user1');
+const loginWithUser2 = () => loginWith('user2');
+const loginWithUser3 = () => loginWith('user3');
+const loginWithUser4 = () => loginWith('user4');
+const loginWithUser5 = () => loginWith('user5');
 
 let userName;
 
 const updateUserName = newUserName => { userName = newUserName; };
 const loginWithUser = () => {
   console.log(userName);
-  attemptLogin(userName);
+  loginWith(userName);
 };
 
 const Login = () => (
