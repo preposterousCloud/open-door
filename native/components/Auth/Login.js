@@ -18,71 +18,47 @@ const advanceToSwiper = () => (store.getState()
   })
 );
 
-// const createUser = (userName) => {
-//   store.dispatch(api.createUser(userName))
-//   .then((action) => {
-//     if (action) {
-//       advanceToSwiper();
-//     }
-//   });
-// };
-
 const cancelButton = {
   text: 'Cancel',
   onPress: () => console.log('Cancel Pressed'),
   style: 'cancel',
 };
 
-// const attemptLogin = (userName) => {
-//   store.dispatch(api.setUser(userName))
-//   .then((action) => {
-//     if (action) {
-//       advanceToSwiper();
-//     } else {
-//       Alert.alert(`${userName}`, 'not found', [
-//         cancelButton,
-//         { text: 'Create', onPress: () => createUser(userName), style: 'default' },
+const alertUserNotFound = (userName) => {
+  Alert.alert(`${userName}`, 'not found', [
+    cancelButton,
+    { text: 'Create',
+      onPress: () => store.dispatch(createUser(userName))
+      .then(user => user && advanceToSwiper()),
+      style: 'default',
+    },
+  ]);
+};
 
-const buttonNav = (userName) => {
+const loginWith = (userName) => {
   store.dispatch(attemptLogin(userName))
-  .then((user) => {
-    console.log('should be a userObj:', user);
-    if (user) {
-      console.log('should advance!');
+  .then(userFound => {
+    console.log('what do we get from the dispatch?', userFound);
+    if (userFound) {
       advanceToSwiper();
     } else {
-      Alert.alert(`${userName}`, 'not found', [
-        cancelButton,
-        {
-          text: 'Create',
-          onPress: () => {
-            store.dispatch(createUser(userName))
-            .then((user) => {
-              console.log('user after create', user);
-              if (user) {
-                advanceToSwiper();
-              }
-            });
-          },
-          style: 'default',
-        },
-      ]);
+      alertUserNotFound(userName);
     }
   });
 };
 
-const loginWithUser1 = () => buttonNav('user1');
-const loginWithUser2 = () => buttonNav('user2');
-const loginWithUser3 = () => buttonNav('user3');
-const loginWithUser4 = () => buttonNav('user4');
-const loginWithUser5 = () => buttonNav('user5');
+const loginWithUser1 = () => loginWith('user1');
+const loginWithUser2 = () => loginWith('user2');
+const loginWithUser3 = () => loginWith('user3');
+const loginWithUser4 = () => loginWith('user4');
+const loginWithUser5 = () => loginWith('user5');
 
 let userName;
 
 const updateUserName = newUserName => { userName = newUserName; };
 const loginWithUser = () => {
   console.log(userName);
-  buttonNav(userName);
+  loginWith(userName);
 };
 
 const Login = () => (
