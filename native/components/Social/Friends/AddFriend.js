@@ -6,7 +6,7 @@ import friendsApi from '../../sharedNative/utils/friends.js';
 import usersApi from '../../sharedNative/utils/users.js';
 
 const Friends = (props) => {
-  const allUsers =
+  // const allUsers =
   const leftNavButton = {
     title: 'X',
     handler: store.getState().navigation.navigator.jumpBack,
