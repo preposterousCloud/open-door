@@ -10,6 +10,7 @@ import React, {
  } from 'react-native';
 
 const convertEventsToDataSource = (events) => {
+  events = events || [];
   return (new ListView.DataSource(
       { rowHasChanged: (row1, row2) => row1 !== row2 }
     ).cloneWithRows(events.map(event => event.name))

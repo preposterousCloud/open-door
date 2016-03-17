@@ -9,12 +9,12 @@ import React, {
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import Swiper from '../Shared/Swiper.js';
 import styles from '../../styles/Auth/authStyles.js';
-import api from '../../sharedNative/utils/login.js';
+import { attemptLogin, createUser } from '../../sharedNative/actions/actions.js';
 
 const buttonNav = (userName) => {
-  store.dispatch(api.setUser(userName))
-  .then((action) => {
-    if (action) {
+  store.dispatch(attemptLogin(userName))
+  .then((user) => {
+    if (user) {
       store.getState().navigation.navigator.push({
         component: Swiper,
       });
@@ -24,9 +24,10 @@ const buttonNav = (userName) => {
         {
           text: 'Create',
           onPress: () => {
-            store.dispatch(api.createUser(userName))
-            .then((action) => {
-              if (action) {
+            store.dispatch(createUser(userName))
+            .then((user) => {
+              console.log('user after create', user);
+              if (user) {
                 store.getState().navigation.navigator.push({
                   component: Swiper,
                 });

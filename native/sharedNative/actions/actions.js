@@ -1,6 +1,14 @@
 const a = require('../ActionTypes');
-import { postEvent, closeEvent, getUser } from '../utils/api';
+import { postEvent, closeEvent, getUser, postUser } from '../utils/api';
 
+const catchErr = (err) => {
+  console.log(err);
+  return null;
+};
+
+/** *****************************************************
+ * Normal Action Creators
+ * ************************************************** */
 export function setLoading(loadingState) {
   return {
     type: a.TOGGLE_LOADING,
@@ -27,6 +35,34 @@ export function setUser(user) {
   return {
     type: a.SET_USER,
     user: user,
+  };
+}
+
+/** *****************************************************
+ * Async Thunk Action Creators
+ * ************************************************** */
+export function createUser(userName) {
+  return dispatch => {
+    return postUser(userName)
+    .then(user => {
+      dispatch(setUser(user));
+      return user;
+    })
+    .catch(catchErr);
+  };
+}
+
+export function attemptLogin(userName) {
+  return dispatch => {
+    return getUser(userName)
+    .then(user => {
+      if (user) {
+        console.log('Log in user');
+        dispatch(setUser(user));
+        return true;
+      }
+      return false;
+    });
   };
 }
 
