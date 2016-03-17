@@ -13,6 +13,22 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
+  listEntryView: {
+    flexDirection: 'row',
+    padding: 20,
+    borderTopWidth: 1,
+    borderColor: '#DDD',
+  },
+  userInput: {
+    height: 50,
+    padding: 4,
+    margin: 40,
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: '#616161',
+    borderRadius: 4,
+    color: '#616161',
+  },
   socialF: {
     justifyContent: 'center',
     flexDirection: 'row',
@@ -26,12 +42,6 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     padding: 50,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
-  },
-  listEntryView: {
-    flexDirection: 'row',
-    padding: 20,
-    borderTopWidth: 1,
     borderColor: '#DDD',
   },
 });
