@@ -8,8 +8,8 @@ import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 
 import styles from '../../styles/Social/socialStyles.js';
 import NavBar from '../Shared/NavBar.js';
-import Groups from './SocialGroups.js';
-import Friends from './SocialFriends.js';
+import Groups from './Groups/Groups.js';
+import Friends from './Friends/Friends.js';
 
 const groupsNav = () => {
   store.getState().navigation.navigator.push({
