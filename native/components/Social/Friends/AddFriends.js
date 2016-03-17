@@ -6,7 +6,10 @@ import styles from '../../../styles/Social/socialStyles.js';
 // import usersApi from '../../sharedNative/utils/users.js';
 
 const AddFriends = (props) => {
-  // const allUsers =
+  const something = () => {
+    console.log('form submit!');
+  };
+
   const leftNavButton = {
     title: 'X',
     handler: store.getState().navigation.navigator.jumpBack,
@@ -35,7 +38,7 @@ const AddFriends = (props) => {
         style={styles.userInput}
         returnKeyType={'go'}
         onChangeText={updateUserName}
-        onSubmitEditing={loginWithUser}
+        onSubmitEditing={something}
       />
     </View>
   );
