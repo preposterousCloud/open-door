@@ -63,7 +63,7 @@ module.exports.getUser = function getUser(req, res) {
 module.exports.addFriendship = function addFriendship(req, res) {
   db.User.addFriendship(req.body.friends[0], req.body.friends[1])
   .then(result => {
-    if (result.length > 0) {
+    if (result[0].length > 0) {
       res.status(201).send('Friendship created');
       return;
     }
@@ -78,8 +78,7 @@ module.exports.addFriendship = function addFriendship(req, res) {
 module.exports.removeFriendship = function removeFriendship(req, res) {
   db.User.removeFriendship(req.body.friends[0], req.body.friends[1])
   .then(resultsRemoved => {
-    console.log(resultsRemoved);
-    if (resultsRemoved > 0) {
+    if (resultsRemoved[0] > 0) {
       res.status(201).send('Friendship removed');
       return;
     }

@@ -15,17 +15,23 @@ module.exports = function User(sequelizeInstance) {
       addFriendship: function addFriendship(userId1, userId2) {
         // We put the smaller user ID on the left so we always know what the relationship looks like
         // for any given friendship
-        const leftUser = userId1 <= userId2 ? userId1 : userId2;
-        const rightUser = userId1 <= userId2 ? userId2 : userId1;
-        return this.findOne({ where: { id: leftUser } })
-        .then(user => user.addFriend(rightUser));
+        const addFriendToOne = this.findOne({ where: { id: userId1 } })
+        .then(user => user.addFriend(userId2));
+        
+        const addFriendToTwo = this.findOne({ where: { id: userId2 } })
+        .then(user => user.addFriend(userId1));
+        
+        return Promise.all([addFriendToOne, addFriendToTwo]);
       },
       removeFriendship: function removeFriendship(userId1, userId2) {
         // Same as above, we sort the IDs
-        const leftUser = userId1 <= userId2 ? userId1 : userId2;
-        const rightUser = userId1 <= userId2 ? userId2 : userId1;
-        return this.findOne({ where: { id: leftUser } })
-        .then(user => user.removeFriend(rightUser));
+        const removeFriendFromOne = this.findOne({ where: { id: userId1 } })
+        .then(user => user.removeFriend(userId2));
+        
+        const removeFriendFromTwo = this.findOne({ where: { id: userId2 } })
+        .then(user => user.removeFriend(userId1));
+        
+        return Promise.all([removeFriendFromOne, removeFriendFromTwo]);
       },
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,

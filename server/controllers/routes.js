@@ -35,8 +35,8 @@ module.exports = (app) => {
   // // Friends
   //   // Friends list
   // app.get('/api/friends');
-  app.post('/api/friends/addFriendship', User.addFriendship);
-  app.post('/api/friends/removeFriendship', User.removeFriendship);
+  app.post('/api/friends/add', User.addFriendship);
+  app.post('/api/friends/remove', User.removeFriendship);
 
   //   // Friend requests
   // app.get('/api/friends/request');
