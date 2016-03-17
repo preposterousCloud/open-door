@@ -2,7 +2,7 @@ import React, { View, Text, TouchableOpacity } from 'react-native';
 import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
 import styles from '../../../styles/Social/socialStyles.js';
-import AddFriends from './AddFriend.js';
+import AddFriends from './AddFriends.js';
 
 const Friends = (props) => {
   const leftNavButton = {
@@ -11,7 +11,7 @@ const Friends = (props) => {
   };
 
   const navToAddFriends = () => {
-    store.getState().navigation.navigator.push({ component: Friends });
+    store.getState().navigation.navigator.push({ component: AddFriends });
   };
 
   const rightNavButton = {
