@@ -41,6 +41,19 @@ export const closeEvent = (event) => {
   .then(validateBody);
 };
 
+export const fetchAllUsers = () => {
+  // To refactor fully, need to create new thunk action
+  // NOTE: This will be replaced by "friends" in createGroup
+  // Also should probably send id and name instead of whole objects
+  const url = `${config.apiUrl}users/`;
+  return fetch(url, {
+    method: 'GET',
+    headers,
+  })
+  .then(validateBody)
+  .catch(catchErr);
+};
+
 export const getUser = (userNameOrId) => {
   // To refactor fully, need to create new thunk action
   // that calls getUser and .then(user => dispatch({ type: 'SET_USER', user }))
