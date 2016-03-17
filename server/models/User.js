@@ -12,6 +12,21 @@ module.exports = function User(sequelizeInstance) {
     userName: Sequelize.STRING,
   }, {
     classMethods: {
+      addFriendship: function addFriendship(userId1, userId2) {
+        // We put the smaller user ID on the left so we always know what the relationship looks like
+        // for any given friendship
+        const leftUser = userId1 <= userId2 ? userId1 : userId2;
+        const rightUser = userId1 <= userId2 ? userId2 : userId1;
+        return this.findOne({ where: { id: leftUser } })
+        .then(user => user.addFriend(rightUser));
+      },
+      removeFriendship: function removeFriendship(userId1, userId2) {
+        // Same as above, we sort the IDs
+        const leftUser = userId1 <= userId2 ? userId1 : userId2;
+        const rightUser = userId1 <= userId2 ? userId2 : userId1;
+        return this.findOne({ where: { id: leftUser } })
+        .then(user => user.removeFriend(rightUser));
+      },
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,
           include: [{ model: seq.models.Group },
@@ -50,11 +65,6 @@ module.exports = function User(sequelizeInstance) {
           console.log(err);
           return null;
         });
-      },
-      addFriend: function addFriend(friendId) {
-        // check to see if friendId is < userId
-        // createFriendship(Math.min(friendId, userId), Math.max(friendId, userId))
-        return 5;
       },
       getEventsForUser: function getEventsForUser(user) {
         if (!user.Groups) {

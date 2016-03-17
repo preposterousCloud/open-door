@@ -59,3 +59,34 @@ module.exports.getUser = function getUser(req, res) {
     res.status(404).send(null);
   });
 };
+
+module.exports.addFriendship = function addFriendship(req, res) {
+  db.User.addFriendship(req.body.friends[0], req.body.friends[1])
+  .then(result => {
+    if (result.length > 0) {
+      res.status(201).send('Friendship created');
+      return;
+    }
+    res.status(200).send('Friendship already existed');
+  })
+  .catch(err => {
+    console.error('Error creating friendship: ', err);
+    res.status(500).send('Unknown server error');
+  });
+};
+
+module.exports.removeFriendship = function removeFriendship(req, res) {
+  db.User.removeFriendship(req.body.friends[0], req.body.friends[1])
+  .then(resultsRemoved => {
+    console.log(resultsRemoved);
+    if (resultsRemoved > 0) {
+      res.status(201).send('Friendship removed');
+      return;
+    }
+    res.status(200).send('Friendship not found to begin with.');
+  })
+  .catch(err => {
+    console.error('Error removing friendship: ', err);
+    res.status(500).send('Unknown server error');
+  });
+};
