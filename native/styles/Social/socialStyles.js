@@ -9,6 +9,10 @@ module.exports = StyleSheet.create({
   listView: {
     backgroundColor: '#FFF',
   },
+  scrollView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   socialF: {
     justifyContent: 'center',
     flexDirection: 'row',
@@ -22,6 +26,12 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     padding: 50,
     borderBottomWidth: 1,
+    borderColor: '#DDD',
+  },
+  listEntryView: {
+    flexDirection: 'row',
+    padding: 20,
+    borderTopWidth: 1,
     borderColor: '#DDD',
   },
 });
