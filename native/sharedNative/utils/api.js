@@ -65,4 +65,3 @@ export const postUser = (userName) => {
   .then(validateBody)
   .catch(catchErr);
 };
-

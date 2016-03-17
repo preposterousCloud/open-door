@@ -18,7 +18,14 @@ module.exports = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: '#DDD',
   },
-  navBar: {
-    // enter some styles here
+  userInput: {
+    height: 50,
+    padding: 4,
+    margin: 40,
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: '#616161',
+    borderRadius: 4,
+    color: '#616161',
   },
 });
