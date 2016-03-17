@@ -11,6 +11,12 @@ import NavBar from '../Shared/NavBar.js';
 import Groups from './Groups/Groups.js';
 import Friends from './Friends/Friends.js';
 
+const showFriends = () => {
+  store.getState().navigation.navigator.push({
+    component: Friends,
+  })
+}
+
 const groupsNav = () => {
   store.getState().navigation.navigator.push({
     component: Groups,
@@ -29,8 +35,8 @@ const Social = (props) => {
         rightButton={rightNavButton}
       />
     <View>
-      <TouchableOpacity>
-        <Friends />
+      <TouchableOpacity onPress={showFriends}>
+        <Text>Friends</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={groupsNav}
