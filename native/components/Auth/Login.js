@@ -11,26 +11,26 @@ import Swiper from '../Shared/Swiper.js';
 import styles from '../../styles/Auth/authStyles.js';
 import { attemptLogin, createUser } from '../../sharedNative/actions/actions.js';
 
+const advanceToSwiper = () => (store.getState()
+  .navigation.navigator.push({
+    component: Swiper,
+  })
+);
+
 const buttonNav = (userName) => {
-  store.dispatch(attemptLogin(userName))
-  .then((user) => {
-    if (user) {
-      store.getState().navigation.navigator.push({
-        component: Swiper,
-      });
+  store.dispatch(api.setUser(userName))
+  .then((action) => {
+    if (action) {
+      advanceToSwiper();
     } else {
       Alert.alert(`${userName}`, 'not found', [
         { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-        {
-          text: 'Create',
+        { text: 'Create',
           onPress: () => {
-            store.dispatch(createUser(userName))
-            .then((user) => {
-              console.log('user after create', user);
-              if (user) {
-                store.getState().navigation.navigator.push({
-                  component: Swiper,
-                });
+            store.dispatch(api.createUser(userName))
+            .then((action) => {
+              if (action) {
+                advanceToSwiper();
               }
             });
           },
