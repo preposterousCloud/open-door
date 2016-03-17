@@ -26,6 +26,12 @@ const createUser = (userName) => {
   });
 };
 
+const cancelButton = {
+  text: 'Cancel',
+  onPress: () => console.log('Cancel Pressed'),
+  style: 'cancel',
+};
+
 const attemptLogin = (userName) => {
   store.dispatch(api.setUser(userName))
   .then((action) => {
@@ -33,7 +39,7 @@ const attemptLogin = (userName) => {
       advanceToSwiper();
     } else {
       Alert.alert(`${userName}`, 'not found', [
-        { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        cancelButton,
         { text: 'Create', onPress: () => createUser(userName), style: 'default' },
       ]);
     }
