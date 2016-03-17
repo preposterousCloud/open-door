@@ -1,7 +1,7 @@
 import React, { View, Text, TouchableOpacity } from 'react-native';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import NavBar from '../Shared/NavBar.js';
-import styles from '../../styles/Social/socialStyles.js';
+import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
+import NavBar from '../../Shared/NavBar.js';
+import styles from '../../../styles/Social/socialStyles.js';
 
 const Friends = (props) => {
   const leftNavButton = {
