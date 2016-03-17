@@ -1,9 +1,9 @@
 import React, { View, Text } from 'react-native';
 
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
 
-import styles from '../../styles/Social/socialStyles.js';
-import NavBar from '../Shared/NavBar.js';
+import styles from '../../../styles/Social/socialStyles.js';
+import NavBar from '../../Shared/NavBar.js';
 
 const closeGroups = () => {
   store.getState().navigation.navigator.jumpBack();
@@ -16,11 +16,11 @@ const Groups = (props) => {
   };
   return (
     <View>
-    <NavBar
-      title={ 'Groups' }
-      leftButton={leftNavButton}
-    />
-  </View>
+      <NavBar
+        title={ 'Groups' }
+        leftButton={leftNavButton}
+      />
+    </View>
   );
 };
 
