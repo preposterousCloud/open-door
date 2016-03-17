@@ -1,12 +1,19 @@
-import React, { View, Text, TouchableOpacity } from 'react-native';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import NavBar from '../Shared/NavBar.js';
-import styles from '../../styles/Social/socialStyles.js';
-import Friends from './Friends/Friends.js';
+import React, {
+  View,
+  Text,
+  TouchableOpacity,
+  } from 'react-native';
 
-const showFriends = () => {
+import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+
+import styles from '../../styles/Social/socialStyles.js';
+import NavBar from '../Shared/NavBar.js';
+import Groups from './SocialGroups.js';
+import Friends from './SocialFriends.js';
+
+const groupsNav = () => {
   store.getState().navigation.navigator.push({
-    component: Friends,
+    component: Groups,
   });
 };
 
@@ -21,10 +28,18 @@ const Social = (props) => {
         title={ 'Social' }
         rightButton={rightNavButton}
       />
-      <TouchableOpacity onPress={showFriends}>
-        <Text>Friends</Text>
+    <View>
+      <TouchableOpacity>
+        <Friends />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={groupsNav}
+        style={styles.socialG}
+      >
+        <Text>GROUPS</Text>
       </TouchableOpacity>
     </View>
+  </View>
   );
 };
 
