@@ -28,4 +28,17 @@ describe('Data Integration Tests', () => {
     store.dispatch(actions.setActiveEvent(null));
     expect(store.getState().currentEvent).toEqual(null);
   });
+
+  const users = [{
+    id: 3,
+    name: 'Rick Sanchez',
+  },
+  {
+    id: 4,
+    name: 'Morty Smith',
+  }];
+  it('Should set the allUsers state to a populated array', () => {
+    store.dispatch(actions.setAllUsers(users));
+    expect(store.getState().allUsers.length).toEqual(2);
+  });
 });
