@@ -1,4 +1,4 @@
-import React, { View, Text, TouchableOpacity, TextInput, ListView } from 'react-native';
+import React, { View, Text, TouchableOpacity, TextInput, ListView, Alert } from 'react-native';
 import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
 import styles from '../../../styles/Social/socialStyles.js';
@@ -18,11 +18,6 @@ const AddFriends = (props) => {
 
   let userName;
   const updateUserName = newUserName => { userName = newUserName; };
-  const addFriend = () => {
-    const friend1id = store.getState().user.id;
-    const friend2id = 4;
-    // friendsApi.createFriendship(friend1id, friend2id);
-  };
 
   const convertArrayToDatasource = (array, prop) => {
     array = array || [];
@@ -36,9 +31,30 @@ const AddFriends = (props) => {
     );
   };
 
-  const allUsers = ['gret', 'graic']; // get all users from api
+  const allUsers = [
+    { id: 2, userName: 'user2' },
+    { id: 3, userName: 'user3' },
+    { id: 4, userName: 'user4' },
+  ];
 
-  const UserRow = (rowText) => <Text>{rowText}</Text>;
+
+  const alertRequestSent = (user) => {
+    Alert.alert(`${user.userName} added to Friends!`, `User ID: ${user.id}`);
+  };
+
+  const addFriend = (user) => {
+    alertRequestSent(user);
+  };
+
+  const UserRow = (rowData) => {
+    const addThisFriend = addFriend.bind(null, rowData);
+
+    return (
+      <TouchableOpacity onPress={addThisFriend}>
+        <Text>{rowData.userName}</Text>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View>
