@@ -39,7 +39,10 @@ const AddFriends = (props) => {
 
 
   const alertRequestSent = (user) => {
-    Alert.alert(`${user.userName} added to Friends!`, `User ID: ${user.id}`);
+    Alert.alert(
+      `${user.userName} added to Friends!`,
+      `Their ID: ${user.id}, your ID:${store.getState().user.id}`
+    );
   };
 
   const addFriend = (user) => {
