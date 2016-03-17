@@ -19,10 +19,13 @@ module.exports = function User(sequelizeInstance) {
         .then((user) => {
           if (!user) { throw new Error('User not found'); }
           const getEvents = seq.models.Event.getEventsForUser(user);
-          const getCurrentEvent = seq.models.Event.findAll({ where: { hostUserId: user.id, endDateUtc: null } })
+          const getCurrentEvent = seq.models.Event.findAll({ where:
+            { hostUserId: user.id, endDateUtc: null },
+          })
           .then((events) => {
             if (events.length > 1) {
-              console.error(`Active event is out of sync for userID=${user.id}. Found ${events.length} events`);
+              console.error(
+                `Active event is out of sync for userID=${user.id}. Found ${events.length} events`);
               // sort and return most recent event;
               return events.sort()[0];
             }
