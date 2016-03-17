@@ -2,11 +2,7 @@ import React, { View, Text, TouchableOpacity } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import styles from '../../styles/Social/socialStyles.js';
-<<<<<<< HEAD
 import Friends from './Friends/Friends.js';
-=======
-import Friends from './Friends';
->>>>>>> 0b98efd6be5d5404c9832e0fad1bc13b3b8f1eb3
 
 const showFriends = () => {
   store.getState().navigation.navigator.push({
