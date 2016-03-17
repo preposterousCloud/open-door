@@ -1,5 +1,5 @@
 const a = require('../ActionTypes');
-import { postEvent, closeEvent, getUser, postUser } from '../utils/api';
+import { postEvent, closeEvent, fetchAllUsers, getUser, postUser } from '../utils/api';
 
 const catchErr = (err) => {
   console.log(err);
@@ -28,6 +28,13 @@ export function createEvent(event) {
   return {
     type: a.CREATE_EVENT,
     data: event,
+  };
+}
+
+export function setAllUsers(allUsers) {
+  return {
+    type: a.SET_ALL_USERS,
+    allUsers: allUsers,
   };
 }
 
@@ -60,6 +67,20 @@ export function attemptLogin(userName) {
         console.log('Log in user');
         dispatch(setUser(user));
         return true;
+      }
+      return false;
+    });
+  };
+}
+
+export function getAllUsers() {
+  return dispatch => {
+    return fetchAllUsers()
+    .then(users => {
+      if (users) {
+        console.log('Fetching ALL the Users');
+        dispatch(setAllUsers(users));
+        return users;
       }
       return false;
     });

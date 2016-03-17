@@ -4,13 +4,14 @@ module.exports = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: '#DF2309',
+  },
+  listView: {
+    backgroundColor: '#FFF',
   },
   scrollView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-  },
-  listView: {
-    backgroundColor: '#FFF',
   },
   listEntryView: {
     flexDirection: 'row',
@@ -27,5 +28,20 @@ module.exports = StyleSheet.create({
     borderColor: '#616161',
     borderRadius: 4,
     color: '#616161',
+  },
+  socialF: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    padding: 50,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: '#DDD',
+  },
+  socialG: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    padding: 50,
+    borderBottomWidth: 1,
+    borderColor: '#DDD',
   },
 });

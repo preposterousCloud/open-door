@@ -12,4 +12,16 @@ function user(state = {}, action) {
   }
 }
 
-module.exports = user;
+function allUsers(state = [], action) {
+  console.log('action', action);
+  switch (action.type) {
+    case 'SET_ALL_USERS': {
+      return action.allUsers || state;
+    }
+    default:
+      return state;
+  }
+}
+
+module.exports.user = user;
+module.exports.allUsers = allUsers;
