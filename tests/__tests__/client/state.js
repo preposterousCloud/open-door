@@ -18,14 +18,14 @@ describe('Data Integration Tests', () => {
 
   const testEvent = { name: 'Party' };
   it('Test active event toggling', () => {
-    expect(store.getState().currentEvent).toEqual(null);
+    expect(store.getState().user.currentEvent).toBeFalsy();
     // Instead of toggling to create a new event (which would make an api call, we bypass it)
     store.dispatch(actions.setActiveEvent(testEvent));
     // Confirm event was set
-    expect(store.getState().currentEvent.name).toEqual(testEvent.name);
+    expect(store.getState().user.currentEvent.name).toEqual(testEvent.name);
 
     // Disable current event and confirm it was cleared
     store.dispatch(actions.setActiveEvent(null));
-    expect(store.getState().currentEvent).toEqual(null);
+    expect(store.getState().user.currentEvent).toBeFalsy();
   });
 });

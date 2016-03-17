@@ -81,8 +81,8 @@ export function refreshUser() {
 export function toggleEvent(event) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));
-    if (getState().currentEvent) {
-      closeEvent(getState().currentEvent)
+    if (getState().user.currentEvent) {
+      closeEvent(getState().user.currentEvent)
       .then((event) => {
         dispatch(setLoading(false));
         dispatch(setActiveEvent(null));
