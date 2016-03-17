@@ -31,9 +31,16 @@ module.exports = (sequelizeInstance) => {
   // Add users to groups
   .then(groups => {
     newGroups = groups;
-  
+
     // NOTE if you add additional friends here don't forget to update the promise handling
     return newUsers[1].addGroup(newGroups[0]);
+  })
+  // Add friends
+  .then(() => {
+    return newUsers[0].addFriend(newUsers[1])
+    .then(() => newUsers[0].addFriend(newUsers[1]))
+    .then(() => newUsers[1].addFriend(newUsers[0]))
+    .catch(console.error);
   })
   // Create events
   .then(() => {

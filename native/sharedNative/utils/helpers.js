@@ -5,7 +5,7 @@ const validateBody = res => {
   if (statusOK(res)) {
     return JSON.parse(res._bodyInit);
   }
-  throw new Error('User Creation Failed');
+  throw new Error('HTTP Request Failed');
 };
 
 const catchErr = (err) => {
