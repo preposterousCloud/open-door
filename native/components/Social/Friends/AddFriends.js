@@ -3,7 +3,7 @@ import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
 import styles from '../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../styles/Feed/feedStyles.js';
-// import friendsApi from '../../sharedNative/utils/friends.js';
+import friendsApi from '../../sharedNative/utils/friends.js';
 // import usersApi from '../../sharedNative/utils/users.js';
 
 const AddFriends = (props) => {
@@ -41,7 +41,8 @@ const AddFriends = (props) => {
   const alertRequestSent = (user) => {
     Alert.alert(
       `${user.userName} added to Friends!`,
-      `Their ID: ${user.id}, your ID:${store.getState().user.id}`
+      `Their ID: ${user.id}, your ID:${store.getState().user.id}`,
+      ['hey', 'ho']
     );
   };
 
