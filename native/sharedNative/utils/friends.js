@@ -16,8 +16,11 @@ const addFriend = (toId) => {
       body: JSON.stringify({ friends: [store.getState().user.id, toId] }),
       headers,
     })
-    .then(validateBody)
-    .then(user => dispatch(actions.refreshUser()))
+    .then(response => {
+      console.log('Friendship created?', response._bodyInit);
+      return response;
+    })
+    .then(() => dispatch(actions.refreshUser()))
     .catch(catchErr);
   };
 };
