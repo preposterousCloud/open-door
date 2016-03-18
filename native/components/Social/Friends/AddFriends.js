@@ -78,10 +78,14 @@ const convertAllUsersToDataSource = (users) => {
   };
 
   const AddFriendsList = (props) => {
+    const friendIds = props.user.friends.map(friend => friend.id);
+    const friendableUsers = props.users.filter(
+      possibleFriend => (friendIds.indexOf(possibleFriend.id) === -1)
+    );
     return (
       <View style={styles.container}>
         <ListView
-          dataSource={convertAllUsersToDataSource(props.users)}
+          dataSource={convertAllUsersToDataSource(friendableUsers)}
           renderRow={AddFriendsListRow}
           style={styles.listView}
         />
@@ -89,10 +93,11 @@ const convertAllUsersToDataSource = (users) => {
     );
   };
 
-  // CHANGE ONCE FRIENDS FEATURE IS IMPLEMENTED
+  // TODO: filter this list with existing friends
   const AddFriendsListContainer = connect(state => {
     return {
       users: state.allUsers,
+      user: state.user
     };
   })(AddFriendsList);
 
@@ -117,16 +122,6 @@ const convertAllUsersToDataSource = (users) => {
 
   const addFriend = (user) => {
     alertRequestSent(user);
-  };
-
-  const UserRow = (rowData) => {
-    const addThisFriend = addFriend.bind(null, rowData);
-
-    return (
-      <TouchableOpacity onPress={addThisFriend}>
-        <Text>{rowData.userName}</Text>
-      </TouchableOpacity>
-    );
   };
 
   return (
