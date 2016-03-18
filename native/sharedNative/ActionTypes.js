@@ -7,3 +7,4 @@ export const CREATE_EVENT = 'CREATE_EVENT';
 export const TOGGLE_LOADING = 'TOGGLE_LOADING';
 export const SET_ALL_USERS = 'SET_ALL_USERS';
 export const SET_USER = 'SET_USER';
+export const SET_GROUPNAME_INPUT_DISP = 'SET_GROUPNAME_INPUT_DISP';
