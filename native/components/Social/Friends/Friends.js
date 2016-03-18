@@ -38,7 +38,7 @@ const Friends = (props) => {
   };
 
   const logUser = (user) => {
-    console.log(`You clicked on ${user}, id:${user.id}`);
+    console.log(`You clicked on ${user.userName}, id:${user.id}`);
   };
 
   const FriendsListRow = (user) => {
@@ -46,14 +46,14 @@ const Friends = (props) => {
 
     return (
       <View>
-        <View style={styles.listEntryView}>
-          <TouchableOpacity
-            onPress={logThisUser}
-            style={styles.group}
-          >
+        <TouchableOpacity
+          onPress={logThisUser}
+          style={styles.group}
+        >
+          <View style={styles.listEntryView}>
             <Text>{user.userName}</Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
