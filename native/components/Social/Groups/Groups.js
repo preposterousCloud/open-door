@@ -14,9 +14,11 @@ const closeGroups = () => {
 
 const addGroup = () => {
   store.getState().navigation.navigator.push({
-    component: CreateGroup,
+    component: CreateGroupContainer,
   });
 };
+
+let CreateGroupContainer;
 
 const Groups = (props) => {
   const leftNavButton = {
@@ -28,6 +30,12 @@ const Groups = (props) => {
     title: '+',
     handler: addGroup,
   };
+
+  CreateGroupContainer = connect(state => {
+    return {
+      groupName: state.groupName,
+    }
+  })(CreateGroup)
 
   const GroupsListContainer = connect(state => {
     return {

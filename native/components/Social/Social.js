@@ -35,8 +35,11 @@ const Social = (props) => {
         rightButton={rightNavButton}
       />
     <View>
-      <TouchableOpacity onPress={showFriends}>
-        <Text>Friends</Text>
+      <TouchableOpacity 
+        onPress={showFriends}
+        style={styles.socialF}
+      >
+        <Text>FRIENDS</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={groupsNav}
