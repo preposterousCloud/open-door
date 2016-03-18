@@ -49,12 +49,17 @@ const AddFriends = (props) => {
     });
   };
 
-  const AddFriendsListRow = (rowText) => (
+  const AddFriendsListRow = (user) => (
     <View>
       <View style={styles.listEntryView}>
-        <Text style={styles.group}>
-          {rowText}
-        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            console.log('user clikced!', user.userName);
+          }}
+          style={styles.group}
+        >
+          <Text>{user.userName}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -63,7 +68,7 @@ const AddFriends = (props) => {
     users = users || [];
     return (new ListView.DataSource(
         { rowHasChanged: (row1, row2) => row1 !== row2 }
-      ).cloneWithRows(users.map(user => user.userName))
+      ).cloneWithRows(users)
     );
   };
 
