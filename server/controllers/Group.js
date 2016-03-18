@@ -10,7 +10,10 @@ module.exports.createGroup = function createGroup(req, res) {
     db.Group.create({ name: req.body.groupName })
     .then((group) => {
       console.log('Group Updated: ', req.body)
-      group.addUsers(JSON.parse(req.body.members));
+      group.addUsers(JSON.parse(req.body.members))
+      .then(function() {
+        res.json(group)
+      })
     })
     .catch((err) => {
       console.error(err);
