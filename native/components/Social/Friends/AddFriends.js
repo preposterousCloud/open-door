@@ -77,7 +77,8 @@ const AddFriends = (props) => {
   const AddFriendsList = (props) => {
     const friendIds = props.user.friends.map(friend => friend.id);
     const friendableUsers = props.users.filter(
-      possibleFriend => (friendIds.indexOf(possibleFriend.id) === -1)
+      possibleFriend => (
+        friendIds.indexOf(possibleFriend.id) === -1 && possibleFriend.id !== props.user.id)
     );
     return (
       <View style={styles.container}>
