@@ -5,62 +5,57 @@ import React, {
   } from 'react-native';
 
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-const actions = require('../../sharedNative/actions/actions');
 
 import styles from '../../styles/Door/doorStyles.js';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
+import EventSettingsContainer from './EventSettingsContainer';
+import OpenDoor from './OpenDoor';
+import ClosedDoor from './ClosedDoor';
 
-
-const settingsNav = () => {
-  store.getState().navigation.navigator.push({
-    component: Profile,
-  });
-};
-
-const SetDoor = (props) => {
-  const leftNavButton = {
-    title: '<',
-    handler: props.swipeLeft,
-  };
-
-  let DoorStatus;
-  if (props.user.currentEvent) {
-    doorStatus = 'PARTY TIME';
-  } else {
-    doorStatus = 'BOOO!';
+const SetDoor = class SetDoor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.toggleDoor = this.toggleDoor.bind(this);
   }
-
-  const toggleDoor = (user) => {
+  toggleDoor() {
     // We blindly send the event object. in the scenario we are disabling the current event
     // it wont be used
-    const dummyEvent = { name: 'Party', hostUserId: user.id };
-    store.dispatch(actions.toggleEvent(dummyEvent));
-  };
-  return (
-    <View style={styles.container}>
-    <NavBar
-      title={ 'My Door' }
-      leftButton={leftNavButton}
-    />
-    
-    <TouchableOpacity onPress={() => toggleDoor(props.user)}>
-      <Text>DOOR</Text>
-    </TouchableOpacity>
-    <Text> {doorStatus} </Text>
-
-    <View style={styles.footer}>
-      <TouchableOpacity style={styles.pullRight} onPress={settingsNav}>
-      <Text>Settings</Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-  );
+    const dummyEvent = { name: 'Party', hostUserId: this.props.user.id };
+    this.props.onDoorToggle(dummyEvent);
+  }
+  goToSettings() {
+    store.getState().navigation.navigator.push({
+      component: Profile,
+    });
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <NavBar
+          title={ 'My Door' }
+          leftButton={ { title: '<', handler: this.props.swipeLeft } }
+        />
+        <TouchableOpacity onPress={this.toggleDoor}>
+          {(() => this.props.user.currentEvent ?
+            <OpenDoor styles={{ size: 100, color: 'green' }} /> :
+            <ClosedDoor styles={{ size: 100, color: 'red' }} />
+          )()}
+        </TouchableOpacity>
+        <EventSettingsContainer />
+        <View style={styles.footer}>
+          <TouchableOpacity style={styles.pullRight} onPress={this.goToSettings}>
+          <Text>Settings</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+   );
+  }
 };
 
 SetDoor.propTypes = {
-  swipeLeft: React.PropTypes.function,
+  swipeLeft: React.PropTypes.func,
   user: React.PropTypes.object,
+  onDoorToggle: React.PropTypes.func,
 };
-
 module.exports = SetDoor;
