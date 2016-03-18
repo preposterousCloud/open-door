@@ -11,11 +11,6 @@ import NavBar from '../Shared/NavBar.js';
 import Groups from './Groups/Groups.js';
 import Friends from './Friends/Friends.js';
 
-const showFriends = () => {
-  store.getState().navigation.navigator.push({
-    component: Friends,
-  })
-}
 
 const groupsNav = () => {
   store.getState().navigation.navigator.push({
@@ -27,6 +22,14 @@ const Social = (props) => {
   const rightNavButton = {
     title: '>',
     handler: props.swipeRight,
+  };
+  const showFriends = () => {
+    store.getState().navigation.navigator.push({
+      component: Friends,
+      passProps: {
+        user: props.user,
+      },
+    });
   };
   return (
     <View>
