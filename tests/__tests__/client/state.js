@@ -42,16 +42,9 @@ describe('Data Integration Tests', () => {
     expect(store.getState().allUsers.length).toEqual(2);
   });
 
-  const users = [{
-    id: 3,
-    name: 'Rick Sanchez',
-  },
-  {
-    id: 4,
-    name: 'Morty Smith',
-  }];
-  it('Should set the allUsers state to a populated array', () => {
-    store.dispatch(actions.setAllUsers(users));
-    expect(store.getState().allUsers.length).toEqual(2);
-  });
+  const title = 'Squad';
+  it('Should live-update the title of "Create Group"', () => {
+    store.dispatch(actions.liveUpdateGroupName(title));
+    expect(store.getState().groupName).toEqual('Squad');
+  })
 });

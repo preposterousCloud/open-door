@@ -48,7 +48,7 @@ export function setUser(user) {
 export function liveUpdateGroupName(name) {
   return {
     type: a.SET_GROUPNAME_INPUT_DISP,
-    name: name,
+    groupName: name,
   }
 }
 
