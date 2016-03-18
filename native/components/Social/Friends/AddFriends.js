@@ -49,22 +49,27 @@ const AddFriends = (props) => {
     });
   };
 
-  const AddFriendsListRow = (user) => (
-    <View>
-      <View style={styles.listEntryView}>
-        <TouchableOpacity
-          onPress={() => {
-            console.log('user clikced!', user.userName);
-          }}
-          style={styles.group}
-        >
-          <Text>{user.userName}</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+  const AddFriendsListRow = (user) => {
+    const addThisFriend = addFriend.bind(null, user);
 
-  const convertAllUsersToDataSource = (users) => {
+    return (
+      <View>
+        <View style={styles.listEntryView}>
+          <TouchableOpacity
+            onPress={() => {
+              console.log('user clikced!', user.userName);
+              addThisFriend();
+            }}
+            style={styles.group}
+          >
+            <Text>{user.userName}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
+const convertAllUsersToDataSource = (users) => {
     users = users || [];
     return (new ListView.DataSource(
         { rowHasChanged: (row1, row2) => row1 !== row2 }
