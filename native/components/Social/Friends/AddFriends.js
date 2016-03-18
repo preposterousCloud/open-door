@@ -3,7 +3,7 @@ import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
 import styles from '../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../styles/Feed/feedStyles.js';
-// import friendsApi from '../../sharedNative/utils/friends.js';
+import friendsApi from '../../../sharedNative/utils/friends.js';
 // import usersApi from '../../sharedNative/utils/users.js';
 
 const AddFriends = (props) => {
@@ -37,12 +37,20 @@ const AddFriends = (props) => {
     { id: 4, userName: 'user4' },
   ];
 
+  const cancelButton = {
+    text: 'Cancel',
+    onPress: () => console.log('Cancel Pressed'),
+    style: 'cancel',
+  };
 
   const alertRequestSent = (user) => {
-    Alert.alert(
-      `${user.userName} added to Friends!`,
-      `Their ID: ${user.id}, your ID:${store.getState().user.id}`
-    );
+    Alert.alert(`add friend ${user.userName}?`, '', [
+      cancelButton,
+      { text: 'Add',
+        onPress: () => store.dispatch(friendsApi.addFriend(user.id)),
+        style: 'default',
+      },
+    ]);
   };
 
   const addFriend = (user) => {

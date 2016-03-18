@@ -6,35 +6,37 @@ import {
   headers,
 } from './helpers.js';
 const config = require('../config/config.js');
+const actions = require('../actions/actions.js');
 
-const sendFriendRequest = (userName) => {
+const addFriend = (toId) => {
   return dispatch => {
-    const url = `${config.apiUrl}users/${userName}`;
-    return fetch(url, {
-      method: 'GET',
-      headers,
-    })
-    .then(validateBody)
-    .then(user => dispatch({ type: 'SET_USER', user }))
-    .catch(catchErr);
-  };
-};
-
-const respondToFriendRequest = (acceptedRequest) => {
-  return dispatch => {
-    const url = `${config.apiUrl}users`;
+    const url = `${config.apiUrl}friends/add`;
     return fetch(url, {
       method: 'POST',
-      body: JSON.stringify({ acceptedRequest }),
+      body: JSON.stringify({ friends: [store.getState().user.id, toId] }),
       headers,
     })
     .then(validateBody)
-    .then(user => dispatch(sendFriendRequest(user.userName)))
+    .then(user => dispatch(actions.refreshUser()))
     .catch(catchErr);
   };
 };
 
+// const respondToFriendRequest = (acceptedRequest) => {
+//   return dispatch => {
+//     const url = `${config.apiUrl}users`;
+//     return fetch(url, {
+//       method: 'POST',
+//       body: JSON.stringify({ acceptedRequest }),
+//       headers,
+//     })
+//     .then(validateBody)
+//     .then(user => dispatch(sendFriendRequest(user.userName)))
+//     .catch(catchErr);
+//   };
+// };
+
 module.exports = {
-  sendFriendRequest,
-  respondToFriendRequest,
+  addFriend,
+  // respondToFriendRequest,
 };
