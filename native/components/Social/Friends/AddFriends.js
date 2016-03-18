@@ -56,10 +56,7 @@ const AddFriends = (props) => {
       <View>
         <View style={styles.listEntryView}>
           <TouchableOpacity
-            onPress={() => {
-              console.log('user clikced!', user.userName);
-              addThisFriend();
-            }}
+            onPress={addThisFriend}
             style={styles.group}
           >
             <Text>{user.userName}</Text>
@@ -69,7 +66,7 @@ const AddFriends = (props) => {
     );
   };
 
-const convertAllUsersToDataSource = (users) => {
+  const convertAllUsersToDataSource = (users) => {
     users = users || [];
     return (new ListView.DataSource(
         { rowHasChanged: (row1, row2) => row1 !== row2 }
@@ -93,11 +90,15 @@ const convertAllUsersToDataSource = (users) => {
     );
   };
 
-  // TODO: filter this list with existing friends
+  AddFriendsList.propTypes = {
+    users: React.PropTypes.array,
+    user: React.PropTypes.object,
+  };
+
   const AddFriendsListContainer = connect(state => {
     return {
       users: state.allUsers,
-      user: state.user
+      user: state.user,
     };
   })(AddFriendsList);
 
