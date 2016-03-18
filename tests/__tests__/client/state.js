@@ -32,8 +32,7 @@ describe('Data Integration Tests', () => {
   const users = [{
     id: 3,
     name: 'Rick Sanchez',
-  },
-  {
+  }, {
     id: 4,
     name: 'Morty Smith',
   }];
@@ -46,5 +45,10 @@ describe('Data Integration Tests', () => {
   it('Should live-update the title of "Create Group"', () => {
     store.dispatch(actions.liveUpdateGroupName(title));
     expect(store.getState().groupName).toEqual('Squad');
-  })
+  });
+
+  it('Should set pendingEvent when Begin creating event is dispatched', () => {
+    store.dispatch(actions.beginCreatingEvent());
+    expect(store.getState().app.pendingEvent.name).toBeTruthy();
+  });
 });
