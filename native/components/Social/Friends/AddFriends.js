@@ -49,6 +49,26 @@ const AddFriends = (props) => {
     });
   };
 
+  const cancelButton = {
+    text: 'Cancel',
+    onPress: () => console.log('Cancel Pressed'),
+    style: 'cancel',
+  };
+
+  const alertRequestSent = (user) => {
+    Alert.alert(`add friend ${user.userName}?`, '', [
+      cancelButton,
+      { text: 'Add',
+        onPress: () => store.dispatch(friendsApi.addFriend(user.id)),
+        style: 'default',
+      },
+    ]);
+  };
+
+  const addFriend = (user) => {
+    alertRequestSent(user);
+  };
+
   const AddFriendsListRow = (user) => {
     const addThisFriend = addFriend.bind(null, user);
 
@@ -105,26 +125,6 @@ const AddFriends = (props) => {
 
 
   const allUsers = getAllUsersArray();
-
-  const cancelButton = {
-    text: 'Cancel',
-    onPress: () => console.log('Cancel Pressed'),
-    style: 'cancel',
-  };
-
-  const alertRequestSent = (user) => {
-    Alert.alert(`add friend ${user.userName}?`, '', [
-      cancelButton,
-      { text: 'Add',
-        onPress: () => store.dispatch(friendsApi.addFriend(user.id)),
-        style: 'default',
-      },
-    ]);
-  };
-
-  const addFriend = (user) => {
-    alertRequestSent(user);
-  };
 
   return (
     <View>
