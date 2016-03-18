@@ -14,8 +14,8 @@ import Friends from './Friends/Friends.js';
 const showFriends = () => {
   store.getState().navigation.navigator.push({
     component: Friends,
-  })
-}
+  });
+};
 
 const groupsNav = () => {
   store.getState().navigation.navigator.push({
@@ -35,7 +35,7 @@ const Social = (props) => {
         rightButton={rightNavButton}
       />
     <View>
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={showFriends}
         style={styles.socialF}
       >
@@ -53,7 +53,7 @@ const Social = (props) => {
 };
 
 Social.propTypes = {
-  swipeRight: React.PropTypes.function,
+  swipeRight: React.PropTypes.func,
 };
 
 module.exports = Social;

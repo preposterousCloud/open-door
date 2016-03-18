@@ -40,8 +40,8 @@ const Feed = (props) => {
 };
 
 Feed.propTypes = {
-  swipeRight: React.PropTypes.function,
-  swipeLeft: React.PropTypes.function,
+  swipeRight: React.PropTypes.func,
+  swipeLeft: React.PropTypes.func,
 };
 
 module.exports = Feed;

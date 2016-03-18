@@ -26,7 +26,7 @@ const Profile = (props) => {
 };
 
 Profile.propTypes = {
-  swipeRight: React.PropTypes.function,
+  swipeRight: React.PropTypes.func,
 };
 
 module.exports = Profile;
