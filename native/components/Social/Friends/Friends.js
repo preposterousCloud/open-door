@@ -7,20 +7,24 @@ import feedStyles from '../../../styles/Feed/feedStyles.js';
 import AddFriends from './AddFriends.js';
 
 const Friends = (props) => {
+  // exit button
   const leftNavButton = {
     title: 'X',
     handler: store.getState().navigation.navigator.pop,
   };
 
+  // navTo(AddFriends)
   const navToAddFriends = () => {
     store.getState().navigation.navigator.push({ component: AddFriends });
   };
 
+  // enterButton(AddFriends)
   const rightNavButton = {
     title: '+',
     handler: navToAddFriends,
   };
 
+  // convertArrayToDatasource
   const convertArrayToDatasource = (array) => {
     array = array || [];
     return (new ListView.DataSource(
@@ -29,6 +33,7 @@ const Friends = (props) => {
     );
   };
 
+  // duplicate
   const arrayToDataSource = (array) => {
     array = array || [];
     return (new ListView.DataSource(
@@ -41,6 +46,7 @@ const Friends = (props) => {
     console.log(`You clicked on ${user.userName}, id:${user.id}`);
   };
 
+  // FriendsListRow = makeClickableRow(logUser);
   const FriendsListRow = (user) => {
     const logThisUser = logUser.bind(null, user);
 
@@ -58,6 +64,7 @@ const Friends = (props) => {
     );
   };
 
+  // Can replace with UserList
   const FriendsList = (props) => (
     <View style={styles.container}>
       <ListView
@@ -75,8 +82,10 @@ const Friends = (props) => {
   const FriendsListContainer = connect(state => {
     return {
       friends: state.user.friends,
+      // list: state.user.friends,
+      // rowComponent: FriendsListRow
     };
-  })(FriendsList);
+  })(FriendsList); // UserList
 
   return (
     <View>

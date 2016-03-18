@@ -8,18 +8,20 @@ import friendsApi from '../../../sharedNative/utils/friends.js';
 import { getAllUsers } from '../../../sharedNative/actions/actions.js';
 
 const AddFriends = (props) => {
-  const something = () => {
-    console.log('form submit!');
-  };
-
+  // exit button
   const leftNavButton = {
     title: 'X',
     handler: store.getState().navigation.navigator.jumpBack,
   };
+  const something = () => {
+    console.log('form submit!');
+  };
+
 
   let userName;
   const updateUserName = newUserName => { userName = newUserName; };
 
+  // convertArrayToDatasource
   const convertArrayToDatasource = (array, prop) => {
     array = array || [];
     if (prop) {
@@ -34,10 +36,8 @@ const AddFriends = (props) => {
 
 
   const getAllUsersArray = () => {
-    console.log('getting all users');
     store.dispatch(getAllUsers())
     .then((allUsers) => {
-      console.log('allUsers:', allUsers);
       return allUsers.map((user) => {
         return {
           id: user.id,
@@ -47,6 +47,7 @@ const AddFriends = (props) => {
     });
   };
 
+  // cancelButton
   const cancelButton = {
     text: 'Cancel',
     onPress: () => console.log('Cancel Pressed'),
@@ -67,6 +68,7 @@ const AddFriends = (props) => {
     alertRequestSent(user);
   };
 
+  // UserListRow(user, addFriend);
   const AddFriendsListRow = (user) => {
     const addThisFriend = addFriend.bind(null, user);
 
@@ -84,6 +86,7 @@ const AddFriends = (props) => {
     );
   };
 
+  // duplicate
   const convertAllUsersToDataSource = (users) => {
     users = users || [];
     return (new ListView.DataSource(
