@@ -37,13 +37,20 @@ const AddFriends = (props) => {
     { id: 4, userName: 'user4' },
   ];
 
+  const cancelButton = {
+    text: 'Cancel',
+    onPress: () => console.log('Cancel Pressed'),
+    style: 'cancel',
+  };
 
   const alertRequestSent = (user) => {
-    Alert.alert(
-      `${user.userName} added to Friends!`,
-      `Their ID: ${user.id}, your ID:${store.getState().user.id}`,
-      ['hey', 'ho']
-    );
+    Alert.alert(`add friend ${user.userName}?`, '', [
+      cancelButton,
+      { text: 'Add',
+        onPress: () => store.dispatch(friendsApi.addFriend(user.id)),
+        style: 'default',
+      },
+    ]);
   };
 
   const addFriend = (user) => {

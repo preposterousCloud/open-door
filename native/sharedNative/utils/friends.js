@@ -6,17 +6,18 @@ import {
   headers,
 } from './helpers.js';
 const config = require('../config/config.js');
+const actions = require('../actions/actions.js');
 
 const addFriend = (toId) => {
   return dispatch => {
     const url = `${config.apiUrl}friends/add`;
     return fetch(url, {
       method: 'POST',
-      body: JSON.stringify({ friend: [store.getState().user.id, toId] }),
+      body: JSON.stringify({ friends: [store.getState().user.id, toId] }),
       headers,
     })
     .then(validateBody)
-    .then(user => dispatch({ type: 'SET_USER', user }))
+    .then(user => dispatch(actions.refreshUser()))
     .catch(catchErr);
   };
 };
