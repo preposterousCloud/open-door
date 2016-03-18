@@ -7,8 +7,6 @@ import feedStyles from '../../../styles/Feed/feedStyles.js';
 import friendsApi from '../../../sharedNative/utils/friends.js';
 import { getAllUsers } from '../../../sharedNative/actions/actions.js';
 
-// import usersApi from '../../sharedNative/utils/users.js';
-
 const AddFriends = (props) => {
   const something = () => {
     console.log('form submit!');
@@ -49,19 +47,39 @@ const AddFriends = (props) => {
     });
   };
 
+  const cancelButton = {
+    text: 'Cancel',
+    onPress: () => console.log('Cancel Pressed'),
+    style: 'cancel',
+  };
+
+  const alertRequestSent = (user) => {
+    Alert.alert(`add friend ${user.userName}?`, '', [
+      cancelButton,
+      { text: 'Add',
+        onPress: () => store.dispatch(friendsApi.addFriend(user.id)),
+        style: 'default',
+      },
+    ]);
+  };
+
+  const addFriend = (user) => {
+    alertRequestSent(user);
+  };
+
   const AddFriendsListRow = (user) => {
     const addThisFriend = addFriend.bind(null, user);
 
     return (
       <View>
-        <View style={styles.listEntryView}>
-          <TouchableOpacity
-            onPress={addThisFriend}
-            style={styles.group}
-          >
-            <Text>{user.userName}</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          onPress={addThisFriend}
+          style={styles.group}
+        >
+          <View style={styles.listEntryView}>
+              <Text>{user.userName}</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -105,26 +123,6 @@ const AddFriends = (props) => {
 
 
   const allUsers = getAllUsersArray();
-
-  const cancelButton = {
-    text: 'Cancel',
-    onPress: () => console.log('Cancel Pressed'),
-    style: 'cancel',
-  };
-
-  const alertRequestSent = (user) => {
-    Alert.alert(`add friend ${user.userName}?`, '', [
-      cancelButton,
-      { text: 'Add',
-        onPress: () => store.dispatch(friendsApi.addFriend(user.id)),
-        style: 'default',
-      },
-    ]);
-  };
-
-  const addFriend = (user) => {
-    alertRequestSent(user);
-  };
 
   return (
     <View>
