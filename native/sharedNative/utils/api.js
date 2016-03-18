@@ -54,6 +54,22 @@ export const fetchAllUsers = () => {
   .catch(catchErr);
 };
 
+export const postGroup = (groupName) => {
+  const url = `${config.apiUrl}friends/groups`;
+  const groupObj = JSON.stringify({
+      groupName,
+      members: "[2,3,4]"
+  });
+  console.log('>>>>>>>>>>>>>>>>>', groupObj)
+  return fetch(url, {
+    method: 'POST',
+    body: groupObj,
+    headers,
+  })
+  .then(validateBody)
+  .catch(catchErr);
+};
+
 export const getUser = (userNameOrId) => {
   // To refactor fully, need to create new thunk action
   // that calls getUser and .then(user => dispatch({ type: 'SET_USER', user }))
