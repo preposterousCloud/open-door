@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - 4.2.4
+before-install:
+  - cp ./server/config.example.js ./server/config.js
+  - cp ./native/sharedNative/config/config.example.js ./native/sharedNative/config/config.js
 install:
   - npm run install:all
 env:
