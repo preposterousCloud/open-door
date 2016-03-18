@@ -5,6 +5,7 @@ import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
 
 import styles from '../../../../styles/Social/socialStyles.js';
 import NavBar from '../../../Shared/NavBar.js';
+import CreateGroupName from './CreateGroupName.js';
 import CreateGroupShowFriendsList from './CreateGroupShowFriendsList.js';
 import { getAllUsers } from '../../../../sharedNative/actions/actions.js';
 
@@ -45,6 +46,7 @@ const CreateGroup = (props) => {
         title={ 'Create Group' }
         leftButton={leftNavButton}
       />
+      <CreateGroupName />
       <CreateGroupShowFriendsListContainer />
     </View>
   );
