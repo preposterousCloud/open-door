@@ -20,12 +20,12 @@ const mapDispatchToState = (dispatch, ownProps) => {
   };
 };
 
-const SetDoorLink = connect(mapPropsToState, mapDispatchToState)(SetDoor);
+const SetDoorContainer = connect(mapPropsToState, mapDispatchToState)(SetDoor);
 
-SetDoorLink.propTypes = {
-  swipeLeft: React.PropTypes.func,
-  user: React.PropTypes.object,
-  onDoorToggle: React.PropTypes.func,
+SetDoorContainer.propTypes = {
+  swipeLeft: React.PropTypes.func.isRequired,
+  user: React.PropTypes.object.isRequired,
+  onDoorToggle: React.PropTypes.func.isRequired,
 };
 
-module.exports = SetDoorLink;
+module.exports = SetDoorContainer;
