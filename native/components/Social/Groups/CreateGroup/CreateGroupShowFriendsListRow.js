@@ -1,13 +1,21 @@
-import React, { Text, View } from 'react-native';
-import styles from '../../../../styles/Feed/feedStyles.js';
+import React, { Text, View, TouchableOpacity } from 'react-native';
+import styles from '../../../../styles/Social/socialStyles.js';
+
+const checkboxTest = (val) => {
+  console.log('Pressed', val)
+}
 
 const CreateGroupShowFriendsListRow = (rowText) => (
-  <View>
-    <View style={styles.listEntryView}>
-      <Text style={styles.group}>
-        {rowText}
-      </Text>
-    </View>
+   <View>
+    <TouchableOpacity
+      onPress={checkboxTest}
+      style={styles.group}
+    >
+      <View style={styles.listEntryView}>
+        <Text>{rowText}</Text>
+        <View style={styles.checkboxEmpty}></View>
+      </View>
+    </TouchableOpacity>
   </View>
 );
 
