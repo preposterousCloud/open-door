@@ -8,13 +8,9 @@ import friendsApi from '../../../sharedNative/utils/friends.js';
 import { getAllUsers } from '../../../sharedNative/actions/actions.js';
 import {
   exitButton,
-  navTo,
-  enterButton,
-  arrayToDataSource,
   cancelButton,
   makeClickableRow,
   UserList,
-  makeListContainer,
 } from '../../Shared/Misc.js';
 
 const AddFriends = (props) => {

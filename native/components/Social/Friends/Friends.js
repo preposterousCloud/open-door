@@ -7,12 +7,8 @@ import feedStyles from '../../../styles/Feed/feedStyles.js';
 import AddFriends from './AddFriends.js';
 import {
   exitButton,
-  navTo,
   enterButton,
-  arrayToDataSource,
-  cancelButton,
   makeClickableRow,
-  UserList,
   makeListContainer,
 } from '../../Shared/Misc.js';
 
