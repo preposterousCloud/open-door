@@ -42,8 +42,8 @@ const cancelButton = {
 };
 
 const makeClickableRow = (action) => {
-  return (user) => {
-    const actionAppliedToUser = action.bind(null, user);
+  return (rowData) => {
+    const actionAppliedToUser = action.bind(null, rowData);
     return (
       <View>
         <TouchableOpacity
@@ -51,7 +51,7 @@ const makeClickableRow = (action) => {
           style={socialStyles.group}
         >
           <View style={socialStyles.listEntryView}>
-            <Text>{user.userName}</Text>
+            <Text>{rowData.userName || rowData.name}</Text>
           </View>
         </TouchableOpacity>
       </View>
