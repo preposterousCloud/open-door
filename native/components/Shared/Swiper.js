@@ -35,10 +35,10 @@ class SwiperBase extends React.Component {
   }
 
   _onMomentumScrollEnd(e, state) {
-    console.log('scrolled');
+    store.dispatch(actions.setSwiperIndex(state.index));
   }
-  
-  render() {
+
+  render(props) {
     const FeedContainer = connect(state => {
       return {
         events: state.user.Events,
@@ -61,8 +61,8 @@ class SwiperBase extends React.Component {
         showsButtons={false}
         loop={false}
         showsPagination={false}
-        index={1}
-        onMomentumScrollEnd ={this._onMomentumScrollEndMomentumScrollEnd}
+        index={ this.props.app.swiperIndex }
+        onMomentumScrollEnd ={this._onMomentumScrollEnd}
       >
         <SocialContainer />
         <FeedContainer />

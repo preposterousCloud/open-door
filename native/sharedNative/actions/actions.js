@@ -49,7 +49,21 @@ export function liveUpdateGroupName(name) {
   return {
     type: a.SET_GROUPNAME_INPUT_DISP,
     groupName: name,
-  }
+  };
+}
+
+export function updatePendingEvent(obj) {
+  return {
+    type: a.UPDATE_PENDING_EVENT,
+    data: obj,
+  };
+}
+
+export function setSwiperIndex(index) {
+  return {
+    type: a.SET_SWIPER_INDEX,
+    data: index,
+  };
 }
 
 /** *****************************************************
@@ -116,14 +130,17 @@ export function toggleEvent(event) {
         dispatch(setActiveEvent(null));
         dispatch(refreshUser());
       });
+    } else if (getState().app.pendingEvent) {
+      dispatch(updatePendingEvent(null));
     } else {
-      return postEvent(event)
-      .then((event) => {
-        dispatch(setActiveEvent(event));
-        dispatch(setLoading(false));
-        dispatch(refreshUser());
-        return event;
-      });
+      return dispatch(updatePendingEvent(null));
+      // postEvent(event))
+      // .then((event) => {
+      //   dispatch(setActiveEvent(event));
+      //   dispatch(setLoading(false));
+      //   dispatch(refreshUser());
+      //   return event;
+      // });
     }
   };
 }

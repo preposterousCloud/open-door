@@ -5,11 +5,12 @@ import React, {
   } from 'react-native';
 
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+import actions from '../../sharedNative/actions/actions';
 
 import styles from '../../styles/Door/doorStyles.js';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
-import EventSettingsContainer from './EventSettingsContainer';
+import EventSettings from './EventSettings';
 import OpenDoor from './OpenDoor';
 import ClosedDoor from './ClosedDoor';
 
@@ -29,24 +30,33 @@ const SetDoor = class SetDoor extends React.Component {
       component: Profile,
     });
   }
+  createEvent() {
+    store.getState().navigation.navigator.push({
+      component: Profile,
+    });
+  }
   render() {
     return (
-      <View style={styles.container}>
+      <View>
         <NavBar
           title={ 'My Door' }
           leftButton={ { title: '<', handler: this.props.swipeLeft } }
+          rightButton={ { title: 'Settings', handler: this.goToSettings }}
         />
-        <TouchableOpacity onPress={this.toggleDoor}>
-          {(() => this.props.user.currentEvent ?
-            <OpenDoor styles={{ size: 100, color: 'green' }} /> :
-            <ClosedDoor styles={{ size: 100, color: 'red' }} />
-          )()}
-        </TouchableOpacity>
-        <EventSettingsContainer />
-        <View style={styles.footer}>
-          <TouchableOpacity style={styles.pullRight} onPress={this.goToSettings}>
-          <Text>Settings</Text>
+        <View style={styles.container}>
+          <TouchableOpacity onPress={this.toggleDoor}>
+            {(() => (this.props.user.currentEvent || this.props.app.pendingEvent) ?
+              <OpenDoor styles={{ size: 100, color: 'green' }} /> :
+              <ClosedDoor styles={{ size: 100, color: 'red' }} />
+            )()}
           </TouchableOpacity>
+          {
+            this.props.app.pendingEvent ?
+            <EventSettings event={this.props.app.pendingEvent} onChange={this.props.onEventSettingsChange}
+              onSubmit={this.createEvent}
+            /> :
+            <Text />
+          }
         </View>
       </View>
    );
@@ -54,8 +64,10 @@ const SetDoor = class SetDoor extends React.Component {
 };
 
 SetDoor.propTypes = {
-  swipeLeft: React.PropTypes.func,
-  user: React.PropTypes.object,
-  onDoorToggle: React.PropTypes.func,
+  swipeLeft: React.PropTypes.func.isRequired,
+  user: React.PropTypes.object.isRequired,
+  onDoorToggle: React.PropTypes.func.isRequired,
+  app: React.PropTypes.object.isRequired,
+  onEventSettingsChange: React.PropTypes.func.isRequired,
 };
 module.exports = SetDoor;

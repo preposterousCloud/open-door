@@ -9,6 +9,7 @@ const mapPropsToState = (state, ownProps) => {
   return {
     user: state.user,
     swipeLeft: ownProps.swipeLeft,
+    app: state.app,
   };
 };
 
@@ -17,15 +18,14 @@ const mapDispatchToState = (dispatch, ownProps) => {
     onDoorToggle: (event) => {
       dispatch(actions.toggleEvent(event));
     },
+    onEventSettingsChange: (eventProp, value) => {
+      const obj = {};
+      obj[eventProp] = value;
+      dispatch(actions.updatePendingEvent(obj));
+    },
   };
 };
 
 const SetDoorContainer = connect(mapPropsToState, mapDispatchToState)(SetDoor);
-
-SetDoorContainer.propTypes = {
-  swipeLeft: React.PropTypes.func.isRequired,
-  user: React.PropTypes.object.isRequired,
-  onDoorToggle: React.PropTypes.func.isRequired,
-};
 
 module.exports = SetDoorContainer;
