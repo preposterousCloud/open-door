@@ -21,9 +21,7 @@ const Friends = (props) => {
     console.log(`You clicked on ${user.userName}, id:${user.id}`);
   };
 
-  const FriendsListRow = makeClickableRow(logUser);
-
-  const FriendsListContainer = makeListContainer(FriendsListRow, ['user', 'friends']);
+  const FriendsListContainer = makeListContainer(makeClickableRow(logUser), ['user', 'friends']);
 
   return (
     <View>
