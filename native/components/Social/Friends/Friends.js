@@ -1,32 +1,32 @@
-import React, { View, Text, TouchableOpacity } from 'react-native';
+import React, { View, Text, TouchableOpacity, ListView } from 'react-native';
+import { connect } from 'react-redux';
 import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
 import styles from '../../../styles/Social/socialStyles.js';
+import feedStyles from '../../../styles/Feed/feedStyles.js';
 import AddFriends from './AddFriends.js';
+import {
+  exitButton,
+  enterButton,
+  makeClickableRow,
+  makeListContainer,
+} from '../../Shared/Misc.js';
 
 const Friends = (props) => {
-  const leftNavButton = {
-    title: 'X',
-    handler: store.getState().navigation.navigator.pop,
+  const logUser = (user) => {
+    console.log(`You clicked on ${user.userName}, id:${user.id}`);
   };
 
-  const navToAddFriends = () => {
-    store.getState().navigation.navigator.push({ component: AddFriends });
-  };
-
-  const rightNavButton = {
-    title: '+',
-    handler: navToAddFriends,
-  };
+  const FriendsListContainer = makeListContainer(makeClickableRow(logUser), ['user', 'friends']);
 
   return (
     <View>
       <NavBar
         title={ 'Friends' }
-        leftButton={leftNavButton}
-        rightButton={rightNavButton}
+        leftButton={exitButton}
+        rightButton={enterButton(AddFriends)}
       />
-      <Text>Friends List Here</Text>
+      <FriendsListContainer />
     </View>
   );
 };

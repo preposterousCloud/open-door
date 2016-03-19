@@ -1,41 +1,26 @@
 import React, { View, Text, TouchableOpacity, TextInput, ListView, Alert } from 'react-native';
+import { connect } from 'react-redux';
 import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
 import styles from '../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../styles/Feed/feedStyles.js';
 import friendsApi from '../../../sharedNative/utils/friends.js';
-// import usersApi from '../../sharedNative/utils/users.js';
+import { getAllUsers } from '../../../sharedNative/actions/actions.js';
+import {
+  exitButton,
+  cancelButton,
+  makeClickableRow,
+  UserList,
+} from '../../Shared/Misc.js';
 
 const AddFriends = (props) => {
+  // Begin TextInput methods
   const something = () => {
     console.log('form submit!');
   };
 
-  const leftNavButton = {
-    title: 'X',
-    handler: store.getState().navigation.navigator.pop,
-  };
-
   let userName;
   const updateUserName = newUserName => { userName = newUserName; };
-
-  const convertArrayToDatasource = (array, prop) => {
-    array = array || [];
-    if (prop) {
-      array = array.map(item => item[prop]);
-    }
-
-    return (new ListView.DataSource(
-        { rowHasChanged: (row1, row2) => row1 !== row2 }
-      ).cloneWithRows(array)
-    );
-  };
-
-  const allUsers = [
-    { id: 2, userName: 'user2' },
-    { id: 3, userName: 'user3' },
-    { id: 4, userName: 'user4' },
-  ];
 
   const cancelButton = {
     text: 'Cancel',
@@ -52,26 +37,38 @@ const AddFriends = (props) => {
       },
     ]);
   };
+  // End TextInput methods
 
-  const addFriend = (user) => {
-    alertRequestSent(user);
+  const getAllUsersArray = () => {
+    store.dispatch(getAllUsers())
+    .then((allUsers) => {
+      return allUsers.map((user) => {
+        return {
+          id: user.id,
+          userName: user.userName,
+        };
+      });
+    });
   };
+  const allUsers = getAllUsersArray();
 
-  const UserRow = (rowData) => {
-    const addThisFriend = addFriend.bind(null, rowData);
-
-    return (
-      <TouchableOpacity onPress={addThisFriend}>
-        <Text>{rowData.userName}</Text>
-      </TouchableOpacity>
-    );
-  };
+  const AddFriendsListContainer = connect(state => {
+    const filterIds = state.user.friends ?
+      state.user.friends.map(friend => friend.id).concat(state.user.id) : [];
+    const targetUsers = state.allUsers.filter(targetUser => (filterIds.indexOf(targetUser.id) < 0));
+    return {
+      listComponent: UserList,
+      rowComponent: makeClickableRow(alertRequestSent),
+      listData: targetUsers,
+      user: state.user,
+    };
+  })(UserList);
 
   return (
     <View>
       <NavBar
         title={ 'Add Friend' }
-        leftButton={leftNavButton}
+        leftButton={exitButton}
       />
       <TextInput
         autoCapitalize={'none'}
@@ -84,11 +81,7 @@ const AddFriends = (props) => {
         onChangeText={updateUserName}
         onSubmitEditing={something}
       />
-      <ListView
-        dataSource={convertArrayToDatasource(allUsers)}
-        renderRow={UserRow}
-        style={feedStyles.listView}
-      />
+      <AddFriendsListContainer />
     </View>
   );
 };

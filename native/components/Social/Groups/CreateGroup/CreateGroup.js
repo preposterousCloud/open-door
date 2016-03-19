@@ -12,7 +12,6 @@ import { getAllUsers } from '../../../../sharedNative/actions/actions.js';
 const allUsers = () => {
   store.dispatch(getAllUsers())
   .then((allUsers) => {
-    console.log('allUsers', allUsers)
     return allUsers.map((user) => {
       return {
         id: user.id,
@@ -28,7 +27,6 @@ const cancelNewGroup = () => {
 
 const CreateGroup = (props) => {
   allUsers();
-  console.log('INSIDE CREATE GROUP', props)
   const leftNavButton = {
     title: 'X',
     handler: cancelNewGroup,

@@ -1,5 +1,5 @@
 const a = require('../ActionTypes');
-import { postEvent, closeEvent, fetchAllUsers, getUser, postUser } from '../utils/api';
+import { postEvent, closeEvent, fetchAllUsers, postGroup, getUser, postUser } from '../utils/api';
 
 const catchErr = (err) => {
   console.log(err);
@@ -102,6 +102,20 @@ export function getAllUsers() {
         console.log('Fetching ALL the Users');
         dispatch(setAllUsers(users));
         return users;
+      }
+      return false;
+    });
+  };
+}
+
+export function storeGroup(groupName) {
+  return dispatch => {
+    return postGroup(groupName)
+    .then(user => {
+      if (user) {
+        console.log(`${groupName} created!`);
+        dispatch(refreshUser());
+        return true;
       }
       return false;
     });

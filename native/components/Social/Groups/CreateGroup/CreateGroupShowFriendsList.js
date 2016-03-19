@@ -12,7 +12,6 @@ import styles from '../../../../styles/Social/socialStyles.js';
 import CreateGroupShowFriendsListRow from './CreateGroupShowFriendsListRow.js';
 
 const convertAllUsersToDataSource = (users) => {
-  console.log('CGSFL', users)
   users = users || [];
   return (new ListView.DataSource(
       { rowHasChanged: (row1, row2) => row1 !== row2 }
@@ -21,7 +20,6 @@ const convertAllUsersToDataSource = (users) => {
 };
 
 const CreateGroupShowFriendsList = (props) => {
-  console.log('PROPS', props)
   return (
     <View style={styles.container}>
       <ListView
