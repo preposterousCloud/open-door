@@ -48,7 +48,11 @@ describe('Data Integration Tests', () => {
   });
 
   it('Should set pendingEvent when Begin creating event is dispatched', () => {
-    store.dispatch(actions.beginCreatingEvent());
+    store.dispatch(actions.updatePendingEvent({ name: 'Hacking' }));
     expect(store.getState().app.pendingEvent.name).toBeTruthy();
+    
+    store.dispatch(actions.updatePendingEvent(null));
+    expect(store.getState().app.pendingEvent).toBeFalsy();
+    
   });
 });
