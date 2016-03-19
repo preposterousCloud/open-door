@@ -1,10 +1,11 @@
-import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
+import { connect } from 'react-redux';
+import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, { View, Text, TouchableOpacity, TextInput, ListView, Alert } from 'react-native';
-import styles from '../../../styles/Social/socialStyles.js'; // fix this path
+import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
 
 const exitButton = {
   title: 'X',
-  handler: store.getState().navigation.navigator.jumpBack,
+  handler: () => { store.getState().navigation.navigator.pop(); },
 };
 
 const navTo = (component) => {
@@ -16,7 +17,7 @@ const enterButton = (component) => ({
   handler: navTo.bind(null, component),
 });
 
-const convertArrayToDatasource = (array = []) => {
+const arrayToDataSource = (array = []) => {
   return (new ListView.DataSource(
       { rowHasChanged: (row1, row2) => row1 !== row2 }
     ).cloneWithRows(array)
@@ -36,9 +37,9 @@ const makeClickableRow = (action) => {
       <View>
         <TouchableOpacity
           onPress={actionAppliedToUser}
-          style={styles.group}
+          style={socialStyles.group}
         >
-          <View style={styles.listEntryView}>
+          <View style={socialStyles.listEntryView}>
             <Text>{user.userName}</Text>
           </View>
         </TouchableOpacity>
@@ -48,26 +49,37 @@ const makeClickableRow = (action) => {
 };
 
 const UserList = (props) => (
-  <View style={styles.container}>
+  <View style={socialStyles.container}>
     <ListView
-      dataSource={convertArrayToDatasource(props.list)}
+      dataSource={arrayToDataSource(props.listData)}
       renderRow={props.rowComponent}
-      style={styles.listView}
+      style={socialStyles.listView}
     />
   </View>
 );
 
 UserList.propTypes = {
-  list: React.PropTypes.array,
+  listData: React.PropTypes.array,
   rowComponent: React.PropTypes.element,
+};
+
+const getPropFrom = (obj, propArr) => (propArr.reduce((subObj, prop) => subObj[prop], obj));
+
+const makeListContainer = (rowComponent, listDataPath = [], listComponent = UserList) => {
+  return connect(state => ({
+    listComponent,
+    rowComponent,
+    listData: listDataPath.reduce((subState, prop) => subState[prop], state),
+  }))(listComponent);
 };
 
 module.exports = {
   exitButton,
   navTo,
   enterButton,
-  convertArrayToDatasource,
+  arrayToDataSource,
   cancelButton,
   makeClickableRow,
   UserList,
+  makeListContainer,
 };
