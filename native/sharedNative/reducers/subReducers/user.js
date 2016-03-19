@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 
 function user(state = {}, action) {
-  console.log('action', action);
   switch (action.type) {
     case 'SET_USER':
       return action.user || state;
@@ -13,7 +12,6 @@ function user(state = {}, action) {
 }
 
 function allUsers(state = [], action) {
-  console.log('action', action);
   switch (action.type) {
     case 'SET_ALL_USERS': {
       return action.allUsers || state;
