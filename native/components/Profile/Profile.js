@@ -6,7 +6,7 @@ import NavBar from '../Shared/NavBar.js';
 import React, { View, Text } from 'react-native';
 
 const closeProfileSettings = () => {
-  store.getState().navigation.navigator.jumpBack();
+  store.getState().navigation.navigator.pop();
 };
 
 const Profile = (props) => {

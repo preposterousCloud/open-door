@@ -7,7 +7,7 @@ import AddFriends from './AddFriends.js';
 const Friends = (props) => {
   const leftNavButton = {
     title: 'X',
-    handler: store.getState().navigation.navigator.jumpBack,
+    handler: store.getState().navigation.navigator.pop,
   };
 
   const navToAddFriends = () => {

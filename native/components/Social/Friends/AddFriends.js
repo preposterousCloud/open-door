@@ -13,7 +13,7 @@ const AddFriends = (props) => {
 
   const leftNavButton = {
     title: 'X',
-    handler: store.getState().navigation.navigator.jumpBack,
+    handler: store.getState().navigation.navigator.pop,
   };
 
   let userName;

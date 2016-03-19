@@ -9,7 +9,7 @@ import CreateGroup from './CreateGroup/CreateGroup.js';
 import GroupsList from './GroupsList.js';
 
 const closeGroups = () => {
-  store.getState().navigation.navigator.jumpBack();
+  store.getState().navigation.navigator.pop();
 };
 
 const addGroup = () => {
@@ -34,8 +34,8 @@ const Groups = (props) => {
   CreateGroupContainer = connect(state => {
     return {
       groupName: state.groupName,
-    }
-  })(CreateGroup)
+    };
+  })(CreateGroup);
 
   const GroupsListContainer = connect(state => {
     return {
