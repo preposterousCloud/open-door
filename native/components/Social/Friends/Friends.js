@@ -5,94 +5,32 @@ import NavBar from '../../Shared/NavBar.js';
 import styles from '../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../styles/Feed/feedStyles.js';
 import AddFriends from './AddFriends.js';
+import {
+  exitButton,
+  navTo,
+  enterButton,
+  arrayToDataSource,
+  cancelButton,
+  makeClickableRow,
+  UserList,
+  makeListContainer,
+} from '../../Shared/Misc.js';
 
 const Friends = (props) => {
-  // exit button
-  const leftNavButton = {
-    title: 'X',
-    handler: store.getState().navigation.navigator.pop,
-  };
-
-  // navTo(AddFriends)
-  const navToAddFriends = () => {
-    store.getState().navigation.navigator.push({ component: AddFriends });
-  };
-
-  // enterButton(AddFriends)
-  const rightNavButton = {
-    title: '+',
-    handler: navToAddFriends,
-  };
-
-  // convertArrayToDatasource
-  const convertArrayToDatasource = (array) => {
-    array = array || [];
-    return (new ListView.DataSource(
-        { rowHasChanged: (row1, row2) => row1 !== row2 }
-      ).cloneWithRows(array)
-    );
-  };
-
-  // duplicate
-  const arrayToDataSource = (array) => {
-    array = array || [];
-    return (new ListView.DataSource(
-        { rowHasChanged: (row1, row2) => row1 !== row2 }
-      ).cloneWithRows(array)
-    );
-  };
-
   const logUser = (user) => {
     console.log(`You clicked on ${user.userName}, id:${user.id}`);
   };
 
-  // FriendsListRow = makeClickableRow(logUser);
-  const FriendsListRow = (user) => {
-    const logThisUser = logUser.bind(null, user);
+  const FriendsListRow = makeClickableRow(logUser);
 
-    return (
-      <View>
-        <TouchableOpacity
-          onPress={logThisUser}
-          style={styles.group}
-        >
-          <View style={styles.listEntryView}>
-            <Text>{user.userName}</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
-  // Can replace with UserList
-  const FriendsList = (props) => (
-    <View style={styles.container}>
-      <ListView
-        dataSource={arrayToDataSource(props.friends)}
-        renderRow={FriendsListRow}
-        style={styles.listView}
-      />
-    </View>
-  );
-
-  FriendsList.propTypes = {
-    friends: React.PropTypes.array,
-  };
-
-  const FriendsListContainer = connect(state => {
-    return {
-      friends: state.user.friends,
-      // list: state.user.friends,
-      // rowComponent: FriendsListRow
-    };
-  })(FriendsList); // UserList
+  const FriendsListContainer = makeListContainer(FriendsListRow, ['user', 'friends']);
 
   return (
     <View>
       <NavBar
         title={ 'Friends' }
-        leftButton={leftNavButton}
-        rightButton={rightNavButton}
+        leftButton={exitButton}
+        rightButton={enterButton(AddFriends)}
       />
       <FriendsListContainer />
     </View>
