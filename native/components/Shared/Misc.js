@@ -61,6 +61,7 @@ const UserList = (props) => (
 UserList.propTypes = {
   listData: React.PropTypes.array,
   rowComponent: React.PropTypes.element,
+  user: React.PropTypes.object,
 };
 
 const getPropFrom = (obj, propArr) => (propArr.reduce((subObj, prop) => subObj[prop], obj));
@@ -70,6 +71,7 @@ const makeListContainer = (rowComponent, listDataPath = [], listComponent = User
     listComponent,
     rowComponent,
     listData: listDataPath.reduce((subState, prop) => subState[prop], state),
+    user: state.user,
   }))(listComponent);
 };
 
