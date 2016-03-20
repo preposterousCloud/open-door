@@ -20,13 +20,13 @@ const exitButton = {
   handler: () => { store.getState().navigation.navigator.pop(); },
 };
 
-const navTo = (component) => {
-  store.getState().navigation.navigator.push({ component });
+const navTo = (component, focus) => {
+  store.getState().navigation.navigator.push({ component, focus });
 };
 
-const enterButton = (component) => ({
+const enterButton = (component, focus) => ({
   title: '+',
-  handler: navTo.bind(null, component),
+  handler: navTo.bind(null, component, focus),
 });
 
 const arrayToDataSource = (array = []) => {
@@ -42,7 +42,7 @@ const cancelButton = {
   style: 'cancel',
 };
 
-const makeClickableRow = (action) => {
+const makeClickableRow = (action, text) => {
   return (rowData) => {
     const actionAppliedToUser = action.bind(null, rowData);
     return (
@@ -52,7 +52,7 @@ const makeClickableRow = (action) => {
           style={socialStyles.group}
         >
           <View style={socialStyles.listEntryView}>
-            <Text>{rowData.userName || rowData.name}</Text>
+            <Text>{rowData.userName || rowData[text]}</Text>
           </View>
         </TouchableOpacity>
       </View>
