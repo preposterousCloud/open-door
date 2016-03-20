@@ -23,6 +23,10 @@ const mapDispatchToState = (dispatch, ownProps) => {
       obj[eventProp] = value;
       dispatch(actions.updatePendingEvent(obj));
     },
+    // NOTE: eventObj is an open-door "Event" not a computer event (eg. mouse click)
+    onEventSubmit: (eventObj) => {
+      dispatch(actions.createEvent(eventObj));
+    },
   };
 };
 

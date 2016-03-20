@@ -18,23 +18,22 @@ const SetDoor = class SetDoor extends React.Component {
   constructor(props) {
     super(props);
     this.toggleDoor = this.toggleDoor.bind(this);
+    this.postEvent = this.postEvent.bind(this);
   }
   toggleDoor() {
-    // We blindly send the event object. in the scenario we are disabling the current event
-    // it wont be used
-    const dummyEvent = { name: 'Party', hostUserId: this.props.user.id };
-    this.props.onDoorToggle(dummyEvent);
+    this.props.onDoorToggle();
+  }
+  postEvent() {
+    const eventToCreate = this.props.app.pendingEvent;
+    eventToCreate.hostUserId = this.props.user.id;
+    this.props.onEventSubmit(eventToCreate);
   }
   goToSettings() {
     store.getState().navigation.navigator.push({
       component: Profile,
     });
   }
-  createEvent() {
-    store.getState().navigation.navigator.push({
-      component: Profile,
-    });
-  }
+
   render() {
     return (
       <View>
@@ -52,8 +51,9 @@ const SetDoor = class SetDoor extends React.Component {
           </TouchableOpacity>
           {
             this.props.app.pendingEvent ?
-            <EventSettings event={this.props.app.pendingEvent} onChange={this.props.onEventSettingsChange}
-              onSubmit={this.createEvent}
+            <EventSettings event={this.props.app.pendingEvent}
+              onChange={this.props.onEventSettingsChange}
+              onSubmit={ this.postEvent }
             /> :
             <Text />
           }
@@ -69,5 +69,6 @@ SetDoor.propTypes = {
   onDoorToggle: React.PropTypes.func.isRequired,
   app: React.PropTypes.object.isRequired,
   onEventSettingsChange: React.PropTypes.func.isRequired,
+  onEventSubmit: React.PropTypes.func.isRequired,
 };
 module.exports = SetDoor;
