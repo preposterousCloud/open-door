@@ -1,4 +1,4 @@
-import React, { View, TextInput, Text } from 'react-native';
+import React, { TextInput, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 const EventSettings = (props) => (
@@ -7,18 +7,24 @@ const EventSettings = (props) => (
       style={ styles.textBox }
       onChangeText={(text) => props.onChange('name', text)}
       value={props.event.name}
+      placeholder={'Event Name (optional)'}
     />
     <TextInput
       style={ styles.textBox }
       onChangeText={(text) => props.onChange('desc', text)}
       value={props.event.desc}
+      placeholder={'Description (optional)'}
     />
+    <TouchableOpacity onPress={ props.onSubmit }>
+      <Text> Confirm </Text>
+    </TouchableOpacity>
   </View>
 );
 
 EventSettings.propTypes = {
   event: React.PropTypes.object.isRequired,
   onChange: React.PropTypes.func.isRequired,
+  onSubmit: React.PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -27,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   textBox: { 
-    width: 250,
+    width: 275,
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
