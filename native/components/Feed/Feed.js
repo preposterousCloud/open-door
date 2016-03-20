@@ -15,6 +15,12 @@ import FeedList from './FeedList.js';
 import NavBar from '../Shared/NavBar.js';
 import SetDoor from '../Door/SetDoor.js';
 import Social from '../Social/Social.js';
+import {
+  exitButton,
+  enterButton,
+  makeClickableRow,
+  makeListContainer,
+} from '../Shared/Misc.js';
 
 const Feed = (props) => {
   const rightNavButton = {
@@ -42,6 +48,8 @@ const Feed = (props) => {
 Feed.propTypes = {
   swipeRight: React.PropTypes.func,
   swipeLeft: React.PropTypes.func,
+  userName: React.PropTypes.string,
+  events: React.PropTypes.array,
 };
 
 module.exports = Feed;
