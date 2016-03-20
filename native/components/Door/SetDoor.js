@@ -14,6 +14,8 @@ import EventSettings from './EventSettings';
 import OpenDoor from './OpenDoor';
 import ClosedDoor from './ClosedDoor';
 
+const LoadingWheel = require('../Shared/Misc').LoadingWheel;
+
 const SetDoor = class SetDoor extends React.Component {
   constructor(props) {
     super(props);
@@ -49,6 +51,7 @@ const SetDoor = class SetDoor extends React.Component {
               <ClosedDoor styles={{ size: 100, color: 'red' }} />
             )()}
           </TouchableOpacity>
+          <LoadingWheel isLoading={ this.props.app.isLoading } />
           {
             this.props.app.pendingEvent ?
             <EventSettings event={this.props.app.pendingEvent}

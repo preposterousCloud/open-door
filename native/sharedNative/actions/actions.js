@@ -151,7 +151,22 @@ export function toggleEvent() {
         dispatch(refreshUser());
       });
     } else if (getState().app.pendingEvent) {
-      dispatch(updatePendingEvent(null));
+      dispatch(setLoading(true));
+      
+      // We setup the event to include additional data, not sure where this should go.
+      const newEvent = getState().app.pendingEvent;
+      newEvent.hostUserId = getState().user.id;
+      postEvent(newEvent)
+      .then(event => {
+        dispatch(setLoading(false));
+        dispatch(updatePendingEvent(null));
+        dispatch(setActiveEvent(event));
+        dispatch(refreshUser());
+      })
+      .catch(err => {
+        dispatch(setLoading(false));
+        // We could set an error state here
+      });
     } else {
       return dispatch(updatePendingEvent({}));
     }
