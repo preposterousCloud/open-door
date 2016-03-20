@@ -5,10 +5,29 @@ import navigation from './subReducers/navigation.js';
 import { user, allUsers } from './subReducers/user.js';
 const actions = require('../ActionTypes');
 
-const app = (state = { isLoading: false }, action) => {
+const defaultState = {
+  isLoading: false,
+  pendingEvent: null,
+  swiperIndex: 1,
+};
+
+const app = (state = defaultState, action) => {
+  console.log('action=', action, 'state=', state);
+
   switch (action.type) {
     case actions.TOGGLE_LOADING:
       return Object.assign({}, state, { isLoading: action.data });
+
+    case actions.UPDATE_PENDING_EVENT: {
+      const pendingEvent = (action.data === null) ? null :
+        Object.assign({}, state.pendingEvent, action.data);
+      return Object.assign({}, state, { pendingEvent: pendingEvent });
+    }
+
+    case actions.SET_SWIPER_INDEX: {
+      return Object.assign({}, state, { swiperIndex: action.data });
+    }
+
     default:
       return state;
   }

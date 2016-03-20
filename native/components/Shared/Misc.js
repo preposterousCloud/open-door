@@ -1,7 +1,18 @@
 import { connect } from 'react-redux';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import React, { View, Text, TouchableOpacity, TextInput, ListView, Alert } from 'react-native';
+import React,
+  { Alert, Image, ListView, StyleSheet, Text, TouchableOpacity, TextInput, View }
+  from 'react-native';
+
 import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
+const defaultStyles = StyleSheet.create({ image: { height: 40, width: 40 } });
+
+const LoadingWheel = (props) => {
+  const style = props.style || defaultStyles.image;
+  return props.isLoading ? 
+    <Image style={ props.style } source={require('../../sharedNative/images/loading.gif')} /> :
+    <View />
+};
 
 const exitButton = {
   title: 'X',
@@ -84,4 +95,5 @@ module.exports = {
   makeClickableRow,
   UserList,
   makeListContainer,
+  LoadingWheel,
 };

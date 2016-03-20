@@ -24,13 +24,6 @@ export function setActiveEvent(event) {
   };
 }
 
-export function createEvent(event) {
-  return {
-    type: a.CREATE_EVENT,
-    data: event,
-  };
-}
-
 export function setAllUsers(allUsers) {
   return {
     type: a.SET_ALL_USERS,
@@ -49,7 +42,21 @@ export function liveUpdateGroupName(name) {
   return {
     type: a.SET_GROUPNAME_INPUT_DISP,
     groupName: name,
-  }
+  };
+}
+
+export function updatePendingEvent(obj) {
+  return {
+    type: a.UPDATE_PENDING_EVENT,
+    data: obj,
+  };
+}
+
+export function setSwiperIndex(index) {
+  return {
+    type: a.SET_SWIPER_INDEX,
+    data: index,
+  };
 }
 
 /** *****************************************************
@@ -120,24 +127,34 @@ export function refreshUser() {
   };
 }
 
-export function toggleEvent(event) {
+export function createEvent(event) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));
+    postEvent(event)
+    .then((event) => {
+      dispatch(setActiveEvent(event));
+      dispatch(updatePendingEvent(null));
+      dispatch(setLoading(false));
+      dispatch(refreshUser());
+      return event;
+    });
+  };
+}
+
+export function toggleEvent() {
+  return (dispatch, getState) => {
     if (getState().user.currentEvent) {
+      dispatch(setLoading(true));
       closeEvent(getState().user.currentEvent)
       .then((event) => {
         dispatch(setLoading(false));
         dispatch(setActiveEvent(null));
         dispatch(refreshUser());
       });
+    } else if (getState().app.pendingEvent) {
+      return dispatch(updatePendingEvent(null));
     } else {
-      return postEvent(event)
-      .then((event) => {
-        dispatch(setActiveEvent(event));
-        dispatch(setLoading(false));
-        dispatch(refreshUser());
-        return event;
-      });
+      return dispatch(updatePendingEvent({}));
     }
   };
 }

@@ -22,7 +22,7 @@ const allUsers = () => {
 }
 
 const cancelNewGroup = () => {
-  store.getState().navigation.navigator.jumpBack();
+  store.getState().navigation.navigator.pop();
 };
 
 const CreateGroup = (props) => {

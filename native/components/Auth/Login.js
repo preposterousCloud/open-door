@@ -5,14 +5,21 @@ import React, {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import Swiper from '../Shared/Swiper.js';
 import styles from '../../styles/Auth/authStyles.js';
 import { attemptLogin, createUser } from '../../sharedNative/actions/actions.js';
 
+const SwiperContainer = connect((state) => {
+  return {
+    app: state.app,
+  };
+})(Swiper);
+
 const advanceToSwiper = () => (store.getState()
-  .navigation.navigator.push({ component: Swiper })
+  .navigation.navigator.push({ component: SwiperContainer })
 );
 
 const cancelButton = {

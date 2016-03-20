@@ -10,10 +10,12 @@ import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
 import { connect } from 'react-redux';
 
+const actions = require('../../sharedNative/actions/actions');
+
 import styles from '../../styles/Feed/feedStyles.js';
 import Feed from '../Feed/Feed.js';
 import Social from '../Social/Social.js';
-import SetDoor from '../Door/SetDoor.js';
+import SetDoorContainer from '../Door/SetDoorContainer';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 
 class SwiperBase extends React.Component {
@@ -33,17 +35,10 @@ class SwiperBase extends React.Component {
   }
 
   _onMomentumScrollEnd(e, state) {
-    console.log('scrolled');
+    store.dispatch(actions.setSwiperIndex(state.index));
   }
 
-  render() {
-    const DoorContainer = connect(state => {
-      return {
-        user: state.user,
-        swipeLeft: this.swipeLeft,
-      };
-    })(SetDoor);
-
+  render(props) {
     const FeedContainer = connect(state => {
       return {
         events: state.user.Events,
@@ -66,12 +61,12 @@ class SwiperBase extends React.Component {
         showsButtons={false}
         loop={false}
         showsPagination={false}
-        index={1}
-        onMomentumScrollEnd ={this._onMomentumScrollEndMomentumScrollEnd}
+        index={ this.props.app.swiperIndex }
+        onMomentumScrollEnd ={this._onMomentumScrollEnd}
       >
         <SocialContainer />
         <FeedContainer />
-        <DoorContainer />
+        <SetDoorContainer swipeLeft={this.swipeLeft} />
       </Swiper>
    );
   }

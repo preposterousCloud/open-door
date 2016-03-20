@@ -11,7 +11,6 @@ import NavBar from '../Shared/NavBar.js';
 import Groups from './Groups/Groups.js';
 import Friends from './Friends/Friends.js';
 
-
 const groupsNav = () => {
   store.getState().navigation.navigator.push({
     component: Groups,
@@ -38,7 +37,7 @@ const Social = (props) => {
         rightButton={rightNavButton}
       />
     <View>
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={showFriends}
         style={styles.socialF}
       >
@@ -56,7 +55,7 @@ const Social = (props) => {
 };
 
 Social.propTypes = {
-  swipeRight: React.PropTypes.function,
+  swipeRight: React.PropTypes.func,
 };
 
 module.exports = Social;

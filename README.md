@@ -11,7 +11,7 @@ Requirements:
 - npm [install here](http://blog.npmjs.org/post/85484771375/how-to-install-npm)
 - rnpm [install here](https://github.com/rnpm/rnpm)
 
-Run 'npm run install:all' from the root directory
+Run `npm run install:all` from the root directory  
 
 ```
 $ npm install

@@ -32,8 +32,7 @@ describe('Data Integration Tests', () => {
   const users = [{
     id: 3,
     name: 'Rick Sanchez',
-  },
-  {
+  }, {
     id: 4,
     name: 'Morty Smith',
   }];
@@ -46,5 +45,20 @@ describe('Data Integration Tests', () => {
   it('Should live-update the title of "Create Group"', () => {
     store.dispatch(actions.liveUpdateGroupName(title));
     expect(store.getState().groupName).toEqual('Squad');
-  })
+  });
+
+  it('Should set pendingEvent when Begin creating event is dispatched', () => {
+    store.dispatch(actions.updatePendingEvent({ name: 'Hacking' }));
+    expect(store.getState().app.pendingEvent.name).toBeTruthy();
+
+    store.dispatch(actions.updatePendingEvent(null));
+    expect(store.getState().app.pendingEvent).toBeFalsy();
+  });
+
+  it('Should set swiper state', () => {
+    expect(store.getState().app.swiperIndex).toBe(1);
+
+    store.dispatch(actions.setSwiperIndex(0));
+    expect(store.getState().app.swiperIndex).toBe(0);
+  });
 });
