@@ -24,11 +24,15 @@ const Friends = (props) => {
       <NavBar
         title={ 'Friends' }
         leftButton={exitButton}
-        rightButton={enterButton(AddFriends)}
+        rightButton={enterButton(AddFriends, props.user)}
       />
       <FriendsListContainer />
     </View>
   );
+};
+
+Friends.propTypes = {
+  user: React.PropTypes.object,
 };
 
 module.exports = Friends;
