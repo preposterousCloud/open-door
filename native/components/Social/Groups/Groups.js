@@ -1,54 +1,33 @@
-import React, { View, Text } from 'react-native';
-import { connect } from 'react-redux'
-
+import React, { View, Text, TouchableOpacity, ListView } from 'react-native';
+import { connect } from 'react-redux';
 import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
-
-import styles from '../../../styles/Social/socialStyles.js';
 import NavBar from '../../Shared/NavBar.js';
+import styles from '../../../styles/Social/socialStyles.js';
+import feedStyles from '../../../styles/Feed/feedStyles.js';
 import CreateGroup from './CreateGroup/CreateGroup.js';
-import GroupsList from './GroupsList.js';
-
-const closeGroups = () => {
-  store.getState().navigation.navigator.pop();
-};
-
-const addGroup = () => {
-  store.getState().navigation.navigator.push({
-    component: CreateGroupContainer,
-  });
-};
-
-let CreateGroupContainer;
+import Group from './Group/Group.js';
+import {
+  exitButton,
+  enterButton,
+  makeClickableRow,
+  makeListContainer,
+  navTo,
+} from '../../Shared/Misc.js';
 
 const Groups = (props) => {
-  const leftNavButton = {
-    title: 'X',
-    handler: closeGroups,
+  const logGroup = (group) => {
+    console.log(`You clicked on ${group.name}, id:${group.id}`);
+    navTo(Group, group);
   };
 
-  const rightNavButton = {
-    title: '+',
-    handler: addGroup,
-  };
-
-  CreateGroupContainer = connect(state => {
-    return {
-      groupName: state.groupName,
-    };
-  })(CreateGroup);
-
-  const GroupsListContainer = connect(state => {
-    return {
-      groups: state.user.Groups,
-    };
-  })(GroupsList);
+  const GroupsListContainer = makeListContainer(makeClickableRow(logGroup, 'name'), ['user', 'Groups']);
 
   return (
     <View>
       <NavBar
         title={ 'Groups' }
-        leftButton={leftNavButton}
-        rightButton={rightNavButton}
+        leftButton={exitButton}
+        rightButton={enterButton(CreateGroup)}
       />
       <GroupsListContainer />
     </View>
