@@ -157,7 +157,7 @@ export function refreshUser() {
 export function storeGroup(groupName) {
   return (dispatch, getState) => {
     const checklist = getState().checklist;
-    let members = [];
+    let members = [getState().user.id];
     for (var id in checklist) {
       if (checklist[id]) {members.push(+id);}
     }
