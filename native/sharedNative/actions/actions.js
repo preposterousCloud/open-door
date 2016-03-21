@@ -129,6 +129,7 @@ export function storeGroup(groupName) {
       if (user) {
         console.log(`${groupName} created with ${members}!`);
         dispatch(refreshUser());
+        getState().navigation.navigator.pop();
         return true;
       }
       return false;

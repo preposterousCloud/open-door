@@ -40,11 +40,20 @@ const getChecklist = () => {
   return store.getState().checklist;
 }
 
+const submitGroup = () => {
+  const name = store.getState().groupName;
+  store.dispatch(actions.storeGroup(name));
+}
+
 const CreateGroup = (props) => {
   allUsers();
   const leftNavButton = {
     title: 'X',
     handler: cancelNewGroup,
+  };
+  const rightNavButton = {
+    title: '✓',
+    handler: submitGroup,
   };
   
   // CHANGE ONCE FRIENDS FEATURE IS IMPLEMENTED
@@ -55,6 +64,7 @@ const CreateGroup = (props) => {
       <NavBar
         title={props.groupName || 'Create Group'}
         leftButton={leftNavButton}
+        rightButton={rightNavButton}
       />
       <CreateGroupName />
       <CreateGroupShowFriendsListContainer />
