@@ -10,7 +10,7 @@ const defaultStyles = StyleSheet.create({ image: { height: 40, width: 40 } });
 
 const LoadingWheel = (props) => {
   const style = props.style || defaultStyles.image;
-  return props.isLoading ? 
+  return props.isLoading ?
     <Image style={ props.style } source={require('../../sharedNative/images/loading.gif')} /> :
     <View />
 };
@@ -20,13 +20,13 @@ const exitButton = {
   handler: () => { store.getState().navigation.navigator.pop(); },
 };
 
-const navTo = (component) => {
-  store.getState().navigation.navigator.push({ component });
+const navTo = (component, focus) => {
+  store.getState().navigation.navigator.push({ component, focus });
 };
 
-const enterButton = (component) => ({
+const enterButton = (component, focus) => ({
   title: '+',
-  handler: navTo.bind(null, component),
+  handler: navTo.bind(null, component, focus),
 });
 
 const arrayToDataSource = (array = []) => {
@@ -42,9 +42,9 @@ const cancelButton = {
   style: 'cancel',
 };
 
-const makeClickableRow = (action) => {
-  return (user) => {
-    const actionAppliedToUser = action.bind(null, user);
+const makeClickableRow = (action, text) => {
+  return (rowData) => {
+    const actionAppliedToUser = action.bind(null, rowData);
     return (
       <View>
         <TouchableOpacity
@@ -52,7 +52,7 @@ const makeClickableRow = (action) => {
           style={socialStyles.group}
         >
           <View style={socialStyles.listEntryView}>
-            <Text>{user.userName}</Text>
+            <Text>{rowData.userName || rowData[text]}</Text>
           </View>
         </TouchableOpacity>
       </View>
