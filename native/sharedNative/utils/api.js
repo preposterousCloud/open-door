@@ -4,7 +4,6 @@ const config = require('../config/config.js');
 const statusOK = res => (res.status >= 200 && res.status <= 299);
 
 const validateBody = res => {
-  console.log(res);
   if (statusOK(res)) {
     return JSON.parse(res._bodyInit);
   }

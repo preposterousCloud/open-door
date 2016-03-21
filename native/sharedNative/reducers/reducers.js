@@ -1,7 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import groupName from './subReducers/groups.js';
-import { checklist, checkboxChecked } from './subReducers/common.js'
+import { checklist, checkboxChecked, filterText } from './subReducers/common.js';
 import navigation from './subReducers/navigation.js';
 import { user, allUsers } from './subReducers/user.js';
 const actions = require('../ActionTypes');
@@ -13,8 +13,6 @@ const defaultState = {
 };
 
 const app = (state = defaultState, action) => {
-  console.log('action=', action, 'state=', state);
-
   switch (action.type) {
     case actions.TOGGLE_LOADING:
       return Object.assign({}, state, { isLoading: action.data });
@@ -42,6 +40,7 @@ const reducer = combineReducers({
   groupName, // NOT IN USE (usage: live typing)
   checklist,
   checkboxChecked,
+  filterText,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));

@@ -3,7 +3,7 @@ import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React,
   { Alert, Image, ListView, StyleSheet, Text, TouchableOpacity, TextInput, View }
   from 'react-native';
-import { refreshUser } from '../../sharedNative/actions/actions.js';
+import { refreshUser, getAllUsers } from '../../sharedNative/actions/actions.js';
 
 import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
 const defaultStyles = StyleSheet.create({ image: { height: 40, width: 40 } });
@@ -12,7 +12,12 @@ const LoadingWheel = (props) => {
   const style = props.style || defaultStyles.image;
   return props.isLoading ?
     <Image style={ props.style } source={require('../../sharedNative/images/loading.gif')} /> :
-    <View />
+    <View />;
+};
+
+LoadingWheel.propTypes = {
+  style: React.PropTypes.object,
+  isLoading: React.PropTypes.bool,
 };
 
 const exitButton = {
@@ -60,38 +65,6 @@ const makeClickableRow = (action, text) => {
   };
 };
 
-const makeSelectableRow = (action, getChecklist) => {
-  return (user) => {
-    let checklist = getChecklist();
-    const runList = () => {
-      const actionAppliedToUser = action.bind(null, user);
-      const appliedChecklist = getChecklist.bind(null, user);
-      actionAppliedToUser();
-      checklist = appliedChecklist();
-      makeListContainer(UserList, ['allUsers'])
-      store.dispatch(refreshUser())
-      console.log(checklist);
-    }
-    const rowData = () => (
-      <View>
-        <TouchableOpacity
-          onPress={runList}
-          style={socialStyles.group}
-        >
-          <View style={socialStyles.listEntryView}>
-            <Text>{user.userName}</Text>
-            {(() => (checklist[user.id]) ?
-              <View style={socialStyles.checkboxFilled}></View> :
-              <View style={socialStyles.checkboxEmpty}></View>
-            )()}
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-    return rowData()
-  };
-};
-
 const UserList = (props) => (
   <View style={socialStyles.container}>
     <ListView
@@ -119,6 +92,50 @@ const makeListContainer = (rowComponent, listDataPath = [], listComponent = User
   }))(listComponent);
 };
 
+const makeSelectableRow = (action, getChecklist) => {
+  return (user) => {
+    let checklist = getChecklist();
+    const runList = () => {
+      const actionAppliedToUser = action.bind(null, user);
+      const appliedChecklist = getChecklist.bind(null, user);
+      actionAppliedToUser();
+      checklist = appliedChecklist();
+      makeListContainer(UserList, ['allUsers']);
+      store.dispatch(refreshUser());
+      console.log(checklist);
+    };
+    const rowData = () => (
+      <View>
+        <TouchableOpacity
+          onPress={runList}
+          style={socialStyles.group}
+        >
+          <View style={socialStyles.listEntryView}>
+            <Text>{user.userName}</Text>
+            {(() => (checklist[user.id]) ?
+              <View style={socialStyles.checkboxFilled}></View> :
+              <View style={socialStyles.checkboxEmpty}></View>
+            )()}
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+    return rowData();
+  };
+};
+
+const getAllUsersArray = () => {
+  store.dispatch(getAllUsers())
+  .then((allUsers) => {
+    return allUsers.map((user) => {
+      return {
+        id: user.id,
+        userName: user.userName,
+      };
+    });
+  });
+};
+
 module.exports = {
   exitButton,
   navTo,
@@ -130,4 +147,5 @@ module.exports = {
   UserList,
   makeListContainer,
   LoadingWheel,
+  getAllUsersArray,
 };
