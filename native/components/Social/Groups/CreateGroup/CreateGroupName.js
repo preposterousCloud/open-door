@@ -4,10 +4,6 @@ const actions = require('../../../../sharedNative/actions/actions');
 import styles from '../../../../styles/Social/socialStyles.js';
 
 const CreateGroupName = (props) => {
-  const something = () => {
-    console.log(groupName);
-  };
-
   let groupName;
 
   const confirmNewGroup = () => {
@@ -19,6 +15,7 @@ const CreateGroupName = (props) => {
   const updateGroupName = (newGroupName) => {
     groupName = newGroupName;
     store.dispatch(actions.liveUpdateGroupName(groupName));
+    store.dispatch(actions.refreshUser())
     console.log('>', store.getState().groupName)
   };
 

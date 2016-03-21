@@ -38,6 +38,7 @@ export function setUser(user) {
   };
 }
 
+// NOT IN USE (usage: live typing)
 export function liveUpdateGroupName(name) {
   return {
     type: a.SET_GROUPNAME_INPUT_DISP,
@@ -117,12 +118,19 @@ export function getAllUsers() {
 }
 
 export function storeGroup(groupName) {
-  return dispatch => {
-    return postGroup(groupName)
+  return (dispatch, getState) => {
+    const checklist = getState().checklist;
+    let members = [];
+    for (var id in checklist) {
+      if (checklist[id]) {members.push(+id);}
+    }
+    console.log(members);
+    return postGroup(groupName, members)
     .then(user => {
       if (user) {
-        console.log(`${groupName} created!`);
+        console.log(`${groupName} created with ${members}!`);
         dispatch(refreshUser());
+        getState().navigation.navigator.pop();
         return true;
       }
       return false;

@@ -54,11 +54,11 @@ export const fetchAllUsers = () => {
   .catch(catchErr);
 };
 
-export const postGroup = (groupName) => {
+export const postGroup = (groupName, members) => {
   const url = `${config.apiUrl}friends/groups`;
   const groupObj = JSON.stringify({
       groupName,
-      members: "[2,3,4]"
+      members: JSON.stringify(members),
   });
   console.log('>>>>>>>>>>>>>>>>>', groupObj)
   return fetch(url, {
