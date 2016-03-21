@@ -12,7 +12,12 @@ const LoadingWheel = (props) => {
   const style = props.style || defaultStyles.image;
   return props.isLoading ?
     <Image style={ props.style } source={require('../../sharedNative/images/loading.gif')} /> :
-    <View />
+    <View />;
+};
+
+LoadingWheel.propTypes = {
+  style: React.PropTypes.object,
+  isLoading: React.PropTypes.bool,
 };
 
 const exitButton = {
@@ -60,38 +65,6 @@ const makeClickableRow = (action, text) => {
   };
 };
 
-const makeSelectableRow = (action, getChecklist) => {
-  return (user) => {
-    let checklist = getChecklist();
-    const runList = () => {
-      const actionAppliedToUser = action.bind(null, user);
-      const appliedChecklist = getChecklist.bind(null, user);
-      actionAppliedToUser();
-      checklist = appliedChecklist();
-      makeListContainer(UserList, ['allUsers'])
-      store.dispatch(refreshUser())
-      console.log(checklist);
-    }
-    const rowData = () => (
-      <View>
-        <TouchableOpacity
-          onPress={runList}
-          style={socialStyles.group}
-        >
-          <View style={socialStyles.listEntryView}>
-            <Text>{user.userName}</Text>
-            {(() => (checklist[user.id]) ?
-              <View style={socialStyles.checkboxFilled}></View> :
-              <View style={socialStyles.checkboxEmpty}></View>
-            )()}
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-    return rowData()
-  };
-};
-
 const UserList = (props) => (
   <View style={socialStyles.container}>
     <ListView
@@ -117,6 +90,38 @@ const makeListContainer = (rowComponent, listDataPath = [], listComponent = User
     listData: listDataPath.reduce((subState, prop) => subState[prop], state),
     user: state.user,
   }))(listComponent);
+};
+
+const makeSelectableRow = (action, getChecklist) => {
+  return (user) => {
+    let checklist = getChecklist();
+    const runList = () => {
+      const actionAppliedToUser = action.bind(null, user);
+      const appliedChecklist = getChecklist.bind(null, user);
+      actionAppliedToUser();
+      checklist = appliedChecklist();
+      makeListContainer(UserList, ['allUsers']);
+      store.dispatch(refreshUser());
+      console.log(checklist);
+    };
+    const rowData = () => (
+      <View>
+        <TouchableOpacity
+          onPress={runList}
+          style={socialStyles.group}
+        >
+          <View style={socialStyles.listEntryView}>
+            <Text>{user.userName}</Text>
+            {(() => (checklist[user.id]) ?
+              <View style={socialStyles.checkboxFilled}></View> :
+              <View style={socialStyles.checkboxEmpty}></View>
+            )()}
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+    return rowData();
+  };
 };
 
 module.exports = {
