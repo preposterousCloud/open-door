@@ -1,6 +1,9 @@
 import React, { TextInput, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 
+import { Button } from '../Shared/Button';
+import { makeListContainer } from '../Shared/Misc';
+
 const EventSettings = (props) => (
   <View style={ styles.container }>
     <TextInput
@@ -15,9 +18,9 @@ const EventSettings = (props) => (
       value={props.event.desc}
       placeholder={'Description (optional)'}
     />
-    <TouchableOpacity onPress={ props.onSubmit }>
-      <Text> Confirm </Text>
-    </TouchableOpacity>
+    <Button onClick = {props.onSubmit} text={'Invite Friends'} />
+    <Button onClick = {props.onSubmit} text={'Invite Groups'} />
+    <Button onClick = {props.onSubmit} text={'Confirm'} />
   </View>
 );
 
@@ -27,12 +30,23 @@ EventSettings.propTypes = {
   onSubmit: React.PropTypes.func.isRequired,
 };
 
+// const FriendsToAdd = (props) => {
+//   return (
+    
+//   )
+// } 
+
+const AddFriends = (props) => {
+  // return makeListContainer(, [all], listComponent)
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
+    flexDirection: 'column',
   },
-  textBox: { 
+  textBox: {
     width: 275,
     height: 40,
     borderColor: 'gray',
