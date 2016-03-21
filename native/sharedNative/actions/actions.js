@@ -59,6 +59,21 @@ export function setSwiperIndex(index) {
   };
 }
 
+export function markCheckbox(id, checklist) {
+  return {
+    type: a.TOGGLE_CHECKBOX,
+    id: id,
+    checklist: checklist,
+  }
+}
+
+export function setUserChecklist(userChecklist) {
+  return {
+    type: a.CREATE_CHECKLIST,
+    userChecklist: userChecklist,
+  }
+}
+
 /** *****************************************************
  * Async Thunk Action Creators
  * ************************************************** */

@@ -5,6 +5,7 @@ before_install:
   - cp ./server/config.example.js ./server/config.js
   - cp ./native/sharedNative/config/config.example.js ./native/sharedNative/config/config.js
 install:
+  - npm install -g rnpm
   - npm run install:all
 env:
 - CXX=g++-4.8

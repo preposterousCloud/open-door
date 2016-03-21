@@ -2,28 +2,43 @@ import React, { View, Text } from 'react-native';
 import { connect } from 'react-redux'
 
 import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
+const actions = require('../../../../sharedNative/actions/actions.js')
 
+import common from '../../../Shared/Misc.js'
 import styles from '../../../../styles/Social/socialStyles.js';
 import NavBar from '../../../Shared/NavBar.js';
 import CreateGroupName from './CreateGroupName.js';
-import CreateGroupShowFriendsList from './CreateGroupShowFriendsList.js';
 import { getAllUsers } from '../../../../sharedNative/actions/actions.js';
 
 const allUsers = () => {
   store.dispatch(getAllUsers())
   .then((allUsers) => {
-    return allUsers.map((user) => {
-      return {
-        id: user.id,
-        userName: user.userName,
-      }
-    })
+    createChecklist(allUsers);
   })
 }
 
 const cancelNewGroup = () => {
   store.getState().navigation.navigator.pop();
 };
+
+const createChecklist = (users) => {
+  let userChecklist = {};
+  users.forEach((user) => {
+    userChecklist[user.id] = false;
+  });
+  store.dispatch(actions.setUserChecklist(userChecklist));
+}
+
+const checkCheckbox = (user) => {
+  const oldList = store.getState().checklist;
+  store.dispatch(actions.markCheckbox(user.id, oldList));
+  const newList = store.getState().checklist;
+  return newList;
+}
+
+const getChecklist = () => {
+  return store.getState().checklist;
+}
 
 const CreateGroup = (props) => {
   allUsers();
@@ -33,11 +48,7 @@ const CreateGroup = (props) => {
   };
   
   // CHANGE ONCE FRIENDS FEATURE IS IMPLEMENTED
-  const CreateGroupShowFriendsListContainer = connect(state => {
-    return {
-      users: state.allUsers,
-    };
-  })(CreateGroupShowFriendsList);
+  const CreateGroupShowFriendsListContainer = common.makeListContainer(common.makeSelectableRow(checkCheckbox, getChecklist), ['allUsers']);
 
   return (
     <View>

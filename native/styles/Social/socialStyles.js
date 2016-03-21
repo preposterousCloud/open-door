@@ -18,6 +18,8 @@ module.exports = StyleSheet.create({
     padding: 20,
     borderTopWidth: 1,
     borderColor: '#DDD',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   userInput: {
     height: 50,
@@ -44,4 +46,17 @@ module.exports = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#DDD',
   },
+  checkboxEmpty: {
+    width: 20,
+    height: 20,
+    borderWidth: 1,
+    borderColor: '#227DF4',
+  },
+  checkboxFilled: {
+    width: 20,
+    height: 20,
+    borderWidth: 1,
+    borderColor: '#227DF4',
+    backgroundColor: '#227DF4',
+  }
 });

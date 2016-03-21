@@ -1,6 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import groupName from './subReducers/groups.js';
+import { checklist, checkboxChecked } from './subReducers/common.js'
 import navigation from './subReducers/navigation.js';
 import { user, allUsers } from './subReducers/user.js';
 const actions = require('../ActionTypes');
@@ -39,6 +40,8 @@ const reducer = combineReducers({
   user,
   allUsers,
   groupName,
+  checklist,
+  checkboxChecked,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));

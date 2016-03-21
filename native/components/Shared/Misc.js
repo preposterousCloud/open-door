@@ -3,6 +3,7 @@ import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React,
   { Alert, Image, ListView, StyleSheet, Text, TouchableOpacity, TextInput, View }
   from 'react-native';
+import { refreshUser } from '../../sharedNative/actions/actions.js';
 
 import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
 const defaultStyles = StyleSheet.create({ image: { height: 40, width: 40 } });
@@ -59,6 +60,38 @@ const makeClickableRow = (action) => {
   };
 };
 
+const makeSelectableRow = (action, getChecklist) => {
+  return (user) => {
+    let checklist = getChecklist();
+    const runList = () => {
+      const actionAppliedToUser = action.bind(null, user);
+      const appliedChecklist = getChecklist.bind(null, user);
+      actionAppliedToUser();
+      checklist = appliedChecklist();
+      makeListContainer(UserList, ['allUsers'])
+      store.dispatch(refreshUser())
+      console.log(checklist);
+    }
+    const rowData = () => (
+      <View>
+        <TouchableOpacity
+          onPress={runList}
+          style={socialStyles.group}
+        >
+          <View style={socialStyles.listEntryView}>
+            <Text>{user.userName}</Text>
+            {(() => (checklist[user.id]) ?
+              <View style={socialStyles.checkboxFilled}></View> :
+              <View style={socialStyles.checkboxEmpty}></View>
+            )()}
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+    return rowData()
+  };
+};
+
 const UserList = (props) => (
   <View style={socialStyles.container}>
     <ListView
@@ -93,6 +126,7 @@ module.exports = {
   arrayToDataSource,
   cancelButton,
   makeClickableRow,
+  makeSelectableRow,
   UserList,
   makeListContainer,
   LoadingWheel,
