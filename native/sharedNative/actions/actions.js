@@ -75,11 +75,15 @@ export function setUserChecklist(userChecklist) {
   };
 }
 
-export function setFilterText(filterText) {
+export function setFilterText(filterText = '') {
   return {
     type: a.SET_FILTER_TEXT,
     filterText,
   };
+}
+
+export function clearFilterText() {
+  return setFilterText('');
 }
 
 /** *****************************************************
