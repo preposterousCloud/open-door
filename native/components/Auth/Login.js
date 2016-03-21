@@ -1,4 +1,4 @@
-import React, {
+import {
   Alert,
   View,
   Text,
@@ -6,11 +6,10 @@ import React, {
   TextInput,
 } from 'react-native';
 import { connect } from 'react-redux';
-
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+import { store } from '../../sharedNative/reducers/reducers.js';
+import { attemptLogin, createUser } from '../../sharedNative/actions/actions.js';
 import Swiper from '../Shared/Swiper.js';
 import styles from '../../styles/Auth/authStyles.js';
-import { attemptLogin, createUser } from '../../sharedNative/actions/actions.js';
 
 const SwiperContainer = connect((state) => {
   return {
