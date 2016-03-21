@@ -51,5 +51,12 @@ module.exports = StyleSheet.create({
     height: 20,
     borderWidth: 1,
     borderColor: '#227DF4',
+  },
+  checkboxFilled: {
+    width: 20,
+    height: 20,
+    borderWidth: 1,
+    borderColor: '#227DF4',
+    backgroundColor: '#227DF4',
   }
 });
