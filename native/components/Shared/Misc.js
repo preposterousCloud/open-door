@@ -3,7 +3,7 @@ import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React,
   { Alert, Image, ListView, StyleSheet, Text, TouchableOpacity, TextInput, View }
   from 'react-native';
-import { refreshUser } from '../../sharedNative/actions/actions.js';
+import { refreshUser, getAllUsers } from '../../sharedNative/actions/actions.js';
 
 import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
 const defaultStyles = StyleSheet.create({ image: { height: 40, width: 40 } });
@@ -124,6 +124,18 @@ const makeSelectableRow = (action, getChecklist) => {
   };
 };
 
+const getAllUsersArray = () => {
+  store.dispatch(getAllUsers())
+  .then((allUsers) => {
+    return allUsers.map((user) => {
+      return {
+        id: user.id,
+        userName: user.userName,
+      };
+    });
+  });
+};
+
 module.exports = {
   exitButton,
   navTo,
@@ -135,4 +147,5 @@ module.exports = {
   UserList,
   makeListContainer,
   LoadingWheel,
+  getAllUsersArray,
 };
