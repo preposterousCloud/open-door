@@ -1,7 +1,5 @@
-
 import React from 'react-native';
 import { connect } from 'react-redux';
-
 const actions = require('../../sharedNative/actions/actions');
 import SetDoor from './SetDoor';
 
