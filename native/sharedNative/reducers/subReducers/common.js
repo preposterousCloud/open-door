@@ -20,10 +20,10 @@ function checkboxChecked(state = {}, action) {
   }
 }
 
-function filterText(state = {}, action) {
+function filterText(state = '', action) {
   switch (action.type) {
     case 'SET_FILTER_TEXT':
-      return action.filterText || state;
+      return (typeof action.filterText === 'string') ? action.filterText : state;
     default:
       return state;
   }
