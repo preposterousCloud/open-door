@@ -56,6 +56,7 @@ const Social = (props) => {
 
 Social.propTypes = {
   swipeRight: React.PropTypes.func,
+  user: React.PropTypes.object,
 };
 
 module.exports = Social;
