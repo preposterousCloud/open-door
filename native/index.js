@@ -12,9 +12,11 @@ import { Provider } from 'react-redux';
 import { reducer, store } from './sharedNative/reducers/reducers.js';
 import Login from './components/Auth/Login.js';
 
-const configureScene = (route) => (
-  route.sceneConfig || Navigator.SceneConfigs.FloatFromBottom
-);
+const configureScene = (route) => {
+  const sceneConfig = route.sceneConfig || Navigator.SceneConfigs.FloatFromBottom;
+  sceneConfig.gestures = null;
+  return sceneConfig;
+};
 
 const renderScene = (route, navigator) => {
   store.dispatch({
