@@ -11,8 +11,8 @@ import styles from '../../styles/Door/doorStyles.js';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
 import EventSettings from './EventSettings';
-import OpenDoor from './OpenDoor';
-import ClosedDoor from './ClosedDoor';
+import OpenDoor from '../Shared/OpenDoor';
+import ClosedDoor from '../Shared/ClosedDoor';
 
 const LoadingWheel = require('../Shared/Misc').LoadingWheel;
 
