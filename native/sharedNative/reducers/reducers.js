@@ -39,7 +39,7 @@ const reducer = combineReducers({
   navigation,
   user,
   allUsers,
-  groupName,
+  groupName, // NOT IN USE (usage: live typing)
   checklist,
   checkboxChecked,
 });

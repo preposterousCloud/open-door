@@ -38,6 +38,7 @@ export function setUser(user) {
   };
 }
 
+// NOT IN USE (usage: live typing)
 export function liveUpdateGroupName(name) {
   return {
     type: a.SET_GROUPNAME_INPUT_DISP,
