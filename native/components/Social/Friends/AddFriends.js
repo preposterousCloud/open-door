@@ -5,22 +5,45 @@ import NavBar from '../../Shared/NavBar.js';
 import styles from '../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../styles/Feed/feedStyles.js';
 import friendsApi from '../../../sharedNative/utils/friends.js';
-import { getAllUsers } from '../../../sharedNative/actions/actions.js';
+import { setFilterText, clearFilterText } from '../../../sharedNative/actions/actions.js';
 import {
   exitButton,
   cancelButton,
   makeClickableRow,
   UserList,
+  getAllUsersArray,
 } from '../../Shared/Misc.js';
 
+class FilterTextInput extends React.Component {
+  componentDidMount() {
+    store.dispatch(clearFilterText());
+  }
+
+  filterUsers(text) {
+    store.dispatch(setFilterText(text));
+  }
+
+  render() {
+    return (
+      <View>
+        <TextInput
+          autoCapitalize={'none'}
+          autoCorrect={false}
+          maxLength={16}
+          placeholder={'userName'}
+          style={styles.userInput}
+          returnKeyType={'go'}
+          onChangeText={this.filterUsers}
+        />
+      </View>
+    );
+  }
+}
 const AddFriends = (props) => {
   // Begin TextInput methods
   const something = () => {
     console.log('form submit!');
   };
-
-  let userName;
-  const updateUserName = newUserName => { userName = newUserName; };
 
   const cancelButton = {
     text: 'Cancel',
@@ -37,22 +60,12 @@ const AddFriends = (props) => {
       },
     ]);
   };
-  // End TextInput methods
 
-  const getAllUsersArray = () => {
-    store.dispatch(getAllUsers())
-    .then((allUsers) => {
-      return allUsers.map((user) => {
-        return {
-          id: user.id,
-          userName: user.userName,
-        };
-      });
-    });
-  };
+  // End TextInput methods
   const allUsers = getAllUsersArray();
 
   const AddFriendsListContainer = connect(state => {
+    console.log('state\'s filter text:', state.filterText);
     const filterIds = state.user.friends ?
       state.user.friends.map(friend => friend.id).concat(state.user.id) : [];
     const targetUsers = state.allUsers.filter(targetUser => (filterIds.indexOf(targetUser.id) < 0));
@@ -70,17 +83,7 @@ const AddFriends = (props) => {
         title={ 'Add Friend' }
         leftButton={exitButton}
       />
-      <TextInput
-        autoCapitalize={'none'}
-        autoCorrect={false}
-        maxLength={16}
-        placeholder={'userName'}
-        value={userName}
-        style={styles.userInput}
-        returnKeyType={'go'}
-        onChangeText={updateUserName}
-        onSubmitEditing={something}
-      />
+      <FilterTextInput />
       <AddFriendsListContainer />
     </View>
   );
