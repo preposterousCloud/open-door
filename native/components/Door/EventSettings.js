@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { Button } from '../Shared/Button';
 import { makeListContainer } from '../Shared/Misc';
-import { SelectList } from '../Shared/SelectList';
+import { UserList } from '../Shared/SelectList';
 
 const EventSettings = (props) => (
   <View style={ styles.container }>
