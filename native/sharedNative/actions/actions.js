@@ -64,15 +64,22 @@ export function markCheckbox(id, checklist) {
   return {
     type: a.TOGGLE_CHECKBOX,
     id: id,
-    checklist: checklist,
-  }
+    checklist,
+  };
 }
 
 export function setUserChecklist(userChecklist) {
   return {
     type: a.CREATE_CHECKLIST,
-    userChecklist: userChecklist,
-  }
+    userChecklist,
+  };
+}
+
+export function setFilterText(filterText) {
+  return {
+    type: a.SET_FILTER_TEXT,
+    filterText,
+  };
 }
 
 /** *****************************************************
@@ -117,6 +124,18 @@ export function getAllUsers() {
   };
 }
 
+export function refreshUser() {
+  console.log('>>>>>>>>>>Refreshing Users');
+  return (dispatch, getState) => {
+    const userId = getState().user.id;
+    dispatch(setLoading(true));
+
+    return getUser(userId)
+    .then(user => dispatch(setUser(user)))
+    .then(dispatch(setLoading(false)));
+  };
+}
+
 export function storeGroup(groupName) {
   return (dispatch, getState) => {
     const checklist = getState().checklist;
@@ -135,18 +154,6 @@ export function storeGroup(groupName) {
       }
       return false;
     });
-  };
-}
-
-export function refreshUser() {
-  console.log('>>>>>>>>>>Refreshing Users');
-  return (dispatch, getState) => {
-    const userId = getState().user.id;
-    dispatch(setLoading(true));
-
-    return getUser(userId)
-    .then(user => dispatch(setUser(user)))
-    .then(dispatch(setLoading(false)));
   };
 }
 
