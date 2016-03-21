@@ -10,7 +10,7 @@ import {
   exitButton,
   cancelButton,
   makeClickableRow,
-  UserList,
+  DefaultListView,
 } from '../../Shared/Misc.js';
 
 const AddFriends = (props) => {
@@ -57,12 +57,12 @@ const AddFriends = (props) => {
       state.user.friends.map(friend => friend.id).concat(state.user.id) : [];
     const targetUsers = state.allUsers.filter(targetUser => (filterIds.indexOf(targetUser.id) < 0));
     return {
-      listComponent: UserList,
+      listComponent: DefaultListView,
       rowComponent: makeClickableRow(alertRequestSent),
       listData: targetUsers,
       user: state.user,
     };
-  })(UserList);
+  })(DefaultListView);
 
   return (
     <View>

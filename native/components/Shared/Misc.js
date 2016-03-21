@@ -68,10 +68,10 @@ const makeSelectableRow = (action, getChecklist) => {
       const appliedChecklist = getChecklist.bind(null, user);
       actionAppliedToUser();
       checklist = appliedChecklist();
-      makeListContainer(UserList, ['allUsers'])
-      store.dispatch(refreshUser())
+      // makeListContainer(UserList, ['allUsers']);
+      store.dispatch(refreshUser());
       console.log(checklist);
-    }
+    };
     const rowData = () => (
       <View>
         <TouchableOpacity
@@ -81,18 +81,18 @@ const makeSelectableRow = (action, getChecklist) => {
           <View style={socialStyles.listEntryView}>
             <Text>{user.userName}</Text>
             {(() => (checklist[user.id]) ?
-              <View style={socialStyles.checkboxFilled}></View> :
-              <View style={socialStyles.checkboxEmpty}></View>
+              <View style={socialStyles.checkboxFilled} /> :
+              <View style={socialStyles.checkboxEmpty} />
             )()}
           </View>
         </TouchableOpacity>
       </View>
     );
-    return rowData()
+    return rowData();
   };
 };
 
-const UserList = (props) => (
+const DefaultListView = (props) => (
   <View style={socialStyles.container}>
     <ListView
       dataSource={arrayToDataSource(props.listData)}
@@ -102,7 +102,7 @@ const UserList = (props) => (
   </View>
 );
 
-UserList.propTypes = {
+DefaultListView.propTypes = {
   listData: React.PropTypes.array,
   rowComponent: React.PropTypes.element,
   user: React.PropTypes.object,
@@ -110,7 +110,7 @@ UserList.propTypes = {
 
 const getPropFrom = (obj, propArr) => (propArr.reduce((subObj, prop) => subObj[prop], obj));
 
-const makeListContainer = (rowComponent, listDataPath = [], listComponent = UserList) => {
+const makeListContainer = (rowComponent, listDataPath = [], listComponent = DefaultListView) => {
   return connect(state => ({
     listComponent,
     rowComponent,
@@ -127,7 +127,7 @@ module.exports = {
   cancelButton,
   makeClickableRow,
   makeSelectableRow,
-  UserList,
+  DefaultListView,
   makeListContainer,
   LoadingWheel,
 };
