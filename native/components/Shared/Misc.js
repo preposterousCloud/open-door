@@ -10,7 +10,7 @@ const defaultStyles = StyleSheet.create({ image: { height: 40, width: 40 } });
 
 const LoadingWheel = (props) => {
   const style = props.style || defaultStyles.image;
-  return props.isLoading ? 
+  return props.isLoading ?
     <Image style={ props.style } source={require('../../sharedNative/images/loading.gif')} /> :
     <View />
 };
