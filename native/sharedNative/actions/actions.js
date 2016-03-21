@@ -86,6 +86,16 @@ export function clearFilterText() {
   return setFilterText('');
 }
 
+export function toggleItemSelectionInList(id, listName) {
+  return {
+    type: a.TOGGLE_ITEM_SELECTION_IN_LIST,
+    data: {
+      id,
+      listName,
+    },
+  };
+}
+
 /** *****************************************************
  * Async Thunk Action Creators
  * ************************************************** */

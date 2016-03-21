@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { Button } from '../Shared/Button';
 import { makeListContainer } from '../Shared/Misc';
+import { SelectList } from '../Shared/SelectList';
 
 const EventSettings = (props) => (
   <View style={ styles.container }>
@@ -19,7 +20,7 @@ const EventSettings = (props) => (
       placeholder={'Description (optional)'}
     />
     <Button onClick = {props.onSubmit} text={'Invite Friends'} />
-    <Button onClick = {props.onSubmit} text={'Invite Groups'} />
+    <UserList />
     <Button onClick = {props.onSubmit} text={'Confirm'} />
   </View>
 );

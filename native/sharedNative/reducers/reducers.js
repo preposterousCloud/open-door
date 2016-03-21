@@ -10,6 +10,7 @@ const defaultState = {
   isLoading: false,
   pendingEvent: null,
   swiperIndex: 1,
+  pendingSelections: { friendsToInvite: {} },
 };
 
 const app = (state = defaultState, action) => {
@@ -27,6 +28,20 @@ const app = (state = defaultState, action) => {
       return Object.assign({}, state, { swiperIndex: action.data });
     }
 
+    case actions.TOGGLE_ITEM_SELECTION_IN_LIST: {
+      const listToUpdate = action.data.listName;
+      const idToToggle = action.data.id;
+      
+      const newState = Object.assign({}, state);
+      if (!newState.pendingSelections[listToUpdate]) {
+        newState.pendingSelections[listToUpdate] = {};
+      }
+      newState.pendingSelections[listToUpdate][idToToggle] =
+        !newState.pendingSelections[listToUpdate][idToToggle];
+        
+      console.log('new state>>>>>>>>>>>>>>>>>', newState);
+      return newState;
+    }
     default:
       return state;
   }
