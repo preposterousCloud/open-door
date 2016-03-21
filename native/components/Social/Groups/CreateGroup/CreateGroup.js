@@ -40,26 +40,44 @@ const getChecklist = () => {
   return store.getState().checklist;
 }
 
-const CreateGroup = (props) => {
+const submitGroup = () => {
+  const name = store.getState().groupName;
   allUsers();
-  const leftNavButton = {
-    title: 'X',
-    handler: cancelNewGroup,
-  };
+  store.dispatch(actions.storeGroup(name));
+}
+
+const CreateGroup = class CreateGroup extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    allUsers();
+  }
   
   // CHANGE ONCE FRIENDS FEATURE IS IMPLEMENTED
-  const CreateGroupShowFriendsListContainer = common.makeListContainer(common.makeSelectableRow(checkCheckbox, getChecklist), ['allUsers']);
-
-  return (
-    <View>
-      <NavBar
-        title={props.groupName || 'Create Group'}
-        leftButton={leftNavButton}
-      />
-      <CreateGroupName />
-      <CreateGroupShowFriendsListContainer />
-    </View>
-  );
+  render() {
+    const CreateGroupShowFriendsListContainer = common.makeListContainer(common.makeSelectableRow(checkCheckbox, getChecklist), ['allUsers']);
+    const leftNavButton = {
+      title: 'X',
+      handler: cancelNewGroup,
+    };
+    const rightNavButton = {
+      title: '✓',
+      handler: submitGroup,
+    };
+    return (
+      <View>
+        <NavBar
+          title={'Create Group'}
+          leftButton={leftNavButton}
+          rightButton={rightNavButton}
+        />
+        <CreateGroupName />
+        <CreateGroupShowFriendsListContainer />
+      </View>
+    );
+  }
 };
 
 module.exports = CreateGroup;

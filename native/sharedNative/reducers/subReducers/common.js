@@ -12,7 +12,7 @@ function checklist(state = {}, action) {
 function checkboxChecked(state = {}, action) {
   switch (action.type) {
     case 'TOGGLE_CHECKBOX': {
-      action.checklist[action.id] = !action.checklist[action.id]
+      action.checklist[action.id] = !action.checklist[action.id];
       return action.checklist || state;
     }
     default:
@@ -20,5 +20,17 @@ function checkboxChecked(state = {}, action) {
   }
 }
 
-module.exports.checklist = checklist;
-module.exports.checkboxChecked = checkboxChecked;
+function filterText(state = '', action) {
+  switch (action.type) {
+    case 'SET_FILTER_TEXT':
+      return (typeof action.filterText === 'string') ? action.filterText : state;
+    default:
+      return state;
+  }
+}
+
+module.exports = {
+  checklist,
+  checkboxChecked,
+  filterText,
+};

@@ -8,7 +8,7 @@ import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 
 import styles from '../../styles/Social/socialStyles.js';
 import NavBar from '../Shared/NavBar.js';
-import Groups from './Groups/Groups2.js';
+import Groups from './Groups/Groups.js';
 import Friends from './Friends/Friends.js';
 
 const groupsNav = () => {
@@ -56,6 +56,7 @@ const Social = (props) => {
 
 Social.propTypes = {
   swipeRight: React.PropTypes.func,
+  user: React.PropTypes.object,
 };
 
 module.exports = Social;

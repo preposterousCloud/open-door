@@ -4,7 +4,6 @@ const config = require('../config/config.js');
 const statusOK = res => (res.status >= 200 && res.status <= 299);
 
 const validateBody = res => {
-  console.log(res);
   if (statusOK(res)) {
     return JSON.parse(res._bodyInit);
   }
@@ -54,11 +53,11 @@ export const fetchAllUsers = () => {
   .catch(catchErr);
 };
 
-export const postGroup = (groupName) => {
+export const postGroup = (groupName, members) => {
   const url = `${config.apiUrl}friends/groups`;
   const groupObj = JSON.stringify({
       groupName,
-      members: "[2,3,4]"
+      members: JSON.stringify(members),
   });
   console.log('>>>>>>>>>>>>>>>>>', groupObj)
   return fetch(url, {

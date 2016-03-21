@@ -38,6 +38,7 @@ export function setUser(user) {
   };
 }
 
+// NOT IN USE (usage: live typing)
 export function liveUpdateGroupName(name) {
   return {
     type: a.SET_GROUPNAME_INPUT_DISP,
@@ -63,15 +64,26 @@ export function markCheckbox(id, checklist) {
   return {
     type: a.TOGGLE_CHECKBOX,
     id: id,
-    checklist: checklist,
-  }
+    checklist,
+  };
 }
 
 export function setUserChecklist(userChecklist) {
   return {
     type: a.CREATE_CHECKLIST,
-    userChecklist: userChecklist,
-  }
+    userChecklist,
+  };
+}
+
+export function setFilterText(filterText = '') {
+  return {
+    type: a.SET_FILTER_TEXT,
+    filterText,
+  };
+}
+
+export function clearFilterText() {
+  return setFilterText('');
 }
 
 /** *****************************************************
@@ -116,20 +128,6 @@ export function getAllUsers() {
   };
 }
 
-export function storeGroup(groupName) {
-  return dispatch => {
-    return postGroup(groupName)
-    .then(user => {
-      if (user) {
-        console.log(`${groupName} created!`);
-        dispatch(refreshUser());
-        return true;
-      }
-      return false;
-    });
-  };
-}
-
 export function refreshUser() {
   console.log('>>>>>>>>>>Refreshing Users');
   return (dispatch, getState) => {
@@ -139,6 +137,27 @@ export function refreshUser() {
     return getUser(userId)
     .then(user => dispatch(setUser(user)))
     .then(dispatch(setLoading(false)));
+  };
+}
+
+export function storeGroup(groupName) {
+  return (dispatch, getState) => {
+    const checklist = getState().checklist;
+    let members = [];
+    for (var id in checklist) {
+      if (checklist[id]) {members.push(+id);}
+    }
+    console.log(members);
+    return postGroup(groupName, members)
+    .then(user => {
+      if (user) {
+        console.log(`${groupName} created with ${members}!`);
+        dispatch(refreshUser());
+        getState().navigation.navigator.pop();
+        return true;
+      }
+      return false;
+    });
   };
 }
 

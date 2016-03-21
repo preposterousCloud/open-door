@@ -10,7 +10,7 @@ import {
   exitButton,
   cancelButton,
   makeClickableRow,
-  DefaultListView,
+  UserList,
 } from '../../../Shared/Misc.js';
 
 const AddMembers = (props) => {
@@ -41,11 +41,11 @@ const AddMembers = (props) => {
   // End TextInput methods
 
   const AddMembersListContainer = connect(state => ({
-    listComponent: DefaultListView,
+    listComponent: UserList,
     rowComponent: makeClickableRow(alertRequestSent),
     listData: state.user.friends,
     user: state.user,
-  }))(DefaultListView);
+  }))(UserList);
 
   return (
     <View>

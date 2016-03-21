@@ -3,7 +3,7 @@ import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React,
   { Alert, Image, ListView, StyleSheet, Text, TouchableOpacity, TextInput, View }
   from 'react-native';
-import { refreshUser } from '../../sharedNative/actions/actions.js';
+import { refreshUser, getAllUsers } from '../../sharedNative/actions/actions.js';
 
 import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
 const defaultStyles = StyleSheet.create({ image: { height: 40, width: 40 } });
@@ -12,7 +12,12 @@ const LoadingWheel = (props) => {
   const style = props.style || defaultStyles.image;
   return props.isLoading ?
     <Image style={ props.style } source={require('../../sharedNative/images/loading.gif')} /> :
-    <View />
+    <View />;
+};
+
+LoadingWheel.propTypes = {
+  style: React.PropTypes.object,
+  isLoading: React.PropTypes.bool,
 };
 
 const exitButton = {
@@ -60,6 +65,33 @@ const makeClickableRow = (action, text) => {
   };
 };
 
+const UserList = (props) => (
+  <View style={socialStyles.container}>
+    <ListView
+      dataSource={arrayToDataSource(props.listData)}
+      renderRow={props.rowComponent}
+      style={socialStyles.listView}
+    />
+  </View>
+);
+
+UserList.propTypes = {
+  listData: React.PropTypes.array,
+  rowComponent: React.PropTypes.element,
+  user: React.PropTypes.object,
+};
+
+const getPropFrom = (obj, propArr) => (propArr.reduce((subObj, prop) => subObj[prop], obj));
+
+const makeListContainer = (rowComponent, listDataPath = [], listComponent = UserList) => {
+  return connect(state => ({
+    listComponent,
+    rowComponent,
+    listData: listDataPath.reduce((subState, prop) => subState[prop], state),
+    user: state.user,
+  }))(listComponent);
+};
+
 const makeSelectableRow = (action, getChecklist) => {
   return (user) => {
     let checklist = getChecklist();
@@ -68,7 +100,7 @@ const makeSelectableRow = (action, getChecklist) => {
       const appliedChecklist = getChecklist.bind(null, user);
       actionAppliedToUser();
       checklist = appliedChecklist();
-      // makeListContainer(UserList, ['allUsers']);
+      makeListContainer(UserList, ['allUsers']);
       store.dispatch(refreshUser());
       console.log(checklist);
     };
@@ -81,8 +113,8 @@ const makeSelectableRow = (action, getChecklist) => {
           <View style={socialStyles.listEntryView}>
             <Text>{user.userName}</Text>
             {(() => (checklist[user.id]) ?
-              <View style={socialStyles.checkboxFilled} /> :
-              <View style={socialStyles.checkboxEmpty} />
+              <View style={socialStyles.checkboxFilled}></View> :
+              <View style={socialStyles.checkboxEmpty}></View>
             )()}
           </View>
         </TouchableOpacity>
@@ -92,31 +124,16 @@ const makeSelectableRow = (action, getChecklist) => {
   };
 };
 
-const DefaultListView = (props) => (
-  <View style={socialStyles.container}>
-    <ListView
-      dataSource={arrayToDataSource(props.listData)}
-      renderRow={props.rowComponent}
-      style={socialStyles.listView}
-    />
-  </View>
-);
-
-DefaultListView.propTypes = {
-  listData: React.PropTypes.array,
-  rowComponent: React.PropTypes.element,
-  user: React.PropTypes.object,
-};
-
-const getPropFrom = (obj, propArr) => (propArr.reduce((subObj, prop) => subObj[prop], obj));
-
-const makeListContainer = (rowComponent, listDataPath = [], listComponent = DefaultListView) => {
-  return connect(state => ({
-    listComponent,
-    rowComponent,
-    listData: listDataPath.reduce((subState, prop) => subState[prop], state),
-    user: state.user,
-  }))(listComponent);
+const getAllUsersArray = () => {
+  store.dispatch(getAllUsers())
+  .then((allUsers) => {
+    return allUsers.map((user) => {
+      return {
+        id: user.id,
+        userName: user.userName,
+      };
+    });
+  });
 };
 
 module.exports = {
@@ -127,7 +144,8 @@ module.exports = {
   cancelButton,
   makeClickableRow,
   makeSelectableRow,
-  DefaultListView,
+  UserList,
   makeListContainer,
   LoadingWheel,
+  getAllUsersArray,
 };
