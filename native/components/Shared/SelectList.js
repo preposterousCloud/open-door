@@ -59,7 +59,7 @@ export const UserList = connect(
   (state, ownProps) => {
     return {
       itemsToSelectFrom: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-        .cloneWithRows(state.user.friends),
+        .cloneWithRows(state.user.friends || []),
       pendingSelections: state.app.pendingSelections,
       pendingSelectionsProperty: 'friendsToInvite',
       itemPropertyToDisplay: 'userName',
@@ -77,7 +77,7 @@ export const GroupList = connect(
   (state, ownProps) => {
     return {
       itemsToSelectFrom: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-        .cloneWithRows(state.user.Groups),
+        .cloneWithRows(state.user.Groups || []),
       pendingSelections: state.app.pendingSelections,
       pendingSelectionsProperty: 'groupsToInvite',
       itemPropertyToDisplay: 'name',

@@ -13,7 +13,7 @@ const cancelNewGroup = () => {
   store.getState().navigation.navigator.pop();
 };
 
-const createChecklist = (users) => {
+const createChecklist = (users = []) => {
   const userChecklist = {};
   users.forEach((user) => {
     userChecklist[user.id] = false;
