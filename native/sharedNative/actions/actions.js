@@ -240,6 +240,8 @@ export function toggleEvent() {
         dispatch(refreshUser());
       });
     } else if (getState().app.pendingEvent) {
+      dispatch(clearItemSelectionInList('friendsToInvite'));
+      dispatch(clearItemSelectionInList('groupsToInvite'));
       return dispatch(updatePendingEvent(null));
     } else {
       return dispatch(updatePendingEvent({}));
