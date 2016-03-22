@@ -4,6 +4,7 @@ import {
   closeEvent,
   fetchAllUsers,
   postGroup,
+  fetchUserGroups,
   getUser,
   postUser,
 } from '../utils/api';
@@ -103,6 +104,13 @@ export function toggleItemSelectionInList(id, listName) {
   };
 }
 
+export function setUserGroupMembers(userGroupMembers) {
+  return {
+    type: a.SET_USER_GROUP_MEMBERS,
+    userGroupMembers,
+  };
+}
+
 /** *****************************************************
  * Async Thunk Action Creators
  * ************************************************** */
@@ -169,6 +177,23 @@ export function storeGroup(groupName) {
         dispatch(refreshUser());
         getState().navigation.navigator.pop();
         return true;
+      }
+      return false;
+    });
+  };
+}
+
+export function getUserGroups() {
+  return (dispatch, getState) => {
+    const id = getState().user.id;
+    return fetchUserGroups(id)
+    .then(groups => {
+      if (groups) {
+        const userGroups = {};
+        groups.forEach((group) => {
+          userGroups[group.groupId] = group.members;
+        });
+        return userGroups;
       }
       return false;
     });
