@@ -8,6 +8,7 @@ module.exports = StyleSheet.create({
   },
   listView: {
     backgroundColor: '#FFF',
+    height: 620,
   },
   scrollView: {
     flexDirection: 'row',
@@ -58,5 +59,5 @@ module.exports = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#227DF4',
     backgroundColor: '#227DF4',
-  }
+  },
 });

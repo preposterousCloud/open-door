@@ -1,9 +1,8 @@
-import React, { View, Text, TouchableOpacity, TextInput, ListView, Alert } from 'react-native';
+import React, { View, Text, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
+import { store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
 import FilterTextInput from '../../Shared/FilterTextInput.js';
-import styles from '../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../styles/Feed/feedStyles.js';
 import friendsApi from '../../../sharedNative/utils/friends.js';
 import {
@@ -13,6 +12,7 @@ import {
   UserList,
   getAllUsersArray,
 } from '../../Shared/Misc.js';
+import styles from '../../../styles/Social/socialStyles.js';
 
 const AddFriends = (props) => {
   const cancelButton = {

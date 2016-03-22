@@ -1,12 +1,6 @@
-import styles from '../../styles/Profile/profileStyles.js';
+import React, { View } from 'react-native';
 import ProfileSettingsListRow from './ProfileSettingsListRow.js';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import React, {
-  Text,
-  View,
-  Component,
-  TouchableHighlight,
- } from 'react-native';
+import styles from '../../styles/Profile/profileStyles.js';
 
 const ProfileSettingsList = () => (
   <View style={styles.container}>

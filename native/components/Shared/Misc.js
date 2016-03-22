@@ -1,11 +1,16 @@
+import React, {
+  Image,
+  ListView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { connect } from 'react-redux';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import React,
-  { Alert, Image, ListView, StyleSheet, Text, TouchableOpacity, TextInput, View }
-  from 'react-native';
+import { store } from '../../sharedNative/reducers/reducers.js';
 import { refreshUser, getAllUsers } from '../../sharedNative/actions/actions.js';
-
 import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
+
 const defaultStyles = StyleSheet.create({ image: { height: 40, width: 40 } });
 
 const LoadingWheel = (props) => {
