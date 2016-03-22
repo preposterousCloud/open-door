@@ -44,6 +44,6 @@ module.exports = (app) => {
   // app.post('/api/friends/request');
 
   // // Groups
-  // app.get('/api/friends/groups');
+  app.get('/api/friends/groups/getGroupsForUser/:id', Group.getGroups);
   app.post('/api/friends/groups', Group.createGroup);
 };

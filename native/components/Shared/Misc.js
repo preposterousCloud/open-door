@@ -109,7 +109,7 @@ const makeSelectableRow = (action, getChecklist) => {
       const appliedChecklist = getChecklist.bind(null, user);
       actionAppliedToUser();
       checklist = appliedChecklist();
-      makeListContainer(UserList, ['allUsers']);
+      makeListContainer(UserList, ['user', 'friends']);
       store.dispatch(refreshUser());
       console.log(checklist);
     };
