@@ -54,7 +54,6 @@ const CreateGroup = class CreateGroup extends React.Component {
     getFriends();
   }
 
-  // CHANGE ONCE FRIENDS FEATURE IS IMPLEMENTED
   render() {
     const CreateGroupShowFriendsListContainer = common.makeListContainer(
       common.makeSelectableRow(checkCheckbox, getChecklist),
