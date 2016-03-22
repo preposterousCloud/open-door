@@ -1,9 +1,3 @@
-import styles from '../../styles/Feed/feedStyles.js';
-import FeedList from './FeedList.js';
-import NavBar from '../Shared/NavBar.js';
-import SetDoor from '../Door/SetDoor.js';
-import Profile from '../Profile/Profile.js';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
   Text,
   View,
@@ -11,9 +5,20 @@ import React, {
   TouchableHighlight,
   ScrollView,
  } from 'react-native';
-
+import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
+import FeedList from './FeedList.js';
+import NavBar from '../Shared/NavBar.js';
+import SetDoor from '../Door/SetDoor.js';
+import Social from '../Social/Social.js';
+import {
+  exitButton,
+  enterButton,
+  makeClickableRow,
+  makeListContainer,
+} from '../Shared/Misc.js';
+import styles from '../../styles/Feed/feedStyles.js';
 
 const Feed = (props) => {
   const rightNavButton = {
@@ -22,25 +27,27 @@ const Feed = (props) => {
   };
 
   const leftNavButton = {
-    title: 'Profile',
+    title: 'Social',
     handler: props.swipeLeft,
   };
 
   return (
     <View style={styles.container}>
       <NavBar
-        title={store.getState().user.userName}
+        title={props.userName}
         rightButton={rightNavButton}
         leftButton={leftNavButton}
       />
-      <FeedList />
+      <FeedList events={props.events} />
     </View>
   );
 };
 
 Feed.propTypes = {
-  swipeRight: React.PropTypes.function,
-  swipeLeft: React.PropTypes.function,
+  swipeRight: React.PropTypes.func,
+  swipeLeft: React.PropTypes.func,
+  userName: React.PropTypes.string,
+  events: React.PropTypes.array,
 };
 
 module.exports = Feed;

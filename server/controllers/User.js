@@ -51,10 +51,41 @@ module.exports.getUser = function getUser(req, res) {
 
   db.User.getUser(searchObj)
   .then((data) => {
+    if (!data) { throw new Error('User Not Found - User Controller 54:18'); }
     res.json(data);
   })
   .catch((err) => {
     console.error(err, err.stack);
-    res.status(500).send('Unknown server problem');
+    res.status(404).send(null);
+  });
+};
+
+module.exports.addFriendship = function addFriendship(req, res) {
+  db.User.addFriendship(req.body.friends[0], req.body.friends[1])
+  .then(result => {
+    if (result[0].length > 0) {
+      res.status(201).send('Friendship created');
+      return;
+    }
+    res.status(200).send('Friendship already existed');
+  })
+  .catch(err => {
+    console.error('Error creating friendship: ', err);
+    res.status(500).send('Unknown server error');
+  });
+};
+
+module.exports.removeFriendship = function removeFriendship(req, res) {
+  db.User.removeFriendship(req.body.friends[0], req.body.friends[1])
+  .then(resultsRemoved => {
+    if (resultsRemoved[0] > 0) {
+      res.status(201).send('Friendship removed');
+      return;
+    }
+    res.status(200).send('Friendship not found to begin with.');
+  })
+  .catch(err => {
+    console.error('Error removing friendship: ', err);
+    res.status(500).send('Unknown server error');
   });
 };

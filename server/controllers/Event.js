@@ -4,6 +4,7 @@ const db = require('../db/database').db;
 
 const _mapEvent = (event) => {
   return { name: event.name,
+    id: event.id,
     createdAt: event.createdAt,
     updatedAt: event.updatedAt,
     address1: event.addressStreet1,
@@ -11,6 +12,7 @@ const _mapEvent = (event) => {
     city: event.city,
     stateAbbrev: event.stateAbbrev,
     postalCode: event.postalCode,
+    hostUserId: event.hostUserId,
   };
 };
 
@@ -18,7 +20,7 @@ module.exports.createEvent = function createUser(req, res) {
   if (!req.body.name) {
     res.status(404).send('Make sure to include a user name and appropriate properties');
   } else {
-    db.Event.createEvent({ hostUser: req.body.hostUser,
+    db.Event.createEvent({ hostUserId: req.body.hostUserId,
       name: req.body.name,
       startDateUtc: req.body.startDateUtc,
       endDateUtc: req.body.endDateUtc,
@@ -45,4 +47,34 @@ module.exports.getEvents = function getUsers(req, res) {
     console.error(err);
     res.status(500).send('Unknown server problem');
   });
+};
+
+module.exports.actionReducer = function actionReducer(req, res) {
+  const action = req.params.action.toLowerCase();
+  const id = parseInt(req.params.id, 10);
+
+  if (isNaN(id)) {
+    res.status(404).send('Invalid ID');
+    return;
+  }
+
+  const findEvent = db.Event.findOne({ where: { id: id } })
+  .then((event) => {
+    if (!event.id) {
+      res.status(404).send('Invalid ID');
+      return;
+    }
+    return event;
+  });
+
+  switch (action) {
+    case 'closeevent':
+      findEvent.then(event => event.closeEvent())
+      .then((event) => {
+        res.send(event);
+      });
+      break;
+    default:
+      res.status(404).send('Unknown action');
+  }
 };

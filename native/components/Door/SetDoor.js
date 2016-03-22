@@ -1,38 +1,75 @@
-import styles from '../../styles/Event/eventStyles.js';
+import React, {
+  View,
+  Text,
+  TouchableOpacity,
+  } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+import actions from '../../sharedNative/actions/actions';
 import NavBar from '../Shared/NavBar.js';
-import React, { View, Text } from 'react-native';
+import Profile from '../Profile/Profile.js';
+import EventSettings from './EventSettings';
+import OpenDoor from './OpenDoor';
+import ClosedDoor from './ClosedDoor';
+import styles from '../../styles/Door/doorStyles.js';
 
-const getDoorData = () => {
-  store.dispatch({
-    type: 'SET_FOCUS_EVENT',
-    data: {
-      user: 'Old Greg',
-      doorStatus: 'CLOSED',
-    },
-  });
-};
+const LoadingWheel = require('../Shared/Misc').LoadingWheel;
 
-const SetDoor = (props) => {
-  getDoorData();
-  const leftNavButton = {
-    title: '<',
-    handler: props.swipeLeft,
-  };
-  return (
-    <View>
-    <NavBar
-      title={ 'Event Details' }
-      leftButton={leftNavButton}
-    />
-    <Text>User: {store.getState().event.focusEventDetails.user}</Text>
-    <Text>Door Status: {store.getState().event.focusEventDetails.doorStatus}</Text>
-  </View>
-  );
+const SetDoor = class SetDoor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.toggleDoor = this.toggleDoor.bind(this);
+    this.postEvent = this.postEvent.bind(this);
+  }
+  toggleDoor() {
+    this.props.onDoorToggle();
+  }
+  postEvent() {
+    const eventToCreate = this.props.app.pendingEvent;
+    eventToCreate.hostUserId = this.props.user.id;
+    this.props.onEventSubmit(eventToCreate);
+  }
+  goToSettings() {
+    store.getState().navigation.navigator.push({
+      component: Profile,
+    });
+  }
+
+  render() {
+    return (
+      <View>
+        <NavBar
+          title={ 'My Door' }
+          leftButton={ { title: '<', handler: this.props.swipeLeft } }
+          rightButton={ { title: 'Settings', handler: this.goToSettings }}
+        />
+        <View style={styles.container}>
+          <TouchableOpacity onPress={this.toggleDoor}>
+            {(() => (this.props.user.currentEvent || this.props.app.pendingEvent) ?
+              <OpenDoor styles={{ size: 100, color: 'green' }} /> :
+              <ClosedDoor styles={{ size: 100, color: 'red' }} />
+            )()}
+          </TouchableOpacity>
+          <LoadingWheel isLoading={ this.props.app.isLoading } />
+          {
+            this.props.app.pendingEvent ?
+            <EventSettings event={this.props.app.pendingEvent}
+              onChange={this.props.onEventSettingsChange}
+              onSubmit={ this.postEvent }
+            /> :
+            <Text />
+          }
+        </View>
+      </View>
+   );
+  }
 };
 
 SetDoor.propTypes = {
-  swipeLeft: React.PropTypes.function,
+  swipeLeft: React.PropTypes.func.isRequired,
+  user: React.PropTypes.object.isRequired,
+  onDoorToggle: React.PropTypes.func.isRequired,
+  app: React.PropTypes.object.isRequired,
+  onEventSettingsChange: React.PropTypes.func.isRequired,
+  onEventSubmit: React.PropTypes.func.isRequired,
 };
-
 module.exports = SetDoor;

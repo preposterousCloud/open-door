@@ -2,4 +2,14 @@
  *Here we list all Redux actions so we can easily identify them
  */
 
-export const ADD_TODO = 'ADD_TODO';
+export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
+export const CREATE_EVENT = 'CREATE_EVENT';
+export const TOGGLE_LOADING = 'TOGGLE_LOADING';
+export const SET_ALL_USERS = 'SET_ALL_USERS';
+export const SET_USER = 'SET_USER';
+export const SET_GROUPNAME_INPUT_DISP = 'SET_GROUPNAME_INPUT_DISP';
+export const UPDATE_PENDING_EVENT = 'UPDATE_PENDING_EVENT';
+export const SET_SWIPER_INDEX = 'SET_SWIPER_INDEX';
+export const CREATE_CHECKLIST = 'CREATE_CHECKLIST';
+export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX';
+export const SET_FILTER_TEXT = 'SET_FILTER_TEXT';

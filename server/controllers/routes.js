@@ -3,6 +3,7 @@
 // const utils = require('./utils.js');
 const User = require('./User');
 const Event = require('./Event');
+const Group = require('./Group')
 
 module.exports = (app) => {
   // Test
@@ -23,21 +24,26 @@ module.exports = (app) => {
   // app.put('/api/users/');
   // app.delete('/api/users/');
   app.get('/api/users/:arg', User.getUser);
-  // // Events
+
+  // Events
   app.get('/api/events', Event.getEvents);
   app.post('/api/events', Event.createEvent);
+  app.post('/api/events/:id/:action', Event.actionReducer);
+
   // app.put('/api/events');
   // app.delete('/api/events');
 
   // // Friends
   //   // Friends list
   // app.get('/api/friends');
-  // app.post('/api/friends');
+  app.post('/api/friends/add', User.addFriendship);
+  app.post('/api/friends/remove', User.removeFriendship);
+
   //   // Friend requests
   // app.get('/api/friends/request');
   // app.post('/api/friends/request');
 
   // // Groups
   // app.get('/api/friends/groups');
-  // app.post('/api/friends/groups');
+  app.post('/api/friends/groups', Group.createGroup);
 };

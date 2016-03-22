@@ -11,11 +11,14 @@ Requirements:
 - npm [install here](http://blog.npmjs.org/post/85484771375/how-to-install-npm)
 - rnpm [install here](https://github.com/rnpm/rnpm)
 
-Run 'npm run install:all' from the root directory
+Run `npm run install:all` from the root directory  
 
 ```
 $ npm install
 ```
+Rename the file /server/config.example.js to /server/config.js
+- Replace the required line with your docker IP address
+
 Open the project with Xcode
 - Open the xcode project file in /native/iOS
 - Change the project name because all Xcode projects need to be globally unique

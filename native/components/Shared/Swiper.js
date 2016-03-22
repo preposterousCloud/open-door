@@ -1,8 +1,3 @@
-import styles from '../../styles/Feed/feedStyles.js';
-import Feed from '../Feed/Feed.js';
-import Profile from '../Profile/Profile.js';
-import SetDoor from '../Door/SetDoor.js';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
   Text,
   View,
@@ -10,16 +5,24 @@ import React, {
   TouchableHighlight,
   ScrollView,
   StatusBarIOS,
- } from 'react-native';
-
+} from 'react-native';
+import { connect } from 'react-redux';
+import { store } from '../../sharedNative/reducers/reducers.js';
+const actions = require('../../sharedNative/actions/actions');
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
-
-const _onMomentumScrollEnd = (e, state) => {
-  console.log('scrolled');
-};
+import Feed from '../Feed/Feed.js';
+import Social from '../Social/Social.js';
+import SetDoorContainer from '../Door/SetDoorContainer';
+import styles from '../../styles/Feed/feedStyles.js';
 
 class SwiperBase extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onMomentumScrollEnd = this._onMomentumScrollEnd.bind(this);
+    this.swipeRight = this.swipeRight.bind(this);
+    this.swipeLeft = this.swipeLeft.bind(this);
+  }
 
   swipeRight() {
     this.refs.scrollView.scrollTo(1);
@@ -29,10 +32,26 @@ class SwiperBase extends React.Component {
     this.refs.scrollView.scrollTo(-1);
   }
 
-  render() {
-    const boundMomentumScrollEnd = _onMomentumScrollEnd.bind(this);
-    const boundSwipeRight = this.swipeRight.bind(this);
-    const boundSwipeLeft = this.swipeLeft.bind(this);
+  _onMomentumScrollEnd(e, state) {
+    store.dispatch(actions.setSwiperIndex(state.index));
+  }
+
+  render(props) {
+    const FeedContainer = connect(state => {
+      return {
+        events: state.user.Events,
+        userName: state.user.userName,
+        swipeLeft: this.swipeLeft,
+        swipeRight: this.swipeRight,
+      };
+    })(Feed);
+
+    const SocialContainer = connect(state => {
+      return {
+        user: state.user,
+        swipeRight: this.swipeRight,
+      };
+    })(Social);
 
     return (
       <Swiper
@@ -40,12 +59,12 @@ class SwiperBase extends React.Component {
         showsButtons={false}
         loop={false}
         showsPagination={false}
-        index={1}
-        onMomentumScrollEnd ={boundMomentumScrollEnd}
+        index={ this.props.app.swiperIndex }
+        onMomentumScrollEnd ={this._onMomentumScrollEnd}
       >
-        <Profile swipeRight={boundSwipeRight} />
-        <Feed swipeRight={boundSwipeRight} swipeLeft={boundSwipeLeft} />
-        <SetDoor swipeLeft={boundSwipeLeft} />
+        <SocialContainer />
+        <FeedContainer />
+        <SetDoorContainer swipeLeft={this.swipeLeft} />
       </Swiper>
    );
   }

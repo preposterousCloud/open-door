@@ -11,7 +11,8 @@
     "test": "jest",
     "babel": "babel",
     "babel-node": "babel-node",
-    "install:all": "npm install && cd ./native && npm install && cd ../server && npm install && cd .."
+    "init-dummy-data": "node server/db/initDb.js setDummyData",
+    "install:all": "npm install && cd ./native && npm run installAndLink && cd ../server && npm install && cd .."
   },
   "author": "",
   "license": "ISC",
