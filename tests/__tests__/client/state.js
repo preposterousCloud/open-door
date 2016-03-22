@@ -68,4 +68,50 @@ describe('Data Integration Tests', () => {
     store.dispatch(actions.toggleItemSelectionInList(3, 'testEvent'));
     expect(store.getState().app.pendingSelections.testEvent[3]).toBe(false);
   });
+
+  const groupList = [
+    {
+      groupId: 1,
+      members: [
+        {
+          id: 2,
+          userName: 'Bill S. Preston',
+        },
+        {
+          id: 6,
+          userName: 'Ted Theodore Logan',
+        },
+      ],
+    },
+    {
+      groupId: 2,
+      members: [
+        {
+          id: 1,
+          userName: 'Ned',
+        },
+        {
+          id: 2,
+          userName: 'Catlin',
+        },
+        {
+          id: 3,
+          userName: 'Sansa',
+        },
+        {
+          id: 4,
+          userName: 'Arya',
+        },
+        {
+          id: 5,
+          userName: 'Bran',
+        },
+      ],
+    },
+  ];
+
+  it('Should get group members for a given group', () => {
+    store.dispatch(actions.setUserGroupMembers(groupList[1]));
+    expect(store.getState().userGroupMembers.members.length).toEqual(5);
+  });
 });
