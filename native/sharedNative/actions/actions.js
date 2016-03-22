@@ -115,7 +115,6 @@ export function attemptLogin(userName) {
     return getUser(userName)
     .then(user => {
       if (user) {
-        console.log('Log in user');
         dispatch(setUser(user));
         return true;
       }
@@ -129,7 +128,6 @@ export function getAllUsers() {
     return fetchAllUsers()
     .then(users => {
       if (users) {
-        console.log('Fetching ALL the Users');
         dispatch(setAllUsers(users));
         return users;
       }
@@ -139,7 +137,6 @@ export function getAllUsers() {
 }
 
 export function refreshUser() {
-  console.log('>>>>>>>>>>Refreshing Users');
   return (dispatch, getState) => {
     const userId = getState().user.id;
     dispatch(setLoading(true));
@@ -181,6 +178,10 @@ export function createEvent(event) {
       dispatch(setLoading(false));
       dispatch(refreshUser());
       return event;
+    })
+    .catch((err) => {
+      dispatch(setLoading(false));
+      console.warn(err);
     });
   };
 }
