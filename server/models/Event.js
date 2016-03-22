@@ -80,9 +80,17 @@ module.exports = function Event(sequelizeInstance) {
           const personalEvents = this.findAll({
             where: { hostUserId: user.id, endDateUtc: null },
           });
-
+        
           return Promise.all([userInvites, groupInvites, personalEvents])
-          .then((allEvents) => allEvents.reduce((memo, current) => memo.concat(current)));
+          .then((allEvents) => {
+            let dedupedResults = {};
+            allEvents.forEach((groupOfEvents) =>
+              groupOfEvents.forEach((event) => {
+                dedupedResults[event.id] = event;
+              })
+            );
+            return Object.keys(dedupedResults).map(key => dedupedResults[key]);
+          });
         },
       },
     });
