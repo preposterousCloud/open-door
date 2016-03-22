@@ -103,16 +103,13 @@ const makeListContainer = (rowComponent, listDataPath = [], listComponent = User
 
 const makeSelectableRow = (action, getChecklist) => {
   return (user) => {
-    if (user.id === store.getState().user.id) {
-      return (<View></View>)
-    }
     let checklist = getChecklist();
     const runList = () => {
       const actionAppliedToUser = action.bind(null, user);
       const appliedChecklist = getChecklist.bind(null, user);
       actionAppliedToUser();
       checklist = appliedChecklist();
-      makeListContainer(UserList, ['allUsers']);
+      makeListContainer(UserList, ['user', 'friends']);
       store.dispatch(refreshUser());
       console.log(checklist);
     };
