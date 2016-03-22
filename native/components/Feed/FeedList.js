@@ -1,13 +1,12 @@
-import styles from '../../styles/Feed/feedStyles.js';
-import FeedListRow from './FeedListRow.js';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import React, {
   Text,
   View,
   ListView,
   Component,
   TouchableHighlight,
- } from 'react-native';
+} from 'react-native';
+import FeedListRow from './FeedListRow.js';
+import styles from '../../styles/Feed/feedStyles.js';
 
 const convertEventsToDataSource = (events) => {
   events = events || [];
