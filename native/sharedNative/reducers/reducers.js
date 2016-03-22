@@ -40,6 +40,11 @@ const app = (state = defaultState, action) => {
         !newState.pendingSelections[listToUpdate][idToToggle];
       return newState;
     }
+    case actions.CLEAR_ITEMS_IN_SELECTION_LIST: {
+      const newState = Object.assign({}, state);
+      newState.pendingSelections[action.data.listName] = {};
+      return newState;
+    }
     default:
       return state;
   }

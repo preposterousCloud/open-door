@@ -103,6 +103,15 @@ export function toggleItemSelectionInList(id, listName) {
   };
 }
 
+export function clearItemSelectionInList(listName) {
+  return {
+    type: a.CLEAR_ITEMS_IN_SELECTION_LIST,
+    data: {
+      listName,
+    },
+  };
+}
+
 /** *****************************************************
  * Async Thunk Action Creators
  * ************************************************** */
@@ -182,6 +191,8 @@ export function createEvent(event) {
     .then((event) => {
       dispatch(setActiveEvent(event));
       dispatch(updatePendingEvent(null));
+      dispatch(clearItemSelectionInList('friendsToInvite'));
+      dispatch(clearItemSelectionInList('groupsToInvite'));
       dispatch(setLoading(false));
       dispatch(refreshUser());
       return event;
