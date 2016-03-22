@@ -1,10 +1,4 @@
-import React, {
-  Text,
-  View,
-  ListView,
-  Component,
-  TouchableHighlight,
-} from 'react-native';
+import React, { View, ListView } from 'react-native';
 import FeedListRow from './FeedListRow.js';
 import styles from '../../styles/Feed/feedStyles.js';
 
@@ -25,5 +19,9 @@ const FeedList = (props) => (
     />
   </View>
 );
+
+FeedList.propTypes = {
+  events: React.PropTypes.array,
+};
 
 module.exports = FeedList;
