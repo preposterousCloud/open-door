@@ -1,0 +1,19 @@
+app
+  pendingSelections
+  friendsToInvite
+  groupsToInvite
+user
+  id - number
+  userName - string
+  friends - array
+  events - array
+  groups - array
+filterText - String
+navigation
+  navigator - Component
+allUsers - array
+groupName, // NOT IN USE (usage: live typing)
+checklist
+  ???
+checkboxChecked
+  ???
