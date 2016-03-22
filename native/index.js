@@ -1,15 +1,6 @@
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View,
-  Navigator,
-} from 'react-native';
-
+import React, { AppRegistry, Navigator } from 'react-native';
 import { Provider } from 'react-redux';
-
-import { reducer, store } from './sharedNative/reducers/reducers.js';
+import { store } from './sharedNative/reducers/reducers.js';
 import Login from './components/Auth/Login.js';
 
 const configureScene = (route) => {
