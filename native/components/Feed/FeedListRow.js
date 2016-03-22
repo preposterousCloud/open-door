@@ -1,4 +1,4 @@
-import React, { Text, View } from 'react-native';
+import React, { Text, View, Image } from 'react-native';
 import styles from '../../styles/Feed/feedStyles.js';
 
 import Accordion from 'react-native-accordion';
@@ -17,9 +17,11 @@ const FeedListRow = (rowText) => {
   const content = (
     <View>
       <View>
-        <Text style={styles.accordion}>
-          {'sup yo'}
-        </Text>
+        <Text>Party bot</Text>
+        <Image
+          src="dino-storm.jpg"
+          style={styles.accordion}
+        />
       </View>
     </View>
   );

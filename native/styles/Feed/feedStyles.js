@@ -19,7 +19,7 @@ module.exports = StyleSheet.create({
     borderColor: '#DDD',
   },
   accordion: {
-    height: 500,
-    backgroundColor: '#888',
+    height: 40,
+    width: 40,
   },
 });
