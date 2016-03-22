@@ -1,5 +1,5 @@
-import React, { View, Text, TouchableOpacity, TextInput, ListView, Alert } from 'react-native';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+import React, { View, TextInput } from 'react-native';
+import { store } from '../../sharedNative/reducers/reducers.js';
 import { setFilterText, clearFilterText } from '../../sharedNative/actions/actions.js';
 import styles from '../../styles/Social/socialStyles.js';
 

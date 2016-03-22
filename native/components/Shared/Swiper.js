@@ -5,18 +5,16 @@ import React, {
   TouchableHighlight,
   ScrollView,
   StatusBarIOS,
- } from 'react-native';
+} from 'react-native';
+import { connect } from 'react-redux';
+import { store } from '../../sharedNative/reducers/reducers.js';
+const actions = require('../../sharedNative/actions/actions');
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
-import { connect } from 'react-redux';
-
-const actions = require('../../sharedNative/actions/actions');
-
-import styles from '../../styles/Feed/feedStyles.js';
 import Feed from '../Feed/Feed.js';
 import Social from '../Social/Social.js';
 import SetDoorContainer from '../Door/SetDoorContainer';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+import styles from '../../styles/Feed/feedStyles.js';
 
 class SwiperBase extends React.Component {
   constructor(props) {

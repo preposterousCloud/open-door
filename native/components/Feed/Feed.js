@@ -5,12 +5,9 @@ import React, {
   TouchableHighlight,
   ScrollView,
  } from 'react-native';
-
+import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
-
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import styles from '../../styles/Feed/feedStyles.js';
 import FeedList from './FeedList.js';
 import NavBar from '../Shared/NavBar.js';
 import SetDoor from '../Door/SetDoor.js';
@@ -21,6 +18,7 @@ import {
   makeClickableRow,
   makeListContainer,
 } from '../Shared/Misc.js';
+import styles from '../../styles/Feed/feedStyles.js';
 
 const Feed = (props) => {
   const rightNavButton = {

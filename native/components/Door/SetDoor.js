@@ -3,16 +3,14 @@ import React, {
   Text,
   TouchableOpacity,
   } from 'react-native';
-
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import actions from '../../sharedNative/actions/actions';
-
-import styles from '../../styles/Door/doorStyles.js';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
 import EventSettings from './EventSettings';
 import OpenDoor from '../Shared/OpenDoor';
 import ClosedDoor from '../Shared/ClosedDoor';
+import styles from '../../styles/Door/doorStyles.js';
 
 const LoadingWheel = require('../Shared/Misc').LoadingWheel;
 

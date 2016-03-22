@@ -1,9 +1,7 @@
 import React, { View, Text, TouchableOpacity, ListView } from 'react-native';
 import { connect } from 'react-redux';
-import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
+import { store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
-import styles from '../../../styles/Social/socialStyles.js';
-import feedStyles from '../../../styles/Feed/feedStyles.js';
 import AddFriends from './AddFriends.js';
 import {
   exitButton,
@@ -11,6 +9,8 @@ import {
   makeClickableRow,
   makeListContainer,
 } from '../../Shared/Misc.js';
+import styles from '../../../styles/Social/socialStyles.js';
+import feedStyles from '../../../styles/Feed/feedStyles.js';
 
 const Friends = (props) => {
   const logUser = (user) => {

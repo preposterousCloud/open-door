@@ -1,9 +1,8 @@
-import styles from '../../styles/Profile/profileStyles.js';
-import SetDoor from '../Door/SetDoor';
-import ProfileSettingsList from './ProfileSettingsList.js';
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-import NavBar from '../Shared/NavBar.js';
 import React, { View, Text } from 'react-native';
+import { store } from '../../sharedNative/reducers/reducers.js';
+import ProfileSettingsList from './ProfileSettingsList.js';
+import NavBar from '../Shared/NavBar.js';
+import styles from '../../styles/Profile/profileStyles.js';
 
 const closeProfileSettings = () => {
   store.getState().navigation.navigator.pop();

@@ -1,15 +1,9 @@
-import React, {
-  View,
-  Text,
-  TouchableOpacity,
-  } from 'react-native';
-
-import { reducer, store } from '../../sharedNative/reducers/reducers.js';
-
-import styles from '../../styles/Social/socialStyles.js';
+import React, { View, Text, TouchableOpacity } from 'react-native';
+import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import Groups from './Groups/Groups.js';
 import Friends from './Friends/Friends.js';
+import styles from '../../styles/Social/socialStyles.js';
 
 const groupsNav = () => {
   store.getState().navigation.navigator.push({

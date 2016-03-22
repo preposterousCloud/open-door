@@ -1,5 +1,12 @@
 const a = require('../ActionTypes');
-import { postEvent, closeEvent, fetchAllUsers, postGroup, getUser, postUser } from '../utils/api';
+import {
+  postEvent,
+  closeEvent,
+  fetchAllUsers,
+  postGroup,
+  getUser,
+  postUser,
+} from '../utils/api';
 
 const catchErr = (err) => {
   console.log(err);
