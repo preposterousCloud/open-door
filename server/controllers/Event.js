@@ -29,7 +29,7 @@ module.exports.createEvent = function createUser(req, res) {
       city: req.body.city,
       stateAbbrev: req.body.stateAbbrev,
       postalCode: req.body.postalCode,
-      users: req.body.users,
+      users: req.body.friends,
       groups: req.body.groups })
     .then((event) => res.json(_mapEvent(event)))
     .catch((err) => {

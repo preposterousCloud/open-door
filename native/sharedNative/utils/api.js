@@ -7,7 +7,7 @@ const validateBody = res => {
   if (statusOK(res)) {
     return JSON.parse(res._bodyInit);
   }
-  throw new Error('User Creation Failed');
+  throw new Error(`Error received: ${res}`);
 };
 
 const catchErr = (err) => {
@@ -56,10 +56,9 @@ export const fetchAllUsers = () => {
 export const postGroup = (groupName, members) => {
   const url = `${config.apiUrl}friends/groups`;
   const groupObj = JSON.stringify({
-      groupName,
-      members: JSON.stringify(members),
+    groupName,
+    members: JSON.stringify(members),
   });
-  console.log('>>>>>>>>>>>>>>>>>', groupObj)
   return fetch(url, {
     method: 'POST',
     body: groupObj,

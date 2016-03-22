@@ -7,16 +7,16 @@ const CreateGroupName = (props) => {
   let groupName;
 
   const confirmNewGroup = () => {
-    const finalGroupName = store.getState().groupName
+    const finalGroupName = store.getState().groupName;
     console.log('CALLING NAME GROUP WITH', finalGroupName);
     store.dispatch(actions.storeGroup(finalGroupName));
-  }
+  };
 
   const updateGroupName = (newGroupName) => {
     groupName = newGroupName;
     store.dispatch(actions.liveUpdateGroupName(groupName));
-    store.dispatch(actions.refreshUser())
-    console.log('>', store.getState().groupName)
+    store.dispatch(actions.refreshUser());
+    console.log('>', store.getState().groupName);
   };
 
   return (

@@ -8,8 +8,8 @@ import actions from '../../sharedNative/actions/actions';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
 import EventSettings from './EventSettings';
-import OpenDoor from './OpenDoor';
-import ClosedDoor from './ClosedDoor';
+import OpenDoor from '../Shared/OpenDoor';
+import ClosedDoor from '../Shared/ClosedDoor';
 import styles from '../../styles/Door/doorStyles.js';
 
 const LoadingWheel = require('../Shared/Misc').LoadingWheel;
@@ -18,14 +18,17 @@ const SetDoor = class SetDoor extends React.Component {
   constructor(props) {
     super(props);
     this.toggleDoor = this.toggleDoor.bind(this);
-    this.postEvent = this.postEvent.bind(this);
+    this.createEvent = this.createEvent.bind(this);
   }
   toggleDoor() {
     this.props.onDoorToggle();
   }
-  postEvent() {
+    createEvent() {
+    // Consider moving all of this logic into the action and read everything directly from state
     const eventToCreate = this.props.app.pendingEvent;
     eventToCreate.hostUserId = this.props.user.id;
+    eventToCreate.friends = Object.keys(this.props.app.pendingSelections.friendsToInvite);
+    eventToCreate.groups = Object.keys(this.props.app.pendingSelections.groupsToInvite);
     this.props.onEventSubmit(eventToCreate);
   }
   goToSettings() {
@@ -54,7 +57,7 @@ const SetDoor = class SetDoor extends React.Component {
             this.props.app.pendingEvent ?
             <EventSettings event={this.props.app.pendingEvent}
               onChange={this.props.onEventSettingsChange}
-              onSubmit={ this.postEvent }
+              onSubmit={ this.createEvent }
             /> :
             <Text />
           }

@@ -1,6 +1,35 @@
 import React, { TextInput, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 
+import { Button } from '../Shared/Button';
+import { exitButton, makeListContainer, navTo, popScene } from '../Shared/Misc';
+import { GroupList, UserList } from '../Shared/SelectList';
+import NavBar from '../Shared/NavBar.js';
+
+const InviteFriends = (props) => {
+  return (
+    <View>
+      <NavBar
+        title={'Invite Friends'}
+      />
+      <UserList />
+      <Button text ={'Go Back'} onClick = {popScene} />
+    </View>
+  );
+};
+
+const InviteGroups = (props) => {
+  return (
+    <View>
+      <NavBar
+        title={'Invite Groups'}
+      />
+      <GroupList />
+      <Button text ={'Go Back'} onClick = {popScene} />
+    </View>
+  );
+};
+
 const EventSettings = (props) => (
   <View style={ styles.container }>
     <TextInput
@@ -15,9 +44,9 @@ const EventSettings = (props) => (
       value={props.event.desc}
       placeholder={'Description (optional)'}
     />
-    <TouchableOpacity onPress={ props.onSubmit }>
-      <Text> Confirm </Text>
-    </TouchableOpacity>
+    <Button onClick = {() => navTo(InviteFriends) } text={'Invite Friends'} />
+    <Button onClick = {() => navTo(InviteGroups) } text={'Invite Groups'} />
+    <Button onClick = {props.onSubmit} text={'Confirm'} />
   </View>
 );
 
@@ -27,12 +56,23 @@ EventSettings.propTypes = {
   onSubmit: React.PropTypes.func.isRequired,
 };
 
+// const FriendsToAdd = (props) => {
+//   return (
+    
+//   )
+// } 
+
+const AddFriends = (props) => {
+  // return makeListContainer(, [all], listComponent)
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
+    flexDirection: 'column',
   },
-  textBox: { 
+  textBox: {
     width: 275,
     height: 40,
     borderColor: 'gray',

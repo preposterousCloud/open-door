@@ -61,4 +61,11 @@ describe('Data Integration Tests', () => {
     store.dispatch(actions.setSwiperIndex(0));
     expect(store.getState().app.swiperIndex).toBe(0);
   });
+  
+  it('Should keep track of toggled objects in pendingSelections', () => {  
+    store.dispatch(actions.toggleItemSelectionInList(3, 'testEvent'));
+    expect(store.getState().app.pendingSelections.testEvent[3]).toBe(true);
+    store.dispatch(actions.toggleItemSelectionInList(3, 'testEvent'));
+    expect(store.getState().app.pendingSelections.testEvent[3]).toBe(false);
+  });
 });
