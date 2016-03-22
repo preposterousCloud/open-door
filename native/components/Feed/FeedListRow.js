@@ -17,7 +17,7 @@ const FeedListRow = (rowText) => {
   const content = (
     <View>
       <View>
-        <Text style={styles.group}>
+        <Text style={styles.accordion}>
           {'sup yo'}
         </Text>
       </View>

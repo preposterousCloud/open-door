@@ -11,4 +11,16 @@ function groupName(state = '', action) {
   }
 }
 
-module.exports = groupName;
+function userGroupMembers(state = [], action) {
+  switch (action.type) {
+    case 'SET_USER_GROUP_MEMBERS': {
+      console.log('USER GROUPS SET', action)
+      return action.userGroupMembers || state;
+    }
+    default:
+      return state;
+  }
+}
+
+module.exports.groupName = groupName;
+module.exports.userGroupMembers = userGroupMembers;

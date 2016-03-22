@@ -4,6 +4,7 @@ import {
   closeEvent,
   fetchAllUsers,
   postGroup,
+  fetchUserGroups,
   getUser,
   postUser,
 } from '../utils/api';
@@ -93,6 +94,32 @@ export function clearFilterText() {
   return setFilterText('');
 }
 
+export function toggleItemSelectionInList(id, listName) {
+  return {
+    type: a.TOGGLE_ITEM_SELECTION_IN_LIST,
+    data: {
+      id,
+      listName,
+    },
+  };
+}
+
+export function clearItemSelectionInList(listName) {
+  return {
+    type: a.CLEAR_ITEMS_IN_SELECTION_LIST,
+    data: {
+      listName,
+    },
+  };
+}
+
+export function setUserGroupMembers(userGroupMembers) {
+  return {
+    type: a.SET_USER_GROUP_MEMBERS,
+    userGroupMembers,
+  };
+}
+
 /** *****************************************************
  * Async Thunk Action Creators
  * ************************************************** */
@@ -112,7 +139,6 @@ export function attemptLogin(userName) {
     return getUser(userName)
     .then(user => {
       if (user) {
-        console.log('Log in user');
         dispatch(setUser(user));
         return true;
       }
@@ -126,7 +152,6 @@ export function getAllUsers() {
     return fetchAllUsers()
     .then(users => {
       if (users) {
-        console.log('Fetching ALL the Users');
         dispatch(setAllUsers(users));
         return users;
       }
@@ -136,7 +161,6 @@ export function getAllUsers() {
 }
 
 export function refreshUser() {
-  console.log('>>>>>>>>>>Refreshing Users');
   return (dispatch, getState) => {
     const userId = getState().user.id;
     dispatch(setLoading(true));
@@ -150,8 +174,8 @@ export function refreshUser() {
 export function storeGroup(groupName) {
   return (dispatch, getState) => {
     const checklist = getState().checklist;
-    let members = [];
-    for (var id in checklist) {
+    const members = [getState().user.id];
+    for (const id in checklist) {
       if (checklist[id]) {members.push(+id);}
     }
     console.log(members);
@@ -168,6 +192,23 @@ export function storeGroup(groupName) {
   };
 }
 
+export function getUserGroups() {
+  return (dispatch, getState) => {
+    const id = getState().user.id;
+    return fetchUserGroups(id)
+    .then(groups => {
+      if (groups) {
+        const userGroups = {};
+        groups.forEach((group) => {
+          userGroups[group.groupId] = group.members;
+        });
+        return userGroups;
+      }
+      return false;
+    });
+  };
+}
+
 export function createEvent(event) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));
@@ -175,9 +216,15 @@ export function createEvent(event) {
     .then((event) => {
       dispatch(setActiveEvent(event));
       dispatch(updatePendingEvent(null));
+      dispatch(clearItemSelectionInList('friendsToInvite'));
+      dispatch(clearItemSelectionInList('groupsToInvite'));
       dispatch(setLoading(false));
       dispatch(refreshUser());
       return event;
+    })
+    .catch((err) => {
+      dispatch(setLoading(false));
+      console.warn(err);
     });
   };
 }

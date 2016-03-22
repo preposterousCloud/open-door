@@ -25,13 +25,17 @@ LoadingWheel.propTypes = {
   isLoading: React.PropTypes.bool,
 };
 
-const exitButton = {
-  title: 'X',
-  handler: () => { store.getState().navigation.navigator.pop(); },
-};
-
 const navTo = (component, focus) => {
   store.getState().navigation.navigator.push({ component, focus });
+};
+
+const popScene = () => {
+  store.getState().navigation.navigator.pop();
+};
+
+const exitButton = {
+  title: 'X',
+  handler: popScene,
 };
 
 const enterButton = (component, focus) => ({
@@ -82,7 +86,7 @@ const UserList = (props) => (
 
 UserList.propTypes = {
   listData: React.PropTypes.array,
-  rowComponent: React.PropTypes.element,
+  rowComponent: React.PropTypes.func,
   user: React.PropTypes.object,
 };
 
@@ -105,7 +109,7 @@ const makeSelectableRow = (action, getChecklist) => {
       const appliedChecklist = getChecklist.bind(null, user);
       actionAppliedToUser();
       checklist = appliedChecklist();
-      makeListContainer(UserList, ['allUsers']);
+      makeListContainer(UserList, ['user', 'friends']);
       store.dispatch(refreshUser());
       console.log(checklist);
     };
@@ -153,4 +157,5 @@ module.exports = {
   makeListContainer,
   LoadingWheel,
   getAllUsersArray,
+  popScene,
 };

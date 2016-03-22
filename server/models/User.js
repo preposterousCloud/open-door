@@ -63,6 +63,7 @@ module.exports = function User(sequelizeInstance) {
             user.dataValues.friends = user.dataValues.friend.map((friend) => {
               return { id: friend.id, userName: friend.userName };
             });
+            user.dataValues.Groups = user.dataValues.Groups || [];
             delete user.dataValues.friend;
             return user;
           });
@@ -71,28 +72,6 @@ module.exports = function User(sequelizeInstance) {
           console.log(err);
           return null;
         });
-      },
-      getEventsForUser: function getEventsForUser(user) {
-        if (!user.Groups) {
-          throw Error('Invalid User object.  Make sure you are including the users groups');
-        }
-
-        const userInvites = this.findAll({
-          include: [{ model: seq.models.User,
-            where: { id: user.id } }],
-        });
-
-        const groupInvites = this.findAll({
-          include: [{ model: seq.models.Group,
-            where: { id: { $in: user.Groups.map(group => group.id) } } }],
-        });
-
-        const personalEvents = this.findAll({
-          where: { hostUserId: user.id },
-        });
-
-        return Promise.all([userInvites, groupInvites, personalEvents])
-        .then((allEvents) => allEvents.reduce((memo, current) => memo.concat(current)));
       },
     },
   });

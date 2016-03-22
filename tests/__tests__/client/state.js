@@ -61,4 +61,63 @@ describe('Data Integration Tests', () => {
     store.dispatch(actions.setSwiperIndex(0));
     expect(store.getState().app.swiperIndex).toBe(0);
   });
+
+  it('Should keep track of toggled objects in pendingSelections', () => {
+    store.dispatch(actions.toggleItemSelectionInList(3, 'testEvent'));
+    expect(store.getState().app.pendingSelections.testEvent[3]).toBe(true);
+    store.dispatch(actions.toggleItemSelectionInList(3, 'testEvent'));
+    expect(store.getState().app.pendingSelections.testEvent[3]).toBe(false);
+
+    store.dispatch(actions.toggleItemSelectionInList(3, 'testEvent'));
+    store.dispatch(actions.toggleItemSelectionInList(5, 'testEvent'));
+    expect(Object.keys(store.getState().app.pendingSelections.testEvent).length).toBe(2);
+    store.dispatch(actions.clearItemSelectionInList('testEvent'));
+    expect(Object.keys(store.getState().app.pendingSelections.testEvent).length).toBe(0);
+  });
+
+  const groupList = [
+    {
+      groupId: 1,
+      members: [
+        {
+          id: 2,
+          userName: 'Bill S. Preston',
+        },
+        {
+          id: 6,
+          userName: 'Ted Theodore Logan',
+        },
+      ],
+    },
+    {
+      groupId: 2,
+      members: [
+        {
+          id: 1,
+          userName: 'Ned',
+        },
+        {
+          id: 2,
+          userName: 'Catlin',
+        },
+        {
+          id: 3,
+          userName: 'Sansa',
+        },
+        {
+          id: 4,
+          userName: 'Arya',
+        },
+        {
+          id: 5,
+          userName: 'Bran',
+        },
+      ],
+    },
+  ];
+
+  it('Should get group members for a given group', () => {
+    store.dispatch(actions.setUserGroupMembers(groupList[1]));
+    expect(store.getState().userGroupMembers.members.length).toEqual(5);
+  });
 });
