@@ -20,13 +20,17 @@ LoadingWheel.propTypes = {
   isLoading: React.PropTypes.bool,
 };
 
-const exitButton = {
-  title: 'X',
-  handler: () => { store.getState().navigation.navigator.pop(); },
-};
-
 const navTo = (component, focus) => {
   store.getState().navigation.navigator.push({ component, focus });
+};
+
+const popScene = () => {
+  store.getState().navigation.navigator.pop();
+};
+
+const exitButton = {
+  title: 'X',
+  handler: popScene,
 };
 
 const enterButton = (component, focus) => ({
@@ -148,4 +152,5 @@ module.exports = {
   makeListContainer,
   LoadingWheel,
   getAllUsersArray,
+  popScene,
 };
