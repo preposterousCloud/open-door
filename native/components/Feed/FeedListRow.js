@@ -1,5 +1,6 @@
-import React, { Text, View, Image } from 'react-native';
+import React, { Text, View, Image, Dimensions } from 'react-native';
 import styles from '../../styles/Feed/feedStyles.js';
+const { width, height } = Dimensions.get('window');
 
 import Accordion from 'react-native-accordion';
 
@@ -13,16 +14,16 @@ const FeedListRow = (rowText) => {
       </View>
     </View>
   );
-
+  const source = require('./walkingDino.gif');
   const content = (
-    <View>
-      <View>
-        <Text>Party bot</Text>
+    <View style={styles.imageContainer}>
         <Image
-          src="dino-storm.jpg"
-          style={styles.accordion}
+          source={source}
+          style={{
+            width,
+            height: 300,
+          }}
         />
-      </View>
     </View>
   );
 
