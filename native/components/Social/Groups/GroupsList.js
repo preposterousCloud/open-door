@@ -4,12 +4,10 @@ import React, {
   ListView,
   Component,
   TouchableHighlight,
- } from 'react-native';
-
+} from 'react-native';
 import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
-
-import styles from '../../../styles/Social/socialStyles.js';
 import GroupsListRow from './GroupsListRow.js';
+import styles from '../../../styles/Social/socialStyles.js';
 
 const convertGroupsToDataSource = (groups) => {
   groups = groups || [];
@@ -28,5 +26,9 @@ const GroupsList = (props) => (
     />
   </View>
 );
+
+GroupsList.propTypes = {
+  groups: React.PropTypes.array,
+};
 
 module.exports = GroupsList;
