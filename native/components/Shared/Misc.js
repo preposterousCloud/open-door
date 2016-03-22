@@ -86,7 +86,7 @@ const UserList = (props) => (
 
 UserList.propTypes = {
   listData: React.PropTypes.array,
-  rowComponent: React.PropTypes.element,
+  rowComponent: React.PropTypes.func,
   user: React.PropTypes.object,
 };
 
