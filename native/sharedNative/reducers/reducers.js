@@ -10,7 +10,7 @@ const defaultState = {
   isLoading: false,
   pendingEvent: null,
   swiperIndex: 1,
-  pendingSelections: { friendsToInvite: {} },
+  pendingSelections: { friendsToInvite: {}, groupsToInvite: {} },
 };
 
 const app = (state = defaultState, action) => {
@@ -38,8 +38,6 @@ const app = (state = defaultState, action) => {
       }
       newState.pendingSelections[listToUpdate][idToToggle] =
         !newState.pendingSelections[listToUpdate][idToToggle];
-        
-      console.log('new state>>>>>>>>>>>>>>>>>', newState);
       return newState;
     }
     default:

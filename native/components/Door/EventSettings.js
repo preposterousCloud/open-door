@@ -2,8 +2,33 @@ import React, { TextInput, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 import { Button } from '../Shared/Button';
-import { makeListContainer } from '../Shared/Misc';
-import { UserList } from '../Shared/SelectList';
+import { exitButton, makeListContainer, navTo, popScene } from '../Shared/Misc';
+import { GroupList, UserList } from '../Shared/SelectList';
+import NavBar from '../Shared/NavBar.js';
+
+const InviteFriends = (props) => {
+  return (
+    <View>
+      <NavBar
+        title={'Invite Friends'}
+      />
+      <UserList />
+      <Button text ={'Go Back'} onClick = {popScene} />
+    </View>
+  );
+};
+
+const InviteGroups = (props) => {
+  return (
+    <View>
+      <NavBar
+        title={'Invite Groups'}
+      />
+      <GroupList />
+      <Button text ={'Go Back'} onClick = {popScene} />
+    </View>
+  );
+};
 
 const EventSettings = (props) => (
   <View style={ styles.container }>
@@ -19,8 +44,8 @@ const EventSettings = (props) => (
       value={props.event.desc}
       placeholder={'Description (optional)'}
     />
-    <Button onClick = {props.onSubmit} text={'Invite Friends'} />
-    <UserList />
+    <Button onClick = {() => navTo(InviteFriends) } text={'Invite Friends'} />
+    <Button onClick = {() => navTo(InviteGroups) } text={'Invite Groups'} />
     <Button onClick = {props.onSubmit} text={'Confirm'} />
   </View>
 );

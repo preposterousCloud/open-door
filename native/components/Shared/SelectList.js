@@ -2,31 +2,27 @@ import React, { ListView, TextInput, Text, TouchableOpacity, View } from 'react-
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-const actions = require('../../sharedNative/actions/actions');
+import * as actions from '../../sharedNative/actions/actions';
+import socialStyles from '../../styles/Social/socialStyles.js';
 
 const SelectList = class SelectList extends React.Component {
   constructor(props) {
     super(props);
     this.ItemView = this.ItemView.bind(this);
   }
-  // componentWillReceiveProps() {
-  //   // Clear any existing pending friends state just in case
-
-  // }
-  // onItemClick() {
-  //   // Dispatch setFriendToggle
-  //   //
-  // }
   componentWillMount() {
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
   }
   ItemView(rowData) {
     return (
-      <TouchableOpacity onPress={this.props.onClick.bind(null, rowData)}>
-        <Text>
-          {rowData.userName}
-          {this.props.pendingSelections['friendsToInvite'][rowData.id] ? 'Selected' : 'Not'} 
-        </Text>
+      <TouchableOpacity onPress={this.props.onClick.bind(null, rowData)} style={socialStyles.group}>
+        <View style={socialStyles.listEntryView}>
+          <Text>{rowData[this.props.itemPropertyToDisplay]}</Text>
+           {(() => (this.props.pendingSelections[this.props.pendingSelectionsProperty][rowData.id]) ?
+              <View style={socialStyles.checkboxFilled} /> :
+              <View style={socialStyles.checkboxEmpty} />
+           )()}
+        </View>
       </TouchableOpacity>
     );
   }
@@ -34,7 +30,7 @@ const SelectList = class SelectList extends React.Component {
     return (
       <View>
         <ListView 
-          dataSource={ this.props.usersToSelectFrom }
+          dataSource={ this.props.itemsToSelectFrom }
           renderRow={this.ItemView}
         />
       </View>
@@ -45,14 +41,33 @@ const SelectList = class SelectList extends React.Component {
 export const UserList = connect(
   (state, ownProps) => {
     return {
-      usersToSelectFrom: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(state.user.friends),
+      itemsToSelectFrom: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(state.user.friends),
       pendingSelections: state.app.pendingSelections,
+      pendingSelectionsProperty: 'friendsToInvite',
+      itemPropertyToDisplay: 'userName',
     };
   },
   (dispatch, ownProps) => {
     return {
       onClick: (itemData) => 
         dispatch(actions.toggleItemSelectionInList(itemData.id, 'friendsToInvite')),
+    };
+  }
+)(SelectList);
+
+export const GroupList = connect(
+  (state, ownProps) => {
+    return {
+      itemsToSelectFrom: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(state.user.Groups),
+      pendingSelections: state.app.pendingSelections,
+      pendingSelectionsProperty: 'groupsToInvite',
+      itemPropertyToDisplay: 'name',
+    };
+  },
+  (dispatch, ownProps) => {
+    return {
+      onClick: (itemData) => 
+        dispatch(actions.toggleItemSelectionInList(itemData.id, 'groupsToInvite')),
     };
   }
 )(SelectList);

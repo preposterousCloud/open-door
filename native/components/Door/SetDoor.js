@@ -20,14 +20,17 @@ const SetDoor = class SetDoor extends React.Component {
   constructor(props) {
     super(props);
     this.toggleDoor = this.toggleDoor.bind(this);
-    this.postEvent = this.postEvent.bind(this);
+    this.createEvent = this.createEvent.bind(this);
   }
   toggleDoor() {
     this.props.onDoorToggle();
   }
-  postEvent() {
+    createEvent() {
+    // Consider moving all of this logic into the action and read everything directly from state
     const eventToCreate = this.props.app.pendingEvent;
     eventToCreate.hostUserId = this.props.user.id;
+    eventToCreate.friends = Object.keys(this.props.app.pendingSelections.friendsToInvite);
+    eventToCreate.groups = Object.keys(this.props.app.pendingSelections.groupsToInvite);
     this.props.onEventSubmit(eventToCreate);
   }
   goToSettings() {
@@ -56,7 +59,7 @@ const SetDoor = class SetDoor extends React.Component {
             this.props.app.pendingEvent ?
             <EventSettings event={this.props.app.pendingEvent}
               onChange={this.props.onEventSettingsChange}
-              onSubmit={ this.postEvent }
+              onSubmit={ this.createEvent }
             /> :
             <Text />
           }
