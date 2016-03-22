@@ -16,6 +16,9 @@ Run `npm run install:all` from the root directory
 ```
 $ npm install
 ```
+Rename the file /server/config.example.js to /server/config.js
+- Replace the required line with your docker IP address
+
 Open the project with Xcode
 - Open the xcode project file in /native/iOS
 - Change the project name because all Xcode projects need to be globally unique
