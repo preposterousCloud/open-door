@@ -5,15 +5,19 @@ import { Button } from '../Shared/Button';
 import { exitButton, makeListContainer, navTo, popScene } from '../Shared/Misc';
 import { GroupList, UserList } from '../Shared/SelectList';
 import NavBar from '../Shared/NavBar.js';
+import styles2 from '../../styles/Door/doorStyles.js';
 
 const InviteFriends = (props) => {
   return (
     <View>
       <NavBar
         title={'Invite Friends'}
+        leftButton={{
+          ...exitButton,
+          title: 'Back',
+        }}
       />
       <UserList />
-      <Button text ={'Go Back'} onClick = {popScene} />
     </View>
   );
 };
@@ -23,9 +27,12 @@ const InviteGroups = (props) => {
     <View>
       <NavBar
         title={'Invite Groups'}
+        leftButton={{
+          ...exitButton,
+          title: 'Back',
+        }}
       />
       <GroupList />
-      <Button text ={'Go Back'} onClick = {popScene} />
     </View>
   );
 };
@@ -58,9 +65,9 @@ EventSettings.propTypes = {
 
 // const FriendsToAdd = (props) => {
 //   return (
-    
+
 //   )
-// } 
+// }
 
 const AddFriends = (props) => {
   // return makeListContainer(, [all], listComponent)

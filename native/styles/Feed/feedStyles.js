@@ -18,7 +18,8 @@ module.exports = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: '#DDD',
   },
-  navBar: {
-    // enter some styles here
+  accordion: {
+    height: 500,
+    backgroundColor: '#888',
   },
 });

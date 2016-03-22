@@ -15,6 +15,7 @@ export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX';
 export const SET_FILTER_TEXT = 'SET_FILTER_TEXT';
 export const TOGGLE_ITEM_SELECTION_IN_LIST = 'TOGGLE_ITEM_SELECTION_IN_LIST';
 export const CLEAR_ITEMS_IN_SELECTION_LIST = 'CLEAR_ITEMS_IN_SELECTION_LIST';
+export const SET_USER_GROUP_MEMBERS = 'SET_USER_GROUP_MEMBERS';
 
 /**
  * The SELECTION_LISTS is an enumeration of the state properties under state.app.pendingSelections
@@ -23,4 +24,3 @@ export const SELECTION_LISTS = {
   FRIENDS_TO_INVITE: 'friendsToInvite',
   GROUPS_TO_INVITE: 'groupsToInvite',
 };
-
