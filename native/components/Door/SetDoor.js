@@ -23,7 +23,7 @@ const SetDoor = class SetDoor extends React.Component {
   toggleDoor() {
     this.props.onDoorToggle();
   }
-    createEvent() {
+  createEvent() {
     // Consider moving all of this logic into the action and read everything directly from state
     const eventToCreate = this.props.app.pendingEvent;
     eventToCreate.hostUserId = this.props.user.id;
