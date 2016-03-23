@@ -1,7 +1,7 @@
 import React, { AppRegistry, Navigator } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from './sharedNative/reducers/reducers.js';
-import Login from './components/Auth/Login.js';
+import Login from './components/Login.js';
 
 const configureScene = (route) => {
   const sceneConfig = route.sceneConfig || Navigator.SceneConfigs.FloatFromBottom;

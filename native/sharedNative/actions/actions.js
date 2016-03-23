@@ -7,6 +7,7 @@ import {
   fetchUserGroups,
   getUser,
   postUser,
+  loginUser,
 } from '../utils/api';
 
 const catchErr = (err) => {
@@ -39,10 +40,10 @@ export function setAllUsers(allUsers) {
   };
 }
 
-export function setUser(user) {
+export function setUser(obj) {
   return {
     type: a.SET_USER,
-    user: user,
+    data: obj,
   };
 }
 
@@ -134,12 +135,14 @@ export function createUser(userName) {
   };
 }
 
-export function attemptLogin(userName) {
-  return dispatch => {
-    return getUser(userName)
-    .then(user => {
-      if (user) {
-        dispatch(setUser(user));
+export function attemptLogin(userName, pw) {
+  return (dispatch, getState) => {
+    dispatch(setLoading(true));
+    loginUser(userName, pw)
+    .then(response => {
+      if (response) {
+        dispatch(setUser(response));
+        dispatch(setLoading(false));
         return true;
       }
       return false;

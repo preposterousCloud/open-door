@@ -7,7 +7,7 @@ const validateBody = res => {
   if (statusOK(res)) {
     return JSON.parse(res._bodyInit);
   }
-  throw new Error('User Creation Failed');
+  throw new Error('Error processing request', res);
 };
 
 const catchErr = (err) => {
@@ -18,6 +18,20 @@ const catchErr = (err) => {
 const headers = { 'Content-Type': 'application/json' };
 
 // HTTP methods
+
+export const loginUser = (userName, pw) => {
+  const url = `${config.apiUrl}login`;
+  const body = {
+    userName,
+    pw,
+  };
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers,
+  })
+  .then(validateBody);
+};
 
 export const postEvent = (event) => {
   const url = `${config.apiUrl}events`;

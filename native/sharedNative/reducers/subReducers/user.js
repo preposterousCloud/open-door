@@ -2,8 +2,9 @@ import { combineReducers } from 'redux';
 
 function user(state = {}, action) {
   switch (action.type) {
-    case 'SET_USER':
-      return action.user || state;
+    case 'SET_USER': {
+      return action.data.user;
+    }
     case 'SET_ACTIVE_EVENT':
       return Object.assign({}, state, { currentEvent: action.data });
     default:

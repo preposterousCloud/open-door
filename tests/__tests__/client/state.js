@@ -120,4 +120,10 @@ describe('Data Integration Tests', () => {
     store.dispatch(actions.setUserGroupMembers(groupList[1]));
     expect(store.getState().userGroupMembers.members.length).toEqual(5);
   });
+
+  it('Should set a jwt', () => {
+    store.dispatch(actions.setUser({ user: { userName: 'guy' }, jwt: 'akls;djf;lskdjf' }));
+    expect(store.getState().user.userName).toEqual('guy');
+    expect(store.getState().app.jwt).toEqual('akls;djf;lskdjf');
+  });
 });
