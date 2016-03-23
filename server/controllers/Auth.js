@@ -51,7 +51,6 @@ const issueJwtToken = (claims) => {
  * @param (Object)
  */
 const verifyAndDecodeJwtToken = (token) => {
-  console.log(token);
   return new Promise((resolve, reject) => {
     jwt.verify(token, config.jwtSecret, { algorithms: ['HS256'] }, (err, decodedToken) => {
       if (err) {
@@ -67,7 +66,6 @@ const ensureUserHasValidJwt = (req, res, next, additionalCheck) => {
   if (!req.headers.access_token) {
     res.status(401).send('Must provide access_token header w/ JWT token');
   } else {
-    console.log(req.headers.access_token);
     verifyAndDecodeJwtToken(req.headers.access_token)
     .then((jwt) => {
       if (!additionalCheck(jwt)) {
@@ -83,10 +81,16 @@ const ensureUserHasValidJwt = (req, res, next, additionalCheck) => {
   }
 };
 
-const ensureUserIsUser = (userIdProperty) => {
+const ensureUserIsUser = (testPropertyOrFunc) => {
   return (req, res, next) => {
     ensureUserHasValidJwt(req, res, next, (jwt) => {
-      return jwt.userId === req.body[userIdProperty];
+      if (typeof testPropertyOrFunc === 'string') {
+        return jwt.userId === req.body[testPropertyOrFunc];
+      }
+      if (typeof testPropertyOrFunc === 'function') {
+        return testPropertyOrFunc(req, jwt);
+      }
+      throw Error('Invalid parameter provided');
     });
   };
 };

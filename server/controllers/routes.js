@@ -25,17 +25,25 @@ module.exports = (app) => {
   // Events
   //  DISABLED - USERS SHOULD NOT HAVE ACCESS app.get('/api/events', Event.getEvents);
   app.post('/api/events', [Auth.ensureUserIsUser('hostUserId'), Event.createEvent]);
-  app.post('/api/events/:id/:action', [Auth.ensureUserIsUser('hostUserId'), Event.actionReducer]);
+  app.post('/api/events/:id/:action', [Event.ensureUserOwnsEvents(), Event.actionReducer]);
 
   // Friends
-  app.post('/api/friends/add', User.addFriendship);
-  app.post('/api/friends/remove', User.removeFriendship);
+  app.post('/api/friends/add', [Auth.ensureUserIsUser((req, jwt) => {
+    return req.body.friends[0] === jwt.userId || req.body.friends[1] === jwt.userId;
+  }), User.addFriendship]);
+  app.post('/api/friends/remove', [Auth.ensureUserIsUser((req, jwt) => {
+    return req.body.friends[0] === jwt.userId || req.body.friends[1] === jwt.userId;
+  }), User.removeFriendship]);
   // app.get('/api/friends/request');
   // app.post('/api/friends/request');
 
   // // Groups
-  app.get('/api/friends/groups/getGroupsForUser/:id', Group.getGroups);
-  app.post('/api/friends/groups', Group.createGroup);
+  app.get('/api/friends/groups/getGroupsForUser/:id', [Auth.ensureUserIsUser((req, jwt) => {
+    return parseInt(req.params.id) === parseInt(jwt.userId);
+  }), Group.getGroups]);
+  app.post('/api/friends/groups', [Auth.ensureUserIsUser((req, jwt) => {
+    return req.body.members.indexOf(jwt.userId) > -1;
+  }), Group.createGroup]);
 };
 
 // First thing tomorrow write another middleware that compares JWT userId to the property specified in the middleware generateor.

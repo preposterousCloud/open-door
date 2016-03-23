@@ -33,7 +33,6 @@ export const postEvent = (event) => {
 };
 
 export const closeEvent = (event) => {
-  console.log(event);
   const url = `${config.apiUrl}events/${event.id}/closeEvent`;
   return fetch(url, {
     method: 'POST',

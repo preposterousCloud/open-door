@@ -1,6 +1,7 @@
 'use strict';
 
 const db = require('../db/database').db;
+const Auth = require('./Auth');
 
 const _mapEvent = (event) => {
   return { name: event.name,
@@ -13,6 +14,18 @@ const _mapEvent = (event) => {
     stateAbbrev: event.stateAbbrev,
     postalCode: event.postalCode,
     hostUserId: event.hostUserId,
+  };
+};
+
+module.exports.ensureUserOwnsEvents = (req, res, next) => {
+  return (req, res, next) => {
+    const eventId = req.params.id;
+    db.Event.findOne({ where: { id: eventId } })
+    .then((event) => {
+      Auth.ensureUserHasValidJwt(req, res, next, (jwt) => {
+        return jwt.userId === event.hostUserId;
+      });
+    });
   };
 };
 
