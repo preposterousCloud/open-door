@@ -1,10 +1,10 @@
 import React, { TextInput, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 
-export const Button = (props) => {
+const Button = (props) => {
   const providedStyles = props.styles || {};
   return (
-    <TouchableOpacity style={providedStyles.button || defaultStyles.button} 
+    <TouchableOpacity style={ providedStyles.button || defaultStyles.button }
       onPress={ props.onClick }
     >
       <Text style={providedStyles.buttonText || defaultStyles.buttonText}>
@@ -39,3 +39,5 @@ const defaultStyles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
+
+module.exports = Button;
