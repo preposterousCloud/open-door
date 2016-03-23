@@ -19,10 +19,13 @@ module.exports = function User(sequelizeInstance) {
        * Async method that returns a JWT or throws error if invalid
        */
       checkPasswordAndIssueJwt: function checkPasswordAndIssueJwt(pwToTest) {
-        if (this.pw === pwToTest) {
-          return Auth.issueJwtToken({ userId: this.id });
-        }
-        throw Error('Invalid Credentials');
+        return Auth.compareHashAndVal(pwToTest, this.pw)
+        .then((match) => {
+          if (match) {
+            return Auth.issueJwtToken({ userId: this.id });
+          }
+          throw Error('Invalid Credentials');
+        });
       },
     },
     classMethods: {
@@ -48,8 +51,8 @@ module.exports = function User(sequelizeInstance) {
       },
       createUser: function createUser(userName, pw) {
         // Use bcrypt to hash/salt the pw then call raw create
-        const hashedPw = pw;
-        return this.rawCreate({ userName: userName, pw: hashedPw });
+        return Auth.saltAndHash(pw)
+        .then(hashedPw => this.rawCreate({ userName: userName, pw: hashedPw }));
       },
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,
