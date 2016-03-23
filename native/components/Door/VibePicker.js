@@ -26,11 +26,12 @@ const vibes = {
 class VibePicker extends React.Component {
   constructor(props) {
     super(props);
+    let key = 1;
     this.state = {
       vibe: 'jam',
       vibePickerItems: Object.keys(vibes).map((vibe) => (
         <PickerItemIOS
-          key={vibe.name}
+          key={key++}
           value={vibe}
           label={vibes[vibe].name}
         />
