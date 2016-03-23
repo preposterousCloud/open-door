@@ -62,6 +62,10 @@ const SetDoor = class SetDoor extends React.Component {
             )()}
           </TouchableOpacity>
         </View>
+        <View>
+          <Text>Event Details Here</Text>
+          <Text>Make this the event details from feed</Text>
+        </View>
       </View>
    );
   }
