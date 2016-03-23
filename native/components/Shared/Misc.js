@@ -42,6 +42,16 @@ const exitButton = {
   handler: popScene,
 };
 
+const backButton = {
+  title: 'Back',
+  handler: popScene,
+};
+
+const cancelButtonNav = {
+  title: 'Cancel',
+  handler: popScene,
+};
+
 const enterButton = (component, focus) => ({
   title: '+',
   handler: navTo.bind(null, component, focus),
@@ -149,8 +159,12 @@ const getAllUsersArray = () => {
   });
 };
 
+const getTruthies = (obj) => Object.keys(obj).filter(key => obj[key]).map(i => +i);
+
 module.exports = {
   exitButton,
+  backButton,
+  cancelButtonNav,
   navToFull,
   navTo,
   enterButton,
@@ -163,4 +177,5 @@ module.exports = {
   LoadingWheel,
   getAllUsersArray,
   popScene,
+  getTruthies,
 };
