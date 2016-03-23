@@ -12,14 +12,16 @@ const SelectList = class SelectList extends React.Component {
     super(props);
     this.state = {
       selectedUsers: {},
-      itemsToSelectFrom: props.itemsToSelectFrom
+      dataArray: props.dataArray,
+      inviteFunc: props.inviteFunc,
     };
     this.ItemView = this.ItemView.bind(this);
   }
   ItemView(rowData) {
     const clickThisRow = () => {
       rowData.checked = !rowData.checked;
-      this.setState();
+      this.state.inviteFunc(rowData.id);
+      this.forceUpdate();
     };
     const Checkbox = (props) => {
       return (props.checked ?
@@ -32,7 +34,7 @@ const SelectList = class SelectList extends React.Component {
         style={socialStyles.group}
       >
         <View style={socialStyles.listEntryView}>
-          <Text>{rowData[this.props.itemPropertyToDisplay]}</Text>
+          <Text>{rowData[this.props.displayProp]}</Text>
           <Checkbox checked={rowData.checked}/>
         </View>
       </TouchableOpacity>
@@ -46,7 +48,7 @@ const SelectList = class SelectList extends React.Component {
       <View>
         <TouchableOpacity onPress={logState}><Text>LogState</Text></TouchableOpacity>
         <ListView
-          dataSource={ arrayToDataSource(this.state.itemsToSelectFrom) }
+          dataSource={ arrayToDataSource(this.state.dataArray) }
           renderRow={this.ItemView}
           style={doorStyles.listView}
         />
@@ -56,24 +58,19 @@ const SelectList = class SelectList extends React.Component {
 };
 
 SelectList.propTypes = {
-  itemsToSelectFrom: React.PropTypes.array,
-  itemPropertyToDisplay: React.PropTypes.string,
-  pendingSelectionsProperty: React.PropTypes.string,
-  pendingSelections: React.PropTypes.object,
+  dataArray: React.PropTypes.array,
+  displayProp: React.PropTypes.string,
   onClick: React.PropTypes.func,
 };
 
+const addCheckedProp = (dataArray = []) => dataArray.map(datum => ({ ...datum, checked: false }));
+
 export const UserList = connect(
   (state, ownProps) => {
-    const friendsWithChecks = state.user.friends.map(friend => ({
-      ...friend,
-      checked: false,
-    }));
     return {
-      itemsToSelectFrom: friendsWithChecks || [],
-      pendingSelections: state.app.pendingSelections,
-      pendingSelectionsProperty: 'friendsToInvite',
-      itemPropertyToDisplay: 'userName',
+      inviteFunc: ownProps.inviteFunc,
+      dataArray: addCheckedProp(state.user.friends),
+      displayProp: 'userName',
     };
   },
   (dispatch, ownProps) => {
@@ -87,11 +84,9 @@ export const UserList = connect(
 export const GroupList = connect(
   (state, ownProps) => {
     return {
-      itemsToSelectFrom: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-        .cloneWithRows(state.user.Groups || []),
-      pendingSelections: state.app.pendingSelections,
-      pendingSelectionsProperty: 'groupsToInvite',
-      itemPropertyToDisplay: 'name',
+      inviteFunc: ownProps.inviteFunc,
+      dataArray: addCheckedProp(state.user.Groups),
+      displayProp: 'name',
     };
   },
   (dispatch, ownProps) => {

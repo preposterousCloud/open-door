@@ -4,7 +4,6 @@ module.exports = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#DF2309',
   },
   listView: {
     backgroundColor: '#FFF',

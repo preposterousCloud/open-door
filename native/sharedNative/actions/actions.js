@@ -212,12 +212,10 @@ export function getUserGroups() {
 export function createEvent(event) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));
+    console.log('creating event:', event);
     postEvent(event)
     .then((event) => {
       dispatch(setActiveEvent(event));
-      dispatch(updatePendingEvent(null));
-      dispatch(clearItemSelectionInList('friendsToInvite'));
-      dispatch(clearItemSelectionInList('groupsToInvite'));
       dispatch(setLoading(false));
       dispatch(refreshUser());
       return event;

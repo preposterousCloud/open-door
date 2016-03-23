@@ -1,9 +1,10 @@
-import React, { Text, TouchableOpacity, View } from 'react-native';
+import React, { Text, TouchableOpacity, View, Alert } from 'react-native';
 import { StyleSheet } from 'react-native';
-
+import { store } from '../../sharedNative/reducers/reducers.js';
 import { Button } from '../Shared/Button';
-import { exitButton, makeListContainer, navToFull, popScene } from '../Shared/Misc';
-import { GroupList, UserList } from '../Shared/SelectList';
+import { exitButton, cancelButton, makeListContainer, navToFull, popScene } from '../Shared/Misc';
+import { GroupList, UserList } from '../Shared/StatefulSelectList';
+const actions = require('../../sharedNative/actions/actions');
 import NavBar from '../Shared/NavBar.js';
 import VibePicker from './VibePicker.js';
 import styles2 from '../../styles/Door/doorStyles.js';
@@ -11,47 +12,87 @@ import StyledTextInput from '../Shared/StyledTextInput.js';
 import socialStyles from '../../styles/Social/socialStyles.js';
 
 const InviteSelects = (props) => {
-  const title = props.type === 'groups' ? 'Invite Groups' : 'Invite Friends';
-  const List = props.type === 'groups' ? GroupList : UserList;
+  const title = props.route.type === 'groups' ? 'Invite Groups' : 'Invite Friends';
+  const List = props.route.type === 'groups' ? GroupList : UserList;
   return (
     <View>
       <NavBar title={title} leftButton={{ handler: exitButton.handler, title: 'Back' }} />
-      <List />
+      <List inviteFunc={props.route.inviteFunc} />
     </View>
   );
 };
-InviteSelects.propTypes = { type: React.PropTypes.string };
+InviteSelects.propTypes = {
+  route: React.PropTypes.object,
+};
+
+const getTruthies = (obj) => Object.keys(obj).filter(key => obj[key]).map(i => +i);
 
 class EventSettings extends React.Component {
   constructor(props) {
     super(props);
+    console.log('onSubmit:', props.route.onSubmit, 'type:', typeof props.route.onSubmit);
     this.state = {
-      event: {},
+      onSubmit: props.route.onSubmit,
+      event: {
+        hostUserId: store.getState().user.id,
+        invitedFriends: {},
+        invitedGroups: {},
+      },
     };
   }
   render() {
-    // const changeEventName = (text) => this.props.route.onChange('name', text);
-    // const changeEventDetails = (text) => this.props.route.onChange('details', text);
-    const changeEventName = (text) => this.setState({ name: text });
-    const changeEventDetails = (text) => this.setState({ details: text });
+    const updateEvent = (update) => {
+      const updatedEvent = this.state.event;
+      updatedEvent[Object.keys(update)[0]] = update[Object.keys(update)[0]];
+      this.setState({ event: updatedEvent });
+    };
     const submitEvent = () => {
       console.log('Submitted vibe:', this.state.event.vibe);
       console.log('Submitted event name:', this.state.event.name);
       console.log('Submitted event details:', this.state.event.details);
-      this.props.route.onSubmit();
-      popScene();
+      console.log('Invited Friends:', this.state.event.invitedFriends);
+      console.log('Invited Groups:', this.state.event.invitedGroups);
+      if (!this.state.event.name) {
+        Alert.alert('Your door needs a name!', '', [cancelButton]);
+      } else {
+        console.log('creating event:', this.state.event);
+        this.state.event.friends = getTruthies(this.state.event.invitedFriends);
+        this.state.event.groups = getTruthies(this.state.event.invitedGroups);
+        this.state.onSubmit(this.state.event);
+        popScene();
+      }
     };
-    const changeVibe = (vibe) => this.setState({ event: { vibe } });
-    const navToFriends = () => navToFull({ component: InviteSelects, type: 'friends' });
-    const navToGroups = () => navToFull({ component: InviteSelects, type: 'groups' });
+    const updateEventName = name => updateEvent({ name });
+    const updateEventDetails = details => updateEvent({ details });
+    const changeVibe = (vibe) => updateEvent({ vibe });
+    const toggleInviteFriend = (friendId) => {
+      const event = this.state.event;
+      event.invitedFriends[friendId] = !event.invitedFriends[friendId];
+      this.setState({ event });
+    };
+    const navToFriends = () => navToFull({
+      component: InviteSelects,
+      type: 'friends',
+      inviteFunc: toggleInviteFriend,
+    });
+    const toggleInviteGroup = (groupId) => {
+      const event = this.state.event;
+      event.invitedGroups[groupId] = !event.invitedGroups[groupId];
+      this.setState({ event });
+    };
+    const navToGroups = () => navToFull({
+      component: InviteSelects,
+      type: 'groups',
+      inviteFunc: toggleInviteGroup,
+    });
     return (
-      <View style={ styles.container }>
+      <View style={ socialStyles.container }>
         <StyledTextInput
-          onChangeText={changeEventName}
+          onChangeText={updateEventName}
           placeholder={'Event Name'}
         />
         <StyledTextInput
-          onChangeText={changeEventDetails}
+          onChangeText={updateEventDetails}
           placeholder={'Description (optional)'}
         />
         <Button onClick = {submitEvent} text={'Save'} />
@@ -72,7 +113,6 @@ class EventSettings extends React.Component {
         >
           <Text>GROUPS</Text>
         </TouchableOpacity>
-
       </View>
     );
   }
@@ -81,32 +121,5 @@ class EventSettings extends React.Component {
 EventSettings.propTypes = {
   route: React.PropTypes.object,
 };
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    // alignItems: 'stretch',
-    // flexDirection: 'column',
-  },
-  textBox: {
-    width: 275,
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    margin: 5,
-  },
-  listView: {
-    paddingTop: 20,
-    backgroundColor: '#FBA',
-  },
-  rightContainer: {
-    flex: 1,
-  },
-  navBar: {
-    // enter some styles here
-  },
-});
 
 module.exports = EventSettings;
