@@ -14,11 +14,7 @@ const FeedListRow = (event) => {
       </View>
     </View>
   );
-  const source = require('./walkingDino.gif');
-  let showImage = true;
-  const hideImage = () => {
-    showImage = false;
-  };
+
   const content = (<EventDetail imageShowing event={event} />);
 
   return (
