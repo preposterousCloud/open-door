@@ -36,7 +36,7 @@ const AddFriends = (props) => {
   const AddFriendsListContainer = connect(state => {
     const re = new RegExp(state.filterText, 'ig');
     const filterIds = state.user.friends ?
-      state.user.friends.map(friend => friend.id).concat(state.user.id) : [];
+      state.user.friends.map(friend => friend.id).concat(state.user.id) : [state.user.id];
     const targetUsers = state.allUsers.filter(targetUser => (
       filterIds.indexOf(targetUser.id) < 0 && targetUser.userName.match(re)
     ));
