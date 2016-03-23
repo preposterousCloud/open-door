@@ -47,7 +47,8 @@ module.exports = function User(sequelizeInstance) {
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,
           include: [{ model: seq.models.Group },
-            { model: seq.models.User, as: 'friend' }],
+            { model: seq.models.User, as: 'friend' },
+            { model: seq.models.User, as: 'request' }],
         })
         .then((user) => {
           if (!user) { throw new Error('User not found'); }
@@ -74,8 +75,12 @@ module.exports = function User(sequelizeInstance) {
             user.dataValues.friends = user.dataValues.friend.map((friend) => {
               return { id: friend.id, userName: friend.userName };
             });
+            user.dataValues.requests = user.dataValues.request.map((friend) => {
+              return { id: friend.id, userName: friend.userName };
+            });
             user.dataValues.Groups = user.dataValues.Groups || [];
             delete user.dataValues.friend;
+            delete user.dataValues.request;
             return user;
           });
         })
