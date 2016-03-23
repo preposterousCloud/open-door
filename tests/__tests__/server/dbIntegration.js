@@ -12,10 +12,10 @@ describe('Data Integration Tests', () => {
     resetDbWithDummy(db)
     .then(() => done());
   });
-  
-  //We set this the first time we find it so we can use it in later tests
+
+  // We set this the first time we find it so we can use it in later tests
   var user2;
-  
+
   pit('Make sure user can see all of the parties they should have access to', () => {
     return db.User.findOne({ where: { userName: 'user2' },
       include: [{ model: db.Group }] })
