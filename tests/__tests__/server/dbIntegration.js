@@ -38,10 +38,22 @@ describe('Data Integration Tests', () => {
   });
 
   pit('Should properly validate passwords', () => {
-    return db.User.checkPassword('vcipriani', 'wrongpw')
-    .then((result) => expect(result).toBe(false))
-    .then(() => db.User.checkPassword('vcipriani', 'food'))
-    .then((result) => expect(result).toBe(true));
+    return db.User.findOne({ where: { userName: 'vcipriani' } })
+    .then(user => {
+      user.checkPasswordAndIssueJwt('wrongpw')
+      // following line shouldn't fire because checkpassword should throw
+      .then((result) => expect(true).toBe(false))
+      .catch((err) => {
+        // Nothing to test.  The fact that checkPasswordAndIssueJwt error'd is good
+      })
+      .then(() => {
+        user.checkPasswordAndIssueJwt('food')
+        .then(jwt => {
+          // The JWT token should always be 60 char
+          expect(jwt.length).toBe(60);
+        });
+      });
+    });
   });
 
   pit('Make sure Event has host', () => {
