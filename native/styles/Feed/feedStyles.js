@@ -18,8 +18,9 @@ module.exports = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: '#DDD',
   },
-  accordion: {
-    height: 500,
-    backgroundColor: '#888',
+  imageContainer: {
+    flex: 1,
+  },
+  image: {
   },
 });

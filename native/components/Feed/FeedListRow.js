@@ -1,28 +1,21 @@
-import React, { Text, View } from 'react-native';
+import React, { Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import styles from '../../styles/Feed/feedStyles.js';
-
+const { width, height } = Dimensions.get('window');
 import Accordion from 'react-native-accordion';
+import EventDetail from './EventDetail';
 
-const FeedListRow = (rowText) => {
+const FeedListRow = (event) => {
   const header = (
     <View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>
-          {rowText}
+          {event.name}
         </Text>
       </View>
     </View>
   );
 
-  const content = (
-    <View>
-      <View>
-        <Text style={styles.accordion}>
-          {'sup yo'}
-        </Text>
-      </View>
-    </View>
-  );
+  const content = (<EventDetail imageShowing event={event} />);
 
   return (
     <Accordion
