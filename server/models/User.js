@@ -38,6 +38,10 @@ module.exports = function User(sequelizeInstance) {
         return this.findOne({ where: { userName: userName } })
         .then(user => {
           return user.pw === pw;
+        })
+        .catch((err) => {
+          console.error(err);
+          return false;
         });
       },
       createUser: function createUser(userName, pw) {

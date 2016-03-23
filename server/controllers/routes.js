@@ -4,6 +4,7 @@
 const User = require('./User');
 const Event = require('./Event');
 const Group = require('./Group');
+const Login = require('./Login');
 
 module.exports = (app) => {
   // Test
@@ -12,7 +13,8 @@ module.exports = (app) => {
   });
 
   // // Auth
-  app.get('/auth/login');
+  // TODO make sure this route uses HTTPS
+  app.post('/api/login', Login.loginUser);
 
   // // User Profiles
   app.get('/api/users/', User.getUsers);
