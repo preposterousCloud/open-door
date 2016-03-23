@@ -26,23 +26,22 @@ class EventSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      vibe: {
-        name: 'Discoteca',
-      },
+      event: {},
     };
   }
   render() {
-    const changeEventName = (text) => this.props.route.onChange('name', text);
-    const changeEventDetails = (text) => this.props.route.onChange('details', text);
+    // const changeEventName = (text) => this.props.route.onChange('name', text);
+    // const changeEventDetails = (text) => this.props.route.onChange('details', text);
+    const changeEventName = (text) => this.setState({ name: text });
+    const changeEventDetails = (text) => this.setState({ details: text });
     const submitEvent = () => {
-      console.log('Submitted vibe:', this.state.vibe.name);
+      console.log('Submitted vibe:', this.state.event.vibe);
+      console.log('Submitted event name:', this.state.event.name);
+      console.log('Submitted event details:', this.state.event.details);
       this.props.route.onSubmit();
       popScene();
     };
-    const changeVibe = (vibe) => {
-      this.setState({ vibe });
-      console.log('vibe name:', this.state.vibe.name);
-    };
+    const changeVibe = (vibe) => this.setState({ event: { vibe } });
     const navToFriends = () => navToFull({ component: InviteSelects, type: 'friends' });
     const navToGroups = () => navToFull({ component: InviteSelects, type: 'groups' });
     return (
