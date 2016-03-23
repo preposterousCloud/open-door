@@ -22,7 +22,7 @@ const AddFriends = (props) => {
   };
 
   const alertRequestSent = (user) => {
-    Alert.alert(`add friend ${user.userName}?`, '', [
+    Alert.alert(`Send a friend request to ${user.userName}?`, '', [
       cancelButton,
       { text: 'Add',
         onPress: () => store.dispatch(friendsApi.addFriend(user.id)),
@@ -36,13 +36,15 @@ const AddFriends = (props) => {
   const AddFriendsListContainer = connect(state => {
     const re = new RegExp(state.filterText, 'ig');
     const filterIds = state.user.friends ?
-      state.user.friends.map(friend => friend.id).concat(state.user.id) : [state.user.id];
+      state.user.friends.map(friend => friend.id).concat(state.user.id) : [];
+    const filterReqs = state.user.requests ?
+      state.user.requests.map(req => req.id) : [];
     const targetUsers = state.allUsers.filter(targetUser => (
       filterIds.indexOf(targetUser.id) < 0 && targetUser.userName.match(re)
     ));
     return {
       listComponent: UserList,
-      rowComponent: makeClickableRow(alertRequestSent),
+      rowComponent: makeClickableRow(alertRequestSent, 'userName', filterReqs),
       listData: targetUsers,
       user: state.user,
     };
