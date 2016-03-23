@@ -8,8 +8,10 @@ const Sequelize = require('sequelize');
 
 module.exports = function User(sequelizeInstance) {
   const seq = sequelizeInstance;
-  return seq.define('User', {
-    userName: Sequelize.STRING,
+  const user = seq.define('User', {
+    userName: { type: Sequelize.STRING, allowNull: false, unique: true },
+    pw: { type: Sequelize.STRING, allowNull: false },
+    phone: Sequelize.STRING,
   }, {
     classMethods: {
       addFriendship: function addFriendship(userId1, userId2) {
@@ -17,21 +19,31 @@ module.exports = function User(sequelizeInstance) {
         // for any given friendship
         const addFriendToOne = this.findOne({ where: { id: userId1 } })
         .then(user => user.addFriend(userId2));
-        
+
         const addFriendToTwo = this.findOne({ where: { id: userId2 } })
         .then(user => user.addFriend(userId1));
-        
+
         return Promise.all([addFriendToOne, addFriendToTwo]);
       },
       removeFriendship: function removeFriendship(userId1, userId2) {
         // Same as above, we sort the IDs
         const removeFriendFromOne = this.findOne({ where: { id: userId1 } })
         .then(user => user.removeFriend(userId2));
-        
+
         const removeFriendFromTwo = this.findOne({ where: { id: userId2 } })
         .then(user => user.removeFriend(userId1));
-        
         return Promise.all([removeFriendFromOne, removeFriendFromTwo]);
+      },
+      checkPassword: function comparePassword(userName, pw) {
+        return this.findOne({ where: { userName: userName } })
+        .then(user => {
+          return user.pw === pw;
+        });
+      },
+      createUser: function createUser(userName, pw) {
+        // Use bcrypt to hash/salt the pw then call raw create
+        const hashedPw = pw;
+        return this.rawCreate({ userName: userName, pw: hashedPw });
       },
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,
@@ -75,6 +87,12 @@ module.exports = function User(sequelizeInstance) {
       },
     },
   });
+
+  user.rawCreate = user.create;
+  user.create = () => {
+    throw Error('Use .createUser instead. It handles passwords and this does not.');
+  };
+  return user;
 };
 
 // To add a user to a group you could do either of the following

@@ -1,10 +1,10 @@
 'use strict';
 
-const newUserTemps = [{ userName: 'vcipriani' },
-{ userName: 'user2' },
-{ userName: 'user3' },
-{ userName: 'user4' },
-{ userName: 'user5' }];
+const newUserTemps = [{ userName: 'vcipriani', pw: 'food' },
+{ userName: 'user2', pw: 'bacon' },
+{ userName: 'user3', pw: 'dog' },
+{ userName: 'user4', pw: 'sandwich' },
+{ userName: 'user5', pw: 'tacos' }];
 
 const newGroupTemps = [{ name: 'HackReactor' },
 ];
@@ -21,7 +21,7 @@ module.exports = (sequelizeInstance) => {
   return db.sequelize.sync({ force: true })
   // Create new users
   .then(() => {
-    return db.Sequelize.Promise.map(newUserTemps, user => db.User.create(user));
+    return db.Sequelize.Promise.map(newUserTemps, user => db.User.createUser(user.userName, user.pw));
   })
   // Create Groups
   .then((users) => {

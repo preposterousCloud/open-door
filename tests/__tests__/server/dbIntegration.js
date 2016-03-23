@@ -37,13 +37,20 @@ describe('Data Integration Tests', () => {
     });
   });
 
+  pit('Should properly validate passwords', () => {
+    return db.User.checkPassword('vcipriani', 'wrongpw')
+    .then((result) => expect(result).toBe(false))
+    .then(() => db.User.checkPassword('vcipriani', 'food'))
+    .then((result) => expect(result).toBe(true));
+  });
+
   pit('Make sure Event has host', () => {
     return db.Event.findOne({})
     .then((data) => {
       expect(data.dataValues.hostUserId).toBe(1);
     });
   });
-  
+
   pit('Make sure Event can be closed and user cannot see it', () => {
     return db.Event.findOne({ where: { name: 'Partay #2' } })
     .then((event) => {
