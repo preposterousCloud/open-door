@@ -18,16 +18,15 @@ const _mapEvent = (event) => {
 };
 
 module.exports.ensureUserOwnsEvents = (req, res, next) => {
-  return (req, res, next) => {
-    const eventId = req.params.id;
-    db.Event.findOne({ where: { id: eventId } })
-    .then((event) => {
-      Auth.ensureUserHasValidJwt(req, res, next, (jwt) => {
-        return jwt.userId === event.hostUserId;
-      });
+  const eventId = req.params.id;
+  db.Event.findOne({ where: { id: eventId } })
+  .then((event) => {
+    Auth.ensureUserHasValidJwt(req, res, next, (jwt) => {
+      return jwt.userId === event.hostUserId;
     });
-  };
+  });
 };
+
 
 module.exports.createEvent = function createUser(req, res) {
   if (!req.body.name) {
