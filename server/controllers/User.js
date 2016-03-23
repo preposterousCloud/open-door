@@ -60,6 +60,17 @@ module.exports.getUser = function getUser(req, res) {
   });
 };
 
+module.exports.requestFriendship = function requestFriendship(req, res) {
+  db.User.requestFriendship(req.body.friends[0], req.body.friends[1])
+  .then(result => {
+    res.status(201).send(`${req.body.friends[0]} requested ${req.body.friends[1]}!`);
+  })
+  .catch(err => {
+    console.error('Error creating friendship: ', err);
+    res.status(500).send('Unknown server error');
+  });
+};
+
 module.exports.addFriendship = function addFriendship(req, res) {
   db.User.addFriendship(req.body.friends[0], req.body.friends[1])
   .then(result => {
