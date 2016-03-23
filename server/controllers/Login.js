@@ -3,9 +3,11 @@ const Auth = require('./Auth');
 
 module.exports.loginUser = (req, res) => {
   db.User.findOne({ where: { userName: req.body.userName } })
-  .then((user) => user.checkPasswordAndIssueJwt(req.body.pw))
-  .then((jwt) => {
-    res.json({ jwt });
+  .then((user) => {
+    return user.checkPasswordAndIssueJwt(req.body.pw)
+    .then((jwt) => {
+      res.json({ jwt, user });
+    });
   })
   .catch(err => {
     console.error(err);
