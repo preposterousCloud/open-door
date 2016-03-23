@@ -1,13 +1,14 @@
 const db = require('../db/database').db;
+const Auth = require('./Auth');
 
 module.exports.loginUser = (req, res) => {
-  db.User.checkPassword(req.body.userName, req.body.pw)
-  .then((isCorrectPw) => {
-    if (isCorrectPw) {
-      res.json({ jwt: 'its a JWT!!' });
-      return;
-    }
+  db.User.findOne({where: { userName: req.body.userName } })
+  .then((user) => {
+    return user.checkPasswordAndIssueJwt(req.body.pw);
+  }).then((jwt) => {
+    res.json({ jwt });
+  })
+  .catch(err => {
     res.status(401).send('Invalid Credentials');
-    return;
   });
 };

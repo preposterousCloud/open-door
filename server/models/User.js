@@ -5,6 +5,7 @@
 
 'use strict';
 const Sequelize = require('sequelize');
+const Auth = require('../controllers/Auth');
 
 module.exports = function User(sequelizeInstance) {
   const seq = sequelizeInstance;
@@ -13,6 +14,17 @@ module.exports = function User(sequelizeInstance) {
     pw: { type: Sequelize.STRING, allowNull: false },
     phone: Sequelize.STRING,
   }, {
+    instanceMethods: {
+      /**
+       * Async method that returns a JWT or throws error if invalid
+       */
+      checkPasswordAndIssueJwt: function checkPasswordAndIssueJwt(pwToTest) {
+        if (this.pw === pwToTest) {
+          return Auth.issueJwtToken({ userId: this.id });
+        }
+        throw Error('Invalid Credentials');
+      },
+    },
     classMethods: {
       addFriendship: function addFriendship(userId1, userId2) {
         // We put the smaller user ID on the left so we always know what the relationship looks like
@@ -33,16 +45,6 @@ module.exports = function User(sequelizeInstance) {
         const removeFriendFromTwo = this.findOne({ where: { id: userId2 } })
         .then(user => user.removeFriend(userId1));
         return Promise.all([removeFriendFromOne, removeFriendFromTwo]);
-      },
-      checkPassword: function comparePassword(userName, pw) {
-        return this.findOne({ where: { userName: userName } })
-        .then(user => {
-          return user.pw === pw;
-        })
-        .catch((err) => {
-          console.error(err);
-          return false;
-        });
       },
       createUser: function createUser(userName, pw) {
         // Use bcrypt to hash/salt the pw then call raw create
