@@ -8,16 +8,19 @@ const Sequelize = require('sequelize');
 
 module.exports = function User(sequelizeInstance) {
   const seq = sequelizeInstance;
+  seq.define('rel_user_requested_friends', {
+    sender: Sequelize.BOOLEAN,
+  });
   return seq.define('User', {
     userName: Sequelize.STRING,
   }, {
     classMethods: {
       requestFriendship: function requestFriendship(userId1, userId2) {
         const addFriendRequest = this.findOne({ where: { id: userId1 } })
-        .then(user => user.addRequest(userId2));
+        .then(user => user.addRequest(userId2, { sender: true }));
 
         const checkRecipFriendRequest = this.findOne({ where: { id: userId2 } })
-        .then(user => user.addRequest(userId1));
+        .then(user => user.addRequest(userId1, { sender: false }));
 
         return Promise.all([addFriendRequest, checkRecipFriendRequest]);
       },
@@ -74,7 +77,7 @@ module.exports = function User(sequelizeInstance) {
               return { id: friend.id, userName: friend.userName };
             });
             user.dataValues.requests = user.dataValues.request.map((friend) => {
-              return { id: friend.id, userName: friend.userName };
+              return { id: friend.id, userName: friend.userName, sender: friend.rel_user_requested_friends.sender };
             });
             user.dataValues.Groups = user.dataValues.Groups || [];
             delete user.dataValues.friend;
