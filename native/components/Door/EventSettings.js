@@ -2,77 +2,66 @@ import React, { Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 import { Button } from '../Shared/Button';
-import { exitButton, makeListContainer, navTo, popScene } from '../Shared/Misc';
+import { exitButton, makeListContainer, navToFull, popScene } from '../Shared/Misc';
 import { GroupList, UserList } from '../Shared/SelectList';
 import NavBar from '../Shared/NavBar.js';
+import VibePicker from './VibePicker.js';
 import styles2 from '../../styles/Door/doorStyles.js';
 import StyledTextInput from '../Shared/StyledTextInput.js';
 import socialStyles from '../../styles/Social/socialStyles.js';
 
-const InviteFriends = (props) => {
+const InviteSelects = (props) => {
+  const title = props.type === 'groups' ? 'Invite Groups' : 'Invite Friends';
+  const List = props.type === 'groups' ? GroupList : UserList;
   return (
     <View>
-      <NavBar
-        title={'Invite Friends'}
-        leftButton={{
-          ...exitButton,
-          title: 'Back',
-        }}
-      />
-      <UserList />
+      <NavBar title={title} leftButton={{ ...exitButton, title: 'Back' }} />
+      <List />
     </View>
   );
 };
 
-const InviteGroups = (props) => {
-  return (
-    <View>
-      <NavBar
-        title={'Invite Groups'}
-        leftButton={{
-          ...exitButton,
-          title: 'Back',
-        }}
-      />
-      <GroupList />
-    </View>
-  );
-};
-
-const EventSettings = (props) => {
-  const changeEventName = (text) => props.route.onChange('name', text);
-  const changeEventDetails = (text) => props.route.onChange('details', text);
-  const submitEvent = () => {
-    props.route.onSubmit();
-    popScene();
+class EventSettings extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
-  return (
-    <View style={ styles.container }>
-      <StyledTextInput
-        onChangeText={changeEventName}
-        placeholder={'Event Name'}
-      />
-      <StyledTextInput
-        onChangeText={changeEventDetails}
-        placeholder={'Description (optional)'}
-      />
-      <Button onClick = {submitEvent} text={'Save'} />
-      <Button onClick = {popScene} text={'Cancel'} />
-      <TouchableOpacity
-        onPress={() => navTo(InviteFriends)}
-        style={socialStyles.socialF}
-      >
-        <Text>FRIENDS</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navTo(InviteGroups)}
-        style={socialStyles.socialG}
-      >
-        <Text>GROUPS</Text>
-      </TouchableOpacity>
+  render() {
+    const changeEventName = (text) => this.props.route.onChange('name', text);
+    const changeEventDetails = (text) => this.props.route.onChange('details', text);
+    const submitEvent = () => {
+      this.props.route.onSubmit();
+      popScene();
+    }
+    return (
+      <View style={ styles.container }>
+        <StyledTextInput
+          onChangeText={changeEventName}
+          placeholder={'Event Name'}
+        />
+        <StyledTextInput
+          onChangeText={changeEventDetails}
+          placeholder={'Description (optional)'}
+        />
+        <Button onClick = {submitEvent} text={'Save'} />
+        <Button onClick = {popScene} text={'Cancel'} />
+        <VibePicker />
+        <TouchableOpacity
+          onPress={() => navToFull({ component: InviteSelects, type: 'friends' })}
+          style={socialStyles.socialF}
+        >
+          <Text>FRIENDS</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navToFull({ component: InviteSelects, type: 'groups' })}
+          style={socialStyles.socialG}
+        >
+          <Text>GROUPS</Text>
+        </TouchableOpacity>
 
-    </View>
-  );
+      </View>
+    );
+  }
 }
 
 EventSettings.propTypes = {
