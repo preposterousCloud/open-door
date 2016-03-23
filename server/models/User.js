@@ -12,6 +12,12 @@ module.exports = function User(sequelizeInstance) {
     userName: Sequelize.STRING,
   }, {
     classMethods: {
+      requestFriendship: function requestFriendship(userId1, userId2) {
+        const addFriendRequest = this.findOne({ where: { id: userId1 } })
+        .then(user => user.addRequest(userId2));
+
+        return Promise.all([addFriendRequest]);
+      },
       addFriendship: function addFriendship(userId1, userId2) {
         // We put the smaller user ID on the left so we always know what the relationship looks like
         // for any given friendship
