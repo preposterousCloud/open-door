@@ -7,16 +7,16 @@ import React, {
   StatusBarIOS,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { store } from '../../sharedNative/reducers/reducers.js';
-const actions = require('../../sharedNative/actions/actions');
+import { store } from '../sharedNative/reducers/reducers.js';
+const actions = require('../sharedNative/actions/actions');
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
-import Feed from '../Feed/Feed.js';
-import Social from '../Social/Social.js';
-import SetDoorContainer from '../Door/SetDoorContainer';
-import styles from '../../styles/Feed/feedStyles.js';
+import Feed from './Feed/Feed.js';
+import Social from './Social/Social.js';
+import SetDoorContainer from './Door/SetDoorContainer';
+import styles from '../styles/Feed/feedStyles.js';
 
-class SwiperBase extends React.Component {
+class Main extends React.Component {
   constructor(props) {
     super(props);
     this._onMomentumScrollEnd = this._onMomentumScrollEnd.bind(this);
@@ -70,4 +70,10 @@ class SwiperBase extends React.Component {
   }
 }
 
-module.exports = SwiperBase;
+const MainContainer = connect((state) => {
+  return {
+    app: state.app,
+  };
+})(Main);
+
+module.exports = MainContainer;
