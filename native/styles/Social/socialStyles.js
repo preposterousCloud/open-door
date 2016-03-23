@@ -50,6 +50,14 @@ module.exports = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#DDD',
   },
+  categoryButton: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    padding: 20,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: '#DDD',
+  },
   checkboxEmpty: {
     width: 20,
     height: 20,
