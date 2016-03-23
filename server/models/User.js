@@ -13,10 +13,15 @@ module.exports = function User(sequelizeInstance) {
   }, {
     classMethods: {
       requestFriendship: function requestFriendship(userId1, userId2) {
-        const addFriendRequest = this.findOne({ where: { id: userId1 } })
-        .then(user => user.addRequest(userId2));
+        const recip = [userId1, userId2].sort();
 
-        return Promise.all([addFriendRequest]);
+        const addFriendRequest = this.findOne({ where: { id: recip[0] } })
+        .then(user => user.addRequest(recip[1]));
+
+        const checkRecipFriendRequest = this.findOne({ where: { id: recip[1] } })
+        .then(user => user.getRequest({ where: { id: recip[0] } }));
+
+        return Promise.all([addFriendRequest, checkRecipFriendRequest]);
       },
       addFriendship: function addFriendship(userId1, userId2) {
         // We put the smaller user ID on the left so we always know what the relationship looks like
