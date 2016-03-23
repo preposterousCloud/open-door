@@ -39,14 +39,9 @@ module.exports = (app) => {
 
   // // Groups
   app.get('/api/friends/groups/getGroupsForUser/:id', [Auth.ensureUserIsUser((req, jwt) => {
-    return parseInt(req.params.id) === parseInt(jwt.userId);
+    return parseInt(req.params.id, 10) === parseInt(jwt.userId, 10);
   }), Group.getGroups]);
   app.post('/api/friends/groups', [Auth.ensureUserIsUser((req, jwt) => {
     return req.body.members.indexOf(jwt.userId) > -1;
   }), Group.createGroup]);
 };
-
-// First thing tomorrow write another middleware that compares JWT userId to the property specified in the middleware generateor.
-
-// Eg.  ensureUserIsWhoTheySayTheyAre('hostUserId) would return middle ware that compares req.body.hostUserId to JWT.userId
-        // The other option is stop sending user IDs in POSTs and blindly use the JWT token ID.

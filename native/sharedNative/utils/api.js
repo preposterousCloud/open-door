@@ -5,7 +5,6 @@ const statusOK = res => (res.status >= 200 && res.status <= 299);
 
 const validateBody = res => {
   if (statusOK(res)) {
-    console.log(JSON.parse(res._bodyInit))
     return JSON.parse(res._bodyInit);
   }
   throw new Error('User Creation Failed');
