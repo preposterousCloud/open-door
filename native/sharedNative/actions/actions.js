@@ -104,6 +104,15 @@ export function toggleItemSelectionInList(id, listName) {
   };
 }
 
+export function clearItemSelectionInList(listName) {
+  return {
+    type: a.CLEAR_ITEMS_IN_SELECTION_LIST,
+    data: {
+      listName,
+    },
+  };
+}
+
 export function setUserGroupMembers(userGroupMembers) {
   return {
     type: a.SET_USER_GROUP_MEMBERS,
@@ -207,6 +216,8 @@ export function createEvent(event) {
     .then((event) => {
       dispatch(setActiveEvent(event));
       dispatch(updatePendingEvent(null));
+      dispatch(clearItemSelectionInList('friendsToInvite'));
+      dispatch(clearItemSelectionInList('groupsToInvite'));
       dispatch(setLoading(false));
       dispatch(refreshUser());
       return event;
@@ -229,6 +240,8 @@ export function toggleEvent() {
         dispatch(refreshUser());
       });
     } else if (getState().app.pendingEvent) {
+      dispatch(clearItemSelectionInList('friendsToInvite'));
+      dispatch(clearItemSelectionInList('groupsToInvite'));
       return dispatch(updatePendingEvent(null));
     } else {
       return dispatch(updatePendingEvent({}));

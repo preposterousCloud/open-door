@@ -63,6 +63,7 @@ module.exports = function User(sequelizeInstance) {
             user.dataValues.friends = user.dataValues.friend.map((friend) => {
               return { id: friend.id, userName: friend.userName };
             });
+            user.dataValues.Groups = user.dataValues.Groups || [];
             delete user.dataValues.friend;
             return user;
           });
