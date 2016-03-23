@@ -1,31 +1,25 @@
-import React, { Text, View, Image, Dimensions } from 'react-native';
+import React, { Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import styles from '../../styles/Feed/feedStyles.js';
 const { width, height } = Dimensions.get('window');
-
 import Accordion from 'react-native-accordion';
+import EventDetail from './EventDetail';
 
-const FeedListRow = (rowText) => {
+const FeedListRow = (event) => {
   const header = (
     <View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>
-          {rowText}
+          {event.name}
         </Text>
       </View>
     </View>
   );
   const source = require('./walkingDino.gif');
-  const content = (
-    <View style={styles.imageContainer}>
-        <Image
-          source={source}
-          style={{
-            width,
-            height: 300,
-          }}
-        />
-    </View>
-  );
+  let showImage = true;
+  const hideImage = () => {
+    showImage = false;
+  };
+  const content = (<EventDetail imageShowing event={event} />);
 
   return (
     <Accordion
