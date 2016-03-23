@@ -24,8 +24,11 @@ module.exports = StyleSheet.create({
   },
   userInput: {
     height: 50,
+    width: 300,
     padding: 4,
-    margin: 40,
+    marginLeft: 40,
+    marginRight: 40,
+    marginBottom: 10,
     fontSize: 18,
     borderWidth: 1,
     borderColor: '#616161',

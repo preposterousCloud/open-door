@@ -29,6 +29,10 @@ const navTo = (component, focus) => {
   store.getState().navigation.navigator.push({ component, focus });
 };
 
+const navToFull = (destination) => {
+  store.getState().navigation.navigator.push(destination);
+};
+
 const popScene = () => {
   store.getState().navigation.navigator.pop();
 };
@@ -147,6 +151,7 @@ const getAllUsersArray = () => {
 
 module.exports = {
   exitButton,
+  navToFull,
   navTo,
   enterButton,
   arrayToDataSource,

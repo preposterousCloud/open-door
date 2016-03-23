@@ -5,6 +5,7 @@ import React, {
   } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import actions from '../../sharedNative/actions/actions';
+import { navToFull } from '../Shared/Misc';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
 import EventSettings from './EventSettings';
@@ -20,9 +21,6 @@ const SetDoor = class SetDoor extends React.Component {
     this.toggleDoor = this.toggleDoor.bind(this);
     this.createEvent = this.createEvent.bind(this);
   }
-  toggleDoor() {
-    this.props.onDoorToggle();
-  }
   createEvent() {
     // Consider moving all of this logic into the action and read everything directly from state
     const eventToCreate = this.props.app.pendingEvent;
@@ -30,6 +28,17 @@ const SetDoor = class SetDoor extends React.Component {
     eventToCreate.friends = Object.keys(this.props.app.pendingSelections.friendsToInvite);
     eventToCreate.groups = Object.keys(this.props.app.pendingSelections.groupsToInvite);
     this.props.onEventSubmit(eventToCreate);
+  }
+  toggleDoor() {
+    this.props.onDoorToggle();
+    if (this.props.app.pendingEvent) {
+      navToFull({
+        component: EventSettings,
+        event: this.props.app.pendingEvent,
+        onChange: this.props.onEventSettingsChange,
+        onSubmit: this.createEvent,
+      });
+    }
   }
   goToSettings() {
     store.getState().navigation.navigator.push({
@@ -52,15 +61,10 @@ const SetDoor = class SetDoor extends React.Component {
               <ClosedDoor styles={{ size: 100, color: 'red' }} />
             )()}
           </TouchableOpacity>
-          <LoadingWheel isLoading={ this.props.app.isLoading } />
-          {
-            this.props.app.pendingEvent ?
-            <EventSettings event={this.props.app.pendingEvent}
-              onChange={this.props.onEventSettingsChange}
-              onSubmit={ this.createEvent }
-            /> :
-            <Text />
-          }
+        </View>
+        <View>
+          <Text>Event Details Here</Text>
+          <Text>Make this the event details from feed</Text>
         </View>
       </View>
    );
