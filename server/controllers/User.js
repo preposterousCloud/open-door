@@ -64,7 +64,7 @@ module.exports.requestFriendship = function requestFriendship(req, res) {
   db.User.requestFriendship(req.body.friends[0], req.body.friends[1])
   .then(result => {
     console.log(result, result[0].length, result[1].length)
-    if (result[0].length + result[1].length === 1) {
+    if (result[0].length > 0) {
       res.status(201).send(`${req.body.friends[0]} requested ${req.body.friends[1]}!`);
       return;
     }
