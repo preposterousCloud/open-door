@@ -28,7 +28,8 @@ class VibePicker extends React.Component {
     super(props);
     let key = 1;
     this.state = {
-      vibe: 'jam',
+      vibe: props.initialVibe || 'jam',
+      changeVibe: props.changeVibe,
       vibePickerItems: Object.keys(vibes).map((vibe) => (
         <PickerItemIOS
           key={key++}
@@ -42,6 +43,7 @@ class VibePicker extends React.Component {
   render() {
     const changeValue = (vibe) => {
       this.setState({ vibe });
+      this.state.changeVibe(vibes[vibe]);
     };
     return (
       <PickerIOS
@@ -53,5 +55,10 @@ class VibePicker extends React.Component {
     );
   }
 }
+
+VibePicker.propTypes = {
+  changeVibe: React.PropTypes.func,
+  initialVibe: React.PropTypes.string,
+};
 
 module.exports = VibePicker;

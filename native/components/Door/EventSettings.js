@@ -15,24 +15,36 @@ const InviteSelects = (props) => {
   const List = props.type === 'groups' ? GroupList : UserList;
   return (
     <View>
-      <NavBar title={title} leftButton={{ ...exitButton, title: 'Back' }} />
+      <NavBar title={title} leftButton={{ handler: exitButton.handler, title: 'Back' }} />
       <List />
     </View>
   );
 };
+InviteSelects.propTypes = { type: React.PropTypes.string };
 
-class EventSettings extends React.Component{
+class EventSettings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      vibe: {
+        name: 'Discoteca',
+      },
+    };
   }
   render() {
     const changeEventName = (text) => this.props.route.onChange('name', text);
     const changeEventDetails = (text) => this.props.route.onChange('details', text);
     const submitEvent = () => {
+      console.log('Submitted vibe:', this.state.vibe.name);
       this.props.route.onSubmit();
       popScene();
-    }
+    };
+    const changeVibe = (vibe) => {
+      this.setState({ vibe });
+      console.log('vibe name:', this.state.vibe.name);
+    };
+    const navToFriends = () => navToFull({ component: InviteSelects, type: 'friends' });
+    const navToGroups = () => navToFull({ component: InviteSelects, type: 'groups' });
     return (
       <View style={ styles.container }>
         <StyledTextInput
@@ -45,16 +57,19 @@ class EventSettings extends React.Component{
         />
         <Button onClick = {submitEvent} text={'Save'} />
         <Button onClick = {popScene} text={'Cancel'} />
-        <VibePicker />
+        <VibePicker
+          changeVibe={changeVibe}
+          initialVibe={'jam'}
+        />
         <TouchableOpacity
-          onPress={() => navToFull({ component: InviteSelects, type: 'friends' })}
-          style={socialStyles.socialF}
+          onPress={navToFriends}
+          style={socialStyles.categoryButton}
         >
           <Text>FRIENDS</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navToFull({ component: InviteSelects, type: 'groups' })}
-          style={socialStyles.socialG}
+          onPress={navToGroups}
+          style={socialStyles.categoryButton}
         >
           <Text>GROUPS</Text>
         </TouchableOpacity>
