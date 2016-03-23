@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 export const Button = (props) => {
   const providedStyles = props.styles || {};
   return (
-    <TouchableOpacity style={providedStyles.button || defaultStyles.button} 
+    <TouchableOpacity style={providedStyles.button || defaultStyles.button}
       onPress={ props.onClick }
     >
       <Text style={providedStyles.buttonText || defaultStyles.buttonText}>
@@ -30,7 +30,6 @@ const defaultStyles = StyleSheet.create({
     borderRadius: 4,
     marginBottom: 5,
     marginTop: 5,
-    alignSelf: 'stretch',
     justifyContent: 'center',
   },
   buttonText: {
