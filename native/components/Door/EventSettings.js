@@ -88,7 +88,6 @@ class EventSettings extends React.Component {
         <TouchableOpacity onPress={navToGroups} style={socialStyles.categoryButton} >
           <Text>GROUPS</Text>
         </TouchableOpacity>
-        <Text>Hi</Text>
       </View>
     );
   }
