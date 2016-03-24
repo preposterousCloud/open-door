@@ -5,7 +5,7 @@ import React, {
   } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import actions from '../../sharedNative/actions/actions';
-import { navToFull } from '../Shared/Misc';
+import { navTo, navToFull } from '../Shared/Misc';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
 import EventSettings from './EventSettings';
@@ -16,37 +16,21 @@ import styles from '../../styles/Door/doorStyles.js';
 const LoadingWheel = require('../Shared/Misc').LoadingWheel;
 
 const SetDoor = class SetDoor extends React.Component {
-  constructor(props) {
-    super(props);
-    this.toggleDoor = this.toggleDoor.bind(this);
-    this.createEvent = this.createEvent.bind(this);
-  }
-  createEvent(event) {
-    // Consider moving all of this logic into the action and read everything directly from state
-    const eventToCreate = this.props.app.pendingEvent;
-    eventToCreate.hostUserId = this.props.user.id;
-    eventToCreate.friends = Object.keys(this.props.app.pendingSelections.friendsToInvite);
-    eventToCreate.groups = Object.keys(this.props.app.pendingSelections.groupsToInvite);
-    this.props.onEventSubmit(event);
-  }
-  toggleDoor() {
-    this.props.onDoorToggle();
-    if (this.props.app.pendingEvent) {
-      navToFull({
-        component: EventSettings,
-        event: this.props.app.pendingEvent,
-        onChange: this.props.onEventSettingsChange,
-        onSubmit: this.createEvent,
-      });
-    }
-  }
-  goToSettings() {
-    store.getState().navigation.navigator.push({
-      component: Profile,
-    });
-  }
+  goToSettings() { navTo(Profile); }
 
   render() {
+    const createEvent = (event) => this.props.onEventSubmit(event);
+    const toggleDoor = () => {
+      this.props.onDoorToggle();
+      if (this.props.app.pendingEvent) {
+        navToFull({
+          component: EventSettings,
+          event: this.props.app.pendingEvent,
+          onChange: this.props.onEventSettingsChange,
+          onSubmit: createEvent,
+        });
+      }
+    }
     return (
       <View>
         <NavBar
@@ -55,7 +39,7 @@ const SetDoor = class SetDoor extends React.Component {
           rightButton={ { title: 'Settings', handler: this.goToSettings }}
         />
         <View style={styles.container}>
-          <TouchableOpacity onPress={this.toggleDoor}>
+          <TouchableOpacity onPress={toggleDoor}>
             {(() => (this.props.user.currentEvent || this.props.app.pendingEvent) ?
               <OpenDoor styles={{ size: 100, color: 'green' }} /> :
               <ClosedDoor styles={{ size: 100, color: 'red' }} />
