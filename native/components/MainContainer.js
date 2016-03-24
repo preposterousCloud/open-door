@@ -76,6 +76,11 @@ class Main extends React.Component {
   }
 }
 
+Main.propTypes = {
+  app: React.PropTypes.object.isRequired,
+  onLoad: React.PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state, ownProps) => {
   return {
     app: state.app,
