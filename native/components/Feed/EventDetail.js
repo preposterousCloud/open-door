@@ -24,25 +24,24 @@ class EventDetail extends React.Component {
       'None';
   }
   render() {
-    const hideImage = () => {
-      console.log('burhvent:', this.state.event);
+    const toggleImage = () => {
       this.setState({
-        imageShowing: false,
+        imageShowing: !this.state.imageShowing,
       });
     };
     return (
       <View style={styles.imageContainer}>
         {this.state.imageShowing ?
-          <TouchableOpacity onPress={hideImage} >
+          <TouchableOpacity onPress={toggleImage} >
             <Image source={this.state.imageSource} style={{ width, height: 300 }} />
           </TouchableOpacity> :
-          <View>
+          <TouchableOpacity onPress={toggleImage} >
             <Text>Name: {this.state.event.name}</Text>
             <Text>Address: {this.state.event.addressStreet1}</Text>
             <Text>City: {this.state.event.city}</Text>
             <Text>Groups Invited: {this.getInvitedGroups(this.state.event)}</Text>
             <Text>Users Invited: {this.getInvitedUsers(this.state.event)}</Text>
-          </View>
+          </TouchableOpacity>
         }
       </View>
     );
