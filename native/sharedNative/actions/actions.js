@@ -1,15 +1,5 @@
 const a = require('../ActionTypes');
-import {
-  postEvent,
-  closeEvent,
-  fetchAllUsers,
-  postGroup,
-  fetchUserGroups,
-  getUser,
-  postUser,
-  loginUser,
-  getUserByJwt,
-} from '../utils/api';
+import * as api from '../utils/api';
 
 const localStore = require('react-native-simple-store');
 
@@ -161,8 +151,9 @@ export function sortPendingFriendRequests(user) {
  * Async Thunk Action Creators
  * ************************************************** */
 export function createUser(userName) {
-  return dispatch => {
-    return postUser(userName)
+  return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
+    return api.postUser(userName, jwt)
     .then(user => {
       dispatch(setUser(user));
       return user;
@@ -178,16 +169,24 @@ export function setInLocalStorage(key, value) {
   };
 }
 
+export function logout() {
+  return (dispatch, getState) => {
+    return dispatch(setInLocalStorage('jwt', null))
+    .then(() => {
+      getState().navigation.navigator.resetTo({ name: 'Login' });
+    });
+  };
+}
+
 export function attemptLogin(userName, pw) {
   return (dispatch, getState) => {
-    console.log(pw);
     dispatch(setLoading(true));
-    return loginUser(userName, pw)
+    const jwt = getState().app.jwt;
+    return api.loginUser(userName, pw, jwt)
     .then(response => {
       if (response) {
         console.log('res', response);
         dispatch(setLoading(false));
-        dispatch(sortPendingFriendRequests(response.user));
         dispatch(setJwt(response.jwt));
         dispatch(setUser(response.user));
         dispatch(setInLocalStorage('jwt', response.jwt));
@@ -198,9 +197,16 @@ export function attemptLogin(userName, pw) {
   };
 }
 
+export function appInit() {
+  return (dispatch, getState) => {
+    dispatch(refreshUser());
+  };
+}
+
 export function getAllUsers() {
-  return dispatch => {
-    return fetchAllUsers()
+  return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
+    return api.fetchAllUsers(jwt)
     .then(users => {
       if (users) {
         dispatch(setAllUsers(users));
@@ -219,21 +225,25 @@ export function refreshUser() {
     const jwt = getState().app.jwt;
     dispatch(setLoading(true));
 
-    return getUserByJwt(jwt)
-    .then(user => dispatch(setUser(user)))
+    return api.getUserByJwt(jwt)
+    .then(user => {
+      dispatch(setUser(user));
+      dispatch(sortPendingFriendRequests(user));
+    })
     .then(dispatch(setLoading(false)));
   };
 }
 
 export function storeGroup(groupName) {
   return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
     const checklist = getState().checklist;
     const members = [getState().user.id];
     for (const id in checklist) {
       if (checklist[id]) {members.push(+id);}
     }
     console.log(members);
-    return postGroup(groupName, members)
+    return api.postGroup(groupName, members, jwt)
     .then(user => {
       if (user) {
         console.log(`${groupName} created with ${members}!`);
@@ -248,8 +258,9 @@ export function storeGroup(groupName) {
 
 export function getUserGroups() {
   return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
     const id = getState().user.id;
-    return fetchUserGroups(id)
+    return api.fetchUserGroups(id, jwt)
     .then(groups => {
       if (groups) {
         const userGroups = {};
@@ -265,9 +276,10 @@ export function getUserGroups() {
 
 export function createEvent(event) {
   return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
     dispatch(setLoading(true));
     console.log('creating event:', event);
-    postEvent(event)
+    api.postEvent(event, jwt)
     .then((event) => {
       dispatch(setActiveEvent(event));
       dispatch(setLoading(false));
@@ -283,9 +295,10 @@ export function createEvent(event) {
 
 export function toggleEvent() {
   return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
     if (getState().user.currentEvent) {
       dispatch(setLoading(true));
-      closeEvent(getState().user.currentEvent)
+      api.closeEvent(getState().user.currentEvent, jwt)
       .then((event) => {
         dispatch(setLoading(false));
         dispatch(setActiveEvent(null));

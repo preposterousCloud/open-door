@@ -15,12 +15,15 @@ const catchErr = (err) => {
   return null;
 };
 
-const headers = { 'Content-Type': 'application/json',
-  'access_token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ1ODc4ODUzMX0.gook8XulG6ipx7GPUz22okCLwM5dh19y_zvl05vvaJc' };
+const baseHeaders = { 'Content-Type': 'application/json' };
+
+const buildHeaders = (jwt) => {
+  return { ...baseHeaders,
+    access_token: jwt};
+}
 
 // HTTP methods
-
-export const loginUser = (userName, pw) => {
+export const loginUser = (userName, pw, jwt) => {
   const url = `${config.apiUrl}login`;
   const body = {
     userName,
@@ -29,25 +32,23 @@ export const loginUser = (userName, pw) => {
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify(body),
-    headers,
+    headers: buildHeaders(jwt),
   })
   .then(validateBody);
 };
 
-export const postEvent = (event) => {
+export const postEvent = (event, jwt) => {
   console.log('posting event:', event);
   const url = `${config.apiUrl}events`;
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify(event),
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: buildHeaders(jwt),
   })
   .then(validateBody);
 };
 
-export const closeEvent = (event) => {
+export const closeEvent = (event, jwt) => {
   const url = `${config.apiUrl}events/${event.id}/closeEvent`;
   return fetch(url, {
     method: 'POST',
@@ -55,20 +56,20 @@ export const closeEvent = (event) => {
   .then(validateBody);
 };
 
-export const fetchAllUsers = () => {
+export const fetchAllUsers = (jwt) => {
   // To refactor fully, need to create new thunk action
   // NOTE: This will be replaced by "friends" in createGroup
   // Also should probably send id and name instead of whole objects
   const url = `${config.apiUrl}users/`;
   return fetch(url, {
     method: 'GET',
-    headers,
+    headers: buildHeaders(jwt),
   })
   .then(validateBody)
   .catch(catchErr);
 };
 
-export const postGroup = (groupName, members) => {
+export const postGroup = (groupName, members, jwt) => {
   const url = `${config.apiUrl}friends/groups`;
   const groupObj = JSON.stringify({
     groupName,
@@ -77,29 +78,29 @@ export const postGroup = (groupName, members) => {
   return fetch(url, {
     method: 'POST',
     body: groupObj,
-    headers,
+    headers: buildHeaders(jwt),  
   })
   .then(validateBody)
   .catch(catchErr);
 };
 
-export const fetchUserGroups = (id) => {
+export const fetchUserGroups = (id, jwt) => {
   const url = `${config.apiUrl}friends/groups/getGroupsForUser/${id}`;
   return fetch(url, {
     method: 'GET',
-    headers,
+    headers: buildHeaders(jwt),
   })
   .then(validateBody)
   .catch(catchErr);
 };
 
-export const getUser = (userNameOrId) => {
+export const getUser = (userNameOrId, jwt) => {
   // To refactor fully, need to create new thunk action
   // that calls getUser and .then(user => dispatch({ type: 'SET_USER', user }))
   const url = `${config.apiUrl}users/${userNameOrId}`;
   return fetch(url, {
     method: 'GET',
-    headers,
+    headers: buildHeaders(jwt),
   })
   .then(validateBody)
   .catch(catchErr);
@@ -111,20 +112,30 @@ export const getUserByJwt = (jwt) => {
   const url = `${config.apiUrl}users/me`;
   return fetch(url, {
     method: 'GET',
-    headers,
+    headers: buildHeaders(jwt),
   })
   .then(validateBody)
   .catch(catchErr);
 };
-export const postUser = (userName) => {
+
+export const postUser = (userName, jwt) => {
   // To refactor fully, need to create new thunk action
   // that calls postUser and .then(user => dispatch(setUser(user.userName)))
   const url = `${config.apiUrl}users`;
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify({ userName }),
-    headers,
+    headers: buildHeaders(jwt),
   })
   .then(validateBody)
   .catch(catchErr);
+};
+
+export const addFriend = (requesterId, toFriendId, jwt) => {
+  const url = `${config.apiUrl}friends/request`;
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify({ friends: [requesterId, toFriendId] }),
+    headers: buildHeaders(jwt),
+  });
 };
