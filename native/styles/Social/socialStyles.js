@@ -4,7 +4,6 @@ module.exports = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#DF2309',
   },
   listView: {
     backgroundColor: '#FFF',
@@ -47,6 +46,14 @@ module.exports = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     padding: 50,
+    borderBottomWidth: 1,
+    borderColor: '#DDD',
+  },
+  categoryButton: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    padding: 20,
+    borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#DDD',
   },
