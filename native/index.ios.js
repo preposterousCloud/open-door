@@ -1,52 +1,32 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-'use strict';
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import React, { AppRegistry, Navigator } from 'react-native';
+import { Provider } from 'react-redux';
+import { store } from './sharedNative/reducers/reducers.js';
+import Login from './components/Auth/Login.js';
 
-class opendoor extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
+const configureScene = (route) => {
+  const sceneConfig = route.sceneConfig || Navigator.SceneConfigs.FloatFromBottom;
+  sceneConfig.gestures = null;
+  return sceneConfig;
+};
+
+const renderScene = (route, navigator) => {
+  store.dispatch({
+    type: 'SET_APP_NAVIGATOR',
+    navigator,
+  });
+  if (route.component) {
+    return React.createElement(route.component, { navigator, route });
   }
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+const opendoor = () => (
+  <Provider store={store} >
+    <Navigator
+      initialRoute = {{ component: Login }}
+      configureScene = {configureScene}
+      renderScene = {renderScene}
+    />
+  </Provider>
+);
 
 AppRegistry.registerComponent('opendoor', () => opendoor);
