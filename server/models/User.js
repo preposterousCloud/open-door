@@ -9,18 +9,14 @@ const Auth = require('../controllers/Auth');
 
 module.exports = function User(sequelizeInstance) {
   const seq = sequelizeInstance;
-<<<<<<< HEAD
+  
+  seq.define('rel_user_requested_friends', {
+    sender: Sequelize.BOOLEAN,
+  });
   const user = seq.define('User', {
     userName: { type: Sequelize.STRING, allowNull: false, unique: true },
     pw: { type: Sequelize.STRING, allowNull: false },
     phone: Sequelize.STRING,
-=======
-  seq.define('rel_user_requested_friends', {
-    sender: Sequelize.BOOLEAN,
-  });
-  return seq.define('User', {
-    userName: Sequelize.STRING,
->>>>>>> devmaster
   }, {
     instanceMethods: {
       /**
