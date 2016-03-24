@@ -9,6 +9,7 @@ import { navTo, navToFull } from '../Shared/Misc';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
 import EventSettings from './EventSettings';
+import EventDetails from './EventDetails';
 import OpenDoor from '../Shared/OpenDoor';
 import ClosedDoor from '../Shared/ClosedDoor';
 import styles from '../../styles/Door/doorStyles.js';
@@ -30,7 +31,7 @@ const SetDoor = class SetDoor extends React.Component {
           onSubmit: createEvent,
         });
       }
-    }
+    };
     return (
       <View>
         <NavBar
@@ -49,6 +50,14 @@ const SetDoor = class SetDoor extends React.Component {
         <View>
           <Text>Event Details Here</Text>
           <Text>Make this the event details from feed</Text>
+          {(() => (!this.props.user.Events) ?
+            <Text>You aren't invited to any events</Text> :
+            <Text>You're invited to {this.props.user.Events.length} events</Text>
+          )()}
+          {(() => (!this.props.user.currentEvent) ?
+            <Text>You aren't hosting an event right now</Text> :
+            <Text>You're hosting {this.props.user.currentEvent.name} right now</Text>
+          )()}
         </View>
       </View>
    );
