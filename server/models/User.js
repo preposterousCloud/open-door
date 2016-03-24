@@ -86,6 +86,7 @@ module.exports = function User(sequelizeInstance) {
             });
             user.dataValues.Groups = user.dataValues.Groups || [];
             delete user.dataValues.friend;
+            delete user.dataValues.pw;
             return user;
           });
         })
