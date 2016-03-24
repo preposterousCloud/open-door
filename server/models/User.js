@@ -9,7 +9,7 @@ const Auth = require('../controllers/Auth');
 
 module.exports = function User(sequelizeInstance) {
   const seq = sequelizeInstance;
-  
+
   seq.define('rel_user_requested_friends', {
     sender: Sequelize.BOOLEAN,
   });

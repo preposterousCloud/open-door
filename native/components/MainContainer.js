@@ -9,6 +9,7 @@ import React, {
 import { connect } from 'react-redux';
 import { store } from '../sharedNative/reducers/reducers.js';
 const actions = require('../sharedNative/actions/actions');
+
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
 import Feed from './Feed/Feed.js';
@@ -22,6 +23,12 @@ const FeedContainer = connect((state, ownProps) => {
     userName: state.user.userName,
     swipeLeft: ownProps.swipeLeft,
     swipeRight: ownProps.swipeRight,
+  };
+}, (dispatch, ownProps) => {
+  return {
+    logout: () => {
+      dispatch(actions.logout());
+    },
   };
 })(Feed);
 
@@ -53,18 +60,18 @@ class Main extends React.Component {
   }
   render(props) {
     return (
-      <Swiper
-        ref="scrollView"
-        showsButtons={false}
-        loop={false}
-        showsPagination={false}
-        index={ this.props.app.swiperIndex }
-        onMomentumScrollEnd = {this._onMomentumScrollEnd}
-      >
-        <SocialContainer swipeRight = {this.swipeRight} />
-        <FeedContainer swipeLeft = {this.swipeLeft} swipeRight = {this.swipeRight} />
-        <SetDoorContainer swipeLeft={this.swipeLeft} />
-      </Swiper>
+        <Swiper
+          ref="scrollView"
+          showsButtons={false}
+          loop={false}
+          showsPagination={false}
+          index={ this.props.app.swiperIndex }
+          onMomentumScrollEnd = {this._onMomentumScrollEnd}
+        >
+          <SocialContainer swipeRight = {this.swipeRight} />
+          <FeedContainer swipeLeft = {this.swipeLeft} swipeRight = {this.swipeRight} />
+          <SetDoorContainer swipeLeft={this.swipeLeft} />
+        </Swiper>
    );
   }
 }
@@ -77,8 +84,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onLoad: () => {
-      console.log('app init')
-      dispatch(actions.refreshUser());
+      dispatch(actions.appInit());
     },
   };
 };
