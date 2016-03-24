@@ -17,19 +17,31 @@ import styles from '../../styles/Door/doorStyles.js';
 const LoadingWheel = require('../Shared/Misc').LoadingWheel;
 
 const SetDoor = class SetDoor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      doorOpen: !!props.user.currentEvent,
+    };
+  }
   goToSettings() { navTo(Profile); }
 
   render() {
-    const createEvent = (event) => this.props.onEventSubmit(event);
-    const toggleDoor = () => {
+    const createEvent = (event) => {
       this.props.onDoorToggle();
-      if (this.props.app.pendingEvent) {
+      this.props.onEventSubmit(event);
+      this.setState({ doorOpen: true });
+    };
+    const toggleDoor = () => {
+      if (!this.state.doorOpen) {
         navToFull({
           component: EventSettings,
           event: this.props.app.pendingEvent,
           onChange: this.props.onEventSettingsChange,
           onSubmit: createEvent,
         });
+      } else {
+        this.setState({ doorOpen: false });
+        this.props.onDoorToggle();
       }
     };
     return (
@@ -41,7 +53,7 @@ const SetDoor = class SetDoor extends React.Component {
         />
         <View style={styles.container}>
           <TouchableOpacity onPress={toggleDoor}>
-            {(() => (this.props.user.currentEvent || this.props.app.pendingEvent) ?
+            {(() => (this.state.doorOpen) ?
               <OpenDoor styles={{ size: 100, color: 'green' }} /> :
               <ClosedDoor styles={{ size: 100, color: 'red' }} />
             )()}
