@@ -10,7 +10,6 @@ class EventDetail extends React.Component {
     this.state = {
       imageShowing: props.imageShowing,
       imageSource: require('./walkingDino.gif'),
-      event: props.event,
     };
   }
   getInvitedGroups(event) {
@@ -36,11 +35,12 @@ class EventDetail extends React.Component {
             <Image source={this.state.imageSource} style={{ width, height: 300 }} />
           </TouchableOpacity> :
           <TouchableOpacity onPress={toggleImage} >
-            <Text>Name: {this.state.event.name}</Text>
-            <Text>Address: {this.state.event.addressStreet1}</Text>
-            <Text>City: {this.state.event.city}</Text>
-            <Text>Groups Invited: {this.getInvitedGroups(this.state.event)}</Text>
-            <Text>Users Invited: {this.getInvitedUsers(this.state.event)}</Text>
+            <Text>Name: {this.props.event.name}</Text>
+            <Text>Host: {this.props.event.hostUser.userName}</Text>
+            <Text>Address: {this.props.event.addressStreet1}</Text>
+            <Text>City: {this.props.event.city}</Text>
+            <Text>Groups Invited: {this.getInvitedGroups(this.props.event)}</Text>
+            <Text>Users Invited: {this.getInvitedUsers(this.props.event)}</Text>
           </TouchableOpacity>
         }
       </View>
