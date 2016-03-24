@@ -32,6 +32,7 @@ module.exports.createEvent = function createUser(req, res) {
   if (!req.body.name) {
     res.status(404).send('Make sure to include a user name and appropriate properties');
   } else {
+    console.log(req.body);
     db.Event.createEvent({ hostUserId: req.body.hostUserId,
       name: req.body.name,
       startDateUtc: req.body.startDateUtc,

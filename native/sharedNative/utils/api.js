@@ -35,6 +35,7 @@ export const loginUser = (userName, pw) => {
 };
 
 export const postEvent = (event) => {
+  console.log('posting event:', event);
   const url = `${config.apiUrl}events`;
   return fetch(url, {
     method: 'POST',

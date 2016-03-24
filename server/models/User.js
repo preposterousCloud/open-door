@@ -9,10 +9,18 @@ const Auth = require('../controllers/Auth');
 
 module.exports = function User(sequelizeInstance) {
   const seq = sequelizeInstance;
+<<<<<<< HEAD
   const user = seq.define('User', {
     userName: { type: Sequelize.STRING, allowNull: false, unique: true },
     pw: { type: Sequelize.STRING, allowNull: false },
     phone: Sequelize.STRING,
+=======
+  seq.define('rel_user_requested_friends', {
+    sender: Sequelize.BOOLEAN,
+  });
+  return seq.define('User', {
+    userName: Sequelize.STRING,
+>>>>>>> devmaster
   }, {
     instanceMethods: {
       /**
@@ -29,6 +37,15 @@ module.exports = function User(sequelizeInstance) {
       },
     },
     classMethods: {
+      requestFriendship: function requestFriendship(userId1, userId2) {
+        const addFriendRequest = this.findOne({ where: { id: userId1 } })
+        .then(user => user.addRequest(userId2, { sender: true }));
+
+        const checkRecipFriendRequest = this.findOne({ where: { id: userId2 } })
+        .then(user => user.addRequest(userId1, { sender: false }));
+
+        return Promise.all([addFriendRequest, checkRecipFriendRequest]);
+      },
       addFriendship: function addFriendship(userId1, userId2) {
         // We put the smaller user ID on the left so we always know what the relationship looks like
         // for any given friendship
@@ -57,7 +74,8 @@ module.exports = function User(sequelizeInstance) {
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,
           include: [{ model: seq.models.Group },
-            { model: seq.models.User, as: 'friend' }],
+            { model: seq.models.User, as: 'friend' },
+            { model: seq.models.User, as: 'request' }],
         })
         .then((user) => {
           if (!user) { throw new Error('User not found'); }
@@ -84,9 +102,13 @@ module.exports = function User(sequelizeInstance) {
             user.dataValues.friends = user.dataValues.friend.map((friend) => {
               return { id: friend.id, userName: friend.userName };
             });
+            user.dataValues.requests = user.dataValues.request.map((friend) => {
+              return { id: friend.id, userName: friend.userName, sender: friend.rel_user_requested_friends.sender };
+            });
             user.dataValues.Groups = user.dataValues.Groups || [];
             delete user.dataValues.friend;
             delete user.dataValues.pw;
+            delete user.dataValues.request;
             return user;
           });
         })

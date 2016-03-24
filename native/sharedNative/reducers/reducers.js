@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { groupName, userGroupMembers } from './subReducers/groups.js';
 import { checklist, checkboxChecked, filterText } from './subReducers/common.js';
 import navigation from './subReducers/navigation.js';
-import { user, allUsers } from './subReducers/user.js';
+import { user, allUsers, pendingRequests } from './subReducers/user.js';
 const actions = require('../ActionTypes');
 
 const defaultState = {
@@ -57,6 +57,7 @@ const reducer = combineReducers({
   navigation,
   user,
   allUsers,
+  pendingRequests,
   groupName, // NOT IN USE (usage: live typing)
   userGroupMembers,
   checklist,

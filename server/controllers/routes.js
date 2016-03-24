@@ -34,10 +34,17 @@ module.exports = (app) => {
   app.post('/api/friends/remove', [Auth.ensureUserIsUser((req, jwt) => {
     return req.body.friends[0] === jwt.userId || req.body.friends[1] === jwt.userId;
   }), User.removeFriendship]);
-  // app.get('/api/friends/request');
-  // app.post('/api/friends/request');
 
-  // // Groups
+  // Friends
+  app.post('/api/friends/add', [Auth.ensureUserIsUser((req, jwt) => {
+    return req.body.friends[0] === jwt.userId || req.body.friends[1] === jwt.userId;
+  }), User.addFriendship]);
+  app.post('/api/friends/remove', [Auth.ensureUserIsUser((req, jwt) => {
+    return req.body.friends[0] === jwt.userId || req.body.friends[1] === jwt.userId;
+  }), User.removeFriendship]);
+  app.post('/api/friends/remove', User.removeFriendship);
+
+  // Groups
   app.get('/api/friends/groups/getGroupsForUser/:id', [Auth.ensureUserIsUser((req, jwt) => {
     return parseInt(req.params.id, 10) === parseInt(jwt.userId, 10);
   }), Group.getGroups]);

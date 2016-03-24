@@ -10,7 +10,7 @@ const actions = require('../actions/actions.js');
 
 const addFriend = (toId) => {
   return dispatch => {
-    const url = `${config.apiUrl}friends/add`;
+    const url = `${config.apiUrl}friends/request`;
     return fetch(url, {
       method: 'POST',
       body: JSON.stringify({ friends: [store.getState().user.id, toId] }),

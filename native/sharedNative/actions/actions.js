@@ -56,6 +56,14 @@ export function setJwt(jwt) {
     data: jwt,
   };
 }
+
+export function setPendingFriendRequests(reqs) {
+  return {
+    type: a.SET_PENDING_FRIEND_REQUESTS,
+    reqs,
+  };
+}
+
 // NOT IN USE (usage: live typing)
 export function liveUpdateGroupName(name) {
   return {
@@ -129,7 +137,26 @@ export function setUserGroupMembers(userGroupMembers) {
     userGroupMembers,
   };
 }
-
+/** *****************************************************
+ * Synchronous Action Creators
+ * ************************************************** */
+export function sortPendingFriendRequests(user) {
+  return (dispatch, getState) => {
+    const reqs = user.requests;
+    const sortedReqs = {
+      sent: [],
+      received: [],
+    };
+    reqs.forEach((req) => {
+      if (req.sender) {
+        sortedReqs.sent.push(req.id);
+      } else {
+        sortedReqs.received.push(req.id);
+      }
+    });
+    return dispatch(setPendingFriendRequests(sortedReqs));
+  };
+}
 /** *****************************************************
  * Async Thunk Action Creators
  * ************************************************** */
@@ -143,6 +170,7 @@ export function createUser(userName) {
     .catch(catchErr);
   };
 }
+
 
 export function setInLocalStorage(key, value) {
   return (dispatch) => {
@@ -159,6 +187,7 @@ export function attemptLogin(userName, pw) {
       if (response) {
         console.log('res', response);
         dispatch(setLoading(false));
+        dispatch(sortPendingFriendRequests(response.user));
         dispatch(setJwt(response.jwt));
         dispatch(setUser(response.user));
         dispatch(setInLocalStorage('jwt', response.jwt));
@@ -237,12 +266,10 @@ export function getUserGroups() {
 export function createEvent(event) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));
+    console.log('creating event:', event);
     postEvent(event)
     .then((event) => {
       dispatch(setActiveEvent(event));
-      dispatch(updatePendingEvent(null));
-      dispatch(clearItemSelectionInList('friendsToInvite'));
-      dispatch(clearItemSelectionInList('groupsToInvite'));
       dispatch(setLoading(false));
       dispatch(refreshUser());
       return event;

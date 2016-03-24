@@ -7,7 +7,7 @@ const Button = (props) => {
     <TouchableOpacity style={ providedStyles.button || defaultStyles.button }
       onPress={ props.onClick }
     >
-      <Text style={providedStyles.buttonText || defaultStyles.buttonText}>
+      <Text style={ providedStyles.buttonText || defaultStyles.buttonText }>
         { props.text }
       </Text>
     </TouchableOpacity>
