@@ -73,7 +73,7 @@ const SetDoor = class SetDoor extends React.Component {
    );
   }
 };
-// <Text>You're hosting {this.props.user.currentEvent.name} right now</Text>
+
 SetDoor.propTypes = {
   swipeLeft: React.PropTypes.func.isRequired,
   user: React.PropTypes.object.isRequired,
