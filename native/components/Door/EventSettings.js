@@ -27,6 +27,7 @@ class EventSettings extends React.Component {
       onSubmit: props.route.onSubmit,
       event: {
         hostUserId: store.getState().user.id,
+        hostUserName: store.getState().user.userName,
         invitedFriends: {},
         invitedGroups: {},
       },

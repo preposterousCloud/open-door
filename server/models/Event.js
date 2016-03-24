@@ -40,6 +40,7 @@ module.exports = function Event(sequelizeInstance) {
           return this.rawCreate(eventObj)
           .then((event) => {
             return event.setHostUser(eventObj.hostUserId)
+            // .then(event => event.setHostUser
             .then(() => {return event;});
           })
           .then((event) => {
@@ -60,6 +61,7 @@ module.exports = function Event(sequelizeInstance) {
         , addressStreet1, addressStreet2, city, stateAbbrev, postalCode, users, groups) {
           return {
             hostUserId: hostUser.id,
+            hostUserName: hostUser.userName,
             name,
             startDateUtc,
             endDateUtc,
@@ -79,17 +81,20 @@ module.exports = function Event(sequelizeInstance) {
 
           const userInvites = this.findAll({
             include: [{ model: seq.models.User,
-              where: { id: user.id } }],
+              where: { id: user.id } },
+            { model: seq.models.User, as: 'hostUser' }],
             where: { endDateUtc: null },
           });
 
           const groupInvites = this.findAll({
             include: [{ model: seq.models.Group,
-              where: { id: { $in: user.Groups.map(group => group.id) } } }],
+              where: { id: { $in: user.Groups.map(group => group.id) } } },
+            { model: seq.models.User, as: 'hostUser' }],
             where: { endDateUtc: null },
           });
 
           const personalEvents = this.findAll({
+            include: [{ model: seq.models.User, as: 'hostUser' }],
             where: { hostUserId: user.id, endDateUtc: null },
           });
 
