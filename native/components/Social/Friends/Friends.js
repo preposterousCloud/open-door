@@ -2,6 +2,7 @@ import React, { View, Text, TouchableOpacity, ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 import AddFriends from './AddFriends.js';
 import {
   exitButton,
@@ -26,7 +27,16 @@ const Friends = (props) => {
         leftButton={exitButton}
         rightButton={enterButton(AddFriends, props.user)}
       />
-      <FriendsListContainer />
+      <ScrollableTabView
+        locked={true}
+        tabBarUnderlineColor={'#227DF4'}
+        tabBarActiveTextColor={'#227DF4'}
+        tabBarBackgroundColor={'#FFF'}
+        style={styles.tabBar}
+      >
+        <FriendsListContainer tabLabel="Friends List" />
+        <FriendsListContainer tabLabel="Test Tab" />
+      </ScrollableTabView>
     </View>
   );
 };

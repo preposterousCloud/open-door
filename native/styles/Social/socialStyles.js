@@ -62,6 +62,11 @@ module.exports = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#DDD',
   },
+  tabBar: {
+    borderTopWidth: 3,
+    borderBottomWidth: 1,
+    borderColor: '#007AFF',
+  },
   categoryButton: {
     justifyContent: 'center',
     flexDirection: 'row',
@@ -74,13 +79,13 @@ module.exports = StyleSheet.create({
     width: 20,
     height: 20,
     borderWidth: 1,
-    borderColor: '#227DF4',
+    borderColor: '#007AFF',
   },
   checkboxFilled: {
     width: 20,
     height: 20,
     borderWidth: 1,
-    borderColor: '#227DF4',
-    backgroundColor: '#227DF4',
+    borderColor: '#007AFF',
+    backgroundColor: '#007AFF',
   },
 });
