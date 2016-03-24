@@ -8,7 +8,6 @@ const actions = require('../ActionTypes');
 
 const defaultState = {
   isLoading: false,
-  pendingEvent: null,
   swiperIndex: 1,
   pendingSelections: { friendsToInvite: {}, groupsToInvite: {} },
 };
@@ -19,12 +18,6 @@ const app = (state = defaultState, action) => {
       return Object.assign({}, state, { jwt: action.data });
     case actions.TOGGLE_LOADING:
       return Object.assign({}, state, { isLoading: action.data });
-
-    case actions.UPDATE_PENDING_EVENT: {
-      const pendingEvent = (action.data === null) ? null :
-        Object.assign({}, state.pendingEvent, action.data);
-      return Object.assign({}, state, { pendingEvent: pendingEvent });
-    }
 
     case actions.SET_SWIPER_INDEX: {
       return Object.assign({}, state, { swiperIndex: action.data });
