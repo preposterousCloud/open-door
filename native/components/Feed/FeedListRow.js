@@ -22,6 +22,8 @@ const FeedListRow = (event) => {
       header={header}
       content={content}
       easing="easeOutCubic"
+      animationDuration="600"
+      underlayColor="#2AE"
     />
   );
 };
