@@ -23,7 +23,6 @@ InviteSelects.propTypes = { route: React.PropTypes.object };
 class EventSettings extends React.Component {
   constructor(props) {
     super(props);
-    console.log('onSubmit:', props.route.onSubmit, 'type:', typeof props.route.onSubmit);
     this.state = {
       onSubmit: props.route.onSubmit,
       event: {

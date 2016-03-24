@@ -24,7 +24,6 @@ function allUsers(state = [], action) {
 }
 
 function pendingRequests(state = {}, action) {
-  console.log(action.type);
   switch (action.type) {
     case 'SET_PENDING_FRIEND_REQUESTS': {
       return action.reqs || state;
