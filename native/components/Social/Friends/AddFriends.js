@@ -29,7 +29,7 @@ const AddFriends = (props) => {
       Alert.alert(`Send a friend request to ${target.userName}?`, '', [
         cancelButton,
         { text: 'Add',
-          onPress: () => store.dispatch(friendsApi.addFriend(target.id)),
+          onPress: () => store.dispatch(friendsApi.requestFriend(target.id)),
           style: 'default',
         },
       ]);

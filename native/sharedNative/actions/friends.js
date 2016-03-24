@@ -5,7 +5,7 @@ import {
 import * as api from '../utils/api';
 const actions = require('../actions/actions.js');
 
-const addFriend = (toId) => {
+const requestFriend = (toId) => {
   return dispatch => {
     return api.addFriend(store.getState().user.id, toId)
     .then(response => {
@@ -32,6 +32,6 @@ const addFriend = (toId) => {
 // };
 
 module.exports = {
-  addFriend,
+  requestFriend,
   // respondToFriendRequest,
 };
