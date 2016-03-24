@@ -70,17 +70,40 @@ const cancelButton = {
   style: 'cancel',
 };
 
-const makeClickableRow = (action, text) => {
+const makeClickableRow = (action, text, greyOut) => {
   return (rowData) => {
     const actionAppliedToUser = action.bind(null, rowData);
+    let withGreyedOut;
+    // Right-side checkmark if already requested
+    if (greyOut) {
+      withGreyedOut = (
+        <Text style={greyOut && greyOut.indexOf(rowData.id) >= 0 ?
+        socialStyles.greyedOutListEntryViewText :
+        null}
+        >
+          {greyOut && greyOut.indexOf(rowData.id) >= 0 ?
+          '✓' :
+          null}
+        </Text>
+      );
+    }
     return (
       <View>
         <TouchableOpacity
           onPress={actionAppliedToUser}
           style={socialStyles.group}
         >
-          <View style={socialStyles.listEntryView}>
-            <Text>{rowData.userName || rowData[text]}</Text>
+          <View style={greyOut && greyOut.indexOf(rowData.id) >= 0 ?
+            socialStyles.greyedOutListEntryView :
+            socialStyles.listEntryView}
+          >
+            <Text style={greyOut && greyOut.indexOf(rowData.id) >= 0 ?
+            socialStyles.greyedOutListEntryViewText :
+            null}
+            >
+              {rowData.userName || rowData[text]}
+            </Text>
+            {withGreyedOut}
           </View>
         </TouchableOpacity>
       </View>

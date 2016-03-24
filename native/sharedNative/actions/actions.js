@@ -46,6 +46,13 @@ export function setUser(user) {
   };
 }
 
+export function setPendingFriendRequests(reqs) {
+  return {
+    type: a.SET_PENDING_FRIEND_REQUESTS,
+    reqs,
+  };
+}
+
 // NOT IN USE (usage: live typing)
 export function liveUpdateGroupName(name) {
   return {
@@ -119,7 +126,26 @@ export function setUserGroupMembers(userGroupMembers) {
     userGroupMembers,
   };
 }
-
+/** *****************************************************
+ * Synchronous Action Creators
+ * ************************************************** */
+export function sortPendingFriendRequests(user) {
+  return (dispatch, getState) => {
+    const reqs = user.requests;
+    const sortedReqs = {
+      sent: [],
+      received: [],
+    };
+    reqs.forEach((req) => {
+      if (req.sender) {
+        sortedReqs.sent.push(req.id);
+      } else {
+        sortedReqs.received.push(req.id);
+      }
+    });
+    return dispatch(setPendingFriendRequests(sortedReqs));
+  };
+}
 /** *****************************************************
  * Async Thunk Action Creators
  * ************************************************** */
@@ -134,11 +160,13 @@ export function createUser(userName) {
   };
 }
 
+
 export function attemptLogin(userName) {
   return dispatch => {
     return getUser(userName)
     .then(user => {
       if (user) {
+        dispatch(sortPendingFriendRequests(user));
         dispatch(setUser(user));
         return true;
       }
@@ -166,7 +194,10 @@ export function refreshUser() {
     dispatch(setLoading(true));
 
     return getUser(userId)
-    .then(user => dispatch(setUser(user)))
+    .then(user => {
+      dispatch(sortPendingFriendRequests(user));
+      return dispatch(setUser(user));
+    })
     .then(dispatch(setLoading(false)));
   };
 }

@@ -13,6 +13,19 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
+  greyedOutListEntryView: {
+    flexDirection: 'row',
+    padding: 20,
+    borderTopWidth: 1,
+    borderColor: '#DDD',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#EEE',
+  },
+  greyedOutListEntryViewText: {
+    color: '#777',
+    justifyContent: 'space-between',
+  },
   listEntryView: {
     flexDirection: 'row',
     padding: 20,
