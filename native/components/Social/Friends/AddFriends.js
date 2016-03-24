@@ -38,7 +38,12 @@ const AddFriends = (props) => {
     const filterIds = state.user.friends ?
       state.user.friends.map(friend => friend.id).concat(state.user.id) : [];
     const filterReqs = state.user.requests ?
-      state.user.requests.map(req => req.id) : [];
+      state.user.requests.map(req => {
+        if (req.sender) {
+          return req.id;
+        }
+        filterIds.push(req.id);
+      }) : [];
     const targetUsers = state.allUsers.filter(targetUser => (
       filterIds.indexOf(targetUser.id) < 0 && targetUser.userName.match(re)
     ));

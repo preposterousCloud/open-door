@@ -74,6 +74,7 @@ const makeClickableRow = (action, text, greyOut) => {
   return (rowData) => {
     const actionAppliedToUser = action.bind(null, rowData);
     let withGreyedOut;
+    // Right-side checkmark if already requested
     if (greyOut) {
       withGreyedOut = (
         <Text style={greyOut && greyOut.indexOf(rowData.id) >= 0 ?
