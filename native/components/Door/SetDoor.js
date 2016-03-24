@@ -35,7 +35,6 @@ const SetDoor = class SetDoor extends React.Component {
       if (!this.state.doorOpen) {
         navToFull({
           component: EventSettings,
-          onChange: this.props.onEventSettingsChange,
           onSubmit: createEvent,
         });
       } else {
@@ -78,7 +77,6 @@ SetDoor.propTypes = {
   user: React.PropTypes.object.isRequired,
   closeDoor: React.PropTypes.func.isRequired,
   app: React.PropTypes.object.isRequired,
-  onEventSettingsChange: React.PropTypes.func.isRequired,
   onEventSubmit: React.PropTypes.func.isRequired,
 };
 module.exports = SetDoor;
