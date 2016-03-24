@@ -21,7 +21,7 @@ module.exports.ensureUserOwnsEvents = (req, res, next) => {
   const eventId = req.params.id;
   db.Event.findOne({ where: { id: eventId } })
   .then((event) => {
-    Auth.ensureUserHasValidJwt(req, res, next, (jwt) => {
+    Auth._ensureUserHasValidJwt(req, res, next, (jwt) => {
       return jwt.userId === event.hostUserId;
     });
   });

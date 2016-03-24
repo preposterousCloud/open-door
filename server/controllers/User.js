@@ -51,12 +51,25 @@ module.exports.getUser = function getUser(req, res) {
 
   db.User.getUser(searchObj)
   .then((data) => {
-    if (!data) { throw new Error('User Not Found - User Controller 54:18'); }
+    if (!data) { throw new Error('User Not Found'); }
     res.json(data);
   })
   .catch((err) => {
     console.error(err, err.stack);
     res.status(404).send(null);
+  });
+};
+
+module.exports.getUserFromJwt = function getUserFromJwt(req, res) {
+  const searchObj = { id: req.jwt.userId };
+  db.User.getUser(searchObj)
+  .then((data) => {
+    if (!data) { throw new Error('User Not Found'); }
+    res.json(data);
+  })
+  .catch((err) => {
+    console.error(err, err.stack);
+    res.status(404).send(err);
   });
 };
 

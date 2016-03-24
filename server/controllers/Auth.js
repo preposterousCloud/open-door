@@ -62,13 +62,13 @@ const verifyAndDecodeJwtToken = (token) => {
   });
 };
 
-const ensureUserHasValidJwt = (req, res, next, additionalCheck) => {
+const _ensureUserHasValidJwt = (req, res, next, additionalCheck) => {
   if (!req.headers.access_token) {
     res.status(401).send('Must provide access_token header w/ JWT token');
   } else {
     verifyAndDecodeJwtToken(req.headers.access_token)
     .then((jwt) => {
-      if (!additionalCheck(jwt)) {
+      if (additionalCheck && !additionalCheck(jwt)) {
         throw Error('User does not have permission to perform this action.');
       }
       req.jwt = jwt;
@@ -81,9 +81,12 @@ const ensureUserHasValidJwt = (req, res, next, additionalCheck) => {
   }
 };
 
+const ensureUserHasValidJwt = (req, res, next) => {
+  _ensureUserHasValidJwt(req, res, next);
+};
 const ensureUserIsUser = (testPropertyOrFunc) => {
   return (req, res, next) => {
-    ensureUserHasValidJwt(req, res, next, (jwt) => {
+    _ensureUserHasValidJwt(req, res, next, (jwt) => {
       if (typeof testPropertyOrFunc === 'string') {
         return jwt.userId === req.body[testPropertyOrFunc];
       }
@@ -102,4 +105,5 @@ module.exports = {
   ensureUserIsUser,
   saltAndHash,
   compareHashAndVal,
+  _ensureUserHasValidJwt,
 };

@@ -12,12 +12,12 @@ module.exports = (app) => {
   app.get('/', (req, res) => {
     res.json('Whatup, AWS!');
   });
-
   // Auth
   // TODO make sure this route uses HTTPS
   app.post('/api/login', Login.loginUser);
 
   // User Profiles
+  app.get('/api/users/me', Auth.ensureUserHasValidJwt, User.getUserFromJwt);
   app.get('/api/users/', [Auth.ensureUserHasValidJwt, User.getUsers]);
   app.post('/api/users/', User.createUser);
   app.get('/api/users/:arg', User.getUser);
