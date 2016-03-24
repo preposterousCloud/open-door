@@ -6,6 +6,8 @@ module.exports.loginUser = (req, res) => {
   .then((user) => {
     return user.checkPasswordAndIssueJwt(req.body.pw)
     .then((jwt) => {
+      // Don't want to send pw back to client.  Delete wasn't actually removing it
+      user.pw = '';
       res.json({ jwt, user });
     });
   })
