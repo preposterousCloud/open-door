@@ -48,22 +48,20 @@ const SetDoor = class SetDoor extends React.Component {
           </TouchableOpacity>
         </View>
         <View>
-          <Text>Event Details Here</Text>
-          <Text>Make this the event details from feed</Text>
           {(() => (!this.props.user.Events) ?
             <Text>You aren't invited to any events</Text> :
             <Text>You're invited to {this.props.user.Events.length} events</Text>
           )()}
           {(() => (!this.props.user.currentEvent) ?
             <Text>You aren't hosting an event right now</Text> :
-            <Text>You're hosting {this.props.user.currentEvent.name} right now</Text>
+            <EventDetails event={this.props.user.currentEvent} />
           )()}
         </View>
       </View>
    );
   }
 };
-
+// <Text>You're hosting {this.props.user.currentEvent.name} right now</Text>
 SetDoor.propTypes = {
   swipeLeft: React.PropTypes.func.isRequired,
   user: React.PropTypes.object.isRequired,
