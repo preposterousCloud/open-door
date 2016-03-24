@@ -27,7 +27,7 @@ const SetDoor = class SetDoor extends React.Component {
 
   render() {
     const createEvent = (event) => {
-      this.props.onDoorToggle();
+      this.props.closeDoor();
       this.props.onEventSubmit(event);
       this.setState({ doorOpen: true });
     };
@@ -35,13 +35,12 @@ const SetDoor = class SetDoor extends React.Component {
       if (!this.state.doorOpen) {
         navToFull({
           component: EventSettings,
-          event: this.props.app.pendingEvent,
           onChange: this.props.onEventSettingsChange,
           onSubmit: createEvent,
         });
       } else {
         this.setState({ doorOpen: false });
-        this.props.onDoorToggle();
+        this.props.closeDoor();
       }
     };
     return (
@@ -77,7 +76,7 @@ const SetDoor = class SetDoor extends React.Component {
 SetDoor.propTypes = {
   swipeLeft: React.PropTypes.func.isRequired,
   user: React.PropTypes.object.isRequired,
-  onDoorToggle: React.PropTypes.func.isRequired,
+  closeDoor: React.PropTypes.func.isRequired,
   app: React.PropTypes.object.isRequired,
   onEventSettingsChange: React.PropTypes.func.isRequired,
   onEventSubmit: React.PropTypes.func.isRequired,
