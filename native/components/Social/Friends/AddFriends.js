@@ -21,35 +21,35 @@ const AddFriends = (props) => {
     style: 'cancel',
   };
 
-  const alertRequestSent = (user) => {
-    Alert.alert(`Send a friend request to ${user.userName}?`, '', [
-      cancelButton,
-      { text: 'Add',
-        onPress: () => store.dispatch(friendsApi.addFriend(user.id)),
-        style: 'default',
-      },
-    ]);
+  const alertRequestSent = (target) => {
+    const userReqs = store.getState().pendingRequests;
+    if (userReqs.sent && userReqs.sent.indexOf(target.id) >= 0) {
+      Alert.alert(`You already sent a friend request to ${target.userName}!`);
+    } else {
+      Alert.alert(`Send a friend request to ${target.userName}?`, '', [
+        cancelButton,
+        { text: 'Add',
+          onPress: () => store.dispatch(friendsApi.addFriend(target.id)),
+          style: 'default',
+        },
+      ]);
+    }
   };
 
   const allUsers = getAllUsersArray();
 
   const AddFriendsListContainer = connect(state => {
     const re = new RegExp(state.filterText, 'ig');
-    const filterIds = state.user.friends ?
-      state.user.friends.map(friend => friend.id).concat(state.user.id) : [];
-    const filterReqs = state.user.requests ?
-      state.user.requests.map(req => {
-        if (req.sender) {
-          return req.id;
-        }
-        filterIds.push(req.id);
-      }) : [];
+    const filterConfirmedFriends = state.user.friends ?
+      state.user.friends.map(friend => friend.id).concat(state.user.id) : [state.user.id];
+    const filterId = state.pendingRequests.received ?
+      state.pendingRequests.received.concat(filterConfirmedFriends) : [state.user.id];
     const targetUsers = state.allUsers.filter(targetUser => (
-      filterIds.indexOf(targetUser.id) < 0 && targetUser.userName.match(re)
+      filterId.indexOf(targetUser.id) < 0 && targetUser.userName.match(re)
     ));
     return {
       listComponent: UserList,
-      rowComponent: makeClickableRow(alertRequestSent, 'userName', filterReqs),
+      rowComponent: makeClickableRow(alertRequestSent, 'userName', state.pendingRequests.sent),
       listData: targetUsers,
       user: state.user,
     };
