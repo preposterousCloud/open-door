@@ -78,6 +78,10 @@ module.exports = function User(sequelizeInstance) {
           if (!user) { throw new Error('User not found'); }
           const getEvents = seq.models.Event.getEventsForUser(user);
           const eventQuery = {
+            include: [{
+              model: seq.models.User,
+              as: 'hostUser',
+            }],
             where: {
               hostUserId: user.id,
               endDateUtc: null,
