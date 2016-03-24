@@ -46,7 +46,6 @@ const SelectList = class SelectList extends React.Component {
     };
     return (
       <View>
-        <TouchableOpacity onPress={logState}><Text>LogState</Text></TouchableOpacity>
         <ListView
           dataSource={ arrayToDataSource(this.state.dataArray) }
           renderRow={this.ItemView}
