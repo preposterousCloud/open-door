@@ -9,7 +9,7 @@ import { navTo, navToFull } from '../Shared/Misc';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
 import EventSettings from './EventSettings';
-import EventDetails from './EventDetails';
+import EventDetail from '../Feed/EventDetail.js';
 import OpenDoor from '../Shared/OpenDoor';
 import ClosedDoor from '../Shared/ClosedDoor';
 import styles from '../../styles/Door/doorStyles.js';
@@ -66,7 +66,7 @@ const SetDoor = class SetDoor extends React.Component {
           )()}
           {(() => (!this.props.user.currentEvent) ?
             <Text>You aren't hosting an event right now</Text> :
-            <EventDetails event={this.props.user.currentEvent} />
+            <EventDetail imageShowing event={this.props.user.currentEvent} />
           )()}
         </View>
       </View>
