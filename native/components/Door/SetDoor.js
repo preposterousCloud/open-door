@@ -27,7 +27,6 @@ const SetDoor = class SetDoor extends React.Component {
 
   render() {
     const createEvent = (event) => {
-      this.props.closeDoor();
       this.props.onEventSubmit(event);
       this.setState({ doorOpen: true });
     };
