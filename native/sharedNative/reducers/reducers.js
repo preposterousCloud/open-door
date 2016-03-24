@@ -15,8 +15,8 @@ const defaultState = {
 
 const app = (state = defaultState, action) => {
   switch (action.type) {
-    case actions.SET_USER:
-      return Object.assign({}, state, { jwt: action.data.jwt });
+    case actions.SET_JWT:
+      return Object.assign({}, state, { jwt: action.data });
     case actions.TOGGLE_LOADING:
       return Object.assign({}, state, { isLoading: action.data });
 

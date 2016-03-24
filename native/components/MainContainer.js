@@ -16,6 +16,22 @@ import Social from './Social/Social.js';
 import SetDoorContainer from './Door/SetDoorContainer';
 import styles from '../styles/Feed/feedStyles.js';
 
+const FeedContainer = connect((state, ownProps) => {
+  return {
+    events: state.user.Events,
+    userName: state.user.userName,
+    swipeLeft: ownProps.swipeLeft,
+    swipeRight: ownProps.swipeRight,
+  };
+})(Feed);
+
+const SocialContainer = connect((state, ownProps) => {
+  return {
+    user: state.user,
+    swipeRight: ownProps.swipeRight,
+  };
+})(Social);
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -23,36 +39,19 @@ class Main extends React.Component {
     this.swipeRight = this.swipeRight.bind(this);
     this.swipeLeft = this.swipeLeft.bind(this);
   }
-
+  componentWillMount() {
+    this.props.onLoad();
+  }
   swipeRight() {
     this.refs.scrollView.scrollTo(1);
   }
-
   swipeLeft() {
     this.refs.scrollView.scrollTo(-1);
   }
-
   _onMomentumScrollEnd(e, state) {
     store.dispatch(actions.setSwiperIndex(state.index));
   }
-
   render(props) {
-    const FeedContainer = connect(state => {
-      return {
-        events: state.user.Events,
-        userName: state.user.userName,
-        swipeLeft: this.swipeLeft,
-        swipeRight: this.swipeRight,
-      };
-    })(Feed);
-
-    const SocialContainer = connect(state => {
-      return {
-        user: state.user,
-        swipeRight: this.swipeRight,
-      };
-    })(Social);
-
     return (
       <Swiper
         ref="scrollView"
@@ -60,20 +59,29 @@ class Main extends React.Component {
         loop={false}
         showsPagination={false}
         index={ this.props.app.swiperIndex }
-        onMomentumScrollEnd ={this._onMomentumScrollEnd}
+        onMomentumScrollEnd = {this._onMomentumScrollEnd}
       >
-        <SocialContainer />
-        <FeedContainer />
+        <SocialContainer swipeRight = {this.swipeRight} />
+        <FeedContainer swipeLeft = {this.swipeLeft} swipeRight = {this.swipeRight} />
         <SetDoorContainer swipeLeft={this.swipeLeft} />
       </Swiper>
    );
   }
 }
 
-const MainContainer = connect((state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     app: state.app,
   };
-})(Main);
+};
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onLoad: () => {
+      console.log('app init')
+      dispatch(actions.refreshUser());
+    },
+  };
+};
+const MainContainer = connect(mapStateToProps, mapDispatchToProps)(Main);
 
 module.exports = MainContainer;

@@ -122,7 +122,8 @@ describe('Data Integration Tests', () => {
   });
 
   it('Should set a jwt', () => {
-    store.dispatch(actions.setUser({ user: { userName: 'guy' }, jwt: 'akls;djf;lskdjf' }));
+    store.dispatch(actions.setUser({ userName: 'guy' }));
+    store.dispatch(actions.setJwt('akls;djf;lskdjf'));
     expect(store.getState().user.userName).toEqual('guy');
     expect(store.getState().app.jwt).toEqual('akls;djf;lskdjf');
   });

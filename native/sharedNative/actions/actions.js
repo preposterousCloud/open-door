@@ -8,7 +8,10 @@ import {
   getUser,
   postUser,
   loginUser,
+  getUserByJwt,
 } from '../utils/api';
+
+const localStore = require('react-native-simple-store');
 
 const catchErr = (err) => {
   console.log(err);
@@ -47,6 +50,12 @@ export function setUser(obj) {
   };
 }
 
+export function setJwt(jwt) {
+  return {
+    type: a.SET_JWT,
+    data: jwt,
+  };
+}
 // NOT IN USE (usage: live typing)
 export function liveUpdateGroupName(name) {
   return {
@@ -135,14 +144,24 @@ export function createUser(userName) {
   };
 }
 
+export function setInLocalStorage(key, value) {
+  return (dispatch) => {
+    return localStore.save(key, value);
+  };
+}
+
 export function attemptLogin(userName, pw) {
   return (dispatch, getState) => {
+    console.log(pw);
     dispatch(setLoading(true));
-    loginUser(userName, pw)
+    return loginUser(userName, pw)
     .then(response => {
       if (response) {
-        dispatch(setUser(response));
+        console.log('res', response);
         dispatch(setLoading(false));
+        dispatch(setJwt(response.jwt));
+        dispatch(setUser(response.user));
+        dispatch(setInLocalStorage('jwt', response.jwt));
         return true;
       }
       return false;
@@ -163,12 +182,15 @@ export function getAllUsers() {
   };
 }
 
+/**
+ * Refreshes user based on the jwt token we have.  This should always match the signed in user.
+ */
 export function refreshUser() {
   return (dispatch, getState) => {
-    const userId = getState().user.id;
+    const jwt = getState().app.jwt;
     dispatch(setLoading(true));
 
-    return getUser(userId)
+    return getUserByJwt(jwt)
     .then(user => dispatch(setUser(user)))
     .then(dispatch(setLoading(false)));
   };

@@ -8,12 +8,28 @@ import React, {
 import { connect } from 'react-redux';
 import { store } from '../sharedNative/reducers/reducers';
 import { attemptLogin, createUser } from '../sharedNative/actions/actions';
-import { NavTo } from './Shared/Misc';
+import { navTo } from './Shared/Misc';
 import MainContainer from './MainContainer';
 import OpenDoor from './Shared/OpenDoor';
 import Button from './Shared/Button';
 import styles from '../styles/Shared/sharedStyles';
 
+const cancelButton = {
+  text: 'Cancel',
+  onPress: () => console.log('Cancel Pressed'),
+  style: 'cancel',
+};
+
+const alertUserNotFound = (userName) => {
+  Alert.alert(`${userName}`, 'not found', [
+    cancelButton,
+    { text: 'Create',
+      onPress: () => store.dispatch(createUser(userName))
+      .then(user => user && navigateToLoggedInApp()),
+      style: 'default',
+    },
+  ]);
+};
 
 const Login = class Login extends React.Component {
   constructor(props) {
@@ -26,14 +42,26 @@ const Login = class Login extends React.Component {
       userName: '',
       password: '',
     });
+
+    // See if we can automatically login.
+    // localStore.get('jwt')
+    // .then((result) => {
+    //   console.log('jwt', result);
+    //   if (result) {
+    //     // Dispatch action to set jwt to state
+    //     this.navigateToLoggedInApp();
+    //   }
+    // });
   }
   navigateToLoggedInApp() {
-    NavTo(MainContainer);
+    navTo(MainContainer);
   }
   loginToApp() {
-    store.dispatch(attemptLogin({ userName: this.state.userName, pw: this.state.pw }))
+    store.dispatch(attemptLogin(this.state.userName, this.state.password))
     .then(userFound => {
+      console.log('user?', userFound);
       if (userFound) {
+        // Set JWT to state
         this.navigateToLoggedInApp();
       } else {
         alertUserNotFound(this.state.userName);
@@ -76,23 +104,6 @@ const Login = class Login extends React.Component {
       </View>
     );
   }
-}
-
-const cancelButton = {
-  text: 'Cancel',
-  onPress: () => console.log('Cancel Pressed'),
-  style: 'cancel',
-};
-
-const alertUserNotFound = (userName) => {
-  Alert.alert(`${userName}`, 'not found', [
-    cancelButton,
-    { text: 'Create',
-      onPress: () => store.dispatch(createUser(userName))
-      .then(user => user && navigateToLoggedInApp()),
-      style: 'default',
-    },
-  ]);
 };
 
 module.exports = Login;

@@ -15,7 +15,8 @@ const catchErr = (err) => {
   return null;
 };
 
-const headers = { 'Content-Type': 'application/json' };
+const headers = { 'Content-Type': 'application/json',
+  'access_token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ1ODc4ODUzMX0.gook8XulG6ipx7GPUz22okCLwM5dh19y_zvl05vvaJc' };
 
 // HTTP methods
 
@@ -103,6 +104,17 @@ export const getUser = (userNameOrId) => {
   .catch(catchErr);
 };
 
+export const getUserByJwt = (jwt) => {
+  // To refactor fully, need to create new thunk action
+  // that calls getUser and .then(user => dispatch({ type: 'SET_USER', user }))
+  const url = `${config.apiUrl}users/me`;
+  return fetch(url, {
+    method: 'GET',
+    headers,
+  })
+  .then(validateBody)
+  .catch(catchErr);
+};
 export const postUser = (userName) => {
   // To refactor fully, need to create new thunk action
   // that calls postUser and .then(user => dispatch(setUser(user.userName)))
