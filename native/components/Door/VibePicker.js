@@ -1,6 +1,4 @@
-import React, { Text, TouchableOpacity, View, PickerIOS } from 'react-native';
-
-const PickerItemIOS = PickerIOS.item;
+import React, { Text, TouchableOpacity, View, PickerIOS, PickerItemIOS } from 'react-native';
 
 const vibes = {
   ball: {
