@@ -7,7 +7,7 @@ const actions = require('../actions/actions.js');
 
 const addFriend = (toId) => {
   return dispatch => {
-    return api.addFriend(store.getState().user.Id, toId)
+    return api.addFriend(store.getState().user.id, toId)
     .then(response => {
       console.log('Friendship created?', response._bodyInit);
       return response;
