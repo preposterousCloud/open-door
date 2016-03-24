@@ -92,7 +92,7 @@ module.exports = function Event(sequelizeInstance) {
           const personalEvents = this.findAll({
             where: { hostUserId: user.id, endDateUtc: null },
           });
-        
+
           return Promise.all([userInvites, groupInvites, personalEvents])
           .then((allEvents) => {
             let dedupedResults = {};
