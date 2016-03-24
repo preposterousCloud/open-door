@@ -52,6 +52,7 @@ export const closeEvent = (event, jwt) => {
   const url = `${config.apiUrl}events/${event.id}/closeEvent`;
   return fetch(url, {
     method: 'POST',
+    headers: buildHeaders(jwt),
   })
   .then(validateBody);
 };
