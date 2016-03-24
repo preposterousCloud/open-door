@@ -47,14 +47,6 @@ describe('Data Integration Tests', () => {
     expect(store.getState().groupName).toEqual('Squad');
   });
 
-  it('Should set pendingEvent when Begin creating event is dispatched', () => {
-    store.dispatch(actions.updatePendingEvent({ name: 'Hacking' }));
-    expect(store.getState().app.pendingEvent.name).toBeTruthy();
-
-    store.dispatch(actions.updatePendingEvent(null));
-    expect(store.getState().app.pendingEvent).toBeFalsy();
-  });
-
   it('Should set swiper state', () => {
     expect(store.getState().app.swiperIndex).toBe(1);
 
