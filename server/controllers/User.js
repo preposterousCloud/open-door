@@ -94,7 +94,7 @@ module.exports.requestFriendship = function requestFriendship(req, res) {
     res.status(200).send('Friendship already exists');
   })
   .catch(err => {
-    console.error('Error creating friendship: ', err);
+    console.error('Error requesting friendship: ', err);
     res.status(500).send('Unknown server error');
   });
 };
@@ -110,6 +110,21 @@ module.exports.addFriendship = function addFriendship(req, res) {
   })
   .catch(err => {
     console.error('Error creating friendship: ', err);
+    res.status(500).send('Unknown server error');
+  });
+};
+
+module.exports.rejectFriendship = function addFriendship(req, res) {
+  db.User.rejectFriendship(req.body.friends[0], req.body.friends[1])
+  .then(result => {
+    if (result[0].length > 0) {
+      res.status(201).send('Ouch. Rejected.');
+      return;
+    }
+    res.status(200).send('You can\'t reject that which hasn\'t requested you');
+  })
+  .catch(err => {
+    console.error('Error rejecting friendship: ', err);
     res.status(500).send('Unknown server error');
   });
 };

@@ -39,6 +39,7 @@ module.exports = (app) => {
 
   // TODO - ADD SECURITY TO REQUEST FRIENDSHIP
   app.post('/api/friends/request', User.requestFriendship);
+  app.delete('/api/friends/reject', User.rejectFriendship);
 
   // Groups
   app.get('/api/friends/groups/getGroupsForUser/:id', [Auth.ensureUserIsUser((req, jwt) => {
