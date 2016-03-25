@@ -14,7 +14,6 @@ import StyledTextInput from '../Shared/StyledTextInput.js';
 import socialStyles from '../../styles/Social/socialStyles.js';
 
 const InviteSelects = (props) => {
-  console.log('props passed to InviteSelects:', props);
   return (
   <View>
     <NavBar title={props.route.title} leftButton={backButton} />
@@ -49,6 +48,8 @@ class EditEvent extends React.Component {
           ...event,
           invitedFriends: getInvited(event.Users),
           invitedGroups: getInvited(event.Groups),
+          preSelectedFriends: getInvited(event.Users),
+          preSelectedGroups: getInvited(event.Groups),
         }
       });
     });
@@ -82,7 +83,7 @@ class EditEvent extends React.Component {
       title: 'Invite Friends',
       listComponent: UserList,
       inviteFunc: toggleInviteFriend,
-      preSelected: this.state.event.invitedFriends,
+      preSelected: this.state.event.preSelectedFriends,
     });
     const toggleInviteGroup = (groupId) => {
       const event = this.state.event;
@@ -94,7 +95,7 @@ class EditEvent extends React.Component {
       title: 'Invite Groups',
       listComponent: GroupList,
       inviteFunc: toggleInviteGroup,
-      preSelected: this.state.event.invitedGroups,
+      preSelected: this.state.event.preSelectedGroups,
     });
     return (
       <View>
