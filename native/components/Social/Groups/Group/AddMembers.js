@@ -4,7 +4,6 @@ import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../../Shared/NavBar.js';
 import styles from '../../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../../styles/Feed/feedStyles.js';
-import friendsApi from '../../../../sharedNative/actions/friends.js';
 import { getAllUsers } from '../../../../sharedNative/actions/actions.js';
 import {
   exitButton,
