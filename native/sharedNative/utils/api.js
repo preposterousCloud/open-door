@@ -18,9 +18,11 @@ const catchErr = (err) => {
 const baseHeaders = { 'Content-Type': 'application/json' };
 
 const buildHeaders = (jwt) => {
-  return { ...baseHeaders,
-    access_token: jwt};
-}
+  return {
+    'Content-Type': 'application/json',
+    access_token: jwt,
+  };
+};
 
 // HTTP methods
 export const loginUser = (userName, pw, jwt) => {
@@ -46,7 +48,7 @@ export const getEvent = (eventId, jwt) => {
   .then(validateBody);
 };
 
-export const postEvent = (event) => {
+export const postEvent = (event, jwt) => {
   const url = `${config.apiUrl}events`;
   return fetch(url, {
     method: 'POST',
