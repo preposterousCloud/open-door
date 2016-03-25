@@ -41,7 +41,7 @@ class EventDetail extends React.Component {
         {this.state.imageShowing ?
           <TouchableOpacity onPress={toggleImage} >
             <Image
-              source={!!this.state.event ?
+              source={this.state.event && this.state.event.vibe ?
                 vibes[this.state.event.vibe].src :
                 this.state.imageSource}
               style={{ width, height: 300 }}
