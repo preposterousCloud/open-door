@@ -21,7 +21,9 @@ module.exports = (sequelizeInstance) => {
   return db.sequelize.sync({ force: true })
   // Create new users
   .then(() => {
-    return db.Sequelize.Promise.map(newUserTemps, user => db.User.createUser(user.userName, user.pw));
+    return db.Sequelize.Promise.map(
+      newUserTemps, user => db.User.createUser(user.userName, user.pw)
+    );
   })
   // Create Groups
   .then((users) => {
