@@ -4,7 +4,7 @@ import * as api from '../utils/api';
 const localStore = require('react-native-simple-store');
 
 const catchErr = (err) => {
-  console.log(err);
+  console.error(err);
   return null;
 };
 
@@ -19,7 +19,6 @@ export function setLoading(loadingState) {
 }
 
 export function setActiveEvent(event) {
-  console.log('set event', event);
   return {
     type: a.SET_ACTIVE_EVENT,
     data: event,
@@ -258,7 +257,6 @@ export function storeGroup(groupName) {
     return api.postGroup(groupName, members, jwt)
     .then(user => {
       if (user) {
-        console.log(`${groupName} created with ${members}!`);
         dispatch(refreshUser());
         getState().navigation.navigator.pop();
         return true;
