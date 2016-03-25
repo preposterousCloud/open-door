@@ -1,8 +1,8 @@
 import React, { Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import styles from '../../styles/Feed/feedStyles.js';
 const { width, height } = Dimensions.get('window');
-
 import Accordion from 'react-native-accordion';
+import api from '../../sharedNative/utils/api.js';
 
 class EventDetail extends React.Component {
   constructor(props) {
@@ -11,6 +11,12 @@ class EventDetail extends React.Component {
       imageShowing: props.imageShowing,
       imageSource: require('./walkingDino.gif'),
     };
+  }
+  componentDidMount() {
+    api.getEvent(this.props.event.id)
+    .then((something) => {
+      console.log('thing back from getEvent:', something);
+    });
   }
   getInvitedGroups(event) {
     return event.Groups ?
