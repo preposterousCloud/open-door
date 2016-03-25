@@ -40,7 +40,8 @@ const compareHashAndVal = (value, hash) => {
  */
 const issueJwtToken = (claims) => {
   return new Promise((resolve, reject) => {
-    jwt.sign(claims, config.jwtSecret, { algorithm: 'HS256' }, (token) => {
+    const secret = config.jwtSecret || 'somesecret';
+    jwt.sign(claims, secret, { algorithm: 'HS256' }, (token) => {
       resolve(token);
     });
   });
