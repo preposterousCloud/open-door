@@ -37,11 +37,11 @@ export const loginUser = (userName, pw, jwt) => {
   .then(validateBody);
 };
 
-export const getEvent = (eventId) => {
+export const getEvent = (eventId, jwt) => {
   const url = `${config.apiUrl}events/${eventId}`;
   return fetch(url, {
     method: 'GET',
-    headers,
+    headers: buildHeaders(jwt),
   })
   .then(validateBody);
 };
