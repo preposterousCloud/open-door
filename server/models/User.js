@@ -46,10 +46,16 @@ module.exports = function User(sequelizeInstance) {
         // We put the smaller user ID on the left so we always know what the relationship looks like
         // for any given friendship
         const addFriendToOne = this.findOne({ where: { id: userId1 } })
-        .then(user => user.addFriend(userId2));
+        .then(user => {
+          user.removeRequest(userId2);
+          return user.addFriend(userId2);
+        });
 
         const addFriendToTwo = this.findOne({ where: { id: userId2 } })
-        .then(user => user.addFriend(userId1));
+        .then(user => {
+          user.removeRequest(userId1);
+          return user.addFriend(userId1);
+        });
 
         return Promise.all([addFriendToOne, addFriendToTwo]);
       },

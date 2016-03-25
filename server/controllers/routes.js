@@ -37,14 +37,6 @@ module.exports = (app) => {
     return req.body.friends[0] === jwt.userId || req.body.friends[1] === jwt.userId;
   }), User.removeFriendship]);
 
-  // Friends
-  app.post('/api/friends/add', [Auth.ensureUserIsUser((req, jwt) => {
-    return req.body.friends[0] === jwt.userId || req.body.friends[1] === jwt.userId;
-  }), User.addFriendship]);
-  app.post('/api/friends/remove', [Auth.ensureUserIsUser((req, jwt) => {
-    return req.body.friends[0] === jwt.userId || req.body.friends[1] === jwt.userId;
-  }), User.removeFriendship]);
-
   // TODO - ADD SECURITY TO REQUEST FRIENDSHIP
   app.post('/api/friends/request', User.requestFriendship);
 
