@@ -17,6 +17,11 @@ const mapDispatchToState = (dispatch, ownProps) => {
     onEventSubmit: (eventObj) => {
       dispatch(actions.createEvent(eventObj));
     },
+    onEventUpdate: (eventObj) => {
+      console.log('updated event:', eventObj);
+      alert('see console for updated event');
+      // dispatch(actions.updateEvent(eventObj)); // TODO: implement updateEvent
+    },
   };
 };
 
