@@ -61,13 +61,6 @@ export function liveUpdateGroupName(name) {
   };
 }
 
-export function updatePendingEvent(obj) {
-  return {
-    type: a.UPDATE_PENDING_EVENT,
-    data: obj,
-  };
-}
-
 export function setSwiperIndex(index) {
   return {
     type: a.SET_SWIPER_INDEX,
@@ -303,7 +296,7 @@ export function createEvent(event) {
   };
 }
 
-export function toggleEvent() {
+export function closeDoor() {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;
     if (getState().user.currentEvent) {
@@ -314,12 +307,6 @@ export function toggleEvent() {
         dispatch(setActiveEvent(null));
         dispatch(refreshUser());
       });
-    } else if (getState().app.pendingEvent) {
-      dispatch(clearItemSelectionInList('friendsToInvite'));
-      dispatch(clearItemSelectionInList('groupsToInvite'));
-      return dispatch(updatePendingEvent(null));
-    } else {
-      return dispatch(updatePendingEvent({}));
     }
   };
 }
