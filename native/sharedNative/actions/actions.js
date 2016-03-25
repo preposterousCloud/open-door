@@ -173,8 +173,7 @@ export function logout() {
 export function attemptLogin(userName, pw) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));
-    const jwt = getState().app.jwt;
-    return api.loginUser(userName, pw, jwt)
+    return api.loginUser(userName, pw)
     .then(response => {
       if (response) {
         console.log('res', response);
