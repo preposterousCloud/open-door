@@ -27,13 +27,30 @@ module.exports = function Event(sequelizeInstance) {
           this.endDateUtc = Date.now();
           return this.save();
         },
+        updateEvent: function updateEvent(objToSet) {
+          return this.update(objToSet)
+          .then((event) => {
+            let setFriends;
+            let setGroups;
+            if (objToSet.friends) {
+              setFriends = this.setUsers(objToSet.friends);
+            }
+            if (objToSet.groups) {
+              setGroups = this.setGroups(objToSet.groups);
+            }
+            return Promise.all([setFriends, setGroups])
+            .then(() => {
+              return event;
+            });
+          });
+        },
       },
       classMethods: {
         getEvent: function getEvent(id) {
           return this.findOne({ where: { id: id }, include: includeOnEvents.include });
         },
         getEvents: function getEvents(idArr) {
-          this.findAll({where: {id: {$in: idArr }}})
+          this.findAll({ where: { id: { $in: idArr } } });
         },
         createEvent: function createEvent(eventObj) {
           // TODO - check and make sure session user is equal to the hostUserId in the request
