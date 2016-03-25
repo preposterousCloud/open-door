@@ -11,16 +11,13 @@ class VibePicker extends React.Component {
     this.changePickerValue = this.changePickerValue.bind(this);
   }
   changePickerValue(vibe) {
+    console.log('what is vibe?', vibe);
     this.setState({ selectedVibe: vibe });
-    this.props.changeVibe(vibes[vibe]);
+    this.props.changeVibe(vibe);
   }
   // Picker doesn't really care what type of element we provide as the item.
   // It manually iterates the children of Picker and creates its own children elements from them
   render() {
-    const changeValue = (vibe) => {
-      this.setState({ vibe });
-      this.state.changeVibe(vibe);
-    };
     return (
       <Picker
         selectedValue={this.state.selectedVibe}
