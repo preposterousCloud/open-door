@@ -202,7 +202,8 @@ export function checkForJwtAndLogin() {
 
 export function updateEvent(eventObjToSet) {
   return (dispatch, getState) => {
-    return api.updateEvent(eventObjToSet)
+    const jwt = getState().app.jwt;
+    return api.updateEvent(eventObjToSet, jwt)
     .then(event => {
       dispatch(setActiveEvent(event));
       // We should consider replacing the event in the full event list so
