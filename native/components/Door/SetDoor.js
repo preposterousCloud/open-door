@@ -31,7 +31,7 @@ const SetDoor = class SetDoor extends React.Component {
       this.setState({ doorOpen: true });
     };
     const toggleDoor = () => {
-      if (!this.state.doorOpen) {
+      if (!this.props.user.currentEvent) {
         navToFull({
           component: EventSettings,
           onSubmit: createEvent,
@@ -50,7 +50,7 @@ const SetDoor = class SetDoor extends React.Component {
         />
         <View style={styles.container}>
           <TouchableOpacity onPress={toggleDoor}>
-            {(() => (this.state.doorOpen) ?
+            {(() => (this.props.user.currentEvent) ?
               <OpenDoor styles={{ size: 100, color: 'green' }} /> :
               <ClosedDoor styles={{ size: 100, color: 'red' }} />
             )()}
