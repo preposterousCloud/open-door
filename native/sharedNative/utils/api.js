@@ -129,14 +129,14 @@ export const getUserByJwt = (jwt) => {
   .catch(catchErr);
 };
 
-export const postUser = (userName, jwt) => {
+export const postUser = (userName, pw, jwt) => {
   // To refactor fully, need to create new thunk action
   // that calls postUser and .then(user => dispatch(setUser(user.userName)))
   const url = `${config.apiUrl}users`;
   return fetch(url, {
     method: 'POST',
-    body: JSON.stringify({ userName }),
-    headers: buildHeaders(jwt),
+    body: JSON.stringify({ userName, pw }),
+    headers: buildHeaders(),
   })
   .then(validateBody)
   .catch(catchErr);
