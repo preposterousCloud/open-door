@@ -15,7 +15,6 @@ const SelectList = class SelectList extends React.Component {
       dataArray: props.dataArray,
       inviteFunc: props.inviteFunc,
     };
-
     this.ItemView = this.ItemView.bind(this);
   }
   ItemView(rowData) {
@@ -37,7 +36,7 @@ const SelectList = class SelectList extends React.Component {
       >
         <View style={socialStyles.listEntryView}>
           <Text>{rowData[this.props.displayProp]}</Text>
-          <Checkbox checked={this.state.selectedUsers[rowData.id]}/>
+          <Checkbox checked={this.state.selectedUsers[rowData.id]} />
         </View>
       </TouchableOpacity>
     );
@@ -60,15 +59,14 @@ SelectList.propTypes = {
   displayProp: React.PropTypes.string,
   onClick: React.PropTypes.func,
   preSelected: React.PropTypes.object,
+  inviteFunc: React.PropTypes.func,
 };
-
-const addCheckedProp = (dataArray = []) => dataArray.map(datum => ({ ...datum, checked: false }));
 
 export const UserList = connect(
   (state, ownProps) => {
     return {
       inviteFunc: ownProps.inviteFunc,
-      dataArray: addCheckedProp(state.user.friends),
+      dataArray: state.user.friends,
       displayProp: 'userName',
       preSelected: ownProps.preSelected,
     };
@@ -83,10 +81,9 @@ export const UserList = connect(
 
 export const GroupList = connect(
   (state, ownProps) => {
-    console.log('groups ownProps', ownProps);
     return {
       inviteFunc: ownProps.inviteFunc,
-      dataArray: addCheckedProp(state.user.Groups),
+      dataArray: state.user.Groups,
       displayProp: 'name',
       preSelected: ownProps.preSelected,
     };
