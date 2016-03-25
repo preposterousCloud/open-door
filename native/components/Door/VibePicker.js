@@ -21,7 +21,7 @@ class VibePicker extends React.Component {
   render() {
     const changeValue = (vibe) => {
       this.setState({ vibe });
-      this.state.changeVibe(vibes[vibe]);
+      this.state.changeVibe(vibe);
     };
     return (
       <PickerIOS
