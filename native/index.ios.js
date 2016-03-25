@@ -15,7 +15,6 @@ const renderScene = (route, navigator) => {
     type: 'SET_APP_NAVIGATOR',
     navigator,
   });
-  console.log('reoute', route);
   if (route.name === 'Main') {
     return React.createElement(MainContainer, { navigator, route });
   }
