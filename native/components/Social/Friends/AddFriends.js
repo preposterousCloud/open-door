@@ -51,7 +51,7 @@ const AddFriends = (props) => {
     const alreadySent = state.pendingRequests.sent.map(user => user.id);
     return {
       listComponent: UserList,
-      rowComponent: makeClickableRow(alertRequestSent, 'userName', alreadySent),
+      rowComponent: makeClickableRow(alertRequestSent, 'userName', alreadySent, 'grey'),
       listData: targetUsers,
       user: state.user,
     };

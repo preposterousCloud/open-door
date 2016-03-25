@@ -18,9 +18,12 @@ const Friends = (props) => {
     console.log(`You clicked on ${user.userName}, id:${user.id}. Req: `, store.getState());
   };
 
+  const reqIds = store.getState().pendingRequests.received.map(user => user.id);
+  const reqNames = store.getState().pendingRequests.received.map(user => user.userName);
+
   const FriendsListContainer = makeListContainer(makeClickableRow(logUser), ['user', 'friends']);
   const FriendRequestsContainer = makeListContainer(
-    makeClickableRow(logUser),
+    makeClickableRow(logUser, reqNames, reqIds, 'blue'),
     ['pendingRequests', 'received']
   );
 
