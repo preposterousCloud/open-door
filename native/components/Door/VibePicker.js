@@ -1,25 +1,6 @@
 import React, { Text, TouchableOpacity, View, Picker } from 'react-native';
 
-const vibes = {
-  ball: {
-    name: 'Fancy Ball',
-  },
-  birthday: {
-    name: 'Birthday Party',
-  },
-  kick: {
-    name: 'Kick Back',
-  },
-  jam: {
-    name: 'Jam Session',
-  },
-  rager: {
-    name: 'Rager',
-  },
-  dino: {
-    name: 'Dinotopia',
-  },
-};
+import vibes from './vibes.js';
 
 class VibePicker extends React.Component {
   constructor(props) {
