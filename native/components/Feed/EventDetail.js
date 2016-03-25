@@ -4,13 +4,14 @@ const { width, height } = Dimensions.get('window');
 import Accordion from 'react-native-accordion';
 const api = require('../../sharedNative/utils/api.js');
 import { store } from '../../sharedNative/reducers/reducers.js';
+import vibes from '../Door/vibes.js';
 
 class EventDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       imageShowing: props.imageShowing,
-      imageSource: require('./walkingDino.gif'),
+      imageSource: require('../../sharedNative/images/dino-storm.jpg'),
     };
   }
   componentDidMount() {
@@ -39,11 +40,17 @@ class EventDetail extends React.Component {
       <View style={styles.imageContainer}>
         {this.state.imageShowing ?
           <TouchableOpacity onPress={toggleImage} >
-            <Image source={this.state.imageSource} style={{ width, height: 300 }} />
+            <Image
+              source={this.state.event && this.state.event.vibe ?
+                vibes[this.state.event.vibe].src :
+                this.state.imageSource}
+              style={{ width, height: 300 }}
+            />
           </TouchableOpacity> :
           <TouchableOpacity onPress={toggleImage} >
             <Text>Name: {this.state.event.name}</Text>
             <Text>Host: {this.state.event.hostUser.userName}</Text>
+            <Text>Vibe: {this.state.event.vibe}</Text>
             <Text>Address: {this.state.event.addressStreet1}</Text>
             <Text>City: {this.state.event.city}</Text>
             <Text>Groups Invited: {this.getInvitedGroups(this.state.event)}</Text>

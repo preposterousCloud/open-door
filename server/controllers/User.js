@@ -1,6 +1,7 @@
 'use strict';
 
 const db = require('../db/database').db;
+const Auth = require('./Auth');
 
 const _mapUser = (user) => {
   return {
@@ -17,7 +18,16 @@ module.exports.createUser = function createUser(req, res) {
     res.status(404).send('Make sure to include a user name and appropriate properties');
   } else {
     db.User.createUser(req.body.userName, req.body.pw)
-    .then((user) => res.json(_mapUser(user)))
+    .then((user) => {
+      const resObj = {
+        user: _mapUser(user),
+      };
+      Auth.issueJwtToken({ userId: user.id })
+      .then((token) => {
+        resObj.jwt = token;
+        res.json(resObj);
+      });
+    })
     .catch((err) => {
       console.error(err);
       res.status(500).send('Unknown server problem');

@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 
 module.exports = function Event(sequelizeInstance) {
   const seq = sequelizeInstance;
-  
+
   const includeOnEvents = {
     include: [{ model: seq.models.Group },
              { model: seq.models.User, as: 'hostUser' },
@@ -13,6 +13,7 @@ module.exports = function Event(sequelizeInstance) {
   const event = sequelizeInstance.define('Event',
     {
       name: Sequelize.STRING,
+      vibe: Sequelize.STRING,
       startDateUtc: Sequelize.DATE,
       endDateUtc: Sequelize.DATE,
       addressStreet1: Sequelize.STRING,
@@ -27,13 +28,31 @@ module.exports = function Event(sequelizeInstance) {
           this.endDateUtc = Date.now();
           return this.save();
         },
+        updateEvent: function updateEvent(objToSet) {
+          return this.update(objToSet)
+          .then((event) => {
+            let setFriends;
+            let setGroups;
+            if (objToSet.friends) {
+              setFriends = this.setUsers(objToSet.friends);
+            }
+            if (objToSet.groups) {
+              setGroups = this.setGroups(objToSet.groups);
+            }
+            return Promise.all([setFriends, setGroups])
+            .then(() => {
+              // We refetch the event so the object returned includes Groups and Friends
+              return seq.models.Event.getEvent(event.id);
+            });
+          });
+        },
       },
       classMethods: {
         getEvent: function getEvent(id) {
           return this.findOne({ where: { id: id }, include: includeOnEvents.include });
         },
         getEvents: function getEvents(idArr) {
-          this.findAll({where: {id: {$in: idArr }}})
+          this.findAll({ where: { id: { $in: idArr } } });
         },
         createEvent: function createEvent(eventObj) {
           // TODO - check and make sure session user is equal to the hostUserId in the request
@@ -48,7 +67,7 @@ module.exports = function Event(sequelizeInstance) {
             return Promise.all([a, b]).then(() => event);
           });
         },
-        makeEventTemplate: function makeEventTemplate(hostUser, name, startDateUtc, endDateUtc
+        makeEventTemplate: function makeEventTemplate(hostUser, name, vibe, startDateUtc, endDateUtc
         , addressStreet1, addressStreet2, city, stateAbbrev, postalCode, users, groups) {
           users = users || [];
           groups = groups || [];
@@ -56,6 +75,7 @@ module.exports = function Event(sequelizeInstance) {
             hostUserId: hostUser.id,
             hostUserName: hostUser.userName,
             name,
+            vibe,
             startDateUtc,
             endDateUtc,
             addressStreet1,

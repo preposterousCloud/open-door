@@ -7,7 +7,9 @@ const validateBody = res => {
   if (statusOK(res)) {
     return JSON.parse(res._bodyInit);
   }
-  throw new Error('Error processing request', res);
+  throw new Error(`Error processing request: Message: ${res._bodyText}
+    Url: ${res.url}
+    status: ${res.status}`);
 };
 
 const catchErr = (err) => {
@@ -52,6 +54,16 @@ export const postEvent = (event, jwt) => {
   const url = `${config.apiUrl}events`;
   return fetch(url, {
     method: 'POST',
+    body: JSON.stringify(event),
+    headers: buildHeaders(jwt),
+  })
+  .then(validateBody);
+};
+
+export const updateEvent = (event, jwt) => {
+  const url = `${config.apiUrl}events/${event.id}`;
+  return fetch(url, {
+    method: 'PUT',
     body: JSON.stringify(event),
     headers: buildHeaders(jwt),
   })
@@ -129,14 +141,14 @@ export const getUserByJwt = (jwt) => {
   .catch(catchErr);
 };
 
-export const postUser = (userName, jwt) => {
+export const postUser = (userName, pw, jwt) => {
   // To refactor fully, need to create new thunk action
   // that calls postUser and .then(user => dispatch(setUser(user.userName)))
   const url = `${config.apiUrl}users`;
   return fetch(url, {
     method: 'POST',
-    body: JSON.stringify({ userName }),
-    headers: buildHeaders(jwt),
+    body: JSON.stringify({ userName, pw }),
+    headers: buildHeaders(),
   })
   .then(validateBody)
   .catch(catchErr);

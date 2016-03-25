@@ -142,15 +142,15 @@ export function sortPendingFriendRequests(user) {
 /** *****************************************************
  * Async Thunk Action Creators
  * ************************************************** */
-export function createUser(userName) {
+export function createUser(userName, pw) {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;
-    return api.postUser(userName, jwt)
-    .then(user => {
-      dispatch(setUser(user));
-      return user;
-    })
-    .catch(catchErr);
+    return api.postUser(userName, pw, jwt)
+    .then(response => {
+      dispatch(setJwt(response.jwt));
+      dispatch(setUser(response.user));
+      return response.user;
+    });
   };
 }
 
@@ -200,6 +200,16 @@ export function checkForJwtAndLogin() {
   };
 }
 
+export function updateEvent(eventObjToSet) {
+  return (dispatch, getState) => {
+    return api.updateEvent(eventObjToSet)
+    .then(event => {
+      dispatch(setActiveEvent(event));
+      // We should consider replacing the event in the full event list so
+      // we don't have to refresh all of the events
+    });
+  };
+}
 export function appInit() {
   return (dispatch, getState) => {
     dispatch(refreshUser());

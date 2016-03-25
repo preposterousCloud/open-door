@@ -17,6 +17,9 @@ const mapDispatchToState = (dispatch, ownProps) => {
     onEventSubmit: (eventObj) => {
       dispatch(actions.createEvent(eventObj));
     },
+    onEventUpdate: (eventObj) => {
+      dispatch(actions.updateEvent(eventObj));
+    },
   };
 };
 

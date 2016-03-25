@@ -37,6 +37,7 @@ module.exports.createEvent = function createUser(req, res) {
       hostUserId: req.body.hostUserId,
       hostUserName: req.body.hostUserName,
       name: req.body.name,
+      vibe: req.body.vibe,
       startDateUtc: req.body.startDateUtc,
       endDateUtc: req.body.endDateUtc,
       addressStreet1: req.body.addressStreet1,
@@ -52,6 +53,21 @@ module.exports.createEvent = function createUser(req, res) {
       res.status(500).send('Unknown server problem');
     });
   }
+};
+
+module.exports.updateEvent = function updateEvent(req, res) {
+  const eventId = req.params.id;
+  db.Event.findOne({ where: { id: eventId } })
+  .then((event) => {
+    event.updateEvent(req.body)
+    .then((event) => {
+      res.json(event);
+    });
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).send('Unknown server error');
+  });
 };
 
 module.exports.getEvents = function getUsers(req, res) {

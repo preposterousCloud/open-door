@@ -17,28 +17,13 @@ import Button from './Shared/Button';
 import styles from '../styles/Shared/sharedStyles';
 const actions = require('../sharedNative/actions/actions');
 
-const cancelButton = {
-  text: 'Cancel',
-  onPress: () => console.log('Cancel Pressed'),
-  style: 'cancel',
-};
-
-const alertUserNotFound = (userName) => {
-  Alert.alert(`${userName}`, 'not found', [
-    cancelButton,
-    { text: 'Create',
-      onPress: () => store.dispatch(createUser(userName))
-      .then(user => user && navigateToLoggedInApp()),
-      style: 'default',
-    },
-  ]);
-};
 
 const Login = class Login extends React.Component {
   constructor(props) {
     super(props);
     this.updateFormProp = this.updateFormProp.bind(this);
     this.loginToApp = this.loginToApp.bind(this);
+    this.signupUser = this.signupUser.bind(this);
   }
   componentWillMount() {
     this.setState({
@@ -46,6 +31,20 @@ const Login = class Login extends React.Component {
       password: '',
     });
     store.dispatch(actions.checkForJwtAndLogin());
+  }
+  alertUserNotFound() {
+    Alert.alert(`${this.state.userName}`, 'not found', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      { text: 'Create',
+        onPress: () => store.dispatch(createUser(this.state.userName, this.password))
+        .then(user => user && this.navigateToLoggedInApp()),
+        style: 'default',
+      },
+    ]);
   }
   navigateToLoggedInApp() {
     navToFull({ name: 'Main' });
@@ -57,8 +56,19 @@ const Login = class Login extends React.Component {
         // Set JWT to state
         this.navigateToLoggedInApp();
       } else {
-        alertUserNotFound(this.state.userName);
+        this.alertUserNotFound();
       }
+    })
+    .catch((err) => {
+      console.warn(err);
+      this.alertUserNotFound();
+    });
+  }
+  signupUser() {
+    store.dispatch(createUser(this.state.userName, this.state.password))
+    .then(this.navigateToLoggedInApp)
+    .catch((err) => {
+      console.warn(err);
     });
   }
   updateFormProp(field, val) {
@@ -93,7 +103,7 @@ const Login = class Login extends React.Component {
           secureTextEntry
         />
         <Button text={'Login'} onClick={this.loginToApp} />
-        <Button text={'Signup'} onClick={() => {}} />
+        <Button text={'Signup'} onClick={this.signupUser} />
       </View>
     );
   }
