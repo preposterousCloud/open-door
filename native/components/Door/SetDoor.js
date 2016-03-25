@@ -9,6 +9,7 @@ import { navTo, navToFull } from '../Shared/Misc';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
 import EventSettings from './EventSettings';
+import EditEvent from './EditEvent';
 import EventDetail from '../Feed/EventDetail.js';
 import OpenDoor from '../Shared/OpenDoor';
 import ClosedDoor from '../Shared/ClosedDoor';
@@ -30,6 +31,9 @@ const SetDoor = class SetDoor extends React.Component {
       this.props.onEventSubmit(event);
       this.setState({ doorOpen: true });
     };
+    const updateEvent = (event) => {
+      this.props.onEventUpdate(event);
+    };
     const toggleDoor = () => {
       if (!this.props.user.currentEvent) {
         navToFull({
@@ -40,6 +44,13 @@ const SetDoor = class SetDoor extends React.Component {
         this.setState({ doorOpen: false });
         this.props.closeDoor();
       }
+    };
+    const navToEditEvent = () => {
+      navToFull({
+        component: EditEvent,
+        event: this.props.user.currentEvent,
+        onSubmit: updateEvent,
+      });
     };
     return (
       <View>
@@ -63,7 +74,12 @@ const SetDoor = class SetDoor extends React.Component {
           )()}
           {(() => (!this.props.user.currentEvent) ?
             <Text>You aren't hosting an event right now</Text> :
-            <EventDetail imageShowing event={this.props.user.currentEvent} />
+            (<View>
+              <EventDetail imageShowing event={this.props.user.currentEvent} />
+              <TouchableOpacity onPress={navToEditEvent} >
+                <Text>Edit Event</Text>
+              </TouchableOpacity>
+            </View>)
           )()}
         </View>
       </View>
@@ -77,5 +93,6 @@ SetDoor.propTypes = {
   closeDoor: React.PropTypes.func.isRequired,
   app: React.PropTypes.object.isRequired,
   onEventSubmit: React.PropTypes.func.isRequired,
+  onEventUpdate: React.PropTypes.func.isRequired,
 };
 module.exports = SetDoor;
