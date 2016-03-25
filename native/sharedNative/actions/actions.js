@@ -276,6 +276,18 @@ export const confirmFriend = (toId) => {
   };
 };
 
+export const rejectFriend = (toId) => {
+  return (dispatch, getState) => {
+    return api.rejectFriend(getState().user.id, toId, getState().app.jwt)
+    .then(response => {
+      console.log('Friendship rejected?', response._bodyInit);
+      return response;
+    })
+    .then(() => dispatch(refreshUser()))
+    .catch(catchErr);
+  };
+};
+
 export function storeGroup(groupName) {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;

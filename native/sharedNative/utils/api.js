@@ -168,3 +168,12 @@ export const confirmFriend = (requesterId, toFriendId, jwt) => {
     headers: buildHeaders(jwt),
   });
 };
+
+export const rejectFriend = (requesterId, toFriendId, jwt) => {
+  const url = `${config.apiUrl}friends/reject`;
+  return fetch(url, {
+    method: 'DELETE',
+    body: JSON.stringify({ friends: [requesterId, toFriendId] }),
+    headers: buildHeaders(jwt),
+  });
+};
