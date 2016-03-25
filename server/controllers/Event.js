@@ -37,6 +37,7 @@ module.exports.createEvent = function createUser(req, res) {
       hostUserId: req.body.hostUserId,
       hostUserName: req.body.hostUserName,
       name: req.body.name,
+      vibe: req.body.vibe,
       startDateUtc: req.body.startDateUtc,
       endDateUtc: req.body.endDateUtc,
       addressStreet1: req.body.addressStreet1,
