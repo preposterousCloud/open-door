@@ -40,7 +40,8 @@ module.exports = function Event(sequelizeInstance) {
             }
             return Promise.all([setFriends, setGroups])
             .then(() => {
-              return event;
+              // We refetch the event so the object returned includes Groups and Friends
+              return seq.models.Event.getEvent(event.id);
             });
           });
         },
