@@ -26,6 +26,19 @@ module.exports = StyleSheet.create({
     color: '#777',
     justifyContent: 'space-between',
   },
+  highlightedListEntryView: {
+    flexDirection: 'row',
+    padding: 20,
+    borderTopWidth: 1,
+    borderColor: '#DDD',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#BCDAE4',
+  },
+  highlightedListEntryViewText: {
+    color: '#023242',
+    justifyContent: 'space-between',
+  },
   listEntryView: {
     flexDirection: 'row',
     padding: 20,
