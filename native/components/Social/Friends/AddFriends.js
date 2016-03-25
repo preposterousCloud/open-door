@@ -43,13 +43,15 @@ const AddFriends = (props) => {
     const filterConfirmedFriends = state.user.friends ?
       state.user.friends.map(friend => friend.id).concat(state.user.id) : [state.user.id];
     const filterId = state.pendingRequests.received ?
-      state.pendingRequests.received.concat(filterConfirmedFriends) : [state.user.id];
+      state.pendingRequests.received.map(req => req.id)
+      .concat(filterConfirmedFriends) : [state.user.id];
     const targetUsers = state.allUsers.filter(targetUser => (
       filterId.indexOf(targetUser.id) < 0 && targetUser.userName.match(re)
     ));
+    const alreadySent = state.pendingRequests.sent.map(user => user.id);
     return {
       listComponent: UserList,
-      rowComponent: makeClickableRow(alertRequestSent, 'userName', state.pendingRequests.sent),
+      rowComponent: makeClickableRow(alertRequestSent, 'userName', alreadySent),
       listData: targetUsers,
       user: state.user,
     };

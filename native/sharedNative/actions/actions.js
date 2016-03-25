@@ -131,9 +131,15 @@ export function sortPendingFriendRequests(user) {
     };
     reqs.forEach((req) => {
       if (req.sender) {
-        sortedReqs.sent.push(req.id);
+        sortedReqs.sent.push({
+          id: req.id,
+          userName: req.userName,
+        });
       } else {
-        sortedReqs.received.push(req.id);
+        sortedReqs.received.push({
+          id: req.id,
+          userName: req.userName,
+        });
       }
     });
     return dispatch(setPendingFriendRequests(sortedReqs));

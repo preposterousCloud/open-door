@@ -15,10 +15,11 @@ import feedStyles from '../../../styles/Feed/feedStyles.js';
 
 const Friends = (props) => {
   const logUser = (user) => {
-    console.log(`You clicked on ${user.userName}, id:${user.id}`);
+    console.log(`You clicked on ${user.userName}, id:${user.id}. Req: `, store.getState());
   };
 
   const FriendsListContainer = makeListContainer(makeClickableRow(logUser), ['user', 'friends']);
+  const FriendRequestsContainer = makeListContainer(makeClickableRow(logUser), ['pendingRequests', 'received']);
 
   return (
     <View>
@@ -35,7 +36,7 @@ const Friends = (props) => {
         style={styles.tabBar}
       >
         <FriendsListContainer tabLabel="Friends List" />
-        <FriendsListContainer tabLabel="Test Tab" />
+        <FriendRequestsContainer tabLabel="Requests" />
       </ScrollableTabView>
     </View>
   );
