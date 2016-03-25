@@ -37,6 +37,15 @@ export const loginUser = (userName, pw, jwt) => {
   .then(validateBody);
 };
 
+export const getEvent = (eventId) => {
+  const url = `${config.apiUrl}events/${eventId}`;
+  return fetch(url, {
+    method: 'GET',
+    headers,
+  })
+  .then(validateBody);
+};
+
 export const postEvent = (event) => {
   const url = `${config.apiUrl}events`;
   return fetch(url, {
