@@ -62,6 +62,18 @@ module.exports.getEvents = function getUsers(req, res) {
   });
 };
 
+module.exports.getEvent = function getEvent(req, res) {
+  const id = req.params.id;
+  db.Event.getEvent(id)
+  .then((event) => {
+    res.json(event);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Unknown server problem.');
+  });
+};
+
 module.exports.actionReducer = function actionReducer(req, res) {
   const action = req.params.action.toLowerCase();
   const id = parseInt(req.params.id, 10);

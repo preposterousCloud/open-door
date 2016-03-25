@@ -4,6 +4,12 @@ const Sequelize = require('sequelize');
 
 module.exports = function Event(sequelizeInstance) {
   const seq = sequelizeInstance;
+  
+  const includeOnEvents = {
+    include: [{ model: seq.models.Group },
+             { model: seq.models.User, as: 'hostUser' },
+             { model: seq.models.User }],
+  };
   const event = sequelizeInstance.define('Event',
     {
       name: Sequelize.STRING,
@@ -23,6 +29,12 @@ module.exports = function Event(sequelizeInstance) {
         },
       },
       classMethods: {
+        getEvent: function getEvent(id) {
+          return this.findOne({ where: { id: id }, include: includeOnEvents.include });
+        },
+        getEvents: function getEvents(idArr) {
+          this.findAll({where: {id: {$in: idArr }}})
+        },
         createEvent: function createEvent(eventObj) {
           // TODO - check and make sure session user is equal to the hostUserId in the request
           return this.rawCreate(eventObj)
