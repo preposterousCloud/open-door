@@ -1,10 +1,10 @@
 'use strict';
 
 const newUserTemps = [{ userName: 'vcipriani', pw: 'food' },
-{ userName: 'user2', pw: 'bacon' },
-{ userName: 'user3', pw: 'dog' },
-{ userName: 'user4', pw: 'sandwich' },
-{ userName: 'user5', pw: 'tacos' }];
+{ userName: 'user2', pw: 'u' },
+{ userName: 'user3', pw: 'u' },
+{ userName: 'user4', pw: 'u' },
+{ userName: 'user5', pw: 'u' }];
 
 const newGroupTemps = [{ name: 'HackReactor' },
 ];
