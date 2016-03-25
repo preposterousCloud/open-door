@@ -1,16 +1,10 @@
 const a = require('../ActionTypes');
-import {
-  postEvent,
-  closeEvent,
-  fetchAllUsers,
-  postGroup,
-  fetchUserGroups,
-  getUser,
-  postUser,
-} from '../utils/api';
+import * as api from '../utils/api';
+
+const localStore = require('react-native-simple-store');
 
 const catchErr = (err) => {
-  console.log(err);
+  console.error(err);
   return null;
 };
 
@@ -25,7 +19,6 @@ export function setLoading(loadingState) {
 }
 
 export function setActiveEvent(event) {
-  console.log('set event', event);
   return {
     type: a.SET_ACTIVE_EVENT,
     data: event,
@@ -39,10 +32,17 @@ export function setAllUsers(allUsers) {
   };
 }
 
-export function setUser(user) {
+export function setUser(obj) {
   return {
     type: a.SET_USER,
-    user: user,
+    data: obj,
+  };
+}
+
+export function setJwt(jwt) {
+  return {
+    type: a.SET_JWT,
+    data: jwt,
   };
 }
 
@@ -58,13 +58,6 @@ export function liveUpdateGroupName(name) {
   return {
     type: a.SET_GROUPNAME_INPUT_DISP,
     groupName: name,
-  };
-}
-
-export function updatePendingEvent(obj) {
-  return {
-    type: a.UPDATE_PENDING_EVENT,
-    data: obj,
   };
 }
 
@@ -150,8 +143,9 @@ export function sortPendingFriendRequests(user) {
  * Async Thunk Action Creators
  * ************************************************** */
 export function createUser(userName) {
-  return dispatch => {
-    return postUser(userName)
+  return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
+    return api.postUser(userName, jwt)
     .then(user => {
       dispatch(setUser(user));
       return user;
@@ -161,23 +155,61 @@ export function createUser(userName) {
 }
 
 
-export function attemptLogin(userName) {
-  return dispatch => {
-    return getUser(userName)
-    .then(user => {
-      if (user) {
-        dispatch(sortPendingFriendRequests(user));
-        dispatch(setUser(user));
+export function setInLocalStorage(key, value) {
+  return (dispatch) => {
+    return localStore.save(key, value);
+  };
+}
+
+export function logout() {
+  return (dispatch, getState) => {
+    return dispatch(setInLocalStorage('jwt', null))
+    .then(() => {
+      getState().navigation.navigator.resetTo({ name: 'Login' });
+    });
+  };
+}
+
+export function attemptLogin(userName, pw) {
+  return (dispatch, getState) => {
+    dispatch(setLoading(true));
+    return api.loginUser(userName, pw)
+    .then(response => {
+      if (response) {
+        console.log('res', response);
+        dispatch(setLoading(false));
+        dispatch(setJwt(response.jwt));
+        dispatch(setUser(response.user));
+        dispatch(setInLocalStorage('jwt', response.jwt));
         return true;
       }
       return false;
     });
   };
 }
+export function checkForJwtAndLogin() {
+  return (dispatch, getState) => {
+    localStore.get('jwt')
+    .then((result) => {
+      if (result) {
+        dispatch(setJwt(result));
+        dispatch(appInit());
+        getState().navigation.navigator.resetTo({ name: 'Main' });
+      }
+    });
+  };
+}
+
+export function appInit() {
+  return (dispatch, getState) => {
+    dispatch(refreshUser());
+  };
+}
 
 export function getAllUsers() {
-  return dispatch => {
-    return fetchAllUsers()
+  return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
+    return api.fetchAllUsers(jwt)
     .then(users => {
       if (users) {
         dispatch(setAllUsers(users));
@@ -188,15 +220,18 @@ export function getAllUsers() {
   };
 }
 
+/**
+ * Refreshes user based on the jwt token we have.  This should always match the signed in user.
+ */
 export function refreshUser() {
   return (dispatch, getState) => {
-    const userId = getState().user.id;
+    const jwt = getState().app.jwt;
     dispatch(setLoading(true));
 
-    return getUser(userId)
+    return api.getUserByJwt(jwt)
     .then(user => {
+      dispatch(setUser(user));
       dispatch(sortPendingFriendRequests(user));
-      return dispatch(setUser(user));
     })
     .then(dispatch(setLoading(false)));
   };
@@ -204,16 +239,16 @@ export function refreshUser() {
 
 export function storeGroup(groupName) {
   return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
     const checklist = getState().checklist;
     const members = [getState().user.id];
     for (const id in checklist) {
       if (checklist[id]) {members.push(+id);}
     }
     console.log(members);
-    return postGroup(groupName, members)
+    return api.postGroup(groupName, members, jwt)
     .then(user => {
       if (user) {
-        console.log(`${groupName} created with ${members}!`);
         dispatch(refreshUser());
         getState().navigation.navigator.pop();
         return true;
@@ -225,8 +260,9 @@ export function storeGroup(groupName) {
 
 export function getUserGroups() {
   return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
     const id = getState().user.id;
-    return fetchUserGroups(id)
+    return api.fetchUserGroups(id, jwt)
     .then(groups => {
       if (groups) {
         const userGroups = {};
@@ -242,9 +278,10 @@ export function getUserGroups() {
 
 export function createEvent(event) {
   return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
     dispatch(setLoading(true));
     console.log('creating event:', event);
-    postEvent(event)
+    api.postEvent(event, jwt)
     .then((event) => {
       dispatch(setActiveEvent(event));
       dispatch(setLoading(false));
@@ -258,22 +295,17 @@ export function createEvent(event) {
   };
 }
 
-export function toggleEvent() {
+export function closeDoor() {
   return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
     if (getState().user.currentEvent) {
       dispatch(setLoading(true));
-      closeEvent(getState().user.currentEvent)
+      api.closeEvent(getState().user.currentEvent, jwt)
       .then((event) => {
         dispatch(setLoading(false));
         dispatch(setActiveEvent(null));
         dispatch(refreshUser());
       });
-    } else if (getState().app.pendingEvent) {
-      dispatch(clearItemSelectionInList('friendsToInvite'));
-      dispatch(clearItemSelectionInList('groupsToInvite'));
-      return dispatch(updatePendingEvent(null));
-    } else {
-      return dispatch(updatePendingEvent({}));
     }
   };
 }

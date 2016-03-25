@@ -13,13 +13,7 @@ const mapPropsToState = (state, ownProps) => {
 
 const mapDispatchToState = (dispatch, ownProps) => {
   return {
-    onDoorToggle: (event) => dispatch(actions.toggleEvent(event)),
-    onEventSettingsChange: (eventProp, value) => {
-      const newEventDetail = {};
-      newEventDetail[eventProp] = value;
-      dispatch(actions.updatePendingEvent(newEventDetail));
-    },
-    // NOTE: eventObj is an open-door "Event" not a computer event (eg. mouse click)
+    closeDoor: (event) => dispatch(actions.closeDoor(event)),
     onEventSubmit: (eventObj) => {
       dispatch(actions.createEvent(eventObj));
     },

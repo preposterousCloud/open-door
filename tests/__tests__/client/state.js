@@ -47,14 +47,6 @@ describe('Data Integration Tests', () => {
     expect(store.getState().groupName).toEqual('Squad');
   });
 
-  it('Should set pendingEvent when Begin creating event is dispatched', () => {
-    store.dispatch(actions.updatePendingEvent({ name: 'Hacking' }));
-    expect(store.getState().app.pendingEvent.name).toBeTruthy();
-
-    store.dispatch(actions.updatePendingEvent(null));
-    expect(store.getState().app.pendingEvent).toBeFalsy();
-  });
-
   it('Should set swiper state', () => {
     expect(store.getState().app.swiperIndex).toBe(1);
 
@@ -119,5 +111,12 @@ describe('Data Integration Tests', () => {
   it('Should get group members for a given group', () => {
     store.dispatch(actions.setUserGroupMembers(groupList[1]));
     expect(store.getState().userGroupMembers.members.length).toEqual(5);
+  });
+
+  it('Should set a jwt', () => {
+    store.dispatch(actions.setUser({ userName: 'guy' }));
+    store.dispatch(actions.setJwt('akls;djf;lskdjf'));
+    expect(store.getState().user.userName).toEqual('guy');
+    expect(store.getState().app.jwt).toEqual('akls;djf;lskdjf');
   });
 });

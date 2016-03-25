@@ -4,7 +4,7 @@ import { store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
 import FilterTextInput from '../../Shared/FilterTextInput.js';
 import feedStyles from '../../../styles/Feed/feedStyles.js';
-import friendsApi from '../../../sharedNative/utils/friends.js';
+import friendsApi from '../../../sharedNative/actions/friends.js';
 import {
   exitButton,
   cancelButton,

@@ -23,11 +23,11 @@ InviteSelects.propTypes = { route: React.PropTypes.object };
 class EventSettings extends React.Component {
   constructor(props) {
     super(props);
-    console.log('onSubmit:', props.route.onSubmit, 'type:', typeof props.route.onSubmit);
     this.state = {
       onSubmit: props.route.onSubmit,
       event: {
         hostUserId: store.getState().user.id,
+        hostUserName: store.getState().user.userName,
         invitedFriends: {},
         invitedGroups: {},
       },
@@ -88,7 +88,6 @@ class EventSettings extends React.Component {
         <TouchableOpacity onPress={navToGroups} style={socialStyles.categoryButton} >
           <Text>GROUPS</Text>
         </TouchableOpacity>
-        <Text>Hi</Text>
       </View>
     );
   }

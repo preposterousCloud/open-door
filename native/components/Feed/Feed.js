@@ -2,8 +2,7 @@ import React, {
   Text,
   View,
   Component,
-  TouchableHighlight,
-  ScrollView,
+  TouchableOpacity,
  } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import NavigationBar from 'react-native-navbar';
@@ -39,6 +38,7 @@ const Feed = (props) => {
         leftButton={leftNavButton}
       />
       <FeedList events={props.events} />
+      <TouchableOpacity onPress={props.logout}><Text>Logout</Text></TouchableOpacity>
     </View>
   );
 };

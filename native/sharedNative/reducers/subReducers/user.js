@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-function user(state = {}, action) {
+function user(state = { userName: '', Events: [] }, action) {
   switch (action.type) {
-    case 'SET_USER':
-      return action.user || state;
+    case 'SET_USER': {
+      console.log('set user>>>>>>>>>', action.data)
+      return Object.assign({}, state, action.data);
+    }
     case 'SET_ACTIVE_EVENT':
       return Object.assign({}, state, { currentEvent: action.data });
     default:
@@ -22,7 +24,6 @@ function allUsers(state = [], action) {
 }
 
 function pendingRequests(state = {}, action) {
-  console.log(action.type);
   switch (action.type) {
     case 'SET_PENDING_FRIEND_REQUESTS': {
       return action.reqs || state;

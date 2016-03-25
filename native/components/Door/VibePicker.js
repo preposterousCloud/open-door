@@ -1,6 +1,4 @@
-import React, { Text, TouchableOpacity, View, PickerIOS } from 'react-native';
-
-const PickerItemIOS = PickerIOS.item;
+import React, { Text, TouchableOpacity, View, PickerIOS, PickerItemIOS } from 'react-native';
 
 const vibes = {
   ball: {
@@ -26,13 +24,12 @@ const vibes = {
 class VibePicker extends React.Component {
   constructor(props) {
     super(props);
-    let key = 1;
     this.state = {
       vibe: props.initialVibe || 'jam',
       changeVibe: props.changeVibe,
-      vibePickerItems: Object.keys(vibes).map((vibe) => (
+      vibePickerItems: Object.keys(vibes).map((vibe, index) => (
         <PickerItemIOS
-          key={key++}
+          key={index}
           value={vibe}
           label={vibes[vibe].name}
         />

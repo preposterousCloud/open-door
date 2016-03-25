@@ -4,6 +4,12 @@ const Sequelize = require('sequelize');
 
 module.exports = function Event(sequelizeInstance) {
   const seq = sequelizeInstance;
+  
+  const includeOnEvents = {
+    include: [{ model: seq.models.Group },
+             { model: seq.models.User, as: 'hostUser' },
+             { model: seq.models.User }],
+  };
   const event = sequelizeInstance.define('Event',
     {
       name: Sequelize.STRING,
@@ -23,6 +29,12 @@ module.exports = function Event(sequelizeInstance) {
         },
       },
       classMethods: {
+        getEvent: function getEvent(id) {
+          return this.findOne({ where: { id: id }, include: includeOnEvents.include });
+        },
+        getEvents: function getEvents(idArr) {
+          this.findAll({where: {id: {$in: idArr }}})
+        },
         createEvent: function createEvent(eventObj) {
           // TODO - check and make sure session user is equal to the hostUserId in the request
           return this.rawCreate(eventObj)
@@ -31,23 +43,18 @@ module.exports = function Event(sequelizeInstance) {
             .then(() => {return event;});
           })
           .then((event) => {
-            // If we got any users add them to the event
-            let a;
-            let b;
-            if (eventObj.users) {
-              a = event.setUsers(eventObj.users);
-            }
-            // If we got any groups add them to the event
-            if (eventObj.groups) {
-              b = event.setGroups(eventObj.groups);
-            }
+            const a = event.setUsers(eventObj.users || []);
+            const b = event.setGroups(eventObj.groups || []);
             return Promise.all([a, b]).then(() => event);
           });
         },
         makeEventTemplate: function makeEventTemplate(hostUser, name, startDateUtc, endDateUtc
         , addressStreet1, addressStreet2, city, stateAbbrev, postalCode, users, groups) {
+          users = users || [];
+          groups = groups || [];
           return {
             hostUserId: hostUser.id,
+            hostUserName: hostUser.userName,
             name,
             startDateUtc,
             endDateUtc,
@@ -66,27 +73,43 @@ module.exports = function Event(sequelizeInstance) {
           }
 
           const userInvites = this.findAll({
-            include: [{ model: seq.models.User,
-              where: { id: user.id } }],
+            include: [{
+              model: seq.models.User,
+              where: { id: user.id },
+            }, {
+              model: seq.models.User,
+              as: 'hostUser',
+            }],
             where: { endDateUtc: null },
           });
 
           const groupInvites = this.findAll({
-            include: [{ model: seq.models.Group,
-              where: { id: { $in: user.Groups.map(group => group.id) } } }],
+            include: [{
+              model: seq.models.Group,
+              where: {
+                id: { $in: user.Groups.map(group => group.id) },
+              },
+            }, {
+              model: seq.models.User,
+              as: 'hostUser',
+            }],
             where: { endDateUtc: null },
           });
 
           const personalEvents = this.findAll({
+            include: [{
+              model: seq.models.User,
+              as: 'hostUser',
+            }],
             where: { hostUserId: user.id, endDateUtc: null },
           });
-        
+
           return Promise.all([userInvites, groupInvites, personalEvents])
           .then((allEvents) => {
-            let dedupedResults = {};
+            const dedupedResults = {};
             allEvents.forEach((groupOfEvents) =>
               groupOfEvents.forEach((event) => {
-                dedupedResults[event.id] = event;
+                dedupedResults[event.id] = dedupedResults[event.id] || event;
               })
             );
             return Object.keys(dedupedResults).map(key => dedupedResults[key]);

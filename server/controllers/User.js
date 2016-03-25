@@ -13,10 +13,10 @@ const _mapUser = (user) => {
 };
 
 module.exports.createUser = function createUser(req, res) {
-  if (!req.body.userName) {
+  if (!req.body.userName || !req.body.pw) {
     res.status(404).send('Make sure to include a user name and appropriate properties');
   } else {
-    db.User.create({ userName: req.body.userName })
+    db.User.createUser(req.body.userName, req.body.pw)
     .then((user) => res.json(_mapUser(user)))
     .catch((err) => {
       console.error(err);
@@ -51,12 +51,25 @@ module.exports.getUser = function getUser(req, res) {
 
   db.User.getUser(searchObj)
   .then((data) => {
-    if (!data) { throw new Error('User Not Found - User Controller 54:18'); }
+    if (!data) { throw new Error('User Not Found'); }
     res.json(data);
   })
   .catch((err) => {
     console.error(err, err.stack);
     res.status(404).send(null);
+  });
+};
+
+module.exports.getUserFromJwt = function getUserFromJwt(req, res) {
+  const searchObj = { id: req.jwt.userId };
+  db.User.getUser(searchObj)
+  .then((data) => {
+    if (!data) { throw new Error('User Not Found'); }
+    res.json(data);
+  })
+  .catch((err) => {
+    console.error(err, err.stack);
+    res.status(404).send(err);
   });
 };
 

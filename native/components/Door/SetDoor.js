@@ -9,7 +9,7 @@ import { navTo, navToFull } from '../Shared/Misc';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
 import EventSettings from './EventSettings';
-import EventDetails from './EventDetails';
+import EventDetail from '../Feed/EventDetail.js';
 import OpenDoor from '../Shared/OpenDoor';
 import ClosedDoor from '../Shared/ClosedDoor';
 import styles from '../../styles/Door/doorStyles.js';
@@ -17,19 +17,28 @@ import styles from '../../styles/Door/doorStyles.js';
 const LoadingWheel = require('../Shared/Misc').LoadingWheel;
 
 const SetDoor = class SetDoor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      doorOpen: !!props.user.currentEvent,
+    };
+  }
   goToSettings() { navTo(Profile); }
 
   render() {
-    const createEvent = (event) => this.props.onEventSubmit(event);
+    const createEvent = (event) => {
+      this.props.onEventSubmit(event);
+      this.setState({ doorOpen: true });
+    };
     const toggleDoor = () => {
-      this.props.onDoorToggle();
-      if (this.props.app.pendingEvent) {
+      if (!this.state.doorOpen) {
         navToFull({
           component: EventSettings,
-          event: this.props.app.pendingEvent,
-          onChange: this.props.onEventSettingsChange,
           onSubmit: createEvent,
         });
+      } else {
+        this.setState({ doorOpen: false });
+        this.props.closeDoor();
       }
     };
     return (
@@ -41,7 +50,7 @@ const SetDoor = class SetDoor extends React.Component {
         />
         <View style={styles.container}>
           <TouchableOpacity onPress={toggleDoor}>
-            {(() => (this.props.user.currentEvent || this.props.app.pendingEvent) ?
+            {(() => (this.state.doorOpen) ?
               <OpenDoor styles={{ size: 100, color: 'green' }} /> :
               <ClosedDoor styles={{ size: 100, color: 'red' }} />
             )()}
@@ -54,20 +63,19 @@ const SetDoor = class SetDoor extends React.Component {
           )()}
           {(() => (!this.props.user.currentEvent) ?
             <Text>You aren't hosting an event right now</Text> :
-            <EventDetails event={this.props.user.currentEvent} />
+            <EventDetail imageShowing event={this.props.user.currentEvent} />
           )()}
         </View>
       </View>
    );
   }
 };
-// <Text>You're hosting {this.props.user.currentEvent.name} right now</Text>
+
 SetDoor.propTypes = {
   swipeLeft: React.PropTypes.func.isRequired,
   user: React.PropTypes.object.isRequired,
-  onDoorToggle: React.PropTypes.func.isRequired,
+  closeDoor: React.PropTypes.func.isRequired,
   app: React.PropTypes.object.isRequired,
-  onEventSettingsChange: React.PropTypes.func.isRequired,
   onEventSubmit: React.PropTypes.func.isRequired,
 };
 module.exports = SetDoor;

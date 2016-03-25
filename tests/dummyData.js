@@ -1,10 +1,10 @@
 'use strict';
 
-const newUserTemps = [{ userName: 'vcipriani' },
-{ userName: 'user2' },
-{ userName: 'user3' },
-{ userName: 'user4' },
-{ userName: 'user5' }];
+const newUserTemps = [{ userName: 'vcipriani', pw: 'food' },
+{ userName: 'user2', pw: 'u' },
+{ userName: 'user3', pw: 'u' },
+{ userName: 'user4', pw: 'u' },
+{ userName: 'user5', pw: 'u' }];
 
 const newGroupTemps = [{ name: 'HackReactor' },
 ];
@@ -21,7 +21,7 @@ module.exports = (sequelizeInstance) => {
   return db.sequelize.sync({ force: true })
   // Create new users
   .then(() => {
-    return db.Sequelize.Promise.map(newUserTemps, user => db.User.create(user));
+    return db.Sequelize.Promise.map(newUserTemps, user => db.User.createUser(user.userName, user.pw));
   })
   // Create Groups
   .then((users) => {
@@ -33,18 +33,26 @@ module.exports = (sequelizeInstance) => {
     newGroups = groups;
 
     // NOTE if you add additional friends here don't forget to update the promise handling
-    return newUsers[1].addGroup(newGroups[0]);
+    return newUsers[1].addGroup(newGroups[0])
+    .then(() => newUsers[4].addGroup(newGroups[0]))
+    .then(() => newUsers[0].addGroup(newGroups[0]));
   })
   // Add friends
   .then(() => {
     return newUsers[0].addFriend(newUsers[1])
     .then(() => newUsers[0].addFriend(newUsers[1]))
     .then(() => newUsers[1].addFriend(newUsers[0]))
+    .then(() => newUsers[1].addFriend(newUsers[2]))
+    .then(() => newUsers[2].addFriend(newUsers[1]))
+    .then(() => newUsers[1].addFriend(newUsers[3]))
+    .then(() => newUsers[3].addFriend(newUsers[1]))
+    .then(() => newUsers[0].addFriend(newUsers[3]))
+    .then(() => newUsers[3].addFriend(newUsers[0]))
     .catch(console.error);
   })
   // Create events
   .then(() => {
-    const newEventTemps = [db.Event.makeEventTemplate(newUsers[0], 'Partay',
+    const newEventTemps = [db.Event.makeEventTemplate(newUsers[1], 'Partay',
           Date.now(),
           null,
           '123 Main Street',
@@ -52,7 +60,8 @@ module.exports = (sequelizeInstance) => {
           'San Francisco',
           'CA',
           '94107',
-          [newUsers[1]]),
+          [newUsers[0], newUsers[3]],
+          [newGroups[0]]),
         db.Event.makeEventTemplate(newUsers[1], 'Partay #2',
           Date.now(),
           null,
