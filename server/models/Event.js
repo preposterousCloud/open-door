@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 
 module.exports = function Event(sequelizeInstance) {
   const seq = sequelizeInstance;
-  
+
   const includeOnEvents = {
     include: [{ model: seq.models.Group },
              { model: seq.models.User, as: 'hostUser' },
