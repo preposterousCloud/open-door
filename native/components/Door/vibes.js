@@ -1,26 +1,26 @@
 module.exports = {
   ball: {
     name: 'Fancy Ball',
-    src: 'http://gph.is/1fWbxdT',
+    src: require('../../sharedNative/images/dino-baby.gif'),
   },
   birthday: {
     name: 'Birthday Party',
-    src: 'http://gph.is/1fWbxdT',
+    src: require('../../sharedNative/images/dino-pattern.gif'),
   },
   kick: {
     name: 'Kick Back',
-    src: 'http://gph.is/1fWbxdT',
+    src: require('../../sharedNative/images/dino-rager.gif'),
   },
   jam: {
     name: 'Jam Session',
-    src: 'http://gph.is/1fWbxdT',
+    src: require('../../sharedNative/images/dino-baby.gif'),
   },
   rager: {
     name: 'Rager',
-    src: 'http://gph.is/1etwtsZ',
+    src: require('../../sharedNative/images/dino-storm.jpg'),
   },
   dino: {
     name: 'Dinotopia',
-    src: 'http://gph.is/1fWbxdT',
+    src: require('../../sharedNative/images/dino-pattern.gif'),
   },
 };

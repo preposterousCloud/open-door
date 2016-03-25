@@ -53,6 +53,7 @@ module.exports = (sequelizeInstance) => {
   // Create events
   .then(() => {
     const newEventTemps = [db.Event.makeEventTemplate(newUsers[1], 'Partay',
+          'jam',
           Date.now(),
           null,
           '123 Main Street',
@@ -63,6 +64,7 @@ module.exports = (sequelizeInstance) => {
           [newUsers[0], newUsers[3]],
           [newGroups[0]]),
         db.Event.makeEventTemplate(newUsers[1], 'Partay #2',
+          'rager',
           Date.now(),
           null,
           null,
@@ -71,6 +73,7 @@ module.exports = (sequelizeInstance) => {
           null,
           null),
         db.Event.makeEventTemplate(newUsers[0], 'Party #3',
+          'dino',
           Date.now(),
           null,
           '123 Main Street',
@@ -79,6 +82,7 @@ module.exports = (sequelizeInstance) => {
           'CA',
           '94107'),
         db.Event.makeEventTemplate(newUsers[0], 'Group Party',
+          'birthday',
           Date.now(),
           null,
           '123 Main Street',
