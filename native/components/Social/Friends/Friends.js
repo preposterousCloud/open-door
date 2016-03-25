@@ -19,7 +19,10 @@ const Friends = (props) => {
   };
 
   const FriendsListContainer = makeListContainer(makeClickableRow(logUser), ['user', 'friends']);
-  const FriendRequestsContainer = makeListContainer(makeClickableRow(logUser), ['pendingRequests', 'received']);
+  const FriendRequestsContainer = makeListContainer(
+    makeClickableRow(logUser),
+    ['pendingRequests', 'received']
+  );
 
   return (
     <View>
@@ -36,7 +39,9 @@ const Friends = (props) => {
         style={styles.tabBar}
       >
         <FriendsListContainer tabLabel="Friends List" />
-        <FriendRequestsContainer tabLabel="Requests" />
+        <FriendRequestsContainer
+          tabLabel={`Requests (${store.getState().pendingRequests.received.length})`}
+        />
       </ScrollableTabView>
     </View>
   );
