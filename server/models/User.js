@@ -60,6 +60,7 @@ module.exports = function User(sequelizeInstance) {
 
         const removeFriendFromTwo = this.findOne({ where: { id: userId2 } })
         .then(user => user.removeFriend(userId1));
+
         return Promise.all([removeFriendFromOne, removeFriendFromTwo]);
       },
       createUser: function createUser(userName, pw) {
@@ -99,7 +100,11 @@ module.exports = function User(sequelizeInstance) {
               return { id: friend.id, userName: friend.userName };
             });
             user.dataValues.requests = user.dataValues.request.map((friend) => {
-              return { id: friend.id, userName: friend.userName, sender: friend.rel_user_requested_friends.sender };
+              return {
+                id: friend.id,
+                userName: friend.userName,
+                sender: friend.rel_user_requested_friends.sender,
+              };
             });
             user.dataValues.Groups = user.dataValues.Groups || [];
             delete user.dataValues.friend;
