@@ -200,6 +200,16 @@ export function checkForJwtAndLogin() {
   };
 }
 
+export function updateEvent(eventObjToSet) {
+  return (dispatch, getState) => {
+    return api.updateEvent(eventObjToSet)
+    .then(event => {
+      dispatch(setActiveEvent(event));
+      // We should consider replacing the event in the full event list so
+      // we don't have to refresh all of the events
+    });
+  };
+}
 export function appInit() {
   return (dispatch, getState) => {
     dispatch(refreshUser());

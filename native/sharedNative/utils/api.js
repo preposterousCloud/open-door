@@ -60,6 +60,16 @@ export const postEvent = (event, jwt) => {
   .then(validateBody);
 };
 
+export const updateEvent = (event, jwt) => {
+  const url = `${config.apiUrl}events/${event.id}`;
+  return fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(event),
+    headers: buildHeaders(jwt),
+  })
+  .then(validateBody);
+};
+
 export const closeEvent = (event, jwt) => {
   const url = `${config.apiUrl}events/${event.id}/closeEvent`;
   return fetch(url, {
