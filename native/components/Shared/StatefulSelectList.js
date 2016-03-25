@@ -11,7 +11,7 @@ const SelectList = class SelectList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedUsers: {},
+      selectedUsers: props.preSelected || {},
       dataArray: props.dataArray,
       inviteFunc: props.inviteFunc,
     };
@@ -19,9 +19,10 @@ const SelectList = class SelectList extends React.Component {
   }
   ItemView(rowData) {
     const clickThisRow = () => {
-      rowData.checked = !rowData.checked;
+      const selectedUsers = this.state.selectedUsers;
+      selectedUsers[rowData.id] = !selectedUsers[rowData.id];
+      this.setState({ selectedUsers });
       this.state.inviteFunc(rowData.id);
-      this.forceUpdate();
     };
     const Checkbox = (props) => {
       return (props.checked ?
@@ -35,15 +36,12 @@ const SelectList = class SelectList extends React.Component {
       >
         <View style={socialStyles.listEntryView}>
           <Text>{rowData[this.props.displayProp]}</Text>
-          <Checkbox checked={rowData.checked}/>
+          <Checkbox checked={this.state.selectedUsers[rowData.id]} />
         </View>
       </TouchableOpacity>
     );
   }
   render() {
-    const logState = () => {
-      console.log('selectedUsers:', JSON.stringify(this.state.selectedUsers));
-    };
     return (
       <View>
         <ListView
@@ -60,16 +58,17 @@ SelectList.propTypes = {
   dataArray: React.PropTypes.array,
   displayProp: React.PropTypes.string,
   onClick: React.PropTypes.func,
+  preSelected: React.PropTypes.object,
+  inviteFunc: React.PropTypes.func,
 };
-
-const addCheckedProp = (dataArray = []) => dataArray.map(datum => ({ ...datum, checked: false }));
 
 export const UserList = connect(
   (state, ownProps) => {
     return {
       inviteFunc: ownProps.inviteFunc,
-      dataArray: addCheckedProp(state.user.friends),
+      dataArray: state.user.friends,
       displayProp: 'userName',
+      preSelected: ownProps.preSelected,
     };
   },
   (dispatch, ownProps) => {
@@ -84,8 +83,9 @@ export const GroupList = connect(
   (state, ownProps) => {
     return {
       inviteFunc: ownProps.inviteFunc,
-      dataArray: addCheckedProp(state.user.Groups),
+      dataArray: state.user.Groups,
       displayProp: 'name',
+      preSelected: ownProps.preSelected,
     };
   },
   (dispatch, ownProps) => {

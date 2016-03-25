@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 
 module.exports = function Event(sequelizeInstance) {
   const seq = sequelizeInstance;
-  
+
   const includeOnEvents = {
     include: [{ model: seq.models.Group },
              { model: seq.models.User, as: 'hostUser' },
@@ -13,6 +13,7 @@ module.exports = function Event(sequelizeInstance) {
   const event = sequelizeInstance.define('Event',
     {
       name: Sequelize.STRING,
+      vibe: Sequelize.STRING,
       startDateUtc: Sequelize.DATE,
       endDateUtc: Sequelize.DATE,
       addressStreet1: Sequelize.STRING,
@@ -66,7 +67,7 @@ module.exports = function Event(sequelizeInstance) {
             return Promise.all([a, b]).then(() => event);
           });
         },
-        makeEventTemplate: function makeEventTemplate(hostUser, name, startDateUtc, endDateUtc
+        makeEventTemplate: function makeEventTemplate(hostUser, name, vibe, startDateUtc, endDateUtc
         , addressStreet1, addressStreet2, city, stateAbbrev, postalCode, users, groups) {
           users = users || [];
           groups = groups || [];
@@ -74,6 +75,7 @@ module.exports = function Event(sequelizeInstance) {
             hostUserId: hostUser.id,
             hostUserName: hostUser.userName,
             name,
+            vibe,
             startDateUtc,
             endDateUtc,
             addressStreet1,

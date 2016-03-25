@@ -70,18 +70,27 @@ const cancelButton = {
   style: 'cancel',
 };
 
-const makeClickableRow = (action, text, greyOut) => {
+const chooseRowStyle = (style) => {
+  if (style === 'grey') {
+    return [socialStyles.greyedOutListEntryView, socialStyles.greyedOutListEntryViewText];
+  } else if (style === 'blue') {
+    return [socialStyles.highlightedListEntryView, socialStyles.highlightedListEntryViewText];
+  }
+};
+
+const makeClickableRow = (action, text, distinguished, rowStyle) => {
+  const distStyle = distinguished && rowStyle ? chooseRowStyle(rowStyle) : null;
   return (rowData) => {
     const actionAppliedToUser = action.bind(null, rowData);
-    let withGreyedOut;
+    let withDistinguished;
     // Right-side checkmark if already requested
-    if (greyOut) {
-      withGreyedOut = (
-        <Text style={greyOut && greyOut.indexOf(rowData.id) >= 0 ?
-        socialStyles.greyedOutListEntryViewText :
+    if (distinguished) {
+      withDistinguished = (
+        <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
+        distStyle[1] :
         null}
         >
-          {greyOut && greyOut.indexOf(rowData.id) >= 0 ?
+          {distinguished && distinguished.indexOf(rowData.id) >= 0 ?
           '✓' :
           null}
         </Text>
@@ -93,17 +102,17 @@ const makeClickableRow = (action, text, greyOut) => {
           onPress={actionAppliedToUser}
           style={socialStyles.group}
         >
-          <View style={greyOut && greyOut.indexOf(rowData.id) >= 0 ?
-            socialStyles.greyedOutListEntryView :
+          <View style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
+            distStyle[0] :
             socialStyles.listEntryView}
           >
-            <Text style={greyOut && greyOut.indexOf(rowData.id) >= 0 ?
-            socialStyles.greyedOutListEntryViewText :
+            <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
+            distStyle[1] :
             null}
             >
               {rowData.userName || rowData[text]}
             </Text>
-            {withGreyedOut}
+            {withDistinguished}
           </View>
         </TouchableOpacity>
       </View>

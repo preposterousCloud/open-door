@@ -131,9 +131,15 @@ export function sortPendingFriendRequests(user) {
     };
     reqs.forEach((req) => {
       if (req.sender) {
-        sortedReqs.sent.push(req.id);
+        sortedReqs.sent.push({
+          id: req.id,
+          userName: req.userName,
+        });
       } else {
-        sortedReqs.received.push(req.id);
+        sortedReqs.received.push({
+          id: req.id,
+          userName: req.userName,
+        });
       }
     });
     return dispatch(setPendingFriendRequests(sortedReqs));
@@ -153,7 +159,6 @@ export function createUser(userName, pw) {
     });
   };
 }
-
 
 export function setInLocalStorage(key, value) {
   return (dispatch) => {
@@ -247,6 +252,42 @@ export function refreshUser() {
     .then(dispatch(setLoading(false)));
   };
 }
+
+export const requestFriend = (toId) => {
+  return (dispatch, getState) => {
+    return api.requestFriend(getState().user.id, toId, getState().app.jwt)
+    .then(response => {
+      console.log('Friendship requested?', response._bodyInit);
+      return response;
+    })
+    .then(() => dispatch(refreshUser()))
+    .catch(catchErr);
+  };
+};
+
+export const confirmFriend = (toId) => {
+  return (dispatch, getState) => {
+    return api.confirmFriend(getState().user.id, toId, getState().app.jwt)
+    .then(response => {
+      console.log('Friendship confirmed?', response._bodyInit);
+      return response;
+    })
+    .then(() => dispatch(refreshUser()))
+    .catch(catchErr);
+  };
+};
+
+export const rejectFriend = (toId) => {
+  return (dispatch, getState) => {
+    return api.rejectFriend(getState().user.id, toId, getState().app.jwt)
+    .then(response => {
+      console.log('Friendship rejected?', response._bodyInit);
+      return response;
+    })
+    .then(() => dispatch(refreshUser()))
+    .catch(catchErr);
+  };
+};
 
 export function storeGroup(groupName) {
   return (dispatch, getState) => {

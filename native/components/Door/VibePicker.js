@@ -1,25 +1,6 @@
 import React, { Text, TouchableOpacity, View, Picker } from 'react-native';
 
-const vibes = {
-  ball: {
-    name: 'Fancy Ball',
-  },
-  birthday: {
-    name: 'Birthday Party',
-  },
-  kick: {
-    name: 'Kick Back',
-  },
-  jam: {
-    name: 'Jam Session',
-  },
-  rager: {
-    name: 'Rager',
-  },
-  dino: {
-    name: 'Dinotopia',
-  },
-};
+import vibes from './vibes.js';
 
 class VibePicker extends React.Component {
   constructor(props) {
@@ -36,6 +17,10 @@ class VibePicker extends React.Component {
   // Picker doesn't really care what type of element we provide as the item.
   // It manually iterates the children of Picker and creates its own children elements from them
   render() {
+    const changeValue = (vibe) => {
+      this.setState({ vibe });
+      this.state.changeVibe(vibe);
+    };
     return (
       <Picker
         selectedValue={this.state.selectedVibe}
