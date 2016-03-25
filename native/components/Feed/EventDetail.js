@@ -2,7 +2,8 @@ import React, { Text, View, Image, Dimensions, TouchableOpacity } from 'react-na
 import styles from '../../styles/Feed/feedStyles.js';
 const { width, height } = Dimensions.get('window');
 import Accordion from 'react-native-accordion';
-import api from '../../sharedNative/utils/api.js';
+const api = require('../../sharedNative/utils/api.js');
+import { store } from '../../sharedNative/reducers/reducers.js';
 
 class EventDetail extends React.Component {
   constructor(props) {
@@ -13,18 +14,18 @@ class EventDetail extends React.Component {
     };
   }
   componentDidMount() {
-    api.getEvent(this.props.event.id)
-    .then((something) => {
-      console.log('thing back from getEvent:', something);
+    api.getEvent(this.props.event.id, store.getState().jwt)
+    .then((event) => {
+      this.setState({ event });
     });
   }
   getInvitedGroups(event) {
-    return event.Groups ?
+    return event.Groups.length ?
       event.Groups.map(group => group.name).join(', ') :
       'None';
   }
   getInvitedUsers(event) {
-    return event.Users ?
+    return event.Users.length ?
       event.Users.map(user => user.userName).join(', ') :
       'None';
   }
@@ -41,12 +42,12 @@ class EventDetail extends React.Component {
             <Image source={this.state.imageSource} style={{ width, height: 300 }} />
           </TouchableOpacity> :
           <TouchableOpacity onPress={toggleImage} >
-            <Text>Name: {this.props.event.name}</Text>
-            <Text>Host: {this.props.event.hostUser.userName}</Text>
-            <Text>Address: {this.props.event.addressStreet1}</Text>
-            <Text>City: {this.props.event.city}</Text>
-            <Text>Groups Invited: {this.getInvitedGroups(this.props.event)}</Text>
-            <Text>Users Invited: {this.getInvitedUsers(this.props.event)}</Text>
+            <Text>Name: {this.state.event.name}</Text>
+            <Text>Host: {this.state.event.hostUser.userName}</Text>
+            <Text>Address: {this.state.event.addressStreet1}</Text>
+            <Text>City: {this.state.event.city}</Text>
+            <Text>Groups Invited: {this.getInvitedGroups(this.state.event)}</Text>
+            <Text>Users Invited: {this.getInvitedUsers(this.state.event)}</Text>
           </TouchableOpacity>
         }
       </View>
