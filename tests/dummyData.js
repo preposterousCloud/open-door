@@ -46,11 +46,13 @@ module.exports = (sequelizeInstance) => {
     .then(() => newUsers[2].addFriend(newUsers[1]))
     .then(() => newUsers[1].addFriend(newUsers[3]))
     .then(() => newUsers[3].addFriend(newUsers[1]))
+    .then(() => newUsers[0].addFriend(newUsers[3]))
+    .then(() => newUsers[3].addFriend(newUsers[0]))
     .catch(console.error);
   })
   // Create events
   .then(() => {
-    const newEventTemps = [db.Event.makeEventTemplate(newUsers[0], 'Partay',
+    const newEventTemps = [db.Event.makeEventTemplate(newUsers[1], 'Partay',
           Date.now(),
           null,
           '123 Main Street',
@@ -58,7 +60,8 @@ module.exports = (sequelizeInstance) => {
           'San Francisco',
           'CA',
           '94107',
-          [newUsers[1]]),
+          [newUsers[0], newUsers[3]],
+          [newGroups[0]]),
         db.Event.makeEventTemplate(newUsers[1], 'Partay #2',
           Date.now(),
           null,
