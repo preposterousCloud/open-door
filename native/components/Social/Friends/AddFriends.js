@@ -4,7 +4,7 @@ import { store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
 import FilterTextInput from '../../Shared/FilterTextInput.js';
 import feedStyles from '../../../styles/Feed/feedStyles.js';
-import friendsApi from '../../../sharedNative/actions/friends.js';
+import requestFriend from '../../../sharedNative/actions/actions.js';
 import {
   exitButton,
   cancelButton,
@@ -29,7 +29,7 @@ const AddFriends = (props) => {
       Alert.alert(`Send a friend request to ${target.userName}?`, '', [
         cancelButton,
         { text: 'Add',
-          onPress: () => store.dispatch(friendsApi.requestFriend(target.id)),
+          onPress: () => store.dispatch(requestFriend.requestFriend(target.id)),
           style: 'default',
         },
       ]);

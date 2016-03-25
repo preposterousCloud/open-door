@@ -253,6 +253,18 @@ export function refreshUser() {
   };
 }
 
+const requestFriend = (toId) => {
+  return (dispatch, getState) => {
+    return api.addFriend(getState().user.id, toId)
+    .then(response => {
+      console.log('Friendship created?', response._bodyInit);
+      return response;
+    })
+    .then(() => dispatch(refreshUser()))
+    .catch(catchErr);
+  };
+};
+
 export function storeGroup(groupName) {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;
