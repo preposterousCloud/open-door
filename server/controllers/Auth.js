@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const config = require('../config.js');
+const secret = config.jwtSecret || 'somesecret';
 
 /**
  * Async saltsAndHashes string provided.  Returns a promise.
@@ -40,7 +41,6 @@ const compareHashAndVal = (value, hash) => {
  */
 const issueJwtToken = (claims) => {
   return new Promise((resolve, reject) => {
-    const secret = config.jwtSecret || 'somesecret';
     jwt.sign(claims, secret, { algorithm: 'HS256' }, (token) => {
       resolve(token);
     });
@@ -53,7 +53,7 @@ const issueJwtToken = (claims) => {
  */
 const verifyAndDecodeJwtToken = (token) => {
   return new Promise((resolve, reject) => {
-    jwt.verify(token, config.jwtSecret, { algorithms: ['HS256'] }, (err, decodedToken) => {
+    jwt.verify(token, secret, { algorithms: ['HS256'] }, (err, decodedToken) => {
       if (err) {
         reject(err);
         return;
