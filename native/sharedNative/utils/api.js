@@ -11,7 +11,7 @@ const validateBody = res => {
 };
 
 const catchErr = (err) => {
-  console.log(err);
+  console.error(err);
   return null;
 };
 
@@ -37,8 +37,7 @@ export const loginUser = (userName, pw, jwt) => {
   .then(validateBody);
 };
 
-export const postEvent = (event, jwt) => {
-  console.log('posting event:', event);
+export const postEvent = (event) => {
   const url = `${config.apiUrl}events`;
   return fetch(url, {
     method: 'POST',
@@ -79,7 +78,7 @@ export const postGroup = (groupName, members, jwt) => {
   return fetch(url, {
     method: 'POST',
     body: groupObj,
-    headers: buildHeaders(jwt),  
+    headers: buildHeaders(jwt),
   })
   .then(validateBody)
   .catch(catchErr);
