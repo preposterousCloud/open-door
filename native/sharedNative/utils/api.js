@@ -80,9 +80,6 @@ export const closeEvent = (event, jwt) => {
 };
 
 export const fetchAllUsers = (jwt) => {
-  // To refactor fully, need to create new thunk action
-  // NOTE: This will be replaced by "friends" in createGroup
-  // Also should probably send id and name instead of whole objects
   const url = `${config.apiUrl}users/`;
   return fetch(url, {
     method: 'GET',
@@ -154,8 +151,17 @@ export const postUser = (userName, pw, jwt) => {
   .catch(catchErr);
 };
 
-export const addFriend = (requesterId, toFriendId, jwt) => {
+export const requestFriend = (requesterId, toFriendId, jwt) => {
   const url = `${config.apiUrl}friends/request`;
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify({ friends: [requesterId, toFriendId] }),
+    headers: buildHeaders(jwt),
+  });
+};
+
+export const confirmFriend = (requesterId, toFriendId, jwt) => {
+  const url = `${config.apiUrl}friends/add`;
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify({ friends: [requesterId, toFriendId] }),

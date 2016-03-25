@@ -1,9 +1,10 @@
-import React, { View, Text, TouchableOpacity, ListView } from 'react-native';
+import React, { View, Text, TouchableOpacity, ListView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import AddFriends from './AddFriends.js';
+import { confirmFriend, rejectFriend } from '../../../sharedNative/actions/actions.js';
 import {
   exitButton,
   enterButton,
@@ -18,12 +19,27 @@ const Friends = (props) => {
     console.log(`You clicked on ${user.userName}, id:${user.id}. Req: `, store.getState());
   };
 
+  const respondToReq = (target) => {
+    const userReqIds = store.getState().pendingRequests.sent.map(user => user.id);
+    const userReqs = store.getState().pendingRequests;
+    Alert.alert(`How do you wanna respond to ${target.userName}?`, '', [
+      { text: 'Reject',
+        onPress: () => store.dispatch(rejectFriend(target.id)),
+        style: 'destructive',
+      },
+      { text: 'Add Friend',
+        onPress: () => store.dispatch(confirmFriend(target.id)),
+        style: 'default',
+      },
+    ]);
+  };
+
   const reqIds = store.getState().pendingRequests.received.map(user => user.id);
   const reqNames = store.getState().pendingRequests.received.map(user => user.userName);
 
   const FriendsListContainer = makeListContainer(makeClickableRow(logUser), ['user', 'friends']);
   const FriendRequestsContainer = makeListContainer(
-    makeClickableRow(logUser, reqNames, reqIds, 'blue'),
+    makeClickableRow(respondToReq, reqNames, reqIds, 'blue'),
     ['pendingRequests', 'received']
   );
 

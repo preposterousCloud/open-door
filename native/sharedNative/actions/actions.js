@@ -160,7 +160,6 @@ export function createUser(userName, pw) {
   };
 }
 
-
 export function setInLocalStorage(key, value) {
   return (dispatch) => {
     return localStore.save(key, value);
@@ -253,11 +252,23 @@ export function refreshUser() {
   };
 }
 
-const requestFriend = (toId) => {
+export const requestFriend = (toId) => {
   return (dispatch, getState) => {
-    return api.addFriend(getState().user.id, toId)
+    return api.requestFriend(getState().user.id, toId, getState().app.jwt)
     .then(response => {
-      console.log('Friendship created?', response._bodyInit);
+      console.log('Friendship requested?', response._bodyInit);
+      return response;
+    })
+    .then(() => dispatch(refreshUser()))
+    .catch(catchErr);
+  };
+};
+
+export const confirmFriend = (toId) => {
+  return (dispatch, getState) => {
+    return api.confirmFriend(getState().user.id, toId, getState().app.jwt)
+    .then(response => {
+      console.log('Friendship confirmed?', response._bodyInit);
       return response;
     })
     .then(() => dispatch(refreshUser()))
