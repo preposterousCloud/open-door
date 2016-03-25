@@ -196,6 +196,18 @@ export function attemptLogin(userName, pw) {
     });
   };
 }
+export function checkForJwtAndLogin() {
+  return (dispatch, getState) => {
+    localStore.get('jwt')
+    .then((result) => {
+      if (result) {
+        dispatch(setJwt(result));
+        dispatch(appInit());
+        getState().navigation.navigator.resetTo({ name: 'Main' });
+      }
+    });
+  };
+}
 
 export function appInit() {
   return (dispatch, getState) => {

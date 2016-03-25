@@ -45,16 +45,7 @@ const Login = class Login extends React.Component {
       userName: '',
       password: '',
     });
-
-    localStore.get('jwt')
-    .then((result) => {
-      console.log('jwt', result);
-      if (result) {
-        console.log(result);
-        store.dispatch(actions.setJwt(result));
-        this.navigateToLoggedInApp();
-      }
-    });
+    store.dispatch(actions.checkForJwtAndLogin());
   }
   navigateToLoggedInApp() {
     navToFull({ name: 'Main' });

@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 
-function user(state = {}, action) {
+function user(state = { userName: '', Events: [] }, action) {
   switch (action.type) {
     case 'SET_USER': {
+      console.log('set user>>>>>>>>>', action.data)
       return Object.assign({}, state, action.data);
     }
     case 'SET_ACTIVE_EVENT':
