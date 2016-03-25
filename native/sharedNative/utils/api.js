@@ -7,7 +7,10 @@ const validateBody = res => {
   if (statusOK(res)) {
     return JSON.parse(res._bodyInit);
   }
-  throw new Error('Error processing request', res);
+  console.log(res);
+  throw new Error(`Error processing request: Message: ${res._bodyText}
+    Url: ${res.url}
+    status: ${res.status}`);
 };
 
 const catchErr = (err) => {
