@@ -50,6 +50,8 @@ module.exports = function Event(sequelizeInstance) {
         },
         makeEventTemplate: function makeEventTemplate(hostUser, name, startDateUtc, endDateUtc
         , addressStreet1, addressStreet2, city, stateAbbrev, postalCode, users, groups) {
+          users = users || [];
+          groups = groups || [];
           return {
             hostUserId: hostUser.id,
             hostUserName: hostUser.userName,
