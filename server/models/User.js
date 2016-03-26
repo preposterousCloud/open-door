@@ -85,7 +85,7 @@ module.exports = function User(sequelizeInstance) {
 
         return Promise.all([removeFriendFromOne, removeFriendFromTwo]);
       },
-      createUser: function createUser(userName, pw, phone, defaultLocation, defaultVibe) {
+      createUser: function createUser(userName, pw, defaultLocation, defaultVibe, phone) {
         // Use bcrypt to hash/salt the pw then call raw create
         return Auth.saltAndHash(pw)
         .then(hashedPw => this.rawCreate({ userName: userName, pw: hashedPw, phone: phone, defaultLocation, defaultVibe }));
