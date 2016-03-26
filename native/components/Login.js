@@ -27,6 +27,7 @@ const Login = class Login extends React.Component {
   }
   componentWillMount() {
     this.setState({
+      phone: '',
       userName: '',
       password: '',
     });
@@ -53,8 +54,14 @@ const Login = class Login extends React.Component {
   navigateToLoggedInApp() {
     navToFull({ name: 'Main' });
   }
+  sanitizePhoneInput() {
+    const sanitized = this.state.phone.replace(/\D/igm, '');
+    console.log(sanitized)
+    return sanitized;
+  }
   loginToApp() {
-    store.dispatch(attemptLogin(this.state.userName, this.state.password))
+    this.setState({ phone: this.sanitizePhoneInput() });
+	store.dispatch(attemptLogin(this.state.userName, this.state.password))
     .then(res => {
       console.log('res', res);
       if (res.err) {
@@ -74,7 +81,8 @@ const Login = class Login extends React.Component {
     });
   }
   signupUser() {
-    store.dispatch(createUser(this.state.userName, this.state.password))
+    this.setState(this.sanitizePhoneInput());
+    store.dispatch(createUser(this.state.phone, this.state.userName, this.state.password))
     .then(this.navigateToLoggedInApp)
     .catch((err) => {
       console.warn(err);
@@ -89,6 +97,16 @@ const Login = class Login extends React.Component {
     return (
       <View style={styles.container}>
         <OpenDoor styles = {{ size: 200, color: 'green' }} />
+        <TextInput
+          autoCapitalize={'none'}
+          autoCorrect={false}
+          maxLength={16}
+          placeholder={'Phone Number'}
+          value={this.state.phone}
+          style={styles.userInput}
+          returnKeyType={'go'}
+          onChangeText={(text) => this.updateFormProp('phone', text)}
+        />
         <TextInput
           autoCapitalize={'none'}
           autoCorrect={false}
