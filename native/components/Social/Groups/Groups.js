@@ -11,9 +11,8 @@ import {
   enterButton,
   makeClickableRow,
   makeListContainer,
-  navTo,
 } from '../../Shared/Misc.js';
-
+import { navTo } from '../../Shared/NavHelpers.js';
 const Groups = (props) => {
   const logGroup = (group) => {
     console.log(`You clicked on ${group.name}, id:${group.id}`);

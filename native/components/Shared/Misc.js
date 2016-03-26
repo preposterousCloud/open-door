@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { refreshUser, getAllUsers } from '../../sharedNative/actions/actions.js';
 import { arrayToDataSource } from './HelperFunctions.js';
+import { popScene, navTo, navToFull } from './NavHelpers.js';
 import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
 
 const defaultStyles = StyleSheet.create({ image: { height: 40, width: 40 } });
@@ -23,18 +24,6 @@ const LoadingWheel = (props) => {
 LoadingWheel.propTypes = {
   style: React.PropTypes.object,
   isLoading: React.PropTypes.bool,
-};
-
-const navTo = (component, focus) => {
-  store.getState().navigation.navigator.push({ component, focus });
-};
-
-const navToFull = (destination) => {
-  store.getState().navigation.navigator.push(destination);
-};
-
-const popScene = () => {
-  store.getState().navigation.navigator.pop();
 };
 
 const exitButton = {

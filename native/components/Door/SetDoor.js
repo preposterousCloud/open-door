@@ -5,7 +5,7 @@ import React, {
   } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import actions from '../../sharedNative/actions/actions';
-import { navTo, navToFull } from '../Shared/Misc';
+import { navTo, navToFull } from '../Shared/NavHelpers.js';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
 import EventSettings from './EventSettings';

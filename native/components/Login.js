@@ -10,7 +10,7 @@ const localStore = require('react-native-simple-store');
 
 import { store } from '../sharedNative/reducers/reducers';
 import { attemptLogin, createUser } from '../sharedNative/actions/actions';
-import { navToFull } from './Shared/Misc';
+import { navToFull } from './Shared/NavHelpers';
 import MainContainer from './MainContainer';
 import OpenDoor from './Shared/OpenDoor';
 import Button from './Shared/Button';

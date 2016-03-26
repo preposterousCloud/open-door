@@ -2,8 +2,8 @@ import React, { Text, TouchableOpacity, View, Alert } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { Button } from '../Shared/Button';
-import { backButton, cancelButtonNav, cancelButton,
-  navToFull, popScene } from '../Shared/Misc';
+import { backButton, cancelButtonNav, cancelButton } from '../Shared/Misc';
+import { navToFull, popScene } from '../Shared/NavHelpers.js';
 import { getTruthies } from '../Shared/HelperFunctions.js';
 import { GroupList, UserList } from '../Shared/StatefulSelectList';
 const actions = require('../../sharedNative/actions/actions');
