@@ -35,7 +35,29 @@ module.exports.createUser = function createUser(req, res, next) {
   }
 };
 
-module.exports.getUsers = function getUsers(req, res, next) {
+module.exports.updateUser = function createUser(req, res) {
+  // if (!req.body.userName || !req.body.pw) {
+  //   res.status(404).send('Make sure to include a user name and appropriate properties');
+  // } else {
+  //   db.User.createUser(req.body.userName, req.body.pw)
+  //   .then((user) => {
+  //     const resObj = {
+  //       user: _mapUser(user),
+  //     };
+  //     Auth.issueJwtToken({ userId: user.id })
+  //     .then((token) => {
+  //       resObj.jwt = token;
+  //       res.json(resObj);
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //     res.status(500).send('Unknown server problem');
+  //   });
+  // }
+};
+
+module.exports.getUsers = function getUsers(req, res) {
   db.User.findAll({
     include: { model: db.Group },
   })
