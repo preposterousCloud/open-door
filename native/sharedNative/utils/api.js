@@ -26,7 +26,6 @@ const validateBody = res => {
   const errorMessage = `Error processing request: Message: ${res._bodyText}
     url: ${res.url}
     status: ${res.status}`;
-  console.warn(errorMessage);
   throw new HttpError(res.status, errorMessage,
     res.url);
 };
