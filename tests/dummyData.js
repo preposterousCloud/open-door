@@ -1,13 +1,14 @@
 'use strict';
 
-const newUserTemps = [{ userName: 'vcipriani', pw: 'food' },
-{ userName: 'user2', pw: 'u' },
-{ userName: 'user3', pw: 'u' },
-{ userName: 'user4', pw: 'u' },
-{ userName: 'user5', pw: 'u' }];
-
-const newGroupTemps = [{ name: 'HackReactor' },
+const newUserTemps = [
+  { userName: 'vcipriani', pw: 'food', defaultLocation: '123 main st', defaultVibe: 'jam' },
+  { userName: 'user2', pw: 'u', defaultLocation: '123 user2 st', defaultVibe: 'jam' },
+  { userName: 'user3', pw: 'u', defaultLocation: '123 user3 st', defaultVibe: 'dino' },
+  { userName: 'user4', pw: 'u', defaultLocation: '123 user4 st', defaultVibe: 'kick' },
+  { userName: 'user5', pw: 'u', defaultLocation: '123 user5 st', defaultVibe: 'jam' },
 ];
+
+const newGroupTemps = [{ name: 'HackReactor' }, { name: 'party squatd' }];
 
 var newUsers;
 var newEvents;
@@ -22,7 +23,9 @@ module.exports = (sequelizeInstance) => {
   // Create new users
   .then(() => {
     return db.Sequelize.Promise.map(
-      newUserTemps, user => db.User.createUser(user.userName, user.pw)
+      newUserTemps,
+      user =>
+        db.User.createUser(user.userName, user.pw, user.defaultLocation, user.defaultVibe)
     );
   })
   // Create Groups
@@ -54,44 +57,30 @@ module.exports = (sequelizeInstance) => {
   })
   // Create events
   .then(() => {
-    const newEventTemps = [db.Event.makeEventTemplate(newUsers[1], 'Partay',
+    const newEventTemps = [db.Event.makeEventTemplate(newUsers[0], 'Partay',
           'jam',
           Date.now(),
           null,
-          '123 Main Street',
-          'Apt 4',
-          'San Francisco',
-          'CA',
-          '94107',
+          '123 Main Street, Apt 4, San Francisco, CA 94107',
           [newUsers[0], newUsers[3]],
           [newGroups[0]]),
         db.Event.makeEventTemplate(newUsers[1], 'Partay #2',
           'rager',
           Date.now(),
           null,
-          null,
-          null,
-          null,
+          'My house',
           null,
           null),
-        db.Event.makeEventTemplate(newUsers[0], 'Party #3',
+        db.Event.makeEventTemplate(newUsers[2], 'Party #3',
           'dino',
           Date.now(),
           null,
-          '123 Main Street',
-          'Apt 4',
-          'San Francisco',
-          'CA',
-          '94107'),
-        db.Event.makeEventTemplate(newUsers[0], 'Group Party',
+          'On the block'),
+        db.Event.makeEventTemplate(newUsers[3], 'Group Party',
           'birthday',
           Date.now(),
           null,
-          '123 Main Street',
-          'Apt 4',
-          'San Francisco',
-          'CA',
-          '94107',
+          null,
           null,
           [newGroups[0]])];
     return db.Sequelize.Promise.map(newEventTemps, event => db.Event.createEvent(event));

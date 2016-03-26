@@ -60,7 +60,7 @@ export const getUserEvents = (jwt) => {
 };
 
 export const postEvent = (event, jwt) => {
-  const url = `${config.apiUrl}events`;
+  const url = `${config.apiUrl}events/me`;
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify(event),

@@ -17,6 +17,8 @@ module.exports = function User(sequelizeInstance) {
     userName: { type: Sequelize.STRING, allowNull: false, unique: true },
     pw: { type: Sequelize.STRING, allowNull: false },
     phone: Sequelize.STRING,
+    defaultLocation: Sequelize.STRING,
+    defaultVibe: Sequelize.STRING,
   }, {
     defaultScope: {
       attributes: { exclude: ['pw'] },
@@ -83,10 +85,10 @@ module.exports = function User(sequelizeInstance) {
 
         return Promise.all([removeFriendFromOne, removeFriendFromTwo]);
       },
-      createUser: function createUser(userName, pw) {
+      createUser: function createUser(userName, pw, defaultLocation, defaultVibe) {
         // Use bcrypt to hash/salt the pw then call raw create
         return Auth.saltAndHash(pw)
-        .then(hashedPw => this.rawCreate({ userName: userName, pw: hashedPw }));
+        .then(hashedPw => this.rawCreate({ userName, pw: hashedPw, defaultLocation, defaultVibe }));
       },
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,

@@ -8,7 +8,6 @@ import actions from '../../sharedNative/actions/actions';
 import { navTo, navToFull } from '../Shared/NavHelpers.js';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
-import EventSettings from './EventSettings';
 import EditEvent from './EditEvent';
 import EventDetail from '../Feed/EventDetail.js';
 import OpenDoor from '../Shared/OpenDoor';
@@ -18,10 +17,13 @@ import styles from '../../styles/Door/doorStyles.js';
 const LoadingWheel = require('../Shared/ComponentHelpers').LoadingWheel;
 
 const SetDoor = class SetDoor extends React.Component {
-
-  goToSettings() { navTo(Profile); }
-
   render() {
+    const goToSettings = () => {
+      navToFull({
+        component: Profile,
+        user: this.props.user,
+      });
+    };
     const createEvent = (event) => {
       this.props.onEventSubmit(event);
       this.setState({ doorOpen: true });
@@ -31,9 +33,17 @@ const SetDoor = class SetDoor extends React.Component {
     };
     const toggleDoor = () => {
       if (!this.props.user.currentEvent) {
+        console.log('user going in:', this.props.user);
         navToFull({
-          component: EventSettings,
+          component: EditEvent,
           onSubmit: createEvent,
+          event: {
+            name: `${this.props.user.userName}'s party`,
+            vibe: this.props.user.defaultVibe,
+            location: this.props.user.defaultLocation,
+            Users: [],
+            Groups: [],
+          },
         });
       } else {
         this.setState({ doorOpen: false });
@@ -41,6 +51,7 @@ const SetDoor = class SetDoor extends React.Component {
       }
     };
     const navToEditEvent = () => {
+      console.log('event format:', this.props.user.currentEvent);
       navToFull({
         component: EditEvent,
         event: this.props.user.currentEvent,
@@ -52,7 +63,7 @@ const SetDoor = class SetDoor extends React.Component {
         <NavBar
           title={ 'My Door' }
           leftButton={ { title: '<', handler: this.props.swipeLeft } }
-          rightButton={ { title: 'Settings', handler: this.goToSettings }}
+          rightButton={ { title: 'Settings', handler: goToSettings }}
         />
         <View style={styles.container}>
           <TouchableOpacity onPress={toggleDoor}>

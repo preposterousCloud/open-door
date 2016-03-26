@@ -59,8 +59,7 @@ class EventDetail extends React.Component {
             <Text>Name: {this.state.event.name}</Text>
             <Text>Host: {this.state.event.hostUser.userName}</Text>
             <Text>Vibe: {this.state.event.vibe}</Text>
-            <Text>Address: {this.state.event.addressStreet1}</Text>
-            <Text>City: {this.state.event.city}</Text>
+            <Text>Location: {this.state.event.location}</Text>
             <Text>Groups Invited: {this.getInvitedGroups(this.state.event)}</Text>
             <Text>Users Invited: {this.getInvitedUsers(this.state.event)}</Text>
           </TouchableOpacity>

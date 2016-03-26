@@ -9,11 +9,7 @@ const _mapEvent = (event) => {
     id: event.id,
     createdAt: event.createdAt,
     updatedAt: event.updatedAt,
-    address1: event.addressStreet1,
-    address2: event.addressStreet2,
-    city: event.city,
-    stateAbbrev: event.stateAbbrev,
-    postalCode: event.postalCode,
+    location: event.location,
     hostUserId: event.hostUserId,
   };
 };
@@ -35,17 +31,13 @@ module.exports.createEvent = function createUser(req, res, next) {
   } else {
     console.log(req.body);
     db.Event.createEvent({
-      hostUserId: req.body.hostUserId,
+      hostUserId: req.jwt.userId,
       hostUserName: req.body.hostUserName,
       name: req.body.name,
       vibe: req.body.vibe,
       startDateUtc: req.body.startDateUtc,
       endDateUtc: req.body.endDateUtc,
-      addressStreet1: req.body.addressStreet1,
-      addressStreet2: req.body.addressStreet2,
-      city: req.body.city,
-      stateAbbrev: req.body.stateAbbrev,
-      postalCode: req.body.postalCode,
+      location: req.body.location,
       users: req.body.friends,
       groups: req.body.groups })
     .then((event) => res.json(_mapEvent(event)))
