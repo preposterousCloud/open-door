@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { Button } from '../Shared/Button';
 import { backButton, cancelButtonNav, cancelButton,
-  navToFull, popScene, getTruthies } from '../Shared/Misc';
+  navToFull, popScene } from '../Shared/Misc';
+import { getTruthies } from '../Shared/HelperFunctions.js';
 import { GroupList, UserList } from '../Shared/StatefulSelectList';
 const actions = require('../../sharedNative/actions/actions');
 import NavBar from '../Shared/NavBar.js';

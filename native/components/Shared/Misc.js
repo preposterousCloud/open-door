@@ -9,6 +9,7 @@ import React, {
 import { connect } from 'react-redux';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { refreshUser, getAllUsers } from '../../sharedNative/actions/actions.js';
+import { arrayToDataSource } from './HelperFunctions.js';
 import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
 
 const defaultStyles = StyleSheet.create({ image: { height: 40, width: 40 } });
@@ -19,7 +20,6 @@ const LoadingWheel = (props) => {
     <Image style={ props.style } source={require('../../sharedNative/images/loading.gif')} /> :
     <View />;
 };
-
 LoadingWheel.propTypes = {
   style: React.PropTypes.object,
   isLoading: React.PropTypes.bool,
@@ -56,13 +56,6 @@ const enterButton = (component, focus) => ({
   title: '+',
   handler: navTo.bind(null, component, focus),
 });
-
-const arrayToDataSource = (array = []) => {
-  return (new ListView.DataSource(
-      { rowHasChanged: (row1, row2) => row1 !== row2 }
-    ).cloneWithRows(array)
-  );
-};
 
 const cancelButton = {
   text: 'Cancel',
@@ -136,8 +129,6 @@ UserList.propTypes = {
   user: React.PropTypes.object,
 };
 
-const getPropFrom = (obj, propArr) => (propArr.reduce((subObj, prop) => subObj[prop], obj));
-
 const makeListContainer = (rowComponent, listDataPath = [], listComponent = UserList) => {
   return connect(state => ({
     listComponent,
@@ -179,20 +170,6 @@ const makeSelectableRow = (action, getChecklist) => {
   };
 };
 
-const getAllUsersArray = () => {
-  store.dispatch(getAllUsers())
-  .then((allUsers) => {
-    return allUsers.map((user) => {
-      return {
-        id: user.id,
-        userName: user.userName,
-      };
-    });
-  });
-};
-
-const getTruthies = (obj) => Object.keys(obj).filter(key => obj[key]).map(i => +i);
-
 module.exports = {
   exitButton,
   backButton,
@@ -200,14 +177,11 @@ module.exports = {
   navToFull,
   navTo,
   enterButton,
-  arrayToDataSource,
   cancelButton,
   makeClickableRow,
   makeSelectableRow,
   UserList,
   makeListContainer,
   LoadingWheel,
-  getAllUsersArray,
   popScene,
-  getTruthies,
 };

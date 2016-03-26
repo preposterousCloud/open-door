@@ -10,8 +10,8 @@ import {
   cancelButton,
   makeClickableRow,
   UserList,
-  getAllUsersArray,
 } from '../../Shared/Misc.js';
+import { getAllUsersArray } from '../../Shared/HelperFunctions.js';
 import styles from '../../../styles/Social/socialStyles.js';
 
 const AddFriends = (props) => {
