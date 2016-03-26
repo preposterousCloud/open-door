@@ -230,10 +230,13 @@ export function getUserEvents() {
 }
 export function updateEvent(eventObjToSet) {
   return (dispatch, getState) => {
+    dispatch(setLoading(true));
     const jwt = getState().app.jwt;
     return api.updateEvent(eventObjToSet, jwt)
     .then(event => {
       dispatch(setActiveEvent(event));
+      dispatch(setLoading(false));
+      dispatch(refreshUser());
       // We should consider replacing the event in the full event list so
       // we don't have to refresh all of the events
     });

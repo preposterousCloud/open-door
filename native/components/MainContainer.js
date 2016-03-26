@@ -19,6 +19,7 @@ import styles from '../styles/Feed/feedStyles.js';
 
 const FeedContainer = connect((state, ownProps) => {
   return {
+    user: state.user,
     events: state.user.Events,
     userName: state.user.userName,
     swipeLeft: ownProps.swipeLeft,

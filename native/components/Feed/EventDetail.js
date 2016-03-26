@@ -20,6 +20,14 @@ class EventDetail extends React.Component {
       this.setState({ event });
     });
   }
+  componentWillReceiveProps(nextProps) {
+    api.getEvent(this.props.event.id, store.getState().jwt)
+    .then((event) => {
+      if (this.state) {
+        this.setState({ event });
+      }
+    });
+  }
   getInvitedGroups(event) {
     return event.Groups.length ?
       event.Groups.map(group => group.name).join(', ') :

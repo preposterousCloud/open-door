@@ -6,6 +6,7 @@ import SetDoor from './SetDoor';
 const mapPropsToState = (state, ownProps) => {
   return {
     user: state.user,
+    currentEvent: state.user.currentEvent,
     swipeLeft: ownProps.swipeLeft,
     app: state.app,
   };
