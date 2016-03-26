@@ -55,7 +55,7 @@ const Login = class Login extends React.Component {
     navToFull({ name: 'Main' });
   }
   loginToApp() {
-	const sanitizedPhone = this.state.phone.replace(/\D/igm, '');
+    const sanitizedPhone = this.state.phone.replace(/\D/igm, '').replace(/1(?=\d{9})/igm, '');
     this.setState({ phone: sanitizedPhone });
     console.log(this.state.userName)
     .then(res => {

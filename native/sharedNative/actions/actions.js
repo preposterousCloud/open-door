@@ -165,7 +165,20 @@ export function getAllContacts(cb) {
     if (err && err.type === 'permissionDenied') {
       console.error('Nope!');
     } else {
-      console.log('Yup!', JSON.stringify(contacts));
+      console.log('Yup!', contacts);
+      contacts.push({
+        givenName: 'Elrich',
+        thumbnailPath: '',
+        phoneNumbers: [
+          {
+            number: '+1(555)-029-1426',
+            label: 'home',
+          },
+        ],
+        familyName: 'Bachmann',
+        emailAddresses: [],
+        recordID: 7,
+      });
       cb(contacts);
     }
   });
@@ -281,9 +294,7 @@ export function getAllUsers() {
     const importContacts = getAllContacts(addressBook => {
       const usersAndContacts = addressBook.forEach(contact => {
         contact.phoneNumbers.forEach((phone) => {
-          if (phone.label === 'mobile' || phone.label === 'iphone') {
-            contactNumbers.push(phone.number.replace(/\D/igm, ''));
-          }
+          contactNumbers.push(phone.number.replace(/\D/igm, '').replace(/1(?=\d{9})/igm, ''));
         });
       });
       console.log(contactNumbers);
