@@ -23,9 +23,11 @@ const validateBody = res => {
   if (statusOK(res)) {
     return JSON.parse(res._bodyInit);
   }
-  throw new HttpError(res.status, `Error processing request: Message: ${res._bodyText}
+  const errorMessage = `Error processing request: Message: ${res._bodyText}
     url: ${res.url}
-    status: ${res.status}`,
+    status: ${res.status}`;
+  console.warn(errorMessage);
+  throw new HttpError(res.status, errorMessage,
     res.url);
 };
 
