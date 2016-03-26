@@ -15,10 +15,10 @@ const _mapUser = (user) => {
 };
 
 module.exports.createUser = function createUser(req, res, next) {
-  if (!req.body.userName || !req.body.pw) {
-    next(new HttpError(404, 'Make sure to include a userName, pw and appropriate properties'));
+  if (!req.body.userName || !req.body.pw || !req.body.phone) {
+    res.status(404).send('Make sure to include a user name and appropriate properties');
   } else {
-    db.User.createUser(req.body.userName, req.body.pw)
+    db.User.createUser(req.body.userName, req.body.pw, req.body.phone)
     .then((user) => {
       const resObj = {
         user: _mapUser(user),
