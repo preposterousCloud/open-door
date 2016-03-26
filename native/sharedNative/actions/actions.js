@@ -194,15 +194,15 @@ export function attemptLogin(userName, pw) {
     dispatch(setLoading(true));
     return api.loginUser(userName, pw)
     .then(response => {
-      if (response) {
-        console.log('res', response);
-        dispatch(setLoading(false));
-        dispatch(setJwt(response.jwt));
-        dispatch(setUser(response.user));
-        dispatch(setInLocalStorage('jwt', response.jwt));
-        return true;
-      }
-      return false;
+      console.log('res', response);
+      dispatch(setLoading(false));
+      dispatch(setJwt(response.jwt));
+      dispatch(setUser(response.user));
+      dispatch(setInLocalStorage('jwt', response.jwt));
+      return response;
+    })
+    .catch(err => {
+      return { err };
     });
   };
 }

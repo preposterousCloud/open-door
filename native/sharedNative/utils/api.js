@@ -3,13 +3,30 @@ const config = require('../config/config.js');
 // Helper Functions
 const statusOK = res => (res.status >= 200 && res.status <= 299);
 
+
+const HttpError = function HttpError(statusCode, message, url) {
+  this.name = 'HttpError';
+  this.message = message;
+  this.status = statusCode;
+  this.err = true;
+  this.url = url;
+};
+
+HttpError.prototype = Object.create(Error.prototype);
+HttpError.prototype.constructor = HttpError;
+
+/**
+ * On a successful response, returns the parsed body of the response.  On failure,
+ * it returns the body along w/ .err property.
+ */
 const validateBody = res => {
   if (statusOK(res)) {
     return JSON.parse(res._bodyInit);
   }
-  throw new Error(`Error processing request: Message: ${res._bodyText}
-    Url: ${res.url}
-    status: ${res.status}`);
+  throw new HttpError(res.status, `Error processing request: Message: ${res._bodyText}
+    url: ${res.url}
+    status: ${res.status}`,
+    res.url);
 };
 
 const catchErr = (err) => {
