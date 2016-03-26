@@ -7,6 +7,8 @@ before_install:
 install:
   - npm install -g rnpm
   - npm run install:all
+notifications:
+  email: false
 env:
 - CXX=g++-4.8
 addons:

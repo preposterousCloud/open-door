@@ -1,4 +1,4 @@
-import React, { View, Text, TouchableOpacity, TextInput, } from 'react-native';
+import React, { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
 const actions = require('../../../../sharedNative/actions/actions');
 import styles from '../../../../styles/Social/socialStyles.js';
@@ -8,7 +8,6 @@ const CreateGroupName = (props) => {
 
   const confirmNewGroup = () => {
     const finalGroupName = store.getState().groupName;
-    console.log('CALLING NAME GROUP WITH', finalGroupName);
     store.dispatch(actions.storeGroup(finalGroupName));
   };
 
@@ -16,7 +15,6 @@ const CreateGroupName = (props) => {
     groupName = newGroupName;
     store.dispatch(actions.liveUpdateGroupName(groupName));
     store.dispatch(actions.refreshUser());
-    console.log('>', store.getState().groupName);
   };
 
   return (

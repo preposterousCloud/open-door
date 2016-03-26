@@ -1,4 +1,4 @@
-import { popScene, navTo } from './NavHelpers.js';
+import { popScene, navTo, navToFull } from './NavHelpers.js';
 
 const exitButton = {
   title: 'X',
@@ -20,6 +20,15 @@ const enterButton = (component, focus) => ({
   handler: navTo.bind(null, component, focus),
 });
 
+const editButton = (component, user, onSubmit) => ({
+  title: 'Edit',
+  handler: navToFull.bind(null, {
+    component,
+    user,
+    onSubmit,
+  }),
+});
+
 const cancelButton = {
   text: 'Cancel',
   onPress: () => console.log('Cancel Pressed'),
@@ -32,4 +41,5 @@ module.exports = {
   cancelButtonNav,
   enterButton,
   cancelButton,
+  editButton,
 };

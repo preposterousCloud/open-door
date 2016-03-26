@@ -49,19 +49,21 @@ class EditEvent extends React.Component {
   }
   componentDidMount() {
     if (this.props.route.event.id) {
-      api.getEvent(this.props.route.event.id, store.getState().jwt)
-      .then((event) => {
-        return this.setState({
-          event: {
-            ...event,
-            invitedFriends: getInvited(event.Users),
-            invitedGroups: getInvited(event.Groups),
-            preSelectedFriends: getInvited(event.Users),
-            preSelectedGroups: getInvited(event.Groups),
-          }
-        });
-      })
-      .then(() => this.forceUpdate());
+      if (this.state) {
+        api.getEvent(this.props.route.event.id, store.getState().jwt)
+        .then((event) => {
+          return this.setState({
+            event: {
+              ...event,
+              invitedFriends: getInvited(event.Users),
+              invitedGroups: getInvited(event.Groups),
+              preSelectedFriends: getInvited(event.Users),
+              preSelectedGroups: getInvited(event.Groups),
+            }
+          });
+        })
+        .then(() => this.forceUpdate());
+      }
     } else {
       const event = { ...this.state.event, ...this.props.route.event };
       this.setState({ event });

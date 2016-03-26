@@ -29,9 +29,27 @@ module.exports.createUser = function createUser(req, res, next) {
         res.json(resObj);
       });
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
+  }
+};
+
+module.exports.updateUser = function createUser(req, res, next) {
+  if (!req.body.userName || !req.body.defaultVibe) {
+    res.status(404).send('Make sure to include a user name and appropriate properties');
+  } else {
+    db.User.findOne({ where: { id: req.jwt.userId } })
+    .then((user) => {
+      db.User.findOne({ where: { userName: req.body.userName } })
+      .then(conflictingUser => {
+        if (conflictingUser) {
+          return next(new HttpError(409, 'Username already taken'));
+        }
+        user.update(req.body);
+        res.json({ message: 'user updated' });
+        return user;
+      });
+    })
+    .catch(next);
   }
 };
 
@@ -40,9 +58,7 @@ module.exports.getUsers = function getUsers(req, res, next) {
     include: { model: db.Group },
   })
   .then((users) => res.json(users.map(user => _mapUser(user))))
-  .catch((err) => {
-    next(err);
-  });
+  .catch(next);
 };
 
 module.exports.getUser = function getUser(req, res, next) {

@@ -219,6 +219,20 @@ export function checkForJwtAndLogin() {
   };
 }
 
+export function updateUser(newUserInfo) {
+  return (dispatch, getState) => {
+    dispatch(setLoading(true));
+    const jwt = getState().app.jwt;
+    return api.updateUser(newUserInfo, jwt)
+    .then(user => {
+      dispatch(setLoading(false));
+      dispatch(refreshUser());
+      return true;
+    })
+    .catch(err => false);
+  };
+}
+
 export function getUserEvents() {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;
@@ -359,7 +373,6 @@ export function createEvent(event) {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;
     dispatch(setLoading(true));
-    console.log('creating event:', event);
     api.postEvent(event, jwt)
     .then((event) => {
       dispatch(setActiveEvent(event));

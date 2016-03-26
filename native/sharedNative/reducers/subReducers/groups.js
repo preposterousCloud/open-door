@@ -14,7 +14,6 @@ function groupName(state = '', action) {
 function userGroupMembers(state = [], action) {
   switch (action.type) {
     case 'SET_USER_GROUP_MEMBERS': {
-      console.log('USER GROUPS SET', action)
       return action.userGroupMembers || state;
     }
     default:
