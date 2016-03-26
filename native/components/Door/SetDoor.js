@@ -8,7 +8,6 @@ import actions from '../../sharedNative/actions/actions';
 import { navTo, navToFull } from '../Shared/NavHelpers.js';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
-import EventSettings from './EventSettings';
 import EditEvent from './EditEvent';
 import EventDetail from '../Feed/EventDetail.js';
 import OpenDoor from '../Shared/OpenDoor';
