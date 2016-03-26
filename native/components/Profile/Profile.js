@@ -1,6 +1,5 @@
 import React, { View, Text } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
-import ProfileSettingsList from './ProfileSettingsList.js';
 import NavBar from '../Shared/NavBar.js';
 import styles from '../../styles/Profile/profileStyles.js';
 
