@@ -17,22 +17,13 @@ import styles from '../../styles/Door/doorStyles.js';
 const LoadingWheel = require('../Shared/ComponentHelpers').LoadingWheel;
 
 const SetDoor = class SetDoor extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log('current user:', props.user);
-    this.state = {
-      defaultEvent: {
-        name: `${props.user.userName}'s party`,
-        hostUserId: props.user.id,
-        vibe: 'dino',
-        Users: [{ id: 1 }],
-        Groups: [],
-      },
-    };
-  }
-  goToSettings() { navTo(Profile); }
-
   render() {
+    const goToSettings = () => {
+      navToFull({
+        component: Profile,
+        user: this.props.user,
+      });
+    };
     const createEvent = (event) => {
       this.props.onEventSubmit(event);
       this.setState({ doorOpen: true });
@@ -42,12 +33,14 @@ const SetDoor = class SetDoor extends React.Component {
     };
     const toggleDoor = () => {
       if (!this.props.user.currentEvent) {
+        console.log('user going in:', this.props.user);
         navToFull({
           component: EditEvent,
           onSubmit: createEvent,
           event: {
             name: `${this.props.user.userName}'s party`,
-            vibe: 'jam',
+            vibe: this.props.user.defaultVibe,
+            location: this.props.user.defaultLocation,
             Users: [],
             Groups: [],
           },
@@ -70,7 +63,7 @@ const SetDoor = class SetDoor extends React.Component {
         <NavBar
           title={ 'My Door' }
           leftButton={ { title: '<', handler: this.props.swipeLeft } }
-          rightButton={ { title: 'Settings', handler: this.goToSettings }}
+          rightButton={ { title: 'Settings', handler: goToSettings }}
         />
         <View style={styles.container}>
           <TouchableOpacity onPress={toggleDoor}>

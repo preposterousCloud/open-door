@@ -39,6 +39,12 @@ class EditEvent extends React.Component {
     super(props);
     this.state = {
       onSubmit: props.route.onSubmit,
+      event: {
+        invitedFriends: [],
+        invitedGroups: [],
+        preSelectedFriends: [],
+        preSelectedGroups: [],
+      },
     };
   }
   componentDidMount() {
@@ -57,16 +63,8 @@ class EditEvent extends React.Component {
       })
       .then(() => this.forceUpdate());
     } else {
-      const event = this.props.route.event;
-      this.setState({
-        event: {
-          ...event,
-          invitedFriends: getInvited(event.Users),
-          invitedGroups: getInvited(event.Groups),
-          preSelectedFriends: getInvited(event.Users),
-          preSelectedGroups: getInvited(event.Groups),
-        }
-      });
+      const event = { ...this.state.event, ...this.props.route.event };
+      this.setState({ event });
     }
   }
   render() {
@@ -86,7 +84,7 @@ class EditEvent extends React.Component {
       }
     };
     const updateEventName = name => updateLocalEvent({ name });
-    const updateEventDetails = details => updateLocalEvent({ details });
+    const updateEventLocation = location => updateLocalEvent({ location });
     const changeVibe = vibe => updateLocalEvent({ vibe });
     const toggleInviteFriend = (friendId) => {
       const event = this.state.event;
@@ -119,7 +117,7 @@ class EditEvent extends React.Component {
           rightButton={{ title: 'Save', handler: submitEvent }}
         />
         <StyledTextInput onChangeText={updateEventName} placeholder={this.state.event.name} />
-        <StyledTextInput onChangeText={updateEventDetails} placeholder={this.state.event.description} />
+        <StyledTextInput onChangeText={updateEventLocation} placeholder={this.state.event.location} />
         <VibePicker changeVibe={changeVibe} initialVibe={this.state.event.vibe} />
         <TouchableOpacity onPress={navToFriends} style={socialStyles.categoryButton} >
           <Text>FRIENDS</Text>
