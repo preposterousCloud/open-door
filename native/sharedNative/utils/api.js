@@ -98,6 +98,16 @@ export const fetchAllUsers = (jwt) => {
   .catch(catchErr);
 };
 
+export const updateUser = (newUserInfo, jwt) => {
+  const url = `${config.apiUrl}users/me`;
+  return fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(newUserInfo),
+    headers: buildHeaders(jwt),
+  })
+  .then(validateBody);
+};
+
 export const postGroup = (groupName, members, jwt) => {
   const url = `${config.apiUrl}friends/groups`;
   const groupObj = JSON.stringify({

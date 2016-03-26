@@ -1,23 +1,18 @@
 import React, { View, Text } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
+import EditUser from './EditUser';
 import styles from '../../styles/Profile/profileStyles.js';
-
-const closeProfileSettings = () => {
-  store.getState().navigation.navigator.pop();
-};
+import { backButton, editButton } from '../Shared/Buttons';
+const actions = require('../../sharedNative/actions/actions');
 
 const Profile = (props) => {
-  console.log('props for profile:', props);
-  const leftNavButton = {
-    title: 'X',
-    handler: closeProfileSettings,
-  };
   return (
     <View>
     <NavBar
       title={ 'Profile' }
-      leftButton={leftNavButton}
+      leftButton={backButton}
+      rightButton={editButton(EditUser, props.route.user, actions.updateUser)}
     />
     <View>
       <View style={styles.listEntryView}>
