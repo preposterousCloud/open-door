@@ -88,8 +88,11 @@ module.exports.getUser = function getUser(req, res, next) {
 };
 
 module.exports.contactsInDb = function contactsInDb(req, res, next) {
-  console.log(req.body)
-  res.json(req.body);
+  const contacts = req.body.contacts;
+  db.User.findAll({ where: { phone: { $in: JSON.parse(contacts) } } })
+  .then(matchingContacts => {
+    res.json(matchingContacts);
+  });
 };
 
 module.exports.getUserFromJwt = function getUserFromJwt(req, res, next) {

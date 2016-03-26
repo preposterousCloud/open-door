@@ -1,11 +1,11 @@
 'use strict';
 
 const newUserTemps = [
-  { userName: 'vcipriani', pw: 'food', defaultLocation: '123 main st', defaultVibe: 'jam' },
-  { userName: 'user2', pw: 'u', defaultLocation: '123 user2 st', defaultVibe: 'jam' },
-  { userName: 'user3', pw: 'u', defaultLocation: '123 user3 st', defaultVibe: 'dino' },
-  { userName: 'user4', pw: 'u', defaultLocation: '123 user4 st', defaultVibe: 'kick' },
-  { userName: 'user5', pw: 'u', defaultLocation: '123 user5 st', defaultVibe: 'jam' },
+  { userName: 'vcipriani', pw: 'food', phone: '5556106679', defaultLocation: '123 main st', defaultVibe: 'jam' },
+  { userName: 'user2', pw: 'u', phone: '8885551212', defaultLocation: '123 user2 st', defaultVibe: 'jam' },
+  { userName: 'user3', pw: 'u', phone: '8885551000', defaultLocation: '123 user3 st', defaultVibe: 'dino' },
+  { userName: 'user4', pw: 'u', phone: '4155553695', defaultLocation: '123 user4 st', defaultVibe: 'kick' },
+  { userName: 'user5', pw: 'u', phone: '4155553695', defaultLocation: '123 user5 st', defaultVibe: 'jam' },
 ];
 
 const newGroupTemps = [{ name: 'HackReactor' }, { name: 'party squatd' }];
@@ -25,7 +25,7 @@ module.exports = (sequelizeInstance) => {
     return db.Sequelize.Promise.map(
       newUserTemps,
       user =>
-        db.User.createUser(user.userName, user.pw, user.defaultLocation, user.defaultVibe)
+        db.User.createUser(user.userName, user.pw, user.phone, user.defaultLocation, user.defaultVibe)
     );
   })
   // Create Groups
