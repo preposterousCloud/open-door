@@ -14,7 +14,6 @@ import socialStyles from '../../styles/Social/socialStyles.js';
 class EditUser extends React.Component {
   constructor(props) {
     super(props);
-    console.log('did we get the user?', props.route.user);
     const { userName, defaultLocation, defaultVibe } = props.route.user;
     this.state = {
       onSubmit: props.route.onSubmit,

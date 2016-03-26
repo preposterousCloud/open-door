@@ -11,7 +11,6 @@ class VibePicker extends React.Component {
     this.changePickerValue = this.changePickerValue.bind(this);
   }
   changePickerValue(vibe) {
-    console.log('what is vibe?', vibe);
     this.setState({ selectedVibe: vibe });
     this.props.changeVibe(vibe);
   }

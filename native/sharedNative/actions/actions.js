@@ -372,7 +372,6 @@ export function createEvent(event) {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;
     dispatch(setLoading(true));
-    console.log('creating event:', event);
     api.postEvent(event, jwt)
     .then((event) => {
       dispatch(setActiveEvent(event));

@@ -33,7 +33,6 @@ const SetDoor = class SetDoor extends React.Component {
     };
     const toggleDoor = () => {
       if (!this.props.user.currentEvent) {
-        console.log('user going in:', this.props.user);
         navToFull({
           component: EditEvent,
           onSubmit: createEvent,
@@ -51,7 +50,6 @@ const SetDoor = class SetDoor extends React.Component {
       }
     };
     const navToEditEvent = () => {
-      console.log('event format:', this.props.user.currentEvent);
       navToFull({
         component: EditEvent,
         event: this.props.user.currentEvent,
