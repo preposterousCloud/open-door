@@ -8,7 +8,6 @@ module.exports.loginUser = (req, res, next) => {
   .then((user) => {
     return user.checkPasswordAndIssueJwt(req.body.pw)
     .then((jwt) => {
-      console.log('jwt', jwt);
       if (jwt) {
         res.json({ jwt, user });
       }
