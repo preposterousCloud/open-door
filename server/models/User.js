@@ -85,9 +85,6 @@ module.exports = function User(sequelizeInstance) {
         return Auth.saltAndHash(pw)
         .then(hashedPw => this.rawCreate({ userName: userName, pw: hashedPw }));
       },
-       getEventsForUser: function getEvents(idArr) {
-          this.findAll({ where: { id: { $in: idArr } } });
-        },
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,
           include: [{ model: seq.models.Group },
