@@ -51,7 +51,7 @@ module.exports = function Event(sequelizeInstance) {
         getEvent: function getEvent(id) {
           return this.findOne({ where: { id: id }, include: includeOnEvents.include });
         },
-        getEvents: function getEvent(idArr) {
+        getEvents: function getEvents(idArr) {
           return this.findAll({ where: { id: { $in: idArr } }, include: includeOnEvents.include });
         },
         createEvent: function createEvent(eventObj) {
