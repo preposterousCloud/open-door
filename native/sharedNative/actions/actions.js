@@ -212,7 +212,6 @@ export function checkForJwtAndLogin() {
     .then((result) => {
       if (result) {
         dispatch(setJwt(result));
-        dispatch(appInit());
         getState().navigation.navigator.resetTo({ name: 'Main' });
       }
     });
@@ -237,7 +236,6 @@ export function updateEvent(eventObjToSet) {
     .then(event => {
       dispatch(setActiveEvent(event));
       dispatch(setLoading(false));
-      dispatch(refreshUser());
       // We should consider replacing the event in the full event list so
       // we don't have to refresh all of the events
     });
@@ -365,7 +363,7 @@ export function createEvent(event) {
     .then((event) => {
       dispatch(setActiveEvent(event));
       dispatch(setLoading(false));
-      dispatch(refreshUser());
+      dispatch(getUserEvents());
       return event;
     })
     .catch((err) => {
@@ -384,7 +382,7 @@ export function closeDoor() {
       .then((event) => {
         dispatch(setLoading(false));
         dispatch(setActiveEvent(null));
-        dispatch(refreshUser());
+        dispatch(getUserEvents());
       });
     }
   };
