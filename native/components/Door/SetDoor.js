@@ -23,7 +23,7 @@ const SetDoor = class SetDoor extends React.Component {
     console.log('current user:', props.user);
     this.state = {
       defaultEvent: {
-        name: 'Default Event Name',
+        name: `${props.user.userName}'s party`,
         hostUserId: props.user.id,
         vibe: 'dino',
         Users: [{ id: 1 }],
@@ -46,7 +46,12 @@ const SetDoor = class SetDoor extends React.Component {
         navToFull({
           component: EditEvent,
           onSubmit: createEvent,
-          event: this.state.defaultEvent,
+          event: {
+            name: `${this.props.user.userName}'s party`,
+            vibe: 'jam',
+            Users: [],
+            Groups: [],
+          },
         });
       } else {
         this.setState({ doorOpen: false });
