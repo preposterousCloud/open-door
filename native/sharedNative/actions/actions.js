@@ -227,7 +227,9 @@ export function updateUser(newUserInfo) {
     .then(user => {
       dispatch(setLoading(false));
       dispatch(refreshUser());
-    });
+      return true;
+    })
+    .catch(err => false);
   };
 }
 

@@ -1,16 +1,37 @@
-import React, { View, Text } from 'react-native';
+import React, { View, Text, Alert } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import EditUser from './EditUser';
 import styles from '../../styles/Profile/profileStyles.js';
 import { backButton, editButton } from '../Shared/Buttons';
+import { navToFull } from '../Shared/NavHelpers';
 const actions = require('../../sharedNative/actions/actions');
 
-const updateUser = (newUserInfo) => {
-  store.dispatch(actions.updateUser(newUserInfo));
-};
 
 const Profile = (props) => {
+  const updateUser = (newUserInfo) => {
+    store.dispatch(actions.updateUser(newUserInfo))
+    .then(userUpdated => {
+      if (!userUpdated) {
+        Alert.alert('Username Taken!', 'Try a different one?', [
+            { text: 'Cancel',
+            onPress: () => null,
+            style: 'cancel',
+          }, {
+            text: 'Edit',
+            onPress: () => {
+              navToFull({
+                component: EditUser,
+                user: props.route.user,
+                onSubmit: updateUser,
+              });
+            },
+            style: 'default',
+          },
+        ]);
+      }
+    });
+  };
   return (
     <View>
     <NavBar
