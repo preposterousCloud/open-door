@@ -29,42 +29,28 @@ module.exports.createUser = function createUser(req, res, next) {
         res.json(resObj);
       });
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
   }
 };
 
-module.exports.updateUser = function createUser(req, res) {
-  // if (!req.body.userName || !req.body.pw) {
-  //   res.status(404).send('Make sure to include a user name and appropriate properties');
-  // } else {
-  //   db.User.createUser(req.body.userName, req.body.pw)
-  //   .then((user) => {
-  //     const resObj = {
-  //       user: _mapUser(user),
-  //     };
-  //     Auth.issueJwtToken({ userId: user.id })
-  //     .then((token) => {
-  //       resObj.jwt = token;
-  //       res.json(resObj);
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //     res.status(500).send('Unknown server problem');
-  //   });
-  // }
+module.exports.updateUser = function createUser(req, res, next) {
+  if (!req.body.userName || !req.body.defaultVibe) {
+    res.status(404).send('Make sure to include a user name and appropriate properties');
+  } else {
+    db.User.findOne({ where: { id: req.jwt.userId } })
+    .then((user) => {
+      return user.update(req.body);
+    })
+    .catch(next);
+  }
 };
 
-module.exports.getUsers = function getUsers(req, res) {
+module.exports.getUsers = function getUsers(req, res, next) {
   db.User.findAll({
     include: { model: db.Group },
   })
   .then((users) => res.json(users.map(user => _mapUser(user))))
-  .catch((err) => {
-    next(err);
-  });
+  .catch(next);
 };
 
 module.exports.getUser = function getUser(req, res, next) {
