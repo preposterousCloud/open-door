@@ -2,8 +2,9 @@ import React, { Text, TouchableOpacity, View, Alert } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { Button } from '../Shared/Button';
-import { backButton, cancelButtonNav, cancelButton,
-  navToFull, popScene, getTruthies } from '../Shared/Misc';
+import { backButton, cancelButtonNav, cancelButton } from '../Shared/Buttons.js';
+import { navToFull, popScene } from '../Shared/NavHelpers.js';
+import { getTruthies } from '../Shared/HelperFunctions.js';
 import { GroupList, UserList } from '../Shared/StatefulSelectList';
 const actions = require('../../sharedNative/actions/actions');
 const api = require('../../sharedNative/utils/api.js');
@@ -43,7 +44,7 @@ class EditEvent extends React.Component {
   componentDidMount() {
     api.getEvent(this.props.route.event.id, store.getState().jwt)
     .then((event) => {
-      this.setState({
+      return this.setState({
         event: {
           ...event,
           invitedFriends: getInvited(event.Users),
@@ -52,7 +53,8 @@ class EditEvent extends React.Component {
           preSelectedGroups: getInvited(event.Groups),
         }
       });
-    });
+    })
+    .then(() => this.forceUpdate());
   }
   render() {
     const updateLocalEvent = (update) => {
@@ -97,14 +99,15 @@ class EditEvent extends React.Component {
       inviteFunc: toggleInviteGroup,
       preSelected: this.state.event.preSelectedGroups,
     });
-    return (
+
+    return this.state.event ? (
       <View>
         <NavBar title={'Edit Event'} leftButton={cancelButtonNav}
           rightButton={{ title: 'Save', handler: submitEvent }}
         />
-        <StyledTextInput onChangeText={updateEventName} placeholder={'Event Name'} />
-        <StyledTextInput onChangeText={updateEventDetails} placeholder={'Description (optional)'} />
-        <VibePicker changeVibe={changeVibe} initialVibe={'jam'} />
+        <StyledTextInput onChangeText={updateEventName} placeholder={this.state.event.name} />
+        <StyledTextInput onChangeText={updateEventDetails} placeholder={this.state.event.description} />
+        <VibePicker changeVibe={changeVibe} initialVibe={this.state.event.vibe} />
         <TouchableOpacity onPress={navToFriends} style={socialStyles.categoryButton} >
           <Text>FRIENDS</Text>
         </TouchableOpacity>
@@ -112,7 +115,7 @@ class EditEvent extends React.Component {
           <Text>GROUPS</Text>
         </TouchableOpacity>
       </View>
-    );
+    ) : null;
   }
 }
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
 const actions = require('../../../../sharedNative/actions/actions.js');
 
-import common from '../../../Shared/Misc.js';
+import common from '../../../Shared/ComponentHelpers.js';
 import styles from '../../../../styles/Social/socialStyles.js';
 import NavBar from '../../../Shared/NavBar.js';
 import CreateGroupName from './CreateGroupName.js';

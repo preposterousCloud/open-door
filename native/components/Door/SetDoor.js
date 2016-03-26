@@ -5,7 +5,7 @@ import React, {
   } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import actions from '../../sharedNative/actions/actions';
-import { navTo, navToFull } from '../Shared/Misc';
+import { navTo, navToFull } from '../Shared/NavHelpers.js';
 import NavBar from '../Shared/NavBar.js';
 import Profile from '../Profile/Profile.js';
 import EventSettings from './EventSettings';
@@ -15,13 +15,10 @@ import OpenDoor from '../Shared/OpenDoor';
 import ClosedDoor from '../Shared/ClosedDoor';
 import styles from '../../styles/Door/doorStyles.js';
 
-const LoadingWheel = require('../Shared/Misc').LoadingWheel;
+const LoadingWheel = require('../Shared/ComponentHelpers').LoadingWheel;
 
 const SetDoor = class SetDoor extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log('props for SetDoor:', props);
-  }
+
   goToSettings() { navTo(Profile); }
 
   render() {

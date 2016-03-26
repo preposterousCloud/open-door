@@ -11,12 +11,6 @@ import FeedList from './FeedList.js';
 import NavBar from '../Shared/NavBar.js';
 import SetDoor from '../Door/SetDoor.js';
 import Social from '../Social/Social.js';
-import {
-  exitButton,
-  enterButton,
-  makeClickableRow,
-  makeListContainer,
-} from '../Shared/Misc.js';
 import styles from '../../styles/Feed/feedStyles.js';
 
 class Feed extends React.Component {

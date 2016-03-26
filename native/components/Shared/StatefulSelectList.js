@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import * as actions from '../../sharedNative/actions/actions';
-import { arrayToDataSource } from '../Shared/Misc';
+import { arrayToDataSource } from '../Shared/HelperFunctions.js';
 import socialStyles from '../../styles/Social/socialStyles.js';
 import doorStyles from '../../styles/Door/doorStyles.js';
 

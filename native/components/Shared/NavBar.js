@@ -14,7 +14,7 @@ const NavBar = (props) => (
 );
 
 NavBar.propTypes = {
-  title: React.PropTypes.string.isRequired,
+  title: React.PropTypes.string,
   rightButton: React.PropTypes.object,
   leftButton: React.PropTypes.object,
 };
