@@ -26,32 +26,6 @@ LoadingWheel.propTypes = {
   isLoading: React.PropTypes.bool,
 };
 
-const exitButton = {
-  title: 'X',
-  handler: popScene,
-};
-
-const backButton = {
-  title: 'Back',
-  handler: popScene,
-};
-
-const cancelButtonNav = {
-  title: 'Cancel',
-  handler: popScene,
-};
-
-const enterButton = (component, focus) => ({
-  title: '+',
-  handler: navTo.bind(null, component, focus),
-});
-
-const cancelButton = {
-  text: 'Cancel',
-  onPress: () => console.log('Cancel Pressed'),
-  style: 'cancel',
-};
-
 const chooseRowStyle = (style) => {
   if (style === 'grey') {
     return [socialStyles.greyedOutListEntryView, socialStyles.greyedOutListEntryViewText];
@@ -160,17 +134,9 @@ const makeSelectableRow = (action, getChecklist) => {
 };
 
 module.exports = {
-  exitButton,
-  backButton,
-  cancelButtonNav,
-  navToFull,
-  navTo,
-  enterButton,
-  cancelButton,
   makeClickableRow,
   makeSelectableRow,
   UserList,
   makeListContainer,
   LoadingWheel,
-  popScene,
 };
