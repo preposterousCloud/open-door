@@ -41,6 +41,10 @@ module.exports.updateUser = function createUser(req, res, next) {
     .then((user) => {
       return user.update(req.body);
     })
+    .then((user) => {
+      console.log('updated the user?', user);
+      res.json(user);
+    })
     .catch(next);
   }
 };

@@ -223,10 +223,10 @@ export function updateUser(newUserInfo) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));
     const jwt = getState().app.jwt;
-    return api.updateEvent(newUserInfo, jwt)
+    return api.updateUser(newUserInfo, jwt)
     .then(user => {
-      dispatch(setUser(user));
       dispatch(setLoading(false));
+      dispatch(refreshUser());
     });
   };
 }
