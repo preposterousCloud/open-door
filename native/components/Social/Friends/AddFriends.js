@@ -46,6 +46,7 @@ const AddFriends = (props) => {
       filterId.indexOf(targetUser.id) < 0 && targetUser.userName.match(re)
     ));
     const alreadySent = state.pendingRequests.sent.map(user => user.id);
+    console.log(targetUsers)
     return {
       listComponent: UserList,
       rowComponent: makeClickableRow(alertRequestSent, 'userName', alreadySent, 'grey'),

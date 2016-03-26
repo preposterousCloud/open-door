@@ -45,6 +45,7 @@ const compareHashAndVal = (value, hash) => {
  * @param (Object)
  */
 const issueJwtToken = (claims) => {
+  console.log('>>>>>>', claims)
   return new Promise((resolve, reject) => {
     jwt.sign(claims, secret, { algorithm: 'HS256' }, (token) => {
       resolve(token);

@@ -8,6 +8,7 @@ const _mapUser = (user) => {
   return {
     id: user.id,
     userName: user.userName,
+    phone: user.phone,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
     Groups: user.Groups,

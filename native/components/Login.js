@@ -54,14 +54,10 @@ const Login = class Login extends React.Component {
   navigateToLoggedInApp() {
     navToFull({ name: 'Main' });
   }
-  sanitizePhoneInput() {
-    const sanitized = this.state.phone.replace(/\D/igm, '');
-    console.log(sanitized)
-    return sanitized;
-  }
   loginToApp() {
-    this.setState({ phone: this.sanitizePhoneInput() });
-	store.dispatch(attemptLogin(this.state.userName, this.state.password))
+	const sanitizedPhone = this.state.phone.replace(/\D/igm, '');
+    this.setState({ phone: sanitizedPhone });
+    console.log(this.state.userName)
     .then(res => {
       console.log('res', res);
       if (res.err) {
@@ -81,8 +77,9 @@ const Login = class Login extends React.Component {
     });
   }
   signupUser() {
-    this.setState(this.sanitizePhoneInput());
-    store.dispatch(createUser(this.state.phone, this.state.userName, this.state.password))
+    const sanitizedPhone = this.state.phone.replace(/\D/igm, '');
+    this.setState({ phone: sanitizedPhone });
+    store.dispatch(createUser(this.state.userName, this.state.password, this.state.phone))
     .then(this.navigateToLoggedInApp)
     .catch((err) => {
       console.warn(err);

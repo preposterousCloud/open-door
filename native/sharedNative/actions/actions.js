@@ -2,6 +2,7 @@ const a = require('../ActionTypes');
 import * as api from '../utils/api';
 
 const localStore = require('react-native-simple-store');
+const Contacts = require('react-native-contacts');
 
 const catchErr = (err) => {
   console.error(err);
@@ -158,13 +159,24 @@ export function sortPendingFriendRequests(user) {
     return dispatch(setPendingFriendRequests(sortedReqs));
   };
 }
+
+export function getAllContacts(cb) {
+  return Contacts.getAll((err, contacts) => {
+    if (err && err.type === 'permissionDenied') {
+      console.error('Nope!');
+    } else {
+      console.log('Yup!');
+      cb(contacts);
+    }
+  });
+}
 /** *****************************************************
  * Async Thunk Action Creators
  * ************************************************** */
-export function createUser(userName, pw) {
+export function createUser(userName, pw, phone) {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;
-    return api.postUser(userName, pw, jwt)
+    return api.postUser(userName, pw, phone, jwt)
     .then(response => {
       dispatch(setJwt(response.jwt));
       dispatch(setUser(response.user));
@@ -189,10 +201,10 @@ export function logout() {
   };
 }
 
-export function attemptLogin(userName, pw) {
+export function attemptLogin(userName, pw, phone) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));
-    return api.loginUser(userName, pw)
+    return api.loginUser(userName, pw, phone)
     .then(response => {
       console.log('res', response);
       dispatch(setLoading(false));
@@ -269,10 +281,21 @@ export function getAllUsers() {
     return api.fetchAllUsers(jwt)
     .then(users => {
       if (users) {
-        dispatch(setAllUsers(users));
         return users;
       }
       return false;
+    })
+    .then(users => {
+      const importContacts = getAllContacts(addressBook => {
+        const usersAndContacts = addressBook.map(contact => {
+          return {
+            userName: `${contact.givenName} ${contact.familyName}`,
+            id: Math.floor(Math.random() * 1337),
+          };
+        }).concat(users);
+        console.log('>>>>>>>>>>>>', usersAndContacts)
+        dispatch(setAllUsers(usersAndContacts));
+      });
     });
   };
 }

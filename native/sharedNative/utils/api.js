@@ -45,11 +45,12 @@ const buildHeaders = (jwt) => {
 };
 
 // HTTP methods
-export const loginUser = (userName, pw, jwt) => {
+export const loginUser = (userName, pw, phone, jwt) => {
   const url = `${config.apiUrl}login`;
   const body = {
     userName,
     pw,
+    phone,
   };
   return fetch(url, {
     method: 'POST',
@@ -178,13 +179,13 @@ export const getUserByJwt = (jwt) => {
   .catch(catchErr);
 };
 
-export const postUser = (userName, pw, jwt) => {
+export const postUser = (userName, pw, phone, jwt) => {
   // To refactor fully, need to create new thunk action
   // that calls postUser and .then(user => dispatch(setUser(user.userName)))
   const url = `${config.apiUrl}users`;
   return fetch(url, {
     method: 'POST',
-    body: JSON.stringify({ userName, pw }),
+    body: JSON.stringify({ userName, pw, phone }),
     headers: buildHeaders(),
   })
   .then(validateBody)
