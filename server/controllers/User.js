@@ -42,17 +42,12 @@ module.exports.updateUser = function createUser(req, res, next) {
       db.User.findOne({ where: { userName: req.body.userName } })
       .then(conflictingUser => {
         if (conflictingUser) {
-          return null;
+          return next(new HttpError(409, 'Username already taken'));
         }
-        return user.update(req.body);
+        user.update(req.body);
+        res.json({ message: 'user updated' });
+        return user;
       });
-    })
-    .then((user) => {
-      if (!user) {
-        return next(new HttpError(409, 'Username already taken'));
-      }
-      res.json({ message: 'user updated' });
-      return user;
     })
     .catch(next);
   }
