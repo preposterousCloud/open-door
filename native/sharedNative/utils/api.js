@@ -21,6 +21,7 @@ HttpError.prototype.constructor = HttpError;
  */
 const validateBody = res => {
   if (statusOK(res)) {
+    console.log(JSON.parse(res._bodyInit));
     return JSON.parse(res._bodyInit);
   }
   const errorMessage = `Error processing request: Message: ${res._bodyText}
@@ -128,6 +129,20 @@ export const updateUser = (newUserInfo, jwt) => {
     return body;
   })
   .then(validateBody);
+};
+
+export const usersExistByContact = (contacts, jwt) => {
+  const url = `${config.apiUrl}users/addressbook`;
+  const contactsObj = JSON.stringify({
+    contacts: JSON.stringify(contacts),
+  });
+  return fetch(url, {
+    method: 'POST',
+    body: contactsObj,
+    headers: buildHeaders(jwt),
+  })
+  .then(validateBody)
+  .catch(catchErr);
 };
 
 export const postGroup = (groupName, members, jwt) => {
