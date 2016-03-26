@@ -39,10 +39,20 @@ module.exports.updateUser = function createUser(req, res, next) {
   } else {
     db.User.findOne({ where: { id: req.jwt.userId } })
     .then((user) => {
-      return user.update(req.body);
+      db.User.findOne({ where: { userName: req.body.userName } })
+      .then(conflictingUser => {
+        if (conflictingUser) {
+          return null;
+        }
+        return user.update(req.body);
+      });
     })
     .then((user) => {
+      if (!user) {
+        return next(new HttpError(409, 'Username already taken'));
+      }
       res.json({ message: 'user updated' });
+      return user;
     })
     .catch(next);
   }
