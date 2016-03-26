@@ -18,7 +18,19 @@ import styles from '../../styles/Door/doorStyles.js';
 const LoadingWheel = require('../Shared/ComponentHelpers').LoadingWheel;
 
 const SetDoor = class SetDoor extends React.Component {
-
+  constructor(props) {
+    super(props);
+    console.log('current user:', props.user);
+    this.state = {
+      defaultEvent: {
+        name: 'Default Event Name',
+        hostUserId: props.user.id,
+        vibe: 'dino',
+        Users: [{ id: 1 }],
+        Groups: [],
+      },
+    };
+  }
   goToSettings() { navTo(Profile); }
 
   render() {
@@ -32,8 +44,9 @@ const SetDoor = class SetDoor extends React.Component {
     const toggleDoor = () => {
       if (!this.props.user.currentEvent) {
         navToFull({
-          component: EventSettings,
+          component: EditEvent,
           onSubmit: createEvent,
+          event: this.state.defaultEvent,
         });
       } else {
         this.setState({ doorOpen: false });
@@ -41,6 +54,7 @@ const SetDoor = class SetDoor extends React.Component {
       }
     };
     const navToEditEvent = () => {
+      console.log('event format:', this.props.user.currentEvent);
       navToFull({
         component: EditEvent,
         event: this.props.user.currentEvent,

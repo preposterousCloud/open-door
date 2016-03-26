@@ -42,9 +42,23 @@ class EditEvent extends React.Component {
     };
   }
   componentDidMount() {
-    api.getEvent(this.props.route.event.id, store.getState().jwt)
-    .then((event) => {
-      return this.setState({
+    if (this.props.route.event.id) {
+      api.getEvent(this.props.route.event.id, store.getState().jwt)
+      .then((event) => {
+        return this.setState({
+          event: {
+            ...event,
+            invitedFriends: getInvited(event.Users),
+            invitedGroups: getInvited(event.Groups),
+            preSelectedFriends: getInvited(event.Users),
+            preSelectedGroups: getInvited(event.Groups),
+          }
+        });
+      })
+      .then(() => this.forceUpdate());
+    } else {
+      const event = this.props.route.event;
+      this.setState({
         event: {
           ...event,
           invitedFriends: getInvited(event.Users),
@@ -53,8 +67,7 @@ class EditEvent extends React.Component {
           preSelectedGroups: getInvited(event.Groups),
         }
       });
-    })
-    .then(() => this.forceUpdate());
+    }
   }
   render() {
     const updateLocalEvent = (update) => {
