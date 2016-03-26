@@ -109,8 +109,7 @@ module.exports.addFriendship = function addFriendship(req, res, next) {
     res.status(200).send('Friendship already existed');
   })
   .catch(err => {
-    console.error('Error creating friendship: ', err);
-    res.status(500).send('Unknown server error');
+    next(err);
   });
 };
 
