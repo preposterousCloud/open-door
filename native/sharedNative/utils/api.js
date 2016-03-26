@@ -99,11 +99,16 @@ export const fetchAllUsers = (jwt) => {
 };
 
 export const updateUser = (newUserInfo, jwt) => {
+  console.log('got to api updateUser with newUserInfo:', newUserInfo);
   const url = `${config.apiUrl}users/me`;
   return fetch(url, {
     method: 'PUT',
     body: JSON.stringify(newUserInfo),
     headers: buildHeaders(jwt),
+  })
+  .then((body) => {
+    console.log('got back body:', body);
+    return body;
   })
   .then(validateBody);
 };

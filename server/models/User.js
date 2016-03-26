@@ -18,7 +18,7 @@ module.exports = function User(sequelizeInstance) {
     pw: { type: Sequelize.STRING, allowNull: false },
     phone: Sequelize.STRING,
     defaultLocation: Sequelize.STRING,
-    defaultVibe: Sequelize.STRING,
+    defaultVibe: { type: Sequelize.STRING, defaultValue: 'jam' },
   }, {
     defaultScope: {
       attributes: { exclude: ['pw'] },
