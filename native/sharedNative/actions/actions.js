@@ -39,6 +39,19 @@ export function setUser(obj) {
   };
 }
 
+export function clearUser() {
+  return {
+    type: a.CLEAR_USER,
+  };
+}
+
+export function setUserEvents(obj) {
+  return {
+    type: a.SET_USER_EVENTS,
+    data: obj,
+  };
+}
+
 export function setJwt(jwt) {
   return {
     type: a.SET_JWT,
@@ -170,6 +183,7 @@ export function logout() {
   return (dispatch, getState) => {
     return dispatch(setInLocalStorage('jwt', null))
     .then(() => {
+      dispatch(clearUser());
       getState().navigation.navigator.resetTo({ name: 'Login' });
     });
   };
@@ -205,9 +219,19 @@ export function checkForJwtAndLogin() {
   };
 }
 
+export function getUserEvents() {
+  return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
+    api.getUserEvents(jwt)
+    .then((events) => {
+      dispatch(setUserEvents(events));
+    });
+  };
+}
 export function updateEvent(eventObjToSet) {
   return (dispatch, getState) => {
-    return api.updateEvent(eventObjToSet)
+    const jwt = getState().app.jwt;
+    return api.updateEvent(eventObjToSet, jwt)
     .then(event => {
       dispatch(setActiveEvent(event));
       // We should consider replacing the event in the full event list so
@@ -218,6 +242,7 @@ export function updateEvent(eventObjToSet) {
 export function appInit() {
   return (dispatch, getState) => {
     dispatch(refreshUser());
+    dispatch(getUserEvents());
   };
 }
 

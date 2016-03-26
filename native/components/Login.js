@@ -33,15 +33,10 @@ const Login = class Login extends React.Component {
     store.dispatch(actions.checkForJwtAndLogin());
   }
   alertUserNotFound() {
-    Alert.alert(`${this.state.userName}`, 'not found', [
+    Alert.alert('Invalid Credentials', '', [
       {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      { text: 'Create',
-        onPress: () => store.dispatch(createUser(this.state.userName, this.password))
-        .then(user => user && this.navigateToLoggedInApp()),
+        text: 'Ok',
+        onPress: () => console.log('OK Pressed'),
         style: 'default',
       },
     ]);

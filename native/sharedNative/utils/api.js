@@ -50,6 +50,15 @@ export const getEvent = (eventId, jwt) => {
   .then(validateBody);
 };
 
+export const getUserEvents = (jwt) => {
+  const url = `${config.apiUrl}events/me`;
+  return fetch(url, {
+    method: 'GET',
+    headers: buildHeaders(jwt),
+  })
+  .then(validateBody);
+};
+
 export const postEvent = (event, jwt) => {
   const url = `${config.apiUrl}events`;
   return fetch(url, {

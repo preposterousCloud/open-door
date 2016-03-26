@@ -52,7 +52,7 @@ module.exports = function Event(sequelizeInstance) {
           return this.findOne({ where: { id: id }, include: includeOnEvents.include });
         },
         getEvents: function getEvents(idArr) {
-          this.findAll({ where: { id: { $in: idArr } } });
+          return this.findAll({ where: { id: { $in: idArr } }, include: includeOnEvents.include });
         },
         createEvent: function createEvent(eventObj) {
           // TODO - check and make sure session user is equal to the hostUserId in the request
@@ -101,18 +101,26 @@ module.exports = function Event(sequelizeInstance) {
               as: 'hostUser',
             }],
             where: { endDateUtc: null },
+          })
+          .then(events => {
+            // The events don't include the invited users and its Sequelize can't do it in one pass
+            // so we refetch the data w/ appropriate fields
+            return this.getEvents(events.map(e => e.id));
           });
 
           const groupInvites = this.findAll({
-            include: [{
-              model: seq.models.Group,
-              where: {
-                id: { $in: user.Groups.map(group => group.id) },
-              },
-            }, {
-              model: seq.models.User,
-              as: 'hostUser',
-            }],
+            include: [
+              {
+                model: seq.models.Group,
+                where: {
+                  id: { $in: user.Groups.map(group => group.id) },
+                },
+              }, {
+                model: seq.models.User,
+                as: 'hostUser',
+              }, {
+                model: seq.models.User,
+              }],
             where: { endDateUtc: null },
           });
 
@@ -120,6 +128,10 @@ module.exports = function Event(sequelizeInstance) {
             include: [{
               model: seq.models.User,
               as: 'hostUser',
+            }, {
+              model: seq.models.User,
+            }, {
+              model: seq.models.Group,
             }],
             where: { hostUserId: user.id, endDateUtc: null },
           });

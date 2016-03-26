@@ -18,6 +18,9 @@ module.exports = function User(sequelizeInstance) {
     pw: { type: Sequelize.STRING, allowNull: false },
     phone: Sequelize.STRING,
   }, {
+    defaultScope: {
+      attributes: { exclude: ['pw'] },
+    },
     instanceMethods: {
       /**
        * Async method that returns a JWT or throws error if invalid
@@ -95,10 +98,9 @@ module.exports = function User(sequelizeInstance) {
           if (!user) { throw new Error('User not found'); }
           const getEvents = seq.models.Event.getEventsForUser(user);
           const eventQuery = {
-            include: [{
-              model: seq.models.User,
-              as: 'hostUser',
-            }],
+            include: [{ model: seq.models.Group },
+             { model: seq.models.User, as: 'hostUser' },
+             { model: seq.models.User }],
             where: {
               hostUserId: user.id,
               endDateUtc: null,

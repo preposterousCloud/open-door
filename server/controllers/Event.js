@@ -71,9 +71,10 @@ module.exports.updateEvent = function updateEvent(req, res) {
 };
 
 module.exports.getEvents = function getUsers(req, res) {
-  db.Event.findAll({
-  })
-  .then((events) => res.json(events.map(event => _mapEvent(event))))
+  const userId = req.jwt.userId;
+  db.User.getUser({ id: userId })
+  .then((user) => db.Event.getEventsForUser(user))
+  .then((events) => res.json(events))
   .catch((err) => {
     console.error(err);
     res.status(500).send('Unknown server problem');
