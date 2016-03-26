@@ -20,9 +20,7 @@ const LoadingWheel = require('../Shared/Misc').LoadingWheel;
 const SetDoor = class SetDoor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      doorOpen: !!props.user.currentEvent,
-    };
+    console.log('props for SetDoor:', props);
   }
   goToSettings() { navTo(Profile); }
 
@@ -61,7 +59,7 @@ const SetDoor = class SetDoor extends React.Component {
         />
         <View style={styles.container}>
           <TouchableOpacity onPress={toggleDoor}>
-            {(() => (this.props.user.currentEvent) ?
+            {(() => (this.props.currentEvent) ?
               <OpenDoor styles={{ size: 100, color: 'green' }} /> :
               <ClosedDoor styles={{ size: 100, color: 'red' }} />
             )()}
@@ -72,10 +70,10 @@ const SetDoor = class SetDoor extends React.Component {
             <Text>You aren't invited to any events</Text> :
             <Text>You're invited to {this.props.user.Events.length} events</Text>
           )()}
-          {(() => (!this.props.user.currentEvent) ?
+          {(() => (!this.props.currentEvent) ?
             <Text>You aren't hosting an event right now</Text> :
             (<View>
-              <EventDetail imageShowing event={this.props.user.currentEvent} />
+              <EventDetail imageShowing event={this.props.currentEvent} />
               <TouchableOpacity onPress={navToEditEvent} >
                 <Text>Edit Event</Text>
               </TouchableOpacity>
@@ -90,6 +88,7 @@ const SetDoor = class SetDoor extends React.Component {
 SetDoor.propTypes = {
   swipeLeft: React.PropTypes.func.isRequired,
   user: React.PropTypes.object.isRequired,
+  currentEvent: React.PropTypes.object,
   closeDoor: React.PropTypes.func.isRequired,
   app: React.PropTypes.object.isRequired,
   onEventSubmit: React.PropTypes.func.isRequired,
