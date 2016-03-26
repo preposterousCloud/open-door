@@ -32,8 +32,17 @@ const Login = class Login extends React.Component {
     });
     store.dispatch(actions.checkForJwtAndLogin());
   }
-  alertUserNotFound() {
+  AlertInvalidCredentials() {
     Alert.alert('Invalid Credentials', '', [
+      {
+        text: 'Ok',
+        onPress: () => console.log('OK Pressed'),
+        style: 'default',
+      },
+    ]);
+  }
+  AlertServerError() {
+    Alert.alert('Unknown Server Error', 'Try again later.', [
       {
         text: 'Ok',
         onPress: () => console.log('OK Pressed'),
@@ -46,17 +55,22 @@ const Login = class Login extends React.Component {
   }
   loginToApp() {
     store.dispatch(attemptLogin(this.state.userName, this.state.password))
-    .then(userFound => {
-      if (userFound) {
+    .then(res => {
+      console.log('res', res);
+      if (res.err) {
+        switch (res.err.status) {
+          case 401: {
+            this.AlertInvalidCredentials();
+            break;
+          }
+          default:
+            this.AlertServerError();
+            break;
+        }
+      } else {
         // Set JWT to state
         this.navigateToLoggedInApp();
-      } else {
-        this.alertUserNotFound();
       }
-    })
-    .catch((err) => {
-      console.warn(err);
-      this.alertUserNotFound();
     });
   }
   signupUser() {

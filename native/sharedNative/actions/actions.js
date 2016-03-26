@@ -194,15 +194,16 @@ export function attemptLogin(userName, pw) {
     dispatch(setLoading(true));
     return api.loginUser(userName, pw)
     .then(response => {
-      if (response) {
-        console.log('res', response);
-        dispatch(setLoading(false));
-        dispatch(setJwt(response.jwt));
-        dispatch(setUser(response.user));
-        dispatch(setInLocalStorage('jwt', response.jwt));
-        return true;
-      }
-      return false;
+      console.log('res', response);
+      dispatch(setLoading(false));
+      dispatch(setJwt(response.jwt));
+      dispatch(setUser(response.user));
+      dispatch(setInLocalStorage('jwt', response.jwt));
+      return response;
+    })
+    .catch(err => {
+      // We eat the actual error and return it as a normal object;
+      return { err };
     });
   };
 }
@@ -212,7 +213,6 @@ export function checkForJwtAndLogin() {
     .then((result) => {
       if (result) {
         dispatch(setJwt(result));
-        dispatch(appInit());
         getState().navigation.navigator.resetTo({ name: 'Main' });
       }
     });
@@ -237,7 +237,6 @@ export function updateEvent(eventObjToSet) {
     .then(event => {
       dispatch(setActiveEvent(event));
       dispatch(setLoading(false));
-      dispatch(refreshUser());
       // We should consider replacing the event in the full event list so
       // we don't have to refresh all of the events
     });
@@ -365,7 +364,7 @@ export function createEvent(event) {
     .then((event) => {
       dispatch(setActiveEvent(event));
       dispatch(setLoading(false));
-      dispatch(refreshUser());
+      dispatch(getUserEvents());
       return event;
     })
     .catch((err) => {
@@ -384,7 +383,7 @@ export function closeDoor() {
       .then((event) => {
         dispatch(setLoading(false));
         dispatch(setActiveEvent(null));
-        dispatch(refreshUser());
+        dispatch(getUserEvents());
       });
     }
   };
