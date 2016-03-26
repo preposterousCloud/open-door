@@ -16,11 +16,7 @@ module.exports = function Event(sequelizeInstance) {
       vibe: Sequelize.STRING,
       startDateUtc: Sequelize.DATE,
       endDateUtc: Sequelize.DATE,
-      addressStreet1: Sequelize.STRING,
-      addressStreet2: Sequelize.STRING,
-      city: Sequelize.STRING,
-      stateAbbrev: Sequelize.STRING,
-      postalCode: Sequelize.STRING,
+      location: Sequelize.STRING,
     },
     {
       instanceMethods: {
@@ -68,7 +64,7 @@ module.exports = function Event(sequelizeInstance) {
           });
         },
         makeEventTemplate: function makeEventTemplate(hostUser, name, vibe, startDateUtc, endDateUtc
-        , addressStreet1, addressStreet2, city, stateAbbrev, postalCode, users, groups) {
+        , location, users, groups) {
           users = users || [];
           groups = groups || [];
           return {
@@ -78,11 +74,7 @@ module.exports = function Event(sequelizeInstance) {
             vibe,
             startDateUtc,
             endDateUtc,
-            addressStreet1,
-            addressStreet2,
-            city,
-            stateAbbrev,
-            postalCode,
+            location,
             users,
             groups,
           };

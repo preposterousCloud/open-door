@@ -24,8 +24,8 @@ module.exports = (app) => {
 
   // Events
   //  DISABLED - USERS SHOULD NOT HAVE ACCESS app.get('/api/events', Event.getEvents);
-  app.post('/api/events', [Auth.ensureUserIsUser('hostUserId'), Event.createEvent]);
   app.get('/api/events/me', [Auth.ensureUserHasValidJwt, Event.getEvents]);
+  app.post('/api/events/me', [Auth.ensureUserHasValidJwt, Event.createEvent]);
   app.get('/api/events/:id', [Event.getEvent]);
   app.put('/api/events/:id', [Event.ensureUserOwnsEvents, Event.updateEvent]);
   app.post('/api/events/:id/:action', [Event.ensureUserOwnsEvents, Event.actionReducer]);
