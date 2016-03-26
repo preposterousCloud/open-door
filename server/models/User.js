@@ -98,7 +98,6 @@ module.exports = function User(sequelizeInstance) {
         })
         .then((user) => {
           if (!user) { throw new Error('User not found'); }
-          const getEvents = seq.models.Event.getEventsForUser(user);
           const eventQuery = {
             include: [{ model: seq.models.Group },
              { model: seq.models.User, as: 'hostUser' },
@@ -118,8 +117,7 @@ module.exports = function User(sequelizeInstance) {
             }
             return events[0];
           });
-          return Promise.all([getEvents, getCurrentEvent]).then((proms) => {
-            user.dataValues.Events = proms[0];
+          return Promise.all([getCurrentEvent]).then((proms) => {
             user.dataValues.currentEvent = proms[1];
             user.dataValues.friends = user.dataValues.friend.map((friend) => {
               return { id: friend.id, userName: friend.userName };
@@ -133,7 +131,6 @@ module.exports = function User(sequelizeInstance) {
             });
             user.dataValues.Groups = user.dataValues.Groups || [];
             delete user.dataValues.friend;
-            delete user.dataValues.pw;
             delete user.dataValues.request;
             return user;
           });
