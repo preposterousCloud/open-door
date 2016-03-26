@@ -294,10 +294,9 @@ export function getAllUsers() {
     const importContacts = getAllContacts(addressBook => {
       const usersAndContacts = addressBook.forEach(contact => {
         contact.phoneNumbers.forEach((phone) => {
-          contactNumbers.push(phone.number.replace(/\D/igm, '').replace(/1(?=\d{9})/igm, ''));
+          contactNumbers.push(phone.number.replace(/\D|1(?=\d{9})/igm, '').replace(/1(?=\d{9})/igm, ''));
         });
       });
-      console.log(contactNumbers);
       return api.usersExistByContact(contactNumbers, getState().app.jwt)
       .then(matchingContacts => {
         console.log('>>>>>>>>>>>>', matchingContacts);
