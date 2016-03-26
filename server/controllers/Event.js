@@ -34,7 +34,7 @@ module.exports.createEvent = function createUser(req, res) {
   } else {
     console.log(req.body);
     db.Event.createEvent({
-      hostUserId: req.body.hostUserId,
+      hostUserId: req.jwt.userId,
       hostUserName: req.body.hostUserName,
       name: req.body.name,
       vibe: req.body.vibe,
