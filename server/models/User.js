@@ -85,6 +85,9 @@ module.exports = function User(sequelizeInstance) {
         return Auth.saltAndHash(pw)
         .then(hashedPw => this.rawCreate({ userName: userName, pw: hashedPw }));
       },
+       getEventsForUser: function getEvents(idArr) {
+          this.findAll({ where: { id: { $in: idArr } } });
+        },
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,
           include: [{ model: seq.models.Group },
@@ -95,10 +98,9 @@ module.exports = function User(sequelizeInstance) {
           if (!user) { throw new Error('User not found'); }
           const getEvents = seq.models.Event.getEventsForUser(user);
           const eventQuery = {
-            include: [{
-              model: seq.models.User,
-              as: 'hostUser',
-            }],
+            include: [{ model: seq.models.Group },
+             { model: seq.models.User, as: 'hostUser' },
+             { model: seq.models.User }],
             where: {
               hostUserId: user.id,
               endDateUtc: null,
