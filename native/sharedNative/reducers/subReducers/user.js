@@ -8,6 +8,9 @@ function user(state = { userName: '', Events: [] }, action) {
     case 'CLEAR_USER': {
       return {};
     }
+    case 'SET_USER_EVENTS': {
+      return Object.assign({}, state, { Events: action.data });
+    }
     case 'SET_ACTIVE_EVENT':
       return Object.assign({}, state, { currentEvent: action.data });
     default:

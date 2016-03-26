@@ -2,7 +2,8 @@ const db = require('../db/database').db;
 const Auth = require('./Auth');
 
 module.exports.loginUser = (req, res) => {
-  db.User.findOne({ where: { userName: req.body.userName } })
+  db.User.findOne({ where: { userName: req.body.userName },
+    attributes: {include: ['pw'] } })
   .then((user) => {
     return user.checkPasswordAndIssueJwt(req.body.pw)
     .then((jwt) => {
