@@ -5,7 +5,7 @@ import NavBar from '../../Shared/NavBar.js';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import AddFriends from './AddFriends.js';
 import { confirmFriend, rejectFriend } from '../../../sharedNative/actions/actions.js';
-import { makeClickableRow, makeListContainer } from '../../Shared/Misc.js';
+import { makeClickableRow, makeListContainer } from '../../Shared/ComponentHelpers.js';
 import { exitButton, enterButton } from '../../Shared/Buttons.js';
 import styles from '../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../styles/Feed/feedStyles.js';

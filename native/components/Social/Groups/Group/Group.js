@@ -6,7 +6,7 @@ import NavBar from '../../../Shared/NavBar.js';
 import styles from '../../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../../styles/Feed/feedStyles.js';
 import AddMembers from './AddMembers.js';
-import { makeClickableRow, makeListContainer, UserList } from '../../../Shared/Misc.js';
+import { makeClickableRow, makeListContainer, UserList } from '../../../Shared/ComponentHelpers.js';
 import { exitButton, enterButton } from '../../../Shared/Buttons.js';
 
 const currentGroup = (members) => {

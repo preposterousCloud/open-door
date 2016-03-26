@@ -1,22 +1,12 @@
-import React, {
-  Image,
-  ListView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, { Image, ListView, Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { store } from '../../sharedNative/reducers/reducers.js';
-import { refreshUser, getAllUsers } from '../../sharedNative/actions/actions.js';
+import { refreshUser } from '../../sharedNative/actions/actions.js';
 import { arrayToDataSource } from './HelperFunctions.js';
-import { popScene, navTo, navToFull } from './NavHelpers.js';
 import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
 
-const defaultStyles = StyleSheet.create({ image: { height: 40, width: 40 } });
-
 const LoadingWheel = (props) => {
-  const style = props.style || defaultStyles.image;
+  const style = props.style || { height: 40, width: 40 };
   return props.isLoading ?
     <Image style={ props.style } source={require('../../sharedNative/images/loading.gif')} /> :
     <View />;

@@ -5,7 +5,7 @@ import NavBar from '../../../Shared/NavBar.js';
 import styles from '../../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../../styles/Feed/feedStyles.js';
 import { getAllUsers } from '../../../../sharedNative/actions/actions.js';
-import { makeClickableRow, UserList } from '../../../Shared/Misc.js';
+import { makeClickableRow, UserList } from '../../../Shared/ComponentHelpers.js';
 import { exitButton, cancelButton } from '../../../Shared/Buttons.js';
 
 const AddMembers = (props) => {

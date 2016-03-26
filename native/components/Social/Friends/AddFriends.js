@@ -5,7 +5,7 @@ import NavBar from '../../Shared/NavBar.js';
 import FilterTextInput from '../../Shared/FilterTextInput.js';
 import feedStyles from '../../../styles/Feed/feedStyles.js';
 import { requestFriend } from '../../../sharedNative/actions/actions.js';
-import { makeClickableRow, UserList } from '../../Shared/Misc.js';
+import { makeClickableRow, UserList } from '../../Shared/ComponentHelpers.js';
 import { exitButton, cancelButton } from '../../Shared/Buttons.js';
 import { getAllUsersArray } from '../../Shared/HelperFunctions.js';
 import styles from '../../../styles/Social/socialStyles.js';
