@@ -18,10 +18,7 @@ import styles from '../../styles/Door/doorStyles.js';
 const LoadingWheel = require('../Shared/Misc').LoadingWheel;
 
 const SetDoor = class SetDoor extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log('props for SetDoor:', props);
-  }
+
   goToSettings() { navTo(Profile); }
 
   render() {
