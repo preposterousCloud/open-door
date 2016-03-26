@@ -18,6 +18,9 @@ module.exports = function User(sequelizeInstance) {
     pw: { type: Sequelize.STRING, allowNull: false },
     phone: Sequelize.STRING,
   }, {
+    defaultScope: {
+      attributes: { exclude: ['pw'] },
+    },
     instanceMethods: {
       /**
        * Async method that returns a JWT or throws error if invalid
