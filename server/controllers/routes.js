@@ -18,6 +18,7 @@ module.exports = (app) => {
 
   // User Profiles
   app.get('/api/users/me', Auth.ensureUserHasValidJwt, User.getUserFromJwt);
+  app.put('/api/users/me', Auth.ensureUserHasValidJwt, User.updateUser);
   app.get('/api/users/', [Auth.ensureUserHasValidJwt, User.getUsers]);
   app.post('/api/users/', User.createUser);
   app.get('/api/users/:arg', User.getUser);
