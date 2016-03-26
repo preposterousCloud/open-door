@@ -2,6 +2,7 @@
 
 const Sequelize = require('sequelize');
 const db = require('../db/database').db;
+const HttpError = require('./Errors').HttpError;
 
 const _mapGroup = (group) => {
   return {
@@ -15,9 +16,9 @@ const _mapGroup = (group) => {
   };
 };
 
-module.exports.createGroup = (req, res) => {
+module.exports.createGroup = (req, res, next) => {
   if (!req.body.groupName || !req.body.members) {
-    res.status(404).send('Make sure to include a user name and appropriate properties');
+    next(new HttpError(404, 'Make sure to include groupName, members and other props'));
   } else {
     db.Group.create({ name: req.body.groupName })
     .then((group) => {
@@ -28,13 +29,12 @@ module.exports.createGroup = (req, res) => {
       });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).send('Unknown server problem');
+      next(err);
     });
   }
 };
 
-module.exports.getGroups = (req, res) => {
+module.exports.getGroups = (req, res, next) => {
   db.User.findOne({
     include: [{
       model: db.Group,
@@ -50,7 +50,6 @@ module.exports.getGroups = (req, res) => {
     return _mapGroup(group);
   })))
   .catch((err) => {
-    console.error(err);
-    res.status(500).send('Unknown server problem');
+    next(err);
   });
 };

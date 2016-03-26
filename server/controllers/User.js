@@ -2,6 +2,7 @@
 
 const db = require('../db/database').db;
 const Auth = require('./Auth');
+const HttpError = require('./Errors').HttpError;
 
 const _mapUser = (user) => {
   return {
@@ -13,9 +14,9 @@ const _mapUser = (user) => {
   };
 };
 
-module.exports.createUser = function createUser(req, res) {
+module.exports.createUser = function createUser(req, res, next) {
   if (!req.body.userName || !req.body.pw) {
-    res.status(404).send('Make sure to include a user name and appropriate properties');
+    next(new HttpError(404, 'Make sure to include a userName, pw and appropriate properties'));
   } else {
     db.User.createUser(req.body.userName, req.body.pw)
     .then((user) => {
@@ -29,24 +30,22 @@ module.exports.createUser = function createUser(req, res) {
       });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).send('Unknown server problem');
+      next(err);
     });
   }
 };
 
-module.exports.getUsers = function getUsers(req, res) {
+module.exports.getUsers = function getUsers(req, res, next) {
   db.User.findAll({
     include: { model: db.Group },
   })
   .then((users) => res.json(users.map(user => _mapUser(user))))
   .catch((err) => {
-    console.error(err);
-    res.status(500).send('Unknown server problem');
+    next(err);
   });
 };
 
-module.exports.getUser = function getUser(req, res) {
+module.exports.getUser = function getUser(req, res, next) {
   const arg = req.params.arg;
   const isInt = !isNaN(parseInt(arg, 10));
 
@@ -56,34 +55,36 @@ module.exports.getUser = function getUser(req, res) {
   } else if (typeof arg === 'string') {
     searchObj = { userName: arg };
   } else {
-    res.status(404).send('Invalid param. Provide ID or username');
+    next(new HttpError(400, 'Invalid param.  Provide ID or userName'));
   }
 
   db.User.getUser(searchObj)
   .then((data) => {
-    if (!data) { throw new Error('User Not Found'); }
+    if (!data) {
+      throw new HttpError(404, 'User does not exist');
+    }
     res.json(data);
   })
   .catch((err) => {
-    console.error(err, err.stack);
-    res.status(404).send(null);
+    next(err);
   });
 };
 
-module.exports.getUserFromJwt = function getUserFromJwt(req, res) {
+module.exports.getUserFromJwt = function getUserFromJwt(req, res, next) {
   const searchObj = { id: req.jwt.userId };
   db.User.getUser(searchObj)
   .then((data) => {
-    if (!data) { throw new Error('User Not Found'); }
+    if (!data) {
+      throw new HttpError(404, 'User does not exist');
+    }
     res.json(data);
   })
   .catch((err) => {
-    console.error(err, err.stack);
-    res.status(404).send(err);
+    next(err);
   });
 };
 
-module.exports.requestFriendship = function requestFriendship(req, res) {
+module.exports.requestFriendship = function requestFriendship(req, res, next) {
   db.User.requestFriendship(req.body.friends[0], req.body.friends[1])
   .then(result => {
     console.log(result, result[0].length, result[1].length);
@@ -94,12 +95,11 @@ module.exports.requestFriendship = function requestFriendship(req, res) {
     res.status(200).send('Friendship already exists');
   })
   .catch(err => {
-    console.error('Error requesting friendship: ', err);
-    res.status(500).send('Unknown server error');
+    next(err);
   });
 };
 
-module.exports.addFriendship = function addFriendship(req, res) {
+module.exports.addFriendship = function addFriendship(req, res, next) {
   db.User.addFriendship(req.body.friends[0], req.body.friends[1])
   .then(result => {
     if (result[0].length > 0) {
@@ -114,7 +114,7 @@ module.exports.addFriendship = function addFriendship(req, res) {
   });
 };
 
-module.exports.rejectFriendship = function addFriendship(req, res) {
+module.exports.rejectFriendship = function addFriendship(req, res, next) {
   db.User.rejectFriendship(req.body.friends[0], req.body.friends[1])
   .then(result => {
     if (result[0].length > 0) {
@@ -124,12 +124,11 @@ module.exports.rejectFriendship = function addFriendship(req, res) {
     res.status(200).send('You can\'t reject that which hasn\'t requested you');
   })
   .catch(err => {
-    console.error('Error rejecting friendship: ', err);
-    res.status(500).send('Unknown server error');
+    next(err);
   });
 };
 
-module.exports.removeFriendship = function removeFriendship(req, res) {
+module.exports.removeFriendship = function removeFriendship(req, res, next) {
   db.User.removeFriendship(req.body.friends[0], req.body.friends[1])
   .then(resultsRemoved => {
     if (resultsRemoved[0] > 0) {
@@ -139,7 +138,6 @@ module.exports.removeFriendship = function removeFriendship(req, res) {
     res.status(200).send('Friendship not found to begin with.');
   })
   .catch(err => {
-    console.error('Error removing friendship: ', err);
-    res.status(500).send('Unknown server error');
+    next(err);
   });
 };

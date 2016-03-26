@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const defaultErrorHandler = require('./controllers/Errors').defaultErrorHandler;
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 require('./controllers/routes.js')(app, express);
+app.use(defaultErrorHandler);
 
 const port = process.env.PORT || 3000;
 

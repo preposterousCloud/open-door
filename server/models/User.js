@@ -23,7 +23,7 @@ module.exports = function User(sequelizeInstance) {
     },
     instanceMethods: {
       /**
-       * Async method that returns a JWT or throws error if invalid
+       * Async method that returns a JWT or null if invalid
        */
       checkPasswordAndIssueJwt: function checkPasswordAndIssueJwt(pwToTest) {
         return Auth.compareHashAndVal(pwToTest, this.pw)
@@ -31,7 +31,7 @@ module.exports = function User(sequelizeInstance) {
           if (match) {
             return Auth.issueJwtToken({ userId: this.id });
           }
-          throw Error('Invalid Credentials');
+          return new Promise((resolve) => resolve(null));
         });
       },
     },
