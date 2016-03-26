@@ -228,6 +228,7 @@ export function getUserEvents() {
     });
   };
 }
+
 export function updateEvent(eventObjToSet) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));

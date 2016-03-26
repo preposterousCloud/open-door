@@ -2,8 +2,13 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+const HttpError = require('./Errors').HttpError;
 const config = require('../config.js');
-const secret = config.jwtSecret || 'somesecret';
+const secret = config.jwtSecret;
+
+if (!secret) {
+  throw Error('Make sure you config file has a jwtSecret property.  This is required.');
+}
 
 /**
  * Async saltsAndHashes string provided.  Returns a promise.
@@ -63,9 +68,13 @@ const verifyAndDecodeJwtToken = (token) => {
   });
 };
 
+/**
+ * WARNING: this should not be used as an actual express route.  The method signature is invalid.
+ * We use it internally it other express routes as a helper.
+ */
 const _ensureUserHasValidJwt = (req, res, next, additionalCheck) => {
   if (!req.headers.access_token) {
-    res.status(401).send('Must provide access_token header w/ JWT token');
+    next(new HttpError(401, 'Must provide access_token header w/ JWT token'));
   } else {
     verifyAndDecodeJwtToken(req.headers.access_token)
     .then((jwt) => {
@@ -76,8 +85,7 @@ const _ensureUserHasValidJwt = (req, res, next, additionalCheck) => {
       next();
     })
     .catch(err => {
-      console.error(err);
-      res.status(401).send('Invalid Credentials');
+      next(err);
     });
   }
 };
@@ -85,6 +93,7 @@ const _ensureUserHasValidJwt = (req, res, next, additionalCheck) => {
 const ensureUserHasValidJwt = (req, res, next) => {
   _ensureUserHasValidJwt(req, res, next);
 };
+
 const ensureUserIsUser = (testPropertyOrFunc) => {
   return (req, res, next) => {
     _ensureUserHasValidJwt(req, res, next, (jwt) => {
