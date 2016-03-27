@@ -1,4 +1,5 @@
 'use strict';
+const path = require('path');
 // const auth = require('./auth');
 // const utils = require('./utils.js');
 const User = require('./User');
@@ -10,7 +11,7 @@ const Auth = require('./Auth');
 module.exports = (app) => {
   // Test
   app.get('/', (req, res) => {
-    res.json('Whatup, AWS!');
+    res.sendFile(path.join(__dirname, '/index.html'));
   });
   // Auth
   // TODO make sure this route uses HTTPS

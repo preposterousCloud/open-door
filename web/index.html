@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Coming Soon!</title>
+  <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <style>
+    body {
+      background-color: #DCDBC7;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+    .logo {
+      position: relative;
+      width: 10em;
+      left: 50vw;
+      top: 37vh;
+      transform: translate(-50%, -50%);
+    }
+    .text {
+      position: relative;
+      width: 20em;
+      left: 50vw;
+      top: 50vh;
+      transform: translate(-100%, -100%);
+      overflow: initial;
+    }
+    @media screen and (max-width: 483px) {
+      .text {
+        left: 88vw;
+        top: 40vh;
+      }
+    }
+  </style>
+  <img class="logo" src="static/opendoorlogo.png">
+  <img class="text" src="static/opendoortext.png">
+</body>
+</html>
