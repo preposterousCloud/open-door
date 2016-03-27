@@ -275,6 +275,20 @@ export function appInit() {
   };
 }
 
+export function getAllUsersWithoutContacts() {
+  return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
+    return api.fetchAllUsers(jwt)
+    .then(users => {
+      if (users) {
+        dispatch(setAllUsers(users));
+        return users;
+      }
+      return false;
+    });
+  };
+}
+
 export function getAllUsers() {
   return (dispatch, getState) => {
     const contactNumbers = [];
