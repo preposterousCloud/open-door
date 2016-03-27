@@ -165,20 +165,7 @@ export function getAllContacts(cb) {
     if (err && err.type === 'permissionDenied') {
       console.error('Nope!');
     } else {
-      console.log('Yup!', contacts);
-      contacts.push({
-        givenName: 'Elrich',
-        thumbnailPath: '',
-        phoneNumbers: [
-          {
-            number: '+1(555)-029-1426',
-            label: 'home',
-          },
-        ],
-        familyName: 'Bachmann',
-        emailAddresses: [],
-        recordID: 7,
-      });
+      // console.log('Yup!', contacts);
       cb(contacts);
     }
   });
@@ -291,14 +278,20 @@ export function appInit() {
 export function getAllUsers() {
   return (dispatch, getState) => {
     const contactNumbers = [];
+    const localContactMap = {};
     const importContacts = getAllContacts(addressBook => {
       const usersAndContacts = addressBook.forEach(contact => {
         contact.phoneNumbers.forEach((phone) => {
-          contactNumbers.push(phone.number.replace(/\D|1(?=\d{9})/igm, '').replace(/1(?=\d{9})/igm, ''));
+          const sanitizedPhone = phone.number.replace(/\D|1(?=\d{9})/igm, '').replace(/1(?=\d{9})/igm, '');
+          contactNumbers.push(sanitizedPhone);
+          localContactMap[sanitizedPhone] = `${contact.givenName} ${contact.familyName}`;
         });
       });
       return api.usersExistByContact(contactNumbers, getState().app.jwt)
       .then(matchingContacts => {
+        matchingContacts.forEach(contact => {
+          contact.localName = localContactMap[contact.phone];
+        });
         console.log('>>>>>>>>>>>>', matchingContacts);
         dispatch(setAllUsers(matchingContacts));
         return matchingContacts;
