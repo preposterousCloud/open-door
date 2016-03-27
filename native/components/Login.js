@@ -57,7 +57,7 @@ const Login = class Login extends React.Component {
   loginToApp() {
     const sanitizedPhone = this.state.phone.replace(/\D/igm, '').replace(/1(?=\d{9})/igm, '');
     this.setState({ phone: sanitizedPhone });
-    console.log(this.state.userName)
+    store.dispatch(attemptLogin(this.state.userName, this.state.password))
     .then(res => {
       console.log('res', res);
       if (res.err) {
