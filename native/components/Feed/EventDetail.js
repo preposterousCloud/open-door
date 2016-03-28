@@ -12,6 +12,7 @@ class EventDetail extends React.Component {
     this.state = {
       imageShowing: props.imageShowing,
       imageSource: require('../../sharedNative/images/dino-storm.jpg'),
+      contactMapper: store.getState().contactMap,
     };
   }
   componentDidMount() {
@@ -35,7 +36,7 @@ class EventDetail extends React.Component {
   }
   getInvitedUsers(event) {
     return event.Users.length ?
-      event.Users.map(user => user.userName).join(', ') :
+      event.Users.map(user => this.state.contactMapper[user.id] || user.userName).join(', ') :
       'None';
   }
   render() {
@@ -57,7 +58,11 @@ class EventDetail extends React.Component {
           </TouchableOpacity> :
           <TouchableOpacity onPress={toggleImage} >
             <Text>Name: {this.state.event.name}</Text>
-            <Text>Host: {this.state.event.hostUser.userName}</Text>
+            <Text>
+            Host: 
+            {this.state.contactMapper[this.state.event.hostUser.id] ||
+            this.state.event.hostUser.userName}
+            </Text>
             <Text>Vibe: {this.state.event.vibe}</Text>
             <Text>Location: {this.state.event.location}</Text>
             <Text>Groups Invited: {this.getInvitedGroups(this.state.event)}</Text>

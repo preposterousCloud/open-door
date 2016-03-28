@@ -93,6 +93,7 @@ const makeListContainer = (rowComponent, listDataPath = [], listComponent = User
 };
 
 const makeSelectableRow = (action, getChecklist) => {
+  const contactMapper = store.getState().contactMap;
   return (user) => {
     let checklist = getChecklist();
     const runList = () => {
@@ -108,7 +109,7 @@ const makeSelectableRow = (action, getChecklist) => {
           style={socialStyles.group}
         >
           <View style={socialStyles.listEntryView}>
-            <Text>{user.userName}</Text>
+            <Text>{contactMapper[user.id] || user.userName}</Text>
             {(() => (checklist[user.id]) ?
               <View style={socialStyles.checkboxFilled}></View> :
               <View style={socialStyles.checkboxEmpty}></View>
