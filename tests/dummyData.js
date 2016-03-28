@@ -4,7 +4,7 @@ const newUserTemps = [
   { userName: 'vcipriani', pw: 'food', phone: '5556106679', defaultLocation: '123 main st', defaultVibe: 'jam' },
   { userName: 'user2', pw: 'u', phone: '8885551212', defaultLocation: '123 user2 st', defaultVibe: 'jam' },
   { userName: 'user3', pw: 'u', phone: '8885551000', defaultLocation: '123 user3 st', defaultVibe: 'dino' },
-  { userName: 'user4', pw: 'u', phone: '4155553695', defaultLocation: '123 user4 st', defaultVibe: 'kick' },
+  { userName: 'user4', pw: 'u', phone: '7075551854', defaultLocation: '123 user4 st', defaultVibe: 'kick' },
   { userName: 'user5', pw: 'u', phone: '4155553695', defaultLocation: '123 user5 st', defaultVibe: 'jam' },
 ];
 

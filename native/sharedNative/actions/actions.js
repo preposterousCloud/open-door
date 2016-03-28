@@ -133,6 +133,13 @@ export function setUserGroupMembers(userGroupMembers) {
     userGroupMembers,
   };
 }
+
+export function setUsersInContacts(contactMap) {
+  return {
+    type: a.SET_USERS_IN_CONTACTS,
+    contactMap,
+  };
+}
 /** *****************************************************
  * Synchronous Action Creators
  * ************************************************** */
@@ -303,10 +310,13 @@ export function getAllUsers() {
       });
       return api.usersExistByContact(contactNumbers, getState().app.jwt)
       .then(matchingContacts => {
+        const contactsMap = {};
         matchingContacts.forEach(contact => {
           contact.localName = localContactMap[contact.phone];
+          contactsMap[contact.id] = contact.localName;
         });
         console.log('>>>>>>>>>>>>', matchingContacts);
+        dispatch(setUsersInContacts(contactsMap));
         dispatch(setAllUsers(matchingContacts));
         return matchingContacts;
       });
