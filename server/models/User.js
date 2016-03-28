@@ -19,6 +19,10 @@ module.exports = function User(sequelizeInstance) {
     phone: Sequelize.STRING,
     defaultLocation: Sequelize.STRING,
     defaultVibe: { type: Sequelize.STRING, defaultValue: 'jam' },
+    profilePictureUrl: {
+      type: Sequelize.STRING,
+      defaultValue: 'http://i.imgur.com/EFeEbuJ.jpg',
+    },
   }, {
     defaultScope: {
       attributes: { exclude: ['pw'] },
