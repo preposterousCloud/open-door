@@ -9,6 +9,7 @@ const actions = require('../../sharedNative/actions/actions');
 
 const SelectProfilePic = class SelectProfilePic extends React.Component {
   onPhotoSelection(imageObj) {
+    // See https://github.com/scottdixon/react-native-upload-from-camera-roll/issues/1 to fix resolution
     NativeModules.ReadImageData.readImage(imageObj.node.image.uri, (image) => {
       console.log(image);
     });
