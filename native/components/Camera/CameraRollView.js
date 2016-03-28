@@ -20,10 +20,12 @@ const React = require('react-native');
 const {
   ActivityIndicatorIOS,
   CameraRoll,
+  Dimensions,
   Image,
   ListView,
   Platform,
   StyleSheet,
+  TouchableOpacity,
   View,
 } = React;
 const groupByEveryN = require('groupByEveryN');
@@ -42,6 +44,7 @@ const CameraRollView = class CameraRollView extends React.Component {
   }
   generateDefaultStateObj() {
     const ds = new ListView.DataSource({ rowHasChanged: this._rowHasChanged });
+    const { height, width } = Dimensions.get('window');
     return {
       assets: [],
       groupTypes: this.props.groupTypes,
@@ -50,6 +53,8 @@ const CameraRollView = class CameraRollView extends React.Component {
       noMore: false,
       loadingMore: false,
       dataSource: ds,
+      screenHeight: height,
+      screenWidth: width,
     };
   }
   /**
@@ -89,7 +94,9 @@ const CameraRollView = class CameraRollView extends React.Component {
       fetchParams.after = this.state.lastCursor;
     }
 
-    CameraRoll.getPhotos(fetchParams, this._appendAssets, logError);
+    CameraRoll.getPhotos(fetchParams)
+    .then(this._appendAssets)
+    .catch(logError);
   }
   /**
    * Fetches more images from the camera roll. If clear is set to true, it will
@@ -138,7 +145,7 @@ const CameraRollView = class CameraRollView extends React.Component {
       if (image === null) {
         return null;
       }
-      return this.props.renderImage(image);
+      return this.props.renderImage(image, this.state, this.props);
     });
 
     return (
@@ -176,15 +183,16 @@ CameraRollView.defaultProps = {
   groupTypes: 'SavedPhotos',
   batchSize: 5,
   imagesPerRow: 1,
+  photoMargin: 4,
   assetType: 'Photos',
-  renderImage: function (asset) {
-    const imageSize = 150;
-    const imageStyle = [styles.image, { width: imageSize, height: imageSize }];
+  onPress: () => console.log('Include onPress prop for photo event handling.'),
+  renderImage: (asset, state, props) => {
+    const imageSize = (state.screenWidth - ((props.photoMargin * props.imagesPerRow + 1) * 2 - 2)) / props.imagesPerRow;
+    const imageStyle = { width: imageSize, height: imageSize, margin: props.photoMargin };
     return (
-      React.createElement(Image, {
-        source: asset.node.image,
-        style: imageStyle }
-      )
+      <TouchableOpacity onPress={() => { props.onPress(asset);} }>
+        <Image source={asset.node.image} style={imageStyle} />
+      </TouchableOpacity>
     );
   },
 };
@@ -239,9 +247,6 @@ const styles = StyleSheet.create({
   url: {
     fontSize: 9,
     marginBottom: 14,
-  },
-  image: {
-    margin: 4,
   },
   info: {
     flex: 1,

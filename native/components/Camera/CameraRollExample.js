@@ -13,9 +13,6 @@ const {
 } = React;
 
 const CameraRollView = require('./CameraRollView');
-
-const AssetScaledImageExampleView = require('./AssetScaledImageExample');
-
 const CAMERA_ROLL_VIEW = 'camera_roll_view';
 
 const CameraRollExample = class CameraRollExample extends React.Component {
@@ -31,41 +28,22 @@ const CameraRollExample = class CameraRollExample extends React.Component {
           ref={CAMERA_ROLL_VIEW}
           batchSize={20}
           groupTypes ={'All'}
-          imagesPerRow={1}
-          renderImage={this._renderImage}
+          imagesPerRow={3}
         />
       </View>
     );
   }
-  loadAsset(asset){
-    if (this.props.navigator) {
-      this.props.navigator.push({
-        title: 'Camera Roll Image',
-        component: AssetScaledImageExampleView,
-        backButtonTitle: 'Back',
-        passProps: { asset: asset },
-      });
-    }
-  }
   _renderImage(asset) {
-    const imageSize = this.state.bigImages ? 150 : 75;
+    const imageSize = 75;
     const imageStyle = [styles.image, { width: imageSize, height: imageSize }];
     const location = asset.node.location.longitude ?
       JSON.stringify(asset.node.location) : 'Unknown location';
     return (
-      <TouchableOpacity key={asset} onPress={ this.loadAsset.bind( this, asset ) }>
-        <View style={styles.row}>
-          <Image
-            source={asset.node.image}
-            style={imageStyle}
-          />
-          <View style={styles.info}>
-            <Text style={styles.url}>{asset.node.image.uri}</Text>
-            <Text>{location}</Text>
-            <Text>{asset.node.group_name}</Text>
-            <Text>{new Date(asset.node.timestamp).toString()}</Text>
-          </View>
-        </View>
+      <TouchableOpacity onPress ={() => { console.log(asset);} }>
+        <Image
+          source={asset.node.image}
+          style={imageStyle}
+        />
       </TouchableOpacity>
     );
   }
