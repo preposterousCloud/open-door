@@ -1,4 +1,4 @@
-import React, { View, Text, Alert } from 'react-native';
+import React, { View, Text, Alert, Image } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import EditUser from './EditUser';
@@ -6,7 +6,7 @@ import styles from '../../styles/Profile/profileStyles.js';
 import { backButton, editButton } from '../Shared/Buttons';
 import { navToFull } from '../Shared/NavHelpers';
 const actions = require('../../sharedNative/actions/actions');
-
+const profPic = require('../../sharedNative/images/dino-profile.jpeg');
 
 const Profile = (props) => {
   const updateUser = (newUserInfo) => {
@@ -40,6 +40,12 @@ const Profile = (props) => {
       rightButton={editButton(EditUser, props.route.user, updateUser)}
     />
     <View>
+      <View>
+        <Image
+          source={profPic}
+          style={styles.profilePic}
+        />
+      </View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>Username: {store.getState().user.userName}</Text>
       </View>
