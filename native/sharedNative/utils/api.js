@@ -21,7 +21,6 @@ HttpError.prototype.constructor = HttpError;
  */
 const validateBody = res => {
   if (statusOK(res)) {
-    console.log(JSON.parse(res._bodyInit));
     return JSON.parse(res._bodyInit);
   }
   const errorMessage = `Error processing request: Message: ${res._bodyText}
