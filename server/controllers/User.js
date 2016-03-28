@@ -64,8 +64,8 @@ module.exports.updateUser = function createUser(req, res, next) {
             console.error(err.message);
           });
         } else {
-          user.update(newUserInfo);
-          res.json({ message: 'user updated' });
+          user.update(newUserInfo)
+          .then(user => res.json(newUserInfo));
           return user;
         }
       });
