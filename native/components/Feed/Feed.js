@@ -5,6 +5,7 @@ import React, {
   TouchableOpacity,
  } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
+import { getAllUsers } from '../../sharedNative/actions/actions.js';
 import NavigationBar from 'react-native-navbar';
 import Swiper from 'react-native-swiper';
 import FeedList from './FeedList.js';
@@ -19,6 +20,11 @@ class Feed extends React.Component {
   //   const events = api.getEvents(nextProps.user.events.map(event => event.id));
   //   this.setState({ events });
   // }
+
+  componentWillMount() {
+    store.dispatch(getAllUsers());
+  }
+
   render() {
     const rightNavButton = {
       title: 'My Door',

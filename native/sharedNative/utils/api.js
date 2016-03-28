@@ -21,6 +21,7 @@ HttpError.prototype.constructor = HttpError;
  */
 const validateBody = res => {
   if (statusOK(res)) {
+    console.log(JSON.parse(res._bodyInit));
     return JSON.parse(res._bodyInit);
   }
   const errorMessage = `Error processing request: Message: ${res._bodyText}
@@ -45,11 +46,12 @@ const buildHeaders = (jwt) => {
 };
 
 // HTTP methods
-export const loginUser = (userName, pw, jwt) => {
+export const loginUser = (userName, pw, phone, jwt) => {
   const url = `${config.apiUrl}login`;
   const body = {
     userName,
     pw,
+    phone,
   };
   return fetch(url, {
     method: 'POST',
@@ -129,6 +131,20 @@ export const updateUser = (newUserInfo, jwt) => {
   .then(validateBody);
 };
 
+export const usersExistByContact = (contacts, jwt) => {
+  const url = `${config.apiUrl}users/addressbook`;
+  const contactsObj = JSON.stringify({
+    contacts: JSON.stringify(contacts),
+  });
+  return fetch(url, {
+    method: 'POST',
+    body: contactsObj,
+    headers: buildHeaders(jwt),
+  })
+  .then(validateBody)
+  .catch(catchErr);
+};
+
 export const postGroup = (groupName, members, jwt) => {
   const url = `${config.apiUrl}friends/groups`;
   const groupObj = JSON.stringify({
@@ -178,13 +194,13 @@ export const getUserByJwt = (jwt) => {
   .catch(catchErr);
 };
 
-export const postUser = (userName, pw, jwt) => {
+export const postUser = (userName, pw, phone, jwt) => {
   // To refactor fully, need to create new thunk action
   // that calls postUser and .then(user => dispatch(setUser(user.userName)))
   const url = `${config.apiUrl}users`;
   return fetch(url, {
     method: 'POST',
-    body: JSON.stringify({ userName, pw }),
+    body: JSON.stringify({ userName, pw, phone }),
     headers: buildHeaders(),
   })
   .then(validateBody)

@@ -26,6 +26,7 @@ const chooseRowStyle = (style) => {
 
 const makeClickableRow = (action, text, distinguished, rowStyle) => {
   const distStyle = distinguished && rowStyle ? chooseRowStyle(rowStyle) : null;
+  const contactMapper = store.getState().contactMap;
   return (rowData) => {
     const actionAppliedToUser = action.bind(null, rowData);
     let withDistinguished;
@@ -56,7 +57,7 @@ const makeClickableRow = (action, text, distinguished, rowStyle) => {
             distStyle[1] :
             null}
             >
-              {rowData.userName || rowData[text]}
+              {contactMapper[rowData.id] || rowData.userName || rowData[text]}
             </Text>
             {withDistinguished}
           </View>

@@ -19,15 +19,7 @@ const arrayToDataSource = (array = []) => {
 };
 
 const getAllUsersArray = () => {
-  store.dispatch(getAllUsers())
-  .then((allUsers) => {
-    return allUsers.map((user) => {
-      return {
-        id: user.id,
-        userName: user.userName,
-      };
-    });
-  });
+  return store.dispatch(getAllUsers());
 };
 
 const getTruthies = (obj) => Object.keys(obj).filter(key => obj[key]).map(i => +i);

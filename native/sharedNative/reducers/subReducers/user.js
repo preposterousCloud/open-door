@@ -28,6 +28,16 @@ function allUsers(state = [], action) {
   }
 }
 
+function contactMap(state = {}, action) {
+  switch (action.type) {
+    case 'SET_USERS_IN_CONTACTS': {
+      return action.contactMap || state;
+    }
+    default:
+      return state;
+  }
+}
+
 function pendingRequests(state = {}, action) {
   switch (action.type) {
     case 'SET_PENDING_FRIEND_REQUESTS': {
@@ -40,4 +50,5 @@ function pendingRequests(state = {}, action) {
 
 module.exports.user = user;
 module.exports.allUsers = allUsers;
+module.exports.contactMap = contactMap;
 module.exports.pendingRequests = pendingRequests;

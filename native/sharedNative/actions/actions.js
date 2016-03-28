@@ -2,6 +2,7 @@ const a = require('../ActionTypes');
 import * as api from '../utils/api';
 
 const localStore = require('react-native-simple-store');
+const Contacts = require('react-native-contacts');
 
 const catchErr = (err) => {
   console.error(err);
@@ -132,6 +133,13 @@ export function setUserGroupMembers(userGroupMembers) {
     userGroupMembers,
   };
 }
+
+export function setUsersInContacts(contactMap) {
+  return {
+    type: a.SET_USERS_IN_CONTACTS,
+    contactMap,
+  };
+}
 /** *****************************************************
  * Synchronous Action Creators
  * ************************************************** */
@@ -158,13 +166,24 @@ export function sortPendingFriendRequests(user) {
     return dispatch(setPendingFriendRequests(sortedReqs));
   };
 }
+
+export function getAllContacts(cb) {
+  return Contacts.getAll((err, contacts) => {
+    if (err && err.type === 'permissionDenied') {
+      console.error('Nope!');
+    } else {
+      // console.log('Yup!', contacts);
+      cb(contacts);
+    }
+  });
+}
 /** *****************************************************
  * Async Thunk Action Creators
  * ************************************************** */
-export function createUser(userName, pw) {
+export function createUser(userName, pw, phone) {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;
-    return api.postUser(userName, pw, jwt)
+    return api.postUser(userName, pw, phone, jwt)
     .then(response => {
       dispatch(setJwt(response.jwt));
       dispatch(setUser(response.user));
@@ -189,10 +208,10 @@ export function logout() {
   };
 }
 
-export function attemptLogin(userName, pw) {
+export function attemptLogin(userName, pw, phone) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));
-    return api.loginUser(userName, pw)
+    return api.loginUser(userName, pw, phone)
     .then(response => {
       console.log('res', response);
       dispatch(setLoading(false));
@@ -263,7 +282,7 @@ export function appInit() {
   };
 }
 
-export function getAllUsers() {
+export function getAllUsersWithoutContacts() {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;
     return api.fetchAllUsers(jwt)
@@ -273,6 +292,34 @@ export function getAllUsers() {
         return users;
       }
       return false;
+    });
+  };
+}
+
+export function getAllUsers() {
+  return (dispatch, getState) => {
+    const contactNumbers = [];
+    const localContactMap = {};
+    const importContacts = getAllContacts(addressBook => {
+      const usersAndContacts = addressBook.forEach(contact => {
+        contact.phoneNumbers.forEach((phone) => {
+          const sanitizedPhone = phone.number.replace(/\D|1(?=\d{9})/igm, '').replace(/1(?=\d{9})/igm, '');
+          contactNumbers.push(sanitizedPhone);
+          localContactMap[sanitizedPhone] = `${contact.givenName} ${contact.familyName}`;
+        });
+      });
+      return api.usersExistByContact(contactNumbers, getState().app.jwt)
+      .then(matchingContacts => {
+        const contactsMap = {};
+        matchingContacts.forEach(contact => {
+          contact.localName = localContactMap[contact.phone];
+          contactsMap[contact.id] = contact.localName;
+        });
+        console.log('>>>>>>>>>>>>', matchingContacts);
+        dispatch(setUsersInContacts(contactsMap));
+        dispatch(setAllUsers(matchingContacts));
+        return matchingContacts;
+      });
     });
   };
 }

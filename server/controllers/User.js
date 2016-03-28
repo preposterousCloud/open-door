@@ -8,6 +8,7 @@ const _mapUser = (user) => {
   return {
     id: user.id,
     userName: user.userName,
+    phone: user.phone,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
     Groups: user.Groups,
@@ -15,10 +16,10 @@ const _mapUser = (user) => {
 };
 
 module.exports.createUser = function createUser(req, res, next) {
-  if (!req.body.userName || !req.body.pw) {
-    next(new HttpError(404, 'Make sure to include a userName, pw and appropriate properties'));
+  if (!req.body.userName || !req.body.pw || !req.body.phone) {
+    res.status(404).send('Make sure to include a user name and appropriate properties');
   } else {
-    db.User.createUser(req.body.userName, req.body.pw)
+    db.User.createUser(req.body.userName, req.body.pw, req.body.phone)
     .then((user) => {
       const resObj = {
         user: _mapUser(user),
@@ -83,6 +84,14 @@ module.exports.getUser = function getUser(req, res, next) {
   })
   .catch((err) => {
     next(err);
+  });
+};
+
+module.exports.contactsInDb = function contactsInDb(req, res, next) {
+  const contacts = req.body.contacts;
+  db.User.findAll({ where: { phone: { $in: JSON.parse(contacts) } } })
+  .then(matchingContacts => {
+    res.json(matchingContacts);
   });
 };
 
