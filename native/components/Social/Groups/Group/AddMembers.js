@@ -39,13 +39,19 @@ const AddMembers = (props) => {
   };
   // End TextInput methods
 
-  const AddMembersListContainer = connect(state => ({
-    listComponent: UserList,
-    rowComponent: makeClickableRow(alertRequestSent),
-    listData: state.user.friends,
-    user: state.user,
-  }))(UserList);
-
+  const AddMembersListContainer = connect(state => {
+    const re = new RegExp(state.filterText, 'ig');
+    const memberIds = state.userGroupMembers.map(member => member.id);
+    const nonMembers = state.user.friends.filter(friend => {
+      return memberIds.indexOf(friend.id) === -1;
+    });
+    return {
+      listComponent: UserList,
+      rowComponent: makeClickableRow(alertRequestSent, 'userName'),
+      listData: nonMembers,
+      user: state.user,
+    };
+  })(UserList);
   return (
     <View>
       <NavBar
