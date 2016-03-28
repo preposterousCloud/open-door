@@ -57,7 +57,7 @@ const makeClickableRow = (action, text, distinguished, rowStyle) => {
             distStyle[1] :
             null}
             >
-              {contactMapper[rowData.id] || rowData.userName || rowData[text]}
+              {rowData.userName ? (contactMapper[rowData.id] || rowData.userName) : rowData[text]}
             </Text>
             {withDistinguished}
           </View>
