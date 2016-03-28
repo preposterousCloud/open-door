@@ -11,6 +11,8 @@ import { getAllUsersArray } from '../../Shared/HelperFunctions.js';
 import styles from '../../../styles/Social/socialStyles.js';
 
 const AddFriends = (props) => {
+  const contactMapper = store.getState().contactMap;
+
   const cancelButton = {
     text: 'Cancel',
     onPress: () => console.log('Cancel Pressed'),
@@ -21,9 +23,9 @@ const AddFriends = (props) => {
     const userReqIds = store.getState().pendingRequests.sent.map(user => user.id);
     const userReqs = store.getState().pendingRequests;
     if (userReqIds.length > 0 && userReqIds.indexOf(target.id) >= 0) {
-      Alert.alert(`You already sent a friend request to ${target.userName}!`);
+      Alert.alert(`You already sent a friend request to ${contactMapper[target.id] || target.userName}!`);
     } else {
-      Alert.alert(`Send a friend request to ${target.userName}?`, '', [
+      Alert.alert(`Send a friend request to ${contactMapper[target.id] || target.userName}?`, '', [
         cancelButton,
         { text: 'Add',
           onPress: () => store.dispatch(requestFriend(target.id)),
