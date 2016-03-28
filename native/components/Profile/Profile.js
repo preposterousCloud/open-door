@@ -5,7 +5,7 @@ import EditUser from './EditUser';
 import styles from '../../styles/Profile/profileStyles.js';
 import { backButton, editButton } from '../Shared/Buttons';
 import { navToFull } from '../Shared/NavHelpers';
-const CameraRollExample = require('../Camera/CameraRollExample');
+const SelectProfilePic = require('./SelectProfilePic');
 const actions = require('../../sharedNative/actions/actions');
 
 
@@ -54,7 +54,7 @@ const Profile = (props) => {
           Default Vibe: {props.route.user.defaultVibe || 'None'}
         </Text>
       </View>
-      <TouchableOpacity onPress={()=> {navToFull({ component: CameraRollExample })}}><Text>Pic</Text></TouchableOpacity>
+      <TouchableOpacity onPress={()=> {navToFull({ component: SelectProfilePic })}}><Text>Pic</Text></TouchableOpacity>
     </View>
   </View>
   );
