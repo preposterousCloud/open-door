@@ -21,7 +21,7 @@ module.exports = function User(sequelizeInstance) {
     defaultVibe: { type: Sequelize.STRING, defaultValue: 'jam' },
     profilePictureUrl: {
       type: Sequelize.STRING,
-      defaultValue: 'http://i.imgur.com/EFeEbuJ.jpg',
+      defaultValue: 'http://i0.wp.com/www.artifacting.com/blog/wp-content/uploads/2010/11/Yoda.jpg?zoom=2&resize=200%2C126',
     },
   }, {
     defaultScope: {
