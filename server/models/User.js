@@ -19,7 +19,7 @@ module.exports = function User(sequelizeInstance) {
     phone: Sequelize.STRING,
     defaultLocation: Sequelize.STRING,
     defaultVibe: { type: Sequelize.STRING, defaultValue: 'jam' },
-    profilePictureUrl: {
+    profilePictureUri: {
       type: Sequelize.STRING,
       defaultValue: 'http://i0.wp.com/www.artifacting.com/blog/wp-content/uploads/2010/11/Yoda.jpg?zoom=2&resize=200%2C126',
     },
@@ -92,7 +92,7 @@ module.exports = function User(sequelizeInstance) {
       createUser: function createUser(userName, pw, phone, defaultLocation, defaultVibe) {
         // Use bcrypt to hash/salt the pw then call raw create
         return Auth.saltAndHash(pw)
-        .then(hashedPw => this.rawCreate({ userName: userName, pw: hashedPw, defaultLocation, defaultVibe, phone: phone }));
+        .then(hashedPw => this.rawCreate({ userName, pw: hashedPw, defaultLocation, defaultVibe, phone: phone }));
       },
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,
