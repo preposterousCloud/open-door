@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
 const actions = require('../../../../sharedNative/actions/actions.js');
 
-import common from '../../../Shared/ComponentHelpers.js';
+import { makeListContainer, makeSelectableRow } from '../../../Shared/ComponentHelpers.js';
 import styles from '../../../../styles/Social/socialStyles.js';
 import NavBar from '../../../Shared/NavBar.js';
 import CreateGroupName from './CreateGroupName.js';
@@ -55,8 +55,8 @@ const CreateGroup = class CreateGroup extends React.Component {
   }
 
   render() {
-    const CreateGroupShowFriendsListContainer = common.makeListContainer(
-      common.makeSelectableRow(checkCheckbox, getChecklist),
+    const CreateGroupShowFriendsListContainer = makeListContainer(
+      makeSelectableRow(checkCheckbox, getChecklist),
       ['user', 'friends']
     );
     const leftNavButton = {

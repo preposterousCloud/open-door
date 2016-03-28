@@ -101,6 +101,8 @@ const makeSelectableRow = (action, getChecklist) => {
       const appliedChecklist = getChecklist.bind(null, user);
       actionAppliedToUser();
       checklist = appliedChecklist();
+      makeListContainer(UserList, ['user', 'friends']);
+      store.dispatch(refreshUser());
     };
     const rowData = () => (
       <View>
