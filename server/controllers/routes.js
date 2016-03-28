@@ -52,4 +52,7 @@ module.exports = (app) => {
   app.post('/api/friends/groups', [Auth.ensureUserIsUser((req, jwt) => {
     return req.body.members.indexOf(jwt.userId) > -1;
   }), Group.createGroup]);
+  app.put('/api/friends/groups', [Auth.ensureUserIsUser((req, jwt) => {
+    return req.body.myId === (jwt.userId);
+  }), Group.addMember]);
 };
