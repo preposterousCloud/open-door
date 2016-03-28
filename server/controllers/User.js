@@ -3,6 +3,7 @@
 const db = require('../db/database').db;
 const Auth = require('./Auth');
 const HttpError = require('./Errors').HttpError;
+// import imgur?
 
 const _mapUser = (user) => {
   return {
@@ -45,6 +46,12 @@ module.exports.updateUser = function createUser(req, res, next) {
         if (conflictingUser) {
           return next(new HttpError(409, 'Username already taken'));
         }
+        // newUser = get updated properties from user
+        // if we recieved a new base64 encoded profile profile picture
+          // send it up to imgur
+          // recieve the uri for the photo
+          // set newUser.profilePictureUrl = imgurUri;
+        // user.update(newUser);
         user.update(req.body);
         res.json({ message: 'user updated' });
         return user;
