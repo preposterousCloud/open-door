@@ -6,6 +6,7 @@ import NavBar from '../../../Shared/NavBar.js';
 import styles from '../../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../../styles/Feed/feedStyles.js';
 import AddMembers from './AddMembers.js';
+import CirclePic from '../../../Shared/CirclePic';
 import { makeClickableRow, makeListContainer, UserList } from '../../../Shared/ComponentHelpers.js';
 import { exitButton, enterButton } from '../../../Shared/Buttons.js';
 
@@ -36,6 +37,7 @@ const Group = (props) => {
         leftButton={exitButton}
         rightButton={enterButton(AddMembers, props.route.focus)}
       />
+      <CirclePic uri={store.getState().user.profilePictureUri} />
       <GroupListContainer />
     </View>
   );
