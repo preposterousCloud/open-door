@@ -95,7 +95,6 @@ const makeClickableRow = (action, text, distinguished, rowStyle, canDelete) => {
         </Swipeout>
       </View>
     );
-    console.log(canDelete)
     return canDelete ? swipeable() : notSwipeable();
   };
 };
