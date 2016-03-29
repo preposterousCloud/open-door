@@ -13,7 +13,6 @@ const SelectList = class SelectList extends React.Component {
     this.state = {
       selectedUsers: props.preSelected || {},
       dataArray: props.dataArray,
-      inviteFunc: props.inviteFunc,
     };
     this.ItemView = this.ItemView.bind(this);
   }
@@ -22,7 +21,7 @@ const SelectList = class SelectList extends React.Component {
       const selectedUsers = this.state.selectedUsers;
       selectedUsers[rowData.id] = !selectedUsers[rowData.id];
       this.setState({ selectedUsers });
-      this.state.inviteFunc(rowData);
+      this.props.onItemClick(rowData);
     };
     const Checkbox = (props) => {
       return (props.checked ?
@@ -59,13 +58,13 @@ SelectList.propTypes = {
   displayProp: React.PropTypes.string,
   onClick: React.PropTypes.func,
   preSelected: React.PropTypes.object,
-  inviteFunc: React.PropTypes.func,
+  onItemClick: React.PropTypes.func,
 };
 
 export const UserList = connect(
   (state, ownProps) => {
     return {
-      inviteFunc: ownProps.inviteFunc,
+      onItemClick: ownProps.onItemClick,
       dataArray: state.user.friends,
       displayProp: 'userName',
       preSelected: ownProps.preSelected,
@@ -82,7 +81,7 @@ export const UserList = connect(
 export const GroupList = connect(
   (state, ownProps) => {
     return {
-      inviteFunc: ownProps.inviteFunc,
+      onItemClick: ownProps.onItemClick,
       dataArray: state.user.Groups,
       displayProp: 'name',
       preSelected: ownProps.preSelected,

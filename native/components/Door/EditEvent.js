@@ -19,7 +19,7 @@ const InviteSelects = (props) => {
   <View>
     <NavBar title={props.route.title} leftButton={backButton} />
     <props.route.listComponent
-      inviteFunc={props.route.inviteFunc}
+      onItemClick={props.route.onItemClick}
       preSelected={props.route.preSelected}
     />
   </View>
@@ -97,7 +97,7 @@ class EditEvent extends React.Component {
       component: InviteSelects,
       title: 'Invite Friends',
       listComponent: UserList,
-      inviteFunc: toggleInviteFriend,
+      onItemClick: toggleInviteFriend,
       preSelected: this.state.event.preSelectedFriends,
     });
     const toggleInviteGroup = (group) => {
@@ -109,7 +109,7 @@ class EditEvent extends React.Component {
       component: InviteSelects,
       title: 'Invite Groups',
       listComponent: GroupList,
-      inviteFunc: toggleInviteGroup,
+      onItemClick: toggleInviteGroup,
       preSelected: this.state.event.preSelectedGroups,
     });
 
