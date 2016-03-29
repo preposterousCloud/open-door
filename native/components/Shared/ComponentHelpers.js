@@ -46,7 +46,8 @@ const makeClickableRow = (action, text, distinguished, rowStyle, canDelete) => {
     }
     const swipeoutBtns = [
       {
-        text: 'Button',
+        text: 'Remove',
+        onPress: () => console.log('pressed the butt!'),
       },
     ];
     const ClickableRow = () => (
