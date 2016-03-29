@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 module.exports = StyleSheet.create({
+  bg: {
+    backgroundColor: 'purple',
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -25,6 +28,6 @@ module.exports = StyleSheet.create({
     flex: 1,
   },
   navBar: {
-    // enter some styles here
+    backgroundColor: 'transparent',
   },
 });

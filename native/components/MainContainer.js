@@ -4,7 +4,7 @@ import React, {
   Component,
   TouchableHighlight,
   ScrollView,
-  StatusBarIOS,
+  StatusBar,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { store } from '../sharedNative/reducers/reducers.js';
@@ -16,6 +16,7 @@ import Feed from './Feed/Feed.js';
 import Social from './Social/Social.js';
 import SetDoorContainer from './Door/SetDoorContainer';
 import styles from '../styles/Feed/feedStyles.js';
+import sharedStyles from '../styles/Feed/feedStyles.js';
 
 const FeedContainer = connect((state, ownProps) => {
   return {
@@ -61,6 +62,10 @@ class Main extends React.Component {
   }
   render(props) {
     return (
+      <View>
+        <StatusBar
+          barStyle="light-content"
+        />
         <Swiper
           ref="scrollView"
           showsButtons={false}
@@ -73,6 +78,7 @@ class Main extends React.Component {
           <FeedContainer swipeLeft = {this.swipeLeft} swipeRight = {this.swipeRight} />
           <SetDoorContainer swipeLeft={this.swipeLeft} />
         </Swiper>
+      </View>
    );
   }
 }
