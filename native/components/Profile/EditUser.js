@@ -18,34 +18,42 @@ class EditUser extends React.Component {
   constructor(props) {
     super(props);
     const { userName, defaultLocation, defaultVibe } = props.route.user;
+    // image looks like {imageObj: //A react native image obj, encodedProfPic: // a base64 image}
     this.state = {
-      onSubmit: props.route.onSubmit,
-      user: { userName, defaultLocation, defaultVibe, encodedProfPic: null },
+      user: { userName, defaultLocation, defaultVibe, image: null },
     };
+    this.submitUser = this.submitUser.bind(this);
   }
   updateLocalUser(update) {
     const user = this.state.user;
     user[Object.keys(update)[0]] = update[Object.keys(update)[0]];
+    console.log('user', user);
     this.setState({ user });
   }
+  submitUser() {
+    if (!this.state.user.userName) {
+      Alert.alert('You need a username!', '', [cancelButton]);
+    } else {
+      const userObj = this.state.user;
+      userObj.base64Image = this.state.user.image.base64Image;
+      delete userObj.image;
+      this.props.route.onSubmit(userObj);
+      popScene();
+    }
+  }
   render() {
-    const submitUser = () => {
-      if (!this.state.user.userName) {
-        Alert.alert('You need a username!', '', [cancelButton]);
-      } else {
-        this.state.onSubmit(this.state.user);
-        popScene();
-      }
-    };
     const updateUserName = userName => this.updateLocalUser({ userName });
     const updateDefaultLocation = defaultLocation => this.updateLocalUser({ defaultLocation });
     const updateDefaultVibe = defaultVibe => this.updateLocalUser({ defaultVibe });
-    const updateProfPic = encodedProfPic => this.updateLocalUser({ encodedProfPic });
+    const updateProfPic = image => {
+      console.log('image', image);
+      this.updateLocalUser({ image });
+    };
 
     return (
       <View>
         <NavBar title={'Edit Profile'} leftButton={cancelButtonNav}
-          rightButton={{ title: 'Save', handler: submitUser }}
+          rightButton={{ title: 'Save', handler: this.submitUser }}
         />
         <TouchableOpacity
           onPress={() => navToFull({
@@ -53,19 +61,21 @@ class EditUser extends React.Component {
             onSubmit: updateProfPic,
           })}
         >
-          <CirclePic uri={store.getState().user.profilePictureUri} />
+          <CirclePic source={ (this.state.user.image && this.state.user.image.imageObj.node.image) ?
+            this.state.user.image.imageObj.node.image : { uri: this.props.route.user.profilePictureUri } }
+          />
         </TouchableOpacity>
         <StyledTextInput
           onChangeText={updateUserName}
-          placeholder={store.getState().user.userName}
+          placeholder={this.props.route.user.userName}
         />
         <StyledTextInput
           onChangeText={updateDefaultLocation}
-          placeholder={store.getState().user.defaultLocation}
+          placeholder={this.props.route.user.defaultLocation}
         />
         <VibePicker
           changeVibe={updateDefaultVibe}
-          initialVibe={store.getState().user.defaultVibe}
+          initialVibe={this.props.route.user.defaultVibe}
         />
       </View>
     );
