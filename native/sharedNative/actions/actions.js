@@ -144,27 +144,29 @@ export function setUsersInContacts(contactMap) {
  * Synchronous Action Creators
  * ************************************************** */
 export function sortPendingFriendRequests(user) {
-  return (dispatch, getState) => {
-    const reqs = user.requests;
-    const sortedReqs = {
-      sent: [],
-      received: [],
+  if (user) {
+    return (dispatch, getState) => {
+      const reqs = user.requests;
+      const sortedReqs = {
+        sent: [],
+        received: [],
+      };
+      reqs.forEach((req) => {
+        if (req.sender) {
+          sortedReqs.sent.push({
+            id: req.id,
+            userName: req.userName,
+          });
+        } else {
+          sortedReqs.received.push({
+            id: req.id,
+            userName: req.userName,
+          });
+        }
+      });
+      return dispatch(setPendingFriendRequests(sortedReqs));
     };
-    reqs.forEach((req) => {
-      if (req.sender) {
-        sortedReqs.sent.push({
-          id: req.id,
-          userName: req.userName,
-        });
-      } else {
-        sortedReqs.received.push({
-          id: req.id,
-          userName: req.userName,
-        });
-      }
-    });
-    return dispatch(setPendingFriendRequests(sortedReqs));
-  };
+  }
 }
 
 export function getAllContacts(cb) {
