@@ -9,7 +9,7 @@ import AddMembers from './AddMembers.js';
 import CirclePic from '../../../Shared/CirclePic';
 import { makeClickableRow, makeListContainer, UserList } from '../../../Shared/ComponentHelpers.js';
 import { exitButton, enterButton } from '../../../Shared/Buttons.js';
-import { navToFull } from '../../../Shared/NavHelpers.js';
+import { navToFull, popScene } from '../../../Shared/NavHelpers.js';
 const SelectProfilePic = require('../../../Profile/SelectProfilePic');
 
 const currentGroup = (members) => {
@@ -36,8 +36,16 @@ const Group = (props) => {
   );
 
   const changeGroupPic = encodedImage => {
+    // set loading here
     store.dispatch(actions.updateGroupPic(props.route.focus.id, encodedImage))
-    .then(newPicLink => {props.route.focus.groupPictureUri = newPicLink;});
+    .then(newPicLink => {
+      props.route.focus.groupPictureUri = newPicLink;
+      return 'tacos';
+    })
+    .then(() => {
+      // unset loading here
+      popScene();
+    });
   };
 
   return (
