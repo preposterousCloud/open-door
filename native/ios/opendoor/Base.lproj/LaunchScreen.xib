@@ -7,33 +7,27 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="redraw" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="380" height="731"/>
+        <view contentMode="scaleAspectFit" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="startscreen.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="rDW-Px-x6d">
-                    <rect key="frame" x="-50" y="-8" width="464" height="739"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="opendoorsplash.png" translatesAutoresizingMaskIntoConstraints="NO" id="UMR-nh-o4f">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="OpenDoor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ghe-VR-0gu">
-                    <rect key="frame" x="-26" y="281" width="406" height="51"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="v0.0.2 (Steel Shark)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyR-PW-als">
-                    <rect key="frame" x="-26" y="316" width="406" height="90"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.86274509803921573" green="0.85882352941176465" blue="0.7803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="UMR-nh-o4f" secondAttribute="trailing" id="4hR-Md-RzY"/>
+                <constraint firstItem="UMR-nh-o4f" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Cuz-O8-na7"/>
+                <constraint firstItem="UMR-nh-o4f" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="NcO-Li-cE4"/>
+                <constraint firstAttribute="bottom" secondItem="UMR-nh-o4f" secondAttribute="bottom" id="Ovj-ls-LFK"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="564" y="439.5"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+            <point key="canvasLocation" x="564" y="439"/>
         </view>
     </objects>
     <resources>
-        <image name="startscreen.jpg" width="750" height="1334"/>
+        <image name="opendoorsplash.png" width="826" height="1472"/>
     </resources>
 </document>

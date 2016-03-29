@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { store } from './sharedNative/reducers/reducers.js';
 import Login from './components/Login.js';
 import MainContainer from './components/MainContainer';
+import sharedStyles from './styles/Shared/sharedStyles';
 
 const configureScene = (route) => {
   const sceneConfig = route.sceneConfig || Navigator.SceneConfigs.FloatFromBottom;
@@ -32,6 +33,7 @@ const opendoor = () => (
       initialRoute = {{ name: 'Login' }}
       configureScene = {configureScene}
       renderScene = {renderScene}
+      style={sharedStyles.bg}
     />
   </Provider>
 );

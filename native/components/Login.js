@@ -4,6 +4,7 @@ import React, {
   Text,
   TouchableOpacity,
   TextInput,
+  StatusBar,
 } from 'react-native';
 import { connect } from 'react-redux';
 const localStore = require('react-native-simple-store');
@@ -93,6 +94,7 @@ const Login = class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar barStyle="light-content" />
         <OpenDoor styles = {{ size: 200, color: 'green' }} />
         <TextInput
           autoCapitalize={'none'}

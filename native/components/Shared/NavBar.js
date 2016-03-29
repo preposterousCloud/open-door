@@ -3,12 +3,11 @@ import NavigationBar from 'react-native-navbar';
 import styles from '../../styles/Shared/sharedStyles.js';
 
 const NavBar = (props) => (
-  <View>
+  <View style={styles.navBar}>
     <NavigationBar
       title={{ title: props.title }}
       rightButton={props.rightButton}
       leftButton={props.leftButton}
-      style={styles.navBar}
     />
   </View>
 );
