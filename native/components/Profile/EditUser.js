@@ -1,5 +1,6 @@
 import React, { Text, TouchableOpacity, View, Alert } from 'react-native';
 import { StyleSheet } from 'react-native';
+import { store } from '../../sharedNative/reducers/reducers.js';
 import { Button } from '../Shared/Button';
 import { backButton, cancelButtonNav, cancelButton } from '../Shared/Buttons.js';
 import { navToFull, popScene } from '../Shared/NavHelpers.js';
@@ -45,15 +46,15 @@ class EditUser extends React.Component {
         />
         <StyledTextInput
           onChangeText={updateUserName}
-          placeholder={this.state.user.userName}
+          placeholder={store.getState().user.userName}
         />
         <StyledTextInput
           onChangeText={updateDefaultLocation}
-          placeholder={this.state.user.defaultLocation}
+          placeholder={store.getState().user.defaultLocation}
         />
         <VibePicker
           changeVibe={updateDefaultVibe}
-          initialVibe={this.state.user.defaultVibe}
+          initialVibe={store.getState().user.defaultVibe}
         />
       </View>
     );

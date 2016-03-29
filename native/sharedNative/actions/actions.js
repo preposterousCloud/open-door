@@ -172,7 +172,6 @@ export function getAllContacts(cb) {
     if (err && err.type === 'permissionDenied') {
       console.error('Nope!');
     } else {
-      // console.log('Yup!', contacts);
       cb(contacts);
     }
   });
@@ -213,7 +212,6 @@ export function attemptLogin(userName, pw, phone) {
     dispatch(setLoading(true));
     return api.loginUser(userName, pw, phone)
     .then(response => {
-      console.log('res', response);
       dispatch(setLoading(false));
       dispatch(setJwt(response.jwt));
       dispatch(setUser(response.user));
@@ -245,10 +243,9 @@ export function updateUser(newUserInfo) {
     return api.updateUser(newUserInfo, jwt)
     .then(user => {
       dispatch(setLoading(false));
-      dispatch(refreshUser());
-      return true;
+      return dispatch(setUser(user));
     })
-    .catch(err => false);
+    .catch(err => null);
   };
 }
 
@@ -315,7 +312,6 @@ export function getAllUsers() {
           contact.localName = localContactMap[contact.phone];
           contactsMap[contact.id] = contact.localName;
         });
-        console.log('>>>>>>>>>>>>', matchingContacts);
         dispatch(setUsersInContacts(contactsMap));
         dispatch(setAllUsers(matchingContacts));
         return matchingContacts;
@@ -345,7 +341,6 @@ export const requestFriend = (toId) => {
   return (dispatch, getState) => {
     return api.requestFriend(getState().user.id, toId, getState().app.jwt)
     .then(response => {
-      console.log('Friendship requested?', response._bodyInit);
       return response;
     })
     .then(() => dispatch(refreshUser()))
@@ -357,7 +352,6 @@ export const confirmFriend = (toId) => {
   return (dispatch, getState) => {
     return api.confirmFriend(getState().user.id, toId, getState().app.jwt)
     .then(response => {
-      console.log('Friendship confirmed?', response._bodyInit);
       return response;
     })
     .then(() => dispatch(refreshUser()))
@@ -369,7 +363,6 @@ export const rejectFriend = (toId) => {
   return (dispatch, getState) => {
     return api.rejectFriend(getState().user.id, toId, getState().app.jwt)
     .then(response => {
-      console.log('Friendship rejected?', response._bodyInit);
       return response;
     })
     .then(() => dispatch(refreshUser()))
@@ -385,7 +378,6 @@ export function storeGroup(groupName) {
     for (const id in checklist) {
       if (checklist[id]) {members.push(+id);}
     }
-    console.log(members);
     return api.postGroup(groupName, members, jwt)
     .then(user => {
       if (user) {

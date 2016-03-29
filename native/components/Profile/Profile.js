@@ -1,4 +1,5 @@
-import React, { View, Text, Alert, TouchableOpacity } from 'react-native';
+
+import React, { View, Text, Alert, TouchableOpacity, Image } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import EditUser from './EditUser';
@@ -7,13 +8,14 @@ import { backButton, editButton } from '../Shared/Buttons';
 import { navToFull } from '../Shared/NavHelpers';
 const SelectProfilePic = require('./SelectProfilePic');
 const actions = require('../../sharedNative/actions/actions');
-
+const profPic = require('../../sharedNative/images/dino-profile.jpeg');
 
 const Profile = (props) => {
+  const profilePage = this;
   const updateUser = (newUserInfo) => {
-    store.dispatch(actions.updateUser(newUserInfo))
-    .then(userUpdated => {
-      if (!userUpdated) {
+    props.updateUser(newUserInfo)
+    .then(updatedUser => {
+      if (!updatedUser) {
         Alert.alert('Username Taken!', 'Try a different one?', [
             { text: 'Cancel',
             onPress: () => null,
@@ -30,6 +32,9 @@ const Profile = (props) => {
             style: 'default',
           },
         ]);
+      } else {
+        store.dispatch(actions.setUser(updatedUser));
+        // profilePage.forceUpdate();
       }
     });
   };
@@ -41,17 +46,23 @@ const Profile = (props) => {
       rightButton={editButton(EditUser, props.route.user, updateUser)}
     />
     <View>
+      <View>
+        <Image
+          source={{ uri: props.route.user.profilePictureUrl }}
+          style={styles.profilePic}
+        />
+      </View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>Username: {store.getState().user.userName}</Text>
       </View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>
-          Default Location: {props.route.user.defaultLocation || 'None'}
+          Default Location: {store.getState().user.defaultLocation || 'None'}
         </Text>
       </View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>
-          Default Vibe: {props.route.user.defaultVibe || 'None'}
+          Default Vibe: {store.getState().user.defaultVibe || 'None'}
         </Text>
       </View>
       <TouchableOpacity onPress={()=> {navToFull({ component: SelectProfilePic })}}><Text>Pic</Text></TouchableOpacity>

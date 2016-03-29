@@ -7,7 +7,7 @@ import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import actions from '../../sharedNative/actions/actions';
 import { navTo, navToFull } from '../Shared/NavHelpers.js';
 import NavBar from '../Shared/NavBar.js';
-import Profile from '../Profile/Profile.js';
+import ProfileContainer from '../Profile/ProfileContainer.js';
 import EditEvent from './EditEvent';
 import EventDetail from '../Feed/EventDetail.js';
 import OpenDoor from '../Shared/OpenDoor';
@@ -20,7 +20,7 @@ const SetDoor = class SetDoor extends React.Component {
   render() {
     const goToSettings = () => {
       navToFull({
-        component: Profile,
+        component: ProfileContainer,
         user: this.props.user,
       });
     };
