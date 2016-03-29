@@ -21,7 +21,6 @@ const SetDoor = class SetDoor extends React.Component {
     const goToSettings = () => {
       navToFull({
         component: ProfileContainer,
-        user: this.props.user,
       });
     };
     const createEvent = (event) => {

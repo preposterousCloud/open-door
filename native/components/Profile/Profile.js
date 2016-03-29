@@ -25,7 +25,7 @@ const Profile = (props) => {
             onPress: () => {
               navToFull({
                 component: EditUser,
-                user: props.route.user,
+                user: props.user,
                 onSubmit: updateUser,
               });
             },
@@ -42,7 +42,7 @@ const Profile = (props) => {
     <NavBar
       title={ 'Profile' }
       leftButton={backButton}
-      rightButton={editButton(EditUser, props.route.user, updateUser)}
+      rightButton={editButton(EditUser, props.user, updateUser)}
     />
     <View>
       <CirclePic source={ { uri: props.user.profilePictureUri }} />
@@ -65,7 +65,7 @@ const Profile = (props) => {
 };
 
 Profile.propTypes = {
-  route: React.PropTypes.object,
+  user: React.PropTypes.object,
 };
 
 module.exports = Profile;
