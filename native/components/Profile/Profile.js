@@ -45,18 +45,18 @@ const Profile = (props) => {
       rightButton={editButton(EditUser, props.route.user, updateUser)}
     />
     <View>
-      <CirclePic source={ { uri: store.getState().user.profilePictureUri }} />
+      <CirclePic source={ { uri: props.user.profilePictureUri }} />
       <View style={styles.listEntryView}>
-        <Text style={styles.group}>Username: {store.getState().user.userName}</Text>
+        <Text style={styles.group}>Username: { props.user.userName }</Text>
       </View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>
-          Default Location: {store.getState().user.defaultLocation || 'None'}
+          Default Location: {props.user.defaultLocation || 'None'}
         </Text>
       </View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>
-          Default Vibe: {store.getState().user.defaultVibe || 'None'}
+          Default Vibe: {props.user.defaultVibe || 'None'}
         </Text>
       </View>
     </View>
