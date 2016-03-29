@@ -26,7 +26,7 @@ const getGroups = (id) => {
 const Group = (props) => {
   getGroups(props.route.focus.id);
   const listGroupMembers = (member) => {
-    console.log(`You clicked on ${member.groupId}, id:${member.id}`);
+    console.log(`You clicked on ${member.userName}, id:${member.id}`);
   };
 
   const GroupListContainer = makeListContainer(
