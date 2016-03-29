@@ -22,7 +22,7 @@ const SelectList = class SelectList extends React.Component {
       const selectedUsers = this.state.selectedUsers;
       selectedUsers[rowData.id] = !selectedUsers[rowData.id];
       this.setState({ selectedUsers });
-      this.state.inviteFunc(rowData.id);
+      this.state.inviteFunc(rowData);
     };
     const Checkbox = (props) => {
       return (props.checked ?

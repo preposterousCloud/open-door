@@ -88,9 +88,9 @@ class EditEvent extends React.Component {
     const updateEventName = name => updateLocalEvent({ name });
     const updateEventLocation = location => updateLocalEvent({ location });
     const changeVibe = vibe => updateLocalEvent({ vibe });
-    const toggleInviteFriend = (friendId) => {
+    const toggleInviteFriend = (friend) => {
       const event = this.state.event;
-      event.invitedFriends[friendId] = !event.invitedFriends[friendId];
+      event.invitedFriends[friend.id] = !event.invitedFriends[friend.id];
       this.setState({ event });
     };
     const navToFriends = () => navToFull({
@@ -100,9 +100,9 @@ class EditEvent extends React.Component {
       inviteFunc: toggleInviteFriend,
       preSelected: this.state.event.preSelectedFriends,
     });
-    const toggleInviteGroup = (groupId) => {
+    const toggleInviteGroup = (group) => {
       const event = this.state.event;
-      event.invitedGroups[groupId] = !event.invitedGroups[groupId];
+      event.invitedGroups[group.id] = !event.invitedGroups[group.id];
       this.setState({ event });
     };
     const navToGroups = () => navToFull({
