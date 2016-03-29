@@ -13,7 +13,6 @@ const SelectProfilePic = class SelectProfilePic extends React.Component {
     const onPhotoSelection = (imageObj) => {
       // See https://github.com/scottdixon/react-native-upload-from-camera-roll/issues/1 to fix resolution
       NativeModules.ReadImageData.readImage(imageObj.node.image.uri, (encodedImage) => {
-        // console.log(encodedImage);
         this.props.route.updateProfPic(encodedImage);
       });
     };
