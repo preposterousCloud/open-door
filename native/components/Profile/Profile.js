@@ -45,7 +45,7 @@ const Profile = (props) => {
       rightButton={editButton(EditUser, props.route.user, updateUser)}
     />
     <View>
-      <CirclePic uri={store.getState().user.profilePictureUri} />
+      <CirclePic source={ { uri: store.getState().user.profilePictureUri }} />
       <View style={styles.listEntryView}>
         <Text style={styles.group}>Username: {store.getState().user.userName}</Text>
       </View>
