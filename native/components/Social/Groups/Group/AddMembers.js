@@ -6,72 +6,83 @@ import styles from '../../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../../styles/Feed/feedStyles.js';
 import { getAllUsers, addFriendToGroup } from '../../../../sharedNative/actions/actions.js';
 import { makeClickableRow, UserList } from '../../../Shared/ComponentHelpers.js';
-import { exitButton, cancelButton } from '../../../Shared/Buttons.js';
+import { exitButton } from '../../../Shared/Buttons.js';
+import { SelectList } from '../../../Shared/StatefulSelectList.js';
 
-const AddMembers = (props) => {
-  const contactMapper = store.getState().contactMap;
-  // Begin TextInput methods
-  const something = () => {
+// remove and import cancelButton from Buttons
+const cancelButton = {
+  text: 'Cancel',
+  onPress: () => console.log('Cancel Pressed'),
+  style: 'cancel',
+};
+
+const filterFriends = (friends, groupMembers) => {
+  const memberIds = groupMembers.map(member => member.id);
+  return friends.filter(friend => memberIds.indexOf(friend.id) === -1);
+};
+
+const AddMembersListContainer = connect((state, ownProps) => {
+  return {
+    listComponent: UserList,
+    rowComponent: makeClickableRow(ownProps.onRowClick, 'userName'),
+    listData: filterFriends(state.user.friends, state.userGroupMembers),
+    user: state.user,
+  };
+})(UserList);
+
+const AddMembers = class AddMembers extends React.Component {
+  constructor(props) {
+    super(props);
+    this.contactMapper = store.getState().contactMap;
+    this.state = {
+      userName: '',
+    };
+    this.alertRequestSent = this.alertRequestSent.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+  }
+  something() {
     console.log('form submit!');
-  };
-
-  let userName;
-  const updateUserName = newUserName => { userName = newUserName; };
-
-  const cancelButton = {
-    text: 'Cancel',
-    onPress: () => console.log('Cancel Pressed'),
-    style: 'cancel',
-  };
-
-  const alertRequestSent = (user) => {
-    Alert.alert(`add member ${contactMapper[user.id] || user.userName}?`, '', [
+  }
+  onSearchChange(newVal) {
+    this.setState({
+      userName: newVal,
+    });
+  }
+  alertRequestSent(user) {
+    Alert.alert(`add member ${this.contactMapper[user.id] || user.userName}?`, '', [
       cancelButton,
       { text: 'Add',
         onPress: () => {
-          const groupId = props.route.focus.id;
+          const groupId = this.props.route.focus.id;
           const friendId = user.id;
           store.dispatch(addFriendToGroup(groupId, friendId));
         },
         style: 'default',
       },
     ]);
-  };
-  // End TextInput methods
-
-  const AddMembersListContainer = connect(state => {
-    const re = new RegExp(state.filterText, 'ig');
-    const memberIds = state.userGroupMembers.map(member => member.id);
-    const nonMembers = state.user.friends.filter(friend => {
-      return memberIds.indexOf(friend.id) === -1;
-    });
-    return {
-      listComponent: UserList,
-      rowComponent: makeClickableRow(alertRequestSent, 'userName'),
-      listData: nonMembers,
-      user: state.user,
-    };
-  })(UserList);
-  return (
-    <View>
-      <NavBar
-        title={ 'Add Members' }
-        leftButton={exitButton}
-      />
-      <TextInput
-        autoCapitalize={'none'}
-        autoCorrect={false}
-        maxLength={16}
-        placeholder={'userName'}
-        value={userName}
-        style={styles.userInput}
-        returnKeyType={'go'}
-        onChangeText={updateUserName}
-        onSubmitEditing={something}
-      />
-      <AddMembersListContainer />
-    </View>
-  );
+  }
+  render() {
+    return (
+      <View>
+        <NavBar
+          title={ 'Add Members' }
+          leftButton={exitButton}
+        />
+        <TextInput
+          autoCapitalize={'none'}
+          autoCorrect={false}
+          maxLength={16}
+          placeholder={'userName'}
+          value={this.state.userName}
+          style={styles.userInput}
+          returnKeyType={'go'}
+          onChangeText={this.updateUserName}
+          onSubmitEditing={this.something}
+        />
+        <AddMembersListContainer onRowClick={this.alertRequestSent} />
+      </View>
+    );
+  }
 };
 
 module.exports = AddMembers;
