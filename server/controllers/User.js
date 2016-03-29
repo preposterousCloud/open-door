@@ -50,14 +50,17 @@ module.exports.updateUser = function createUser(req, res, next) {
         // newUser = get updated properties from user
         const newUserInfo = req.body;
         // if we recieved a new base64 encoded profile profile picture
-        if (newUserInfo.hasUpdatedProfilePhoto) {
+        if (newUserInfo.encodedProfPic) {
           // send it up to imgur
-          imgur.uploadBase64(req.body.profilePhoto)
-          .then((json) => {
-            newUserInfo.profilePictureUri = json.data.link;
-            user.update(newUserInfo);
-            res.json({ message: 'user updated' });
-            return user;
+          imgur.uploadBase64(newUserInfo.encodedProfPic)
+          .then((imgurResponse) => {
+            newUserInfo.profilePictureUri = imgurResponse.data.link;
+            delete newUserInfo.encodedProfPic;
+            user.update(newUserInfo)
+            .then(user => {
+              console.log('updated user:', user);
+              res.json(newUserInfo)
+            });
           })
           .catch((err) => {
             res.json({ message: 'error updating user' });
@@ -66,7 +69,6 @@ module.exports.updateUser = function createUser(req, res, next) {
         } else {
           user.update(newUserInfo)
           .then(user => res.json(newUserInfo));
-          return user;
         }
       });
     })
