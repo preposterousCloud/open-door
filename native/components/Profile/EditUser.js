@@ -23,11 +23,14 @@ class EditUser extends React.Component {
       user: { userName, defaultLocation, defaultVibe, image: null },
     };
     this.submitUser = this.submitUser.bind(this);
+    this.updateUserName = this.updateUserName.bind(this);
+    this.updateDefaultLocation = this.updateDefaultLocation.bind(this);
+    this.updateDefaultVibe = this.updateDefaultVibe.bind(this);
+    this.updateProfPic = this.updateProfPic.bind(this);
   }
   updateLocalUser(update) {
     const user = this.state.user;
     user[Object.keys(update)[0]] = update[Object.keys(update)[0]];
-    console.log('user', user);
     this.setState({ user });
   }
   submitUser() {
@@ -41,15 +44,19 @@ class EditUser extends React.Component {
       popScene();
     }
   }
+  updateUserName(userName) {
+    this.updateLocalUser({ userName });
+  }
+  updateDefaultLocation(defaultLocation) {
+    this.updateLocalUser({ defaultLocation });
+  }
+  updateDefaultVibe(defaultVibe) {
+    this.updateLocalUser({ defaultVibe });
+  }
+  updateProfPic(image) {
+    this.updateLocalUser({ image });
+  }
   render() {
-    const updateUserName = userName => this.updateLocalUser({ userName });
-    const updateDefaultLocation = defaultLocation => this.updateLocalUser({ defaultLocation });
-    const updateDefaultVibe = defaultVibe => this.updateLocalUser({ defaultVibe });
-    const updateProfPic = image => {
-      console.log('image', image);
-      this.updateLocalUser({ image });
-    };
-
     return (
       <View>
         <NavBar title={'Edit Profile'} leftButton={cancelButtonNav}
@@ -58,7 +65,7 @@ class EditUser extends React.Component {
         <TouchableOpacity
           onPress={() => navToFull({
             component: SelectProfilePic,
-            onSubmit: updateProfPic,
+            updateProfPic: this.updateProfPic,
           })}
         >
           <CirclePic source={ (this.state.user.image && this.state.user.image.imageObj.node.image) ?
@@ -66,15 +73,15 @@ class EditUser extends React.Component {
           />
         </TouchableOpacity>
         <StyledTextInput
-          onChangeText={updateUserName}
+          onChangeText={this.updateUserName}
           placeholder={this.props.route.user.userName}
         />
         <StyledTextInput
-          onChangeText={updateDefaultLocation}
+          onChangeText={this.updateDefaultLocation}
           placeholder={this.props.route.user.defaultLocation}
         />
         <VibePicker
-          changeVibe={updateDefaultVibe}
+          changeVibe={this.updateDefaultVibe}
           initialVibe={this.props.route.user.defaultVibe}
         />
       </View>
