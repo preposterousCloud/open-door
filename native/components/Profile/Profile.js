@@ -32,8 +32,6 @@ const Profile = (props) => {
             style: 'default',
           },
         ]);
-      } else {
-        store.dispatch(actions.setUser(updatedUser));
       }
     });
   };
