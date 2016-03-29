@@ -4,7 +4,6 @@ const db = require('../db/database').db;
 const Auth = require('./Auth');
 const HttpError = require('./Errors').HttpError;
 const imgur = require('imgur');
-// import imgur?
 
 const _mapUser = (user) => {
   return {

@@ -3,10 +3,13 @@
 const Sequelize = require('sequelize');
 const db = require('../db/database').db;
 const HttpError = require('./Errors').HttpError;
+const Auth = require('./Auth');
+const imgur = require('imgur');
 
 const _mapGroup = (group) => {
   return {
     groupId: group.id,
+    groupPictureUri: group.groupPictureUri,
     members: (group.Users.map(member => {
       return {
         id: member.id,
@@ -34,6 +37,41 @@ module.exports.createGroup = (req, res, next) => {
   }
 };
 
+module.exports.ensureUserIsInGroup = (req, res, next) => {
+  const groupId = req.params.id;
+  db.Group.findOne({ where: { id: groupId }, include: [{ model: db.User }] })
+  .then((group) => {
+    Auth._ensureUserHasValidJwt(req, res, next, (jwt) => {
+      return group.Users.reduce((found, member) => found || member.id === jwt.userId, false);
+    });
+  });
+};
+
+module.exports.updateGroup = (req, res, next) => {
+  const groupId = req.params.id;
+  db.Group.findOne({ where: { id: groupId } })
+  .then((group) => {
+    if (req.body.encodedGroupPic) {
+      imgur.uploadBase64(req.body.encodedGroupPic)
+      .then((imgurResponse) => {
+        const groupPictureUri = imgurResponse.data.link;
+        group.update({ groupPictureUri })
+        .then(group => {
+          console.log('updated group:', group);
+          res.json(group);
+        });
+      })
+      .catch((err) => {
+        res.json({ message: 'error updating user' });
+        console.error(err.message);
+      });
+    }
+  })
+  .catch(err => {
+    next(err);
+  });
+};
+
 module.exports.addMember = (req, res, next) => {
   if (!req.body.groupId || !req.body.userId) {
     next(new HttpError(404, 'Make sure to include groupName, members and other props'));
@@ -46,7 +84,7 @@ module.exports.addMember = (req, res, next) => {
     .then(group => {
       group.addUsers(req.body.userId)
       .then(() => {
-        db.Group.findOne({ where: { id: group.id }, include: [{model: db.User}] })
+        db.Group.findOne({ where: { id: group.id }, include: [{ model: db.User }] })
         .then((updatedGroup) => {
           res.json(updatedGroup);
         });

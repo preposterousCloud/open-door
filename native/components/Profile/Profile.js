@@ -34,7 +34,6 @@ const Profile = (props) => {
         ]);
       } else {
         store.dispatch(actions.setUser(updatedUser));
-        // profilePage.forceUpdate();
       }
     });
   };
