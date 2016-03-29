@@ -8,6 +8,7 @@ const actions = require('../../sharedNative/actions/actions');
 const api = require('../../sharedNative/utils/api.js');
 import NavBar from '../Shared/NavBar.js';
 const SelectProfilePic = require('./SelectProfilePic');
+import CirclePic from '../Shared/CirclePic';
 import VibePicker from '../Door/VibePicker.js';
 import styles2 from '../../styles/Door/doorStyles.js';
 import StyledTextInput from '../Shared/StyledTextInput.js';
@@ -52,7 +53,7 @@ class EditUser extends React.Component {
             updateProfPic,
           })}
         >
-          <Text>Pic</Text>
+          <CirclePic uri={store.getState().user.profilePictureUri} />
         </TouchableOpacity>
         <StyledTextInput
           onChangeText={updateUserName}
