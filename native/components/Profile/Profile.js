@@ -6,6 +6,7 @@ import EditUser from './EditUser';
 import styles from '../../styles/Profile/profileStyles.js';
 import { backButton, editButton } from '../Shared/Buttons';
 import { navToFull } from '../Shared/NavHelpers';
+import CirclePic from '../Shared/CirclePic';
 const actions = require('../../sharedNative/actions/actions');
 const profPic = require('../../sharedNative/images/dino-profile.jpeg');
 
@@ -45,12 +46,7 @@ const Profile = (props) => {
       rightButton={editButton(EditUser, props.route.user, updateUser)}
     />
     <View>
-      <View>
-        <Image
-          source={{ uri: store.getState().user.profilePictureUri }}
-          style={styles.profilePic}
-        />
-      </View>
+      <CirclePic uri={store.getState().user.profilePictureUri} />
       <View style={styles.listEntryView}>
         <Text style={styles.group}>Username: {store.getState().user.userName}</Text>
       </View>
