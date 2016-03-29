@@ -1,18 +1,21 @@
-import React, { View, Text, Alert } from 'react-native';
+
+import React, { View, Text, Alert, TouchableOpacity, Image } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import EditUser from './EditUser';
 import styles from '../../styles/Profile/profileStyles.js';
 import { backButton, editButton } from '../Shared/Buttons';
 import { navToFull } from '../Shared/NavHelpers';
+import CirclePic from '../Shared/CirclePic';
 const actions = require('../../sharedNative/actions/actions');
-
+const profPic = require('../../sharedNative/images/dino-profile.jpeg');
 
 const Profile = (props) => {
+  const profilePage = this;
   const updateUser = (newUserInfo) => {
-    store.dispatch(actions.updateUser(newUserInfo))
-    .then(userUpdated => {
-      if (!userUpdated) {
+    props.updateUser(newUserInfo)
+    .then(updatedUser => {
+      if (!updatedUser) {
         Alert.alert('Username Taken!', 'Try a different one?', [
             { text: 'Cancel',
             onPress: () => null,
@@ -29,6 +32,9 @@ const Profile = (props) => {
             style: 'default',
           },
         ]);
+      } else {
+        store.dispatch(actions.setUser(updatedUser));
+        // profilePage.forceUpdate();
       }
     });
   };
@@ -40,17 +46,18 @@ const Profile = (props) => {
       rightButton={editButton(EditUser, props.route.user, updateUser)}
     />
     <View>
+      <CirclePic uri={store.getState().user.profilePictureUri} />
       <View style={styles.listEntryView}>
         <Text style={styles.group}>Username: {store.getState().user.userName}</Text>
       </View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>
-          Default Location: {props.route.user.defaultLocation || 'None'}
+          Default Location: {store.getState().user.defaultLocation || 'None'}
         </Text>
       </View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>
-          Default Vibe: {props.route.user.defaultVibe || 'None'}
+          Default Vibe: {store.getState().user.defaultVibe || 'None'}
         </Text>
       </View>
     </View>

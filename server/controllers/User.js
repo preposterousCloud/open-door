@@ -3,6 +3,8 @@
 const db = require('../db/database').db;
 const Auth = require('./Auth');
 const HttpError = require('./Errors').HttpError;
+const imgur = require('imgur');
+// import imgur?
 
 const _mapUser = (user) => {
   return {
@@ -42,12 +44,32 @@ module.exports.updateUser = function createUser(req, res, next) {
     .then((user) => {
       db.User.findOne({ where: { userName: req.body.userName } })
       .then(conflictingUser => {
-        if (conflictingUser) {
+        if (conflictingUser && conflictingUser.id !== user.id) {
           return next(new HttpError(409, 'Username already taken'));
         }
-        user.update(req.body);
-        res.json({ message: 'user updated' });
-        return user;
+        // newUser = get updated properties from user
+        const newUserInfo = req.body;
+        // if we recieved a new base64 encoded profile profile picture
+        if (newUserInfo.encodedProfPic) {
+          // send it up to imgur
+          imgur.uploadBase64(newUserInfo.encodedProfPic)
+          .then((imgurResponse) => {
+            newUserInfo.profilePictureUri = imgurResponse.data.link;
+            delete newUserInfo.encodedProfPic;
+            user.update(newUserInfo)
+            .then(user => {
+              console.log('updated user:', user);
+              res.json(newUserInfo)
+            });
+          })
+          .catch((err) => {
+            res.json({ message: 'error updating user' });
+            console.error(err.message);
+          });
+        } else {
+          user.update(newUserInfo)
+          .then(user => res.json(newUserInfo));
+        }
       });
     })
     .catch(next);
