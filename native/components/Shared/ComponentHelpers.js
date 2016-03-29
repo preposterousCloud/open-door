@@ -1,5 +1,6 @@
 import React, { Image, ListView, Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
+import Swipeout from 'react-native-swipeout';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { refreshUser } from '../../sharedNative/actions/actions.js';
 import { arrayToDataSource } from './HelperFunctions.js';
@@ -24,7 +25,7 @@ const chooseRowStyle = (style) => {
   }
 };
 
-const makeClickableRow = (action, text, distinguished, rowStyle) => {
+const makeClickableRow = (action, text, distinguished, rowStyle, canDelete) => {
   const distStyle = distinguished && rowStyle ? chooseRowStyle(rowStyle) : null;
   const contactMapper = store.getState().contactMap;
   return (rowData) => {
@@ -43,27 +44,59 @@ const makeClickableRow = (action, text, distinguished, rowStyle) => {
         </Text>
       );
     }
-    return (
+    const swipeoutBtns = [
+      {
+        text: 'Button',
+      },
+    ];
+    let notSwipeable = () => (
       <View>
-        <TouchableOpacity
-          onPress={actionAppliedToUser}
-          style={socialStyles.group}
-        >
-          <View style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-            distStyle[0] :
-            socialStyles.listEntryView}
+          <TouchableOpacity
+            onPress={actionAppliedToUser}
+            style={socialStyles.group}
           >
-            <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-            distStyle[1] :
-            null}
+            <View style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
+              distStyle[0] :
+              socialStyles.listEntryView}
             >
-              {contactMapper[rowData.id] || rowData.userName || rowData[text]}
-            </Text>
-            {withDistinguished}
-          </View>
-        </TouchableOpacity>
+              <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
+              distStyle[1] :
+              null}
+              >
+                {rowData.userName ? (contactMapper[rowData.id] || rowData.userName) : rowData[text]}
+              </Text>
+              {withDistinguished}
+            </View>
+          </TouchableOpacity>
       </View>
     );
+    let swipeable = () => (
+      <View>
+        <Swipeout
+          right={swipeoutBtns}
+        >
+          <TouchableOpacity
+            onPress={actionAppliedToUser}
+            style={socialStyles.group}
+          >
+            <View style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
+              distStyle[0] :
+              socialStyles.listEntryView}
+            >
+              <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
+              distStyle[1] :
+              null}
+              >
+                {rowData.userName ? (contactMapper[rowData.id] || rowData.userName) : rowData[text]}
+              </Text>
+              {withDistinguished}
+            </View>
+          </TouchableOpacity>
+        </Swipeout>
+      </View>
+    );
+    console.log(canDelete)
+    return canDelete ? swipeable() : notSwipeable();
   };
 };
 
@@ -93,6 +126,7 @@ const makeListContainer = (rowComponent, listDataPath = [], listComponent = User
 };
 
 const makeSelectableRow = (action, getChecklist) => {
+  const contactMapper = store.getState().contactMap;
   return (user) => {
     let checklist = getChecklist();
     const runList = () => {
@@ -100,6 +134,8 @@ const makeSelectableRow = (action, getChecklist) => {
       const appliedChecklist = getChecklist.bind(null, user);
       actionAppliedToUser();
       checklist = appliedChecklist();
+      makeListContainer(UserList, ['user', 'friends']);
+      store.dispatch(refreshUser());
     };
     const rowData = () => (
       <View>
@@ -108,7 +144,7 @@ const makeSelectableRow = (action, getChecklist) => {
           style={socialStyles.group}
         >
           <View style={socialStyles.listEntryView}>
-            <Text>{user.userName}</Text>
+            <Text>{contactMapper[user.id] || user.userName}</Text>
             {(() => (checklist[user.id]) ?
               <View style={socialStyles.checkboxFilled}></View> :
               <View style={socialStyles.checkboxEmpty}></View>

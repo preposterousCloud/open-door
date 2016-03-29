@@ -4,11 +4,12 @@ import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../../Shared/NavBar.js';
 import styles from '../../../../styles/Social/socialStyles.js';
 import feedStyles from '../../../../styles/Feed/feedStyles.js';
-import { getAllUsers } from '../../../../sharedNative/actions/actions.js';
+import { getAllUsers, addFriendToGroup } from '../../../../sharedNative/actions/actions.js';
 import { makeClickableRow, UserList } from '../../../Shared/ComponentHelpers.js';
 import { exitButton, cancelButton } from '../../../Shared/Buttons.js';
 
 const AddMembers = (props) => {
+  const contactMapper = store.getState().contactMap;
   // Begin TextInput methods
   const something = () => {
     console.log('form submit!');
@@ -24,24 +25,33 @@ const AddMembers = (props) => {
   };
 
   const alertRequestSent = (user) => {
-    Alert.alert(`add member ${user.userName}?`, '', [
+    Alert.alert(`add member ${contactMapper[user.id] || user.userName}?`, '', [
       cancelButton,
       { text: 'Add',
-        onPress: () => console.log(`${user.userName} added, lol not really`),
-        // should be: store.dispatch(groupsApi.addFriend(user.id)),
+        onPress: () => {
+          const groupId = props.route.focus.id;
+          const friendId = user.id;
+          store.dispatch(addFriendToGroup(groupId, friendId));
+        },
         style: 'default',
       },
     ]);
   };
   // End TextInput methods
 
-  const AddMembersListContainer = connect(state => ({
-    listComponent: UserList,
-    rowComponent: makeClickableRow(alertRequestSent),
-    listData: state.user.friends,
-    user: state.user,
-  }))(UserList);
-
+  const AddMembersListContainer = connect(state => {
+    const re = new RegExp(state.filterText, 'ig');
+    const memberIds = state.userGroupMembers.map(member => member.id);
+    const nonMembers = state.user.friends.filter(friend => {
+      return memberIds.indexOf(friend.id) === -1;
+    });
+    return {
+      listComponent: UserList,
+      rowComponent: makeClickableRow(alertRequestSent, 'userName'),
+      listData: nonMembers,
+      user: state.user,
+    };
+  })(UserList);
   return (
     <View>
       <NavBar

@@ -2,10 +2,15 @@
 
 const newUserTemps = [
   { userName: 'vcipriani', pw: 'food', phone: '5556106679', defaultLocation: '123 main st', defaultVibe: 'jam' },
+  // Contacts Alias: David Taylor
   { userName: 'user2', pw: 'u', phone: '8885551212', defaultLocation: '123 user2 st', defaultVibe: 'jam' },
+  // Contacts Alias: John Appleseed
   { userName: 'user3', pw: 'u', phone: '8885551000', defaultLocation: '123 user3 st', defaultVibe: 'dino' },
+  // Contacts Alias: NOT IN CONTACTS
   { userName: 'user4', pw: 'u', phone: '7075551854', defaultLocation: '123 user4 st', defaultVibe: 'kick' },
+  // Contacts Alias: Hank Zakroff
   { userName: 'user5', pw: 'u', phone: '4155553695', defaultLocation: '123 user5 st', defaultVibe: 'jam' },
+  // Contacts Alias: Kate Bell
 ];
 
 const newGroupTemps = [{ name: 'HackReactor' }, { name: 'party squatd' }];

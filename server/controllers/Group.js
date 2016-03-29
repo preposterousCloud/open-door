@@ -34,6 +34,26 @@ module.exports.createGroup = (req, res, next) => {
   }
 };
 
+module.exports.addMember = (req, res, next) => {
+  console.log(req.body)
+  if (!req.body.groupId || !req.body.userId) {
+    next(new HttpError(404, 'Make sure to include groupName, members and other props'));
+  } else {
+    db.Group.findOne({
+      where: {
+        id: +req.body.groupId,
+      },
+    })
+    .then(group => {
+      console.log(group)
+      group.addUsers(req.body.userId)
+      .then(() => {
+        res.json(group);
+      });
+    });
+  }
+};
+
 module.exports.getGroups = (req, res, next) => {
   db.User.findOne({
     include: [{

@@ -390,6 +390,21 @@ export function storeGroup(groupName) {
   };
 }
 
+export function addFriendToGroup(groupId, userId) {
+  return (dispatch, getState) => {
+    const myId = getState().user.id;
+    const jwt = getState().app.jwt;
+    return api.addToGroup(groupId, userId, myId, jwt)
+    .then(group => {
+      if (group) {
+        dispatch(refreshUser());
+        return group;
+      }
+      return false;
+    });
+  };
+}
+
 export function getUserGroups() {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;
