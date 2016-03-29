@@ -15,8 +15,7 @@ import Swiper from 'react-native-swiper';
 import Feed from './Feed/Feed.js';
 import Social from './Social/Social.js';
 import SetDoorContainer from './Door/SetDoorContainer';
-import styles from '../styles/Feed/feedStyles.js';
-import sharedStyles from '../styles/Feed/feedStyles.js';
+import styles from '../styles/styles.js';
 
 const FeedContainer = connect((state, ownProps) => {
   return {

@@ -1,6 +1,6 @@
 import React, { View } from 'react-native';
 import NavigationBar from 'react-native-navbar';
-import styles from '../../styles/Shared/sharedStyles.js';
+import styles from '../../styles/styles.js';
 
 const NavBar = (props) => (
   <View style={styles.navBar}>

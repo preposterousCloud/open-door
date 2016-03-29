@@ -1,6 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+const { width } = Dimensions.get('window');
 
+const radius = 50;
 module.exports = StyleSheet.create({
+  bg: {
+    backgroundColor: 'purple',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -100,5 +105,55 @@ module.exports = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#007AFF',
     backgroundColor: '#007AFF',
+  },
+  imageContainer: {
+    flex: 1,
+  },
+  image: {
+  },
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: 20,
+  },
+  rightContainer: {
+    flex: 1,
+  },
+  navBar: {
+    backgroundColor: 'transparent',
+  },
+  listEntryViewDef: {
+    flexDirection: 'row',
+    backgroundColor: '#BCDAE4',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 30,
+    paddingBottom: 30,
+    borderTopWidth: 1,
+    borderColor: '#DDD',
+  },
+  footer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  pullRight: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingBottom: 20,
+    paddingRight: 20,
+  },
+  pullLeft: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  pullRight: {
+    paddingRight: 10,
+  },
+  profilePic: {
+    width: radius * 2,
+    height: radius * 2,
+    borderRadius: radius,
   },
 });

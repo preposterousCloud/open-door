@@ -1,7 +1,7 @@
 import React, { View, ListView } from 'react-native';
 import FeedListRow from './FeedListRow.js';
 import { arrayToDataSource } from '../Shared/HelperFunctions.js';
-import styles from '../../styles/Feed/feedStyles.js';
+import styles from '../../styles/styles.js';
 
 const FeedList = (props) => (
   <View style={styles.container}>

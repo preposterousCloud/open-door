@@ -5,7 +5,7 @@ import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
 const actions = require('../../../../sharedNative/actions/actions.js');
 import { cancelButton } from '../../../Shared/Buttons';
 import { makeListContainer, makeSelectableRow } from '../../../Shared/ComponentHelpers.js';
-import styles from '../../../../styles/Social/socialStyles.js';
+import styles from '../../../../styles/styles.js';
 import NavBar from '../../../Shared/NavBar.js';
 import CreateGroupName from './CreateGroupName.js';
 

@@ -12,7 +12,7 @@ import EditEvent from './EditEvent';
 import EventDetail from '../Feed/EventDetail.js';
 import OpenDoor from '../Shared/OpenDoor';
 import ClosedDoor from '../Shared/ClosedDoor';
-import styles from '../../styles/Door/doorStyles.js';
+import styles from '../../styles/styles.js';
 
 const LoadingWheelContainer = require('../Shared/ComponentHelpers').LoadingWheelContainer;
 

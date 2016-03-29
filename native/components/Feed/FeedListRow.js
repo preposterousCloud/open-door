@@ -1,5 +1,5 @@
 import React, { Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
-import styles from '../../styles/Feed/feedStyles.js';
+import styles from '../../styles/styles.js';
 const { width, height } = Dimensions.get('window');
 import Accordion from 'react-native-accordion';
 import EventDetail from './EventDetail';

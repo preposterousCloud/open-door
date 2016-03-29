@@ -12,7 +12,7 @@ import FeedList from './FeedList.js';
 import NavBar from '../Shared/NavBar.js';
 import SetDoor from '../Door/SetDoor.js';
 import Social from '../Social/Social.js';
-import styles from '../../styles/Feed/feedStyles.js';
+import styles from '../../styles/styles.js';
 
 class Feed extends React.Component {
   // componentWillReceiveProps(nextProps) {

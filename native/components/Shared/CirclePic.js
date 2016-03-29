@@ -1,5 +1,5 @@
 import React, { View, Image } from 'react-native';
-import styles from '../../styles/Profile/profileStyles.js';
+import styles from '../../styles/styles.js';
 
 const CirclePic = (props) => {
   let preferredStyles = props.style || styles.profilePic;

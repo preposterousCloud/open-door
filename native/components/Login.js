@@ -15,7 +15,7 @@ import { navToFull } from './Shared/NavHelpers';
 import MainContainer from './MainContainer';
 import OpenDoor from './Shared/OpenDoor';
 import Button from './Shared/Button';
-import styles from '../styles/Shared/sharedStyles';
+import styles from '../styles/styles';
 const actions = require('../sharedNative/actions/actions');
 
 
