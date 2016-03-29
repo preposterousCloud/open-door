@@ -397,7 +397,7 @@ export function addFriendToGroup(groupId, userId) {
     return api.addToGroup(groupId, userId, myId, jwt)
     .then(group => {
       if (group) {
-        dispatch(refreshUser());
+        dispatch(setUserGroupMembers(group.Users));
         return group;
       }
       return false;

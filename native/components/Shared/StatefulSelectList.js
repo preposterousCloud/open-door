@@ -7,22 +7,21 @@ import { arrayToDataSource } from '../Shared/HelperFunctions.js';
 import socialStyles from '../../styles/Social/socialStyles.js';
 import doorStyles from '../../styles/Door/doorStyles.js';
 
-const SelectList = class SelectList extends React.Component {
+export const SelectList = class SelectList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedUsers: props.preSelected || {},
+      selectedItems: props.preSelected || {},
       dataArray: props.dataArray,
-      inviteFunc: props.inviteFunc,
     };
     this.ItemView = this.ItemView.bind(this);
   }
   ItemView(rowData) {
     const clickThisRow = () => {
-      const selectedUsers = this.state.selectedUsers;
-      selectedUsers[rowData.id] = !selectedUsers[rowData.id];
-      this.setState({ selectedUsers });
-      this.state.inviteFunc(rowData.id);
+      const selectedItems = this.state.selectedItems;
+      selectedItems[rowData.id] = !selectedItems[rowData.id];
+      this.setState({ selectedItems });
+      this.props.onItemClick(rowData);
     };
     const Checkbox = (props) => {
       return (props.checked ?
@@ -36,7 +35,7 @@ const SelectList = class SelectList extends React.Component {
       >
         <View style={socialStyles.listEntryView}>
           <Text>{rowData[this.props.displayProp]}</Text>
-          <Checkbox checked={this.state.selectedUsers[rowData.id]} />
+          <Checkbox checked={this.state.selectedItems[rowData.id]} />
         </View>
       </TouchableOpacity>
     );
@@ -59,13 +58,13 @@ SelectList.propTypes = {
   displayProp: React.PropTypes.string,
   onClick: React.PropTypes.func,
   preSelected: React.PropTypes.object,
-  inviteFunc: React.PropTypes.func,
+  onItemClick: React.PropTypes.func,
 };
 
 export const UserList = connect(
   (state, ownProps) => {
     return {
-      inviteFunc: ownProps.inviteFunc,
+      onItemClick: ownProps.onItemClick,
       dataArray: state.user.friends,
       displayProp: 'userName',
       preSelected: ownProps.preSelected,
@@ -82,7 +81,7 @@ export const UserList = connect(
 export const GroupList = connect(
   (state, ownProps) => {
     return {
-      inviteFunc: ownProps.inviteFunc,
+      onItemClick: ownProps.onItemClick,
       dataArray: state.user.Groups,
       displayProp: 'name',
       preSelected: ownProps.preSelected,

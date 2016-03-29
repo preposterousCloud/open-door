@@ -19,7 +19,7 @@ const InviteSelects = (props) => {
   <View>
     <NavBar title={props.route.title} leftButton={backButton} />
     <props.route.listComponent
-      inviteFunc={props.route.inviteFunc}
+      onItemClick={props.route.onItemClick}
       preSelected={props.route.preSelected}
     />
   </View>
@@ -88,28 +88,28 @@ class EditEvent extends React.Component {
     const updateEventName = name => updateLocalEvent({ name });
     const updateEventLocation = location => updateLocalEvent({ location });
     const changeVibe = vibe => updateLocalEvent({ vibe });
-    const toggleInviteFriend = (friendId) => {
+    const toggleInviteFriend = (friend) => {
       const event = this.state.event;
-      event.invitedFriends[friendId] = !event.invitedFriends[friendId];
+      event.invitedFriends[friend.id] = !event.invitedFriends[friend.id];
       this.setState({ event });
     };
     const navToFriends = () => navToFull({
       component: InviteSelects,
       title: 'Invite Friends',
       listComponent: UserList,
-      inviteFunc: toggleInviteFriend,
+      onItemClick: toggleInviteFriend,
       preSelected: this.state.event.preSelectedFriends,
     });
-    const toggleInviteGroup = (groupId) => {
+    const toggleInviteGroup = (group) => {
       const event = this.state.event;
-      event.invitedGroups[groupId] = !event.invitedGroups[groupId];
+      event.invitedGroups[group.id] = !event.invitedGroups[group.id];
       this.setState({ event });
     };
     const navToGroups = () => navToFull({
       component: InviteSelects,
       title: 'Invite Groups',
       listComponent: GroupList,
-      inviteFunc: toggleInviteGroup,
+      onItemClick: toggleInviteGroup,
       preSelected: this.state.event.preSelectedGroups,
     });
 
