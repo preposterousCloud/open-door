@@ -7,6 +7,7 @@ import { navToFull, popScene } from '../Shared/NavHelpers.js';
 const actions = require('../../sharedNative/actions/actions');
 const api = require('../../sharedNative/utils/api.js');
 import NavBar from '../Shared/NavBar.js';
+const SelectProfilePic = require('./SelectProfilePic');
 import VibePicker from '../Door/VibePicker.js';
 import styles2 from '../../styles/Door/doorStyles.js';
 import StyledTextInput from '../Shared/StyledTextInput.js';
@@ -44,6 +45,11 @@ class EditUser extends React.Component {
         <NavBar title={'Edit Profile'} leftButton={cancelButtonNav}
           rightButton={{ title: 'Save', handler: submitUser }}
         />
+        <TouchableOpacity
+          onPress={() => navToFull({ component: SelectProfilePic })}
+        >
+          <Text>Pic</Text>
+        </TouchableOpacity>
         <StyledTextInput
           onChangeText={updateUserName}
           placeholder={store.getState().user.userName}

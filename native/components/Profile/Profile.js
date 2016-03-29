@@ -6,7 +6,6 @@ import EditUser from './EditUser';
 import styles from '../../styles/Profile/profileStyles.js';
 import { backButton, editButton } from '../Shared/Buttons';
 import { navToFull } from '../Shared/NavHelpers';
-const SelectProfilePic = require('./SelectProfilePic');
 const actions = require('../../sharedNative/actions/actions');
 const profPic = require('../../sharedNative/images/dino-profile.jpeg');
 
@@ -65,7 +64,6 @@ const Profile = (props) => {
           Default Vibe: {store.getState().user.defaultVibe || 'None'}
         </Text>
       </View>
-      <TouchableOpacity onPress={()=> {navToFull({ component: SelectProfilePic })}}><Text>Pic</Text></TouchableOpacity>
     </View>
   </View>
   );
