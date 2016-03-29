@@ -141,11 +141,11 @@ const CameraRollView = class CameraRollView extends React.Component {
   }
   // rowData is an array of images
   _renderRow(rowData, sectionID, rowID) {
-    const images = rowData.map((image) => {
+    const images = rowData.map((image, index) => {
       if (image === null) {
         return null;
       }
-      return this.props.renderImage(image, this.state, this.props);
+      return this.props.renderImage(image, this.state, this.props, index);
     });
 
     return (
@@ -186,11 +186,11 @@ CameraRollView.defaultProps = {
   photoMargin: 4,
   assetType: 'Photos',
   onPress: () => console.log('Include onPress prop for photo event handling.'),
-  renderImage: (asset, state, props) => {
+  renderImage: (asset, state, props, index) => {
     const imageSize = (state.screenWidth - ((props.photoMargin * props.imagesPerRow + 1) * 2 - 2)) / props.imagesPerRow;
     const imageStyle = { width: imageSize, height: imageSize, margin: props.photoMargin };
     return (
-      <TouchableOpacity onPress={() => { props.onPress(asset);} }>
+      <TouchableOpacity key={index} onPress={() => { props.onPress(asset);} }>
         <Image source={asset.node.image} style={imageStyle} />
       </TouchableOpacity>
     );
