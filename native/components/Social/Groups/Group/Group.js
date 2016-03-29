@@ -30,7 +30,8 @@ const Group = (props) => {
   };
 
   const GroupListContainer = makeListContainer(
-    makeClickableRow(listGroupMembers, null, null, null, true),
+    makeClickableRow(listGroupMembers, null, null, null,
+      actions.removeFromGroup.bind(null, props.route.focus.id)),
     ['userGroupMembers'],
     UserList
   );

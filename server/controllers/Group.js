@@ -93,6 +93,29 @@ module.exports.addMember = (req, res, next) => {
   }
 };
 
+module.exports.removeMember = (req, res, next) => {
+  if (!req.body.groupId || !req.body.userToRemoveId) {
+    next(new HttpError(404, 'Make sure to include groupId and userToRemoveId'));
+  } else {
+    db.Group.findOne({
+      where: {
+        id: +req.body.groupId,
+      },
+    })
+    .then(group => {
+      console.log('just before we try to call group.deleteUsers');
+      group.removeUsers(req.body.userToRemoveId)
+      .then(() => {
+        console.log('just after we try to call group.deleteUsers');
+        db.Group.findOne({ where: { id: group.id }, include: [{ model: db.User }] })
+        .then((updatedGroup) => {
+          res.json(updatedGroup);
+        });
+      });
+    });
+  }
+};
+
 module.exports.getGroups = (req, res, next) => {
   db.User.findOne({
     include: [{

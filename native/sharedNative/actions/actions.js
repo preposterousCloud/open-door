@@ -421,6 +421,21 @@ export function addFriendToGroup(groupId, userId) {
   };
 }
 
+export function removeFromGroup(groupId, userToRemoveId) {
+  return (dispatch, getState) => {
+    const myId = getState().user.id;
+    const jwt = getState().app.jwt;
+    return api.removeFromGroup(groupId, userToRemoveId, myId, jwt)
+    .then(group => {
+      if (group) {
+        dispatch(setUserGroupMembers(group.Users));
+        return group;
+      }
+      return false;
+    });
+  };
+}
+
 export function getUserGroups() {
   return (dispatch, getState) => {
     const jwt = getState().app.jwt;

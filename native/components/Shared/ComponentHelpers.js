@@ -25,7 +25,7 @@ const chooseRowStyle = (style) => {
   }
 };
 
-const makeClickableRow = (action, text, distinguished, rowStyle, canDelete) => {
+const makeClickableRow = (action, text, distinguished, rowStyle, swipeFunction) => {
   const distStyle = distinguished && rowStyle ? chooseRowStyle(rowStyle) : null;
   const contactMapper = store.getState().contactMap;
   return (rowData) => {
@@ -44,12 +44,7 @@ const makeClickableRow = (action, text, distinguished, rowStyle, canDelete) => {
         </Text>
       );
     }
-    const swipeoutBtns = [
-      {
-        text: 'Remove',
-        onPress: () => console.log('pressed the butt!'),
-      },
-    ];
+
     const ClickableRow = () => (
       <View>
           <TouchableOpacity
@@ -71,14 +66,22 @@ const makeClickableRow = (action, text, distinguished, rowStyle, canDelete) => {
           </TouchableOpacity>
       </View>
     );
-    const SwipeAndClickRow = () => (
-      <View>
-        <Swipeout right={swipeoutBtns} >
-          <ClickableRow />
-        </Swipeout>
-      </View>
-    );
-    return canDelete ? <SwipeAndClickRow /> : <ClickableRow />;
+
+    if (swipeFunction) {
+      const swipeoutBtns = [{
+        text: 'Remove',
+        onPress: () => store.dispatch(swipeFunction(rowData.id)),
+      }];
+      const SwipeAndClickRow = () => (
+        <View>
+          <Swipeout right={swipeoutBtns} >
+            <ClickableRow />
+          </Swipeout>
+        </View>
+      );
+      return <SwipeAndClickRow />;
+    }
+    return <ClickableRow />;
   };
 };
 

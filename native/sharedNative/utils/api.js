@@ -186,6 +186,22 @@ export const addToGroup = (groupId, userId, myId, jwt) => {
   .catch(catchErr);
 };
 
+export const removeFromGroup = (groupId, userToRemoveId, myId, jwt) => {
+  const url = `${config.apiUrl}friends/groups`;
+  const groupObj = JSON.stringify({
+    groupId,
+    userToRemoveId,
+    myId,
+  });
+  return fetch(url, {
+    method: 'DELETE',
+    body: groupObj,
+    headers: buildHeaders(jwt),
+  })
+  .then(validateBody)
+  .catch(catchErr);
+};
+
 export const fetchUserGroups = (id, jwt) => {
   const url = `${config.apiUrl}friends/groups/getGroupsForUser/${id}`;
   return fetch(url, {
