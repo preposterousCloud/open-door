@@ -47,7 +47,7 @@ const Profile = (props) => {
     <View>
       <View>
         <Image
-          source={{ uri: props.route.user.profilePictureUrl }}
+          source={{ uri: props.route.user.profilePictureUri }}
           style={styles.profilePic}
         />
       </View>
