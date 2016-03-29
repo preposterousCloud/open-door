@@ -27,7 +27,7 @@ const Group = (props) => {
     console.log(`You clicked on ${member.groupId}, id:${member.id}`);
   };
 
-  const GroupListContainer = makeListContainer(makeClickableRow(listGroupMembers), ['userGroupMembers'], UserList);
+  const GroupListContainer = makeListContainer(makeClickableRow(listGroupMembers, null, null, null, true), ['userGroupMembers'], UserList);
   const logProps = () => console.log(props);
   return (
     <View>
