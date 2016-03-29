@@ -93,7 +93,7 @@ const Login = class Login extends React.Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.centerContainer}>
         <StatusBar barStyle="light-content" />
         <OpenDoor styles = {{ size: 200, color: 'green' }} />
         <TextInput

@@ -3,20 +3,51 @@ const { width } = Dimensions.get('window');
 
 const radius = 50;
 module.exports = StyleSheet.create({
+  // General BG Style
   bg: {
     backgroundColor: 'purple',
   },
+  // Containers
   container: {
     flex: 1,
     justifyContent: 'center',
   },
-  listView: {
-    backgroundColor: '#FFF',
-    height: 620,
+  imageContainer: {
+    flex: 1,
+  },
+  rightContainer: {
+    flex: 1,
+  },
+  centerContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: 20,
   },
   scrollView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  // Nav
+  tabBar: {
+    borderTopWidth: 3,
+    borderBottomWidth: 1,
+    borderColor: '#007AFF',
+  },
+  navBar: {
+    backgroundColor: 'transparent',
+  },
+  // Lists
+  listView: {
+    backgroundColor: '#FFF',
+    height: 620,
+  },
+  listEntryView: {
+    flexDirection: 'row',
+    padding: 20,
+    borderTopWidth: 1,
+    borderColor: '#DDD',
+    justifyContent: 'space-between',
   },
   greyedOutListEntryView: {
     flexDirection: 'row',
@@ -27,10 +58,6 @@ module.exports = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: '#EEE',
   },
-  greyedOutListEntryViewText: {
-    color: '#777',
-    justifyContent: 'space-between',
-  },
   highlightedListEntryView: {
     flexDirection: 'row',
     padding: 20,
@@ -40,18 +67,15 @@ module.exports = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: '#BCDAE4',
   },
+  greyedOutListEntryViewText: {
+    color: '#777',
+    justifyContent: 'space-between',
+  },
   highlightedListEntryViewText: {
     color: '#023242',
     justifyContent: 'space-between',
   },
-  listEntryView: {
-    flexDirection: 'row',
-    padding: 20,
-    borderTopWidth: 1,
-    borderColor: '#DDD',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
+  // Forms
   userInput: {
     height: 50,
     width: 300,
@@ -65,6 +89,20 @@ module.exports = StyleSheet.create({
     borderRadius: 4,
     color: '#616161',
   },
+  checkboxEmpty: {
+    width: 20,
+    height: 20,
+    borderWidth: 1,
+    borderColor: '#007AFF',
+  },
+  checkboxFilled: {
+    width: 20,
+    height: 20,
+    borderWidth: 1,
+    borderColor: '#007AFF',
+    backgroundColor: '#007AFF',
+  },
+  // Buttons
   socialF: {
     justifyContent: 'center',
     flexDirection: 'row',
@@ -80,11 +118,6 @@ module.exports = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#DDD',
   },
-  tabBar: {
-    borderTopWidth: 3,
-    borderBottomWidth: 1,
-    borderColor: '#007AFF',
-  },
   categoryButton: {
     justifyContent: 'center',
     flexDirection: 'row',
@@ -93,51 +126,19 @@ module.exports = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#DDD',
   },
-  checkboxEmpty: {
-    width: 20,
-    height: 20,
-    borderWidth: 1,
-    borderColor: '#007AFF',
+  // Profile and Group Pic
+  profilePic: {
+    width: radius * 2,
+    height: radius * 2,
+    borderRadius: radius,
   },
-  checkboxFilled: {
-    width: 20,
-    height: 20,
-    borderWidth: 1,
-    borderColor: '#007AFF',
-    backgroundColor: '#007AFF',
-  },
-  imageContainer: {
-    flex: 1,
-  },
-  image: {
-  },
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    margin: 20,
-  },
-  rightContainer: {
-    flex: 1,
-  },
-  navBar: {
-    backgroundColor: 'transparent',
-  },
-  listEntryViewDef: {
-    flexDirection: 'row',
-    backgroundColor: '#BCDAE4',
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 30,
-    paddingBottom: 30,
-    borderTopWidth: 1,
-    borderColor: '#DDD',
-  },
+  // Footer
   footer: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-end',
   },
+  // General
   pullRight: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -150,10 +151,5 @@ module.exports = StyleSheet.create({
   },
   pullRight: {
     paddingRight: 10,
-  },
-  profilePic: {
-    width: radius * 2,
-    height: radius * 2,
-    borderRadius: radius,
   },
 });

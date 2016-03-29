@@ -60,7 +60,7 @@ const SetDoor = class SetDoor extends React.Component {
           leftButton={ { title: '<', handler: this.props.swipeLeft } }
           rightButton={ { title: 'Settings', handler: goToSettings }}
         />
-        <View style={styles.container}>
+        <View style={styles.centerContainer}>
           <TouchableOpacity onPress={toggleDoor}>
             {(() => (this.props.currentEvent) ?
               <OpenDoor styles={{ size: 100, color: 'green' }} /> :
