@@ -1,9 +1,9 @@
-import React, { View, Text } from 'react-native';
+import React, { View, Text, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
 import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
 const actions = require('../../../../sharedNative/actions/actions.js');
-
+import { cancelButton } from '../../../Shared/Buttons';
 import { makeListContainer, makeSelectableRow } from '../../../Shared/ComponentHelpers.js';
 import styles from '../../../../styles/Social/socialStyles.js';
 import NavBar from '../../../Shared/NavBar.js';
@@ -39,10 +39,18 @@ const getChecklist = () => {
 
 const submitGroup = () => {
   const name = store.getState().groupName;
-  store.dispatch(actions.storeGroup(name))
-  .then(() => {
-    getFriends();
-  });
+  if (name) {
+    store.dispatch(actions.storeGroup(name))
+    .then(() => {
+      getFriends();
+    });
+  } else {
+    const groupNames = ['Teen Titans', 'Captian\'s Crew', 'Lazy Leopards', 'Penguin Pals'];
+    Alert.alert(
+      'Your group needs a name!',
+      `How about ${groupNames[Math.floor(Math.random() * groupNames.length)]}?`,
+      [cancelButton]);
+  }
 };
 
 const CreateGroup = class CreateGroup extends React.Component {
