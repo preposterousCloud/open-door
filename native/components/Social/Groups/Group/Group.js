@@ -36,12 +36,10 @@ const Group = (props) => {
   );
 
   const changeGroupPic = encodedImage => {
-    console.log('nice pic!', encodedImage.slice(0, 10));
     store.dispatch(actions.updateGroupPic(props.route.focus.id, encodedImage))
-    .then(updatedGroup => console.log('updatedGroup:', updatedGroup));
+    .then(newPicLink => {props.route.focus.groupPictureUri = newPicLink;});
   };
 
-  const logProps = () => console.log(props);
   return (
     <View>
       <NavBar

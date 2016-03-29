@@ -57,6 +57,7 @@ module.exports.updateGroup = (req, res, next) => {
         const groupPictureUri = imgurResponse.data.link;
         group.update({ groupPictureUri })
         .then(group => {
+          console.log('updated group:', group);
           res.json(group);
         });
       })

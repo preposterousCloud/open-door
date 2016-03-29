@@ -137,10 +137,8 @@ export const updateGroupPic = (groupId, encodedGroupPic, jwt) => {
     body: JSON.stringify({ encodedGroupPic }),
     headers: buildHeaders(jwt),
   })
-  .then((body) => {
-    return body;
-  })
-  .then(validateBody);
+  .then(validateBody)
+  .then((groupNoMembers) => groupNoMembers.groupPictureUri); // JSON.parse(body._bodyInit))
 };
 
 export const usersExistByContact = (contacts, jwt) => {

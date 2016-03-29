@@ -397,9 +397,9 @@ export function updateGroupPic(groupId, encodedGroupPic) {
     dispatch(setLoading(true));
     const jwt = getState().app.jwt;
     return api.updateGroupPic(groupId, encodedGroupPic, jwt)
-    .then(group => {
+    .then(newPicLink => {
       dispatch(setLoading(false));
-      return dispatch(setGroup(group)); // setGroup?
+      return newPicLink;
     })
     .catch(err => null);
   };
