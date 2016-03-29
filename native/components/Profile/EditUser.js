@@ -19,7 +19,7 @@ class EditUser extends React.Component {
     const { userName, defaultLocation, defaultVibe } = props.route.user;
     this.state = {
       onSubmit: props.route.onSubmit,
-      user: { userName, defaultLocation, defaultVibe },
+      user: { userName, defaultLocation, defaultVibe, encodedProfPic: null },
     };
   }
   updateLocalUser(update) {
@@ -39,6 +39,7 @@ class EditUser extends React.Component {
     const updateUserName = userName => this.updateLocalUser({ userName });
     const updateDefaultLocation = defaultLocation => this.updateLocalUser({ defaultLocation });
     const updateDefaultVibe = defaultVibe => this.updateLocalUser({ defaultVibe });
+    const updateProfPic = encodedProfPic => this.updateLocalUser({ encodedProfPic });
 
     return (
       <View>
@@ -46,7 +47,10 @@ class EditUser extends React.Component {
           rightButton={{ title: 'Save', handler: submitUser }}
         />
         <TouchableOpacity
-          onPress={() => navToFull({ component: SelectProfilePic })}
+          onPress={() => navToFull({
+            component: SelectProfilePic,
+            updateProfPic,
+          })}
         >
           <Text>Pic</Text>
         </TouchableOpacity>
