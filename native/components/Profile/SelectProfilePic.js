@@ -8,14 +8,17 @@ const CameraRollView = require('../Camera/CameraRollView');
 const actions = require('../../sharedNative/actions/actions');
 
 const SelectProfilePic = class SelectProfilePic extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onPhotoSelection = this.onPhotoSelection.bind(this);
+  }
+  onPhotoSelection(imageObj) {
+    // See https://github.com/scottdixon/react-native-upload-from-camera-roll/issues/1 to fix resolution
+    NativeModules.ReadImageData.readImage(imageObj.node.image.uri, (encodedImage) => {
+      this.props.route.updateProfPic({ base64Image: encodedImage, imageObj });
+    });
+  }
   render() {
-    console.log('props were getting:', this.props);
-    const onPhotoSelection = (imageObj) => {
-      // See https://github.com/scottdixon/react-native-upload-from-camera-roll/issues/1 to fix resolution
-      NativeModules.ReadImageData.readImage(imageObj.node.image.uri, (encodedImage) => {
-        this.props.route.onSubmit(encodedImage);
-      });
-    };
     return (
       <View>
         <NavBar title={'Select Picture'} leftButton={cancelButtonNav} />
@@ -23,7 +26,7 @@ const SelectProfilePic = class SelectProfilePic extends React.Component {
           batchSize={20}
           groupTypes ={'All'}
           imagesPerRow={3}
-          onPress={ onPhotoSelection }
+          onPress={ this.onPhotoSelection }
         />
       </View>
     );
