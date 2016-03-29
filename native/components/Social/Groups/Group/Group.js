@@ -36,10 +36,9 @@ const Group = (props) => {
   );
 
   const changeGroupPic = encodedImage => {
-    console.log('nice pic!');
-    // dispatch action to update group picture with group id and base64 STRING
-    // send that to the backend, make a route to edit group picture
-      // make route similar to editing profile picture
+    console.log('nice pic!', encodedImage.slice(0, 10));
+    store.dispatch(actions.updateGroupPic(props.route.focus.id, encodedImage))
+    .then(updatedGroup => console.log('updatedGroup:', updatedGroup));
   };
 
   const logProps = () => console.log(props);

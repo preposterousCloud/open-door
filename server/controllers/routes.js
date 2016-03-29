@@ -46,6 +46,7 @@ module.exports = (app) => {
   app.delete('/api/friends/reject', User.rejectFriendship);
 
   // Groups
+  app.put('/api/groups/:id', [Group.ensureUserIsInGroup, Group.updateGroup]);
   app.get('/api/friends/groups/getGroupsForUser/:id', [Auth.ensureUserIsUser((req, jwt) => {
     return parseInt(req.params.id, 10) === parseInt(jwt.userId, 10);
   }), Group.getGroups]);

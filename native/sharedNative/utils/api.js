@@ -124,6 +124,19 @@ export const updateUser = (newUserInfo, jwt) => {
     body: JSON.stringify(newUserInfo),
     headers: buildHeaders(jwt),
   })
+  .then((body) => { //
+    return body;    // This probably isn't necessary
+  })                //
+  .then(validateBody);
+};
+
+export const updateGroupPic = (groupId, encodedGroupPic, jwt) => {
+  const url = `${config.apiUrl}groups/${groupId}`;
+  return fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify({ encodedGroupPic }),
+    headers: buildHeaders(jwt),
+  })
   .then((body) => {
     return body;
   })

@@ -392,6 +392,19 @@ export function storeGroup(groupName) {
   };
 }
 
+export function updateGroupPic(groupId, encodedGroupPic) {
+  return (dispatch, getState) => {
+    dispatch(setLoading(true));
+    const jwt = getState().app.jwt;
+    return api.updateGroupPic(groupId, encodedGroupPic, jwt)
+    .then(group => {
+      dispatch(setLoading(false));
+      return dispatch(setGroup(group)); // setGroup?
+    })
+    .catch(err => null);
+  };
+}
+
 export function addFriendToGroup(groupId, userId) {
   return (dispatch, getState) => {
     const myId = getState().user.id;
