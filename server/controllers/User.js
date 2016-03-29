@@ -57,8 +57,7 @@ module.exports.updateUser = function createUser(req, res, next) {
             delete newUserInfo.base64Image;
             user.update(newUserInfo)
             .then(user => {
-              console.log('updated user:', user);
-              res.json(newUserInfo)
+              res.json(newUserInfo);
             });
           })
           .catch((err) => {
