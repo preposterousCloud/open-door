@@ -14,7 +14,7 @@ import OpenDoor from '../Shared/OpenDoor';
 import ClosedDoor from '../Shared/ClosedDoor';
 import styles from '../../styles/Door/doorStyles.js';
 
-const LoadingWheel = require('../Shared/ComponentHelpers').LoadingWheel;
+const LoadingWheelContainer = require('../Shared/ComponentHelpers').LoadingWheelContainer;
 
 const SetDoor = class SetDoor extends React.Component {
   render() {

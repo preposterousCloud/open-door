@@ -9,9 +9,15 @@ import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
 const LoadingWheel = (props) => {
   const style = props.style || { height: 40, width: 40 };
   return props.isLoading ?
-    <Image style={ props.style } source={require('../../sharedNative/images/loading.gif')} /> :
+    <Image style={ style } source={require('../../sharedNative/images/loading.gif')} /> :
     <View />;
 };
+
+const LoadingWheelContainer = connect(state => {
+  return {
+    isLoading: state.app.isLoading,
+  };})(LoadingWheel);
+
 LoadingWheel.propTypes = {
   style: React.PropTypes.object,
   isLoading: React.PropTypes.bool,
@@ -161,5 +167,5 @@ module.exports = {
   makeSelectableRow,
   UserList,
   makeListContainer,
-  LoadingWheel,
+  LoadingWheelContainer,
 };
