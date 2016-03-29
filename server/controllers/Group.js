@@ -7,6 +7,7 @@ const HttpError = require('./Errors').HttpError;
 const _mapGroup = (group) => {
   return {
     groupId: group.id,
+    groupPictureUri: group.groupPictureUri,
     members: (group.Users.map(member => {
       return {
         id: member.id,

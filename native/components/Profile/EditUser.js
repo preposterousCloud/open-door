@@ -50,7 +50,7 @@ class EditUser extends React.Component {
         <TouchableOpacity
           onPress={() => navToFull({
             component: SelectProfilePic,
-            updateProfPic,
+            onSubmit: updateProfPic,
           })}
         >
           <CirclePic uri={store.getState().user.profilePictureUri} />

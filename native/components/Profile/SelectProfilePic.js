@@ -13,12 +13,12 @@ const SelectProfilePic = class SelectProfilePic extends React.Component {
     const onPhotoSelection = (imageObj) => {
       // See https://github.com/scottdixon/react-native-upload-from-camera-roll/issues/1 to fix resolution
       NativeModules.ReadImageData.readImage(imageObj.node.image.uri, (encodedImage) => {
-        this.props.route.updateProfPic(encodedImage);
+        this.props.route.onSubmit(encodedImage);
       });
     };
     return (
       <View>
-        <NavBar title={'Select Profile Picture'} leftButton={cancelButtonNav} />
+        <NavBar title={'Select Picture'} leftButton={cancelButtonNav} />
         <CameraRollView
           batchSize={20}
           groupTypes ={'All'}
