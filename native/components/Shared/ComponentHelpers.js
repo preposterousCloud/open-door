@@ -49,7 +49,7 @@ const makeClickableRow = (action, text, distinguished, rowStyle, canDelete) => {
         text: 'Button',
       },
     ];
-    let notSwipeable = () => (
+    const ClickableRow = () => (
       <View>
           <TouchableOpacity
             onPress={actionAppliedToUser}
@@ -70,32 +70,14 @@ const makeClickableRow = (action, text, distinguished, rowStyle, canDelete) => {
           </TouchableOpacity>
       </View>
     );
-    let swipeable = () => (
+    const SwipeAndClickRow = () => (
       <View>
-        <Swipeout
-          right={swipeoutBtns}
-        >
-          <TouchableOpacity
-            onPress={actionAppliedToUser}
-            style={socialStyles.group}
-          >
-            <View style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-              distStyle[0] :
-              socialStyles.listEntryView}
-            >
-              <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-              distStyle[1] :
-              null}
-              >
-                {rowData.userName ? (contactMapper[rowData.id] || rowData.userName) : rowData[text]}
-              </Text>
-              {withDistinguished}
-            </View>
-          </TouchableOpacity>
+        <Swipeout right={swipeoutBtns} >
+          <ClickableRow />
         </Swipeout>
       </View>
     );
-    return canDelete ? swipeable() : notSwipeable();
+    return canDelete ? <SwipeAndClickRow /> : <ClickableRow />;
   };
 };
 
