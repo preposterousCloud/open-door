@@ -49,7 +49,7 @@ module.exports = StyleSheet.create({
   listEntryView: {
     flexDirection: 'row',
     padding: 20,
-    borderTopWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#DDD',
     justifyContent: 'space-between',
   },
@@ -78,6 +78,19 @@ module.exports = StyleSheet.create({
   highlightedListEntryViewText: {
     color: '#023242',
     justifyContent: 'space-between',
+  },
+  feedHeader: {
+    justifyContent: 'flex-end',
+  },
+  feedText: {
+    flex: 1,
+    flexDirection: 'column',
+    textAlign: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: 50,
+    top: 30,
+    fontSize: 24,
+    fontFamily: 'DroidSans',
   },
   // Forms
   userInput: {
@@ -136,8 +149,8 @@ module.exports = StyleSheet.create({
     width: 40,
   },
   navIcon: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     marginLeft: 20,
     marginRight: 20,
   },

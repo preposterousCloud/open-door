@@ -44,21 +44,22 @@ class Feed extends React.Component {
       </TouchableOpacity>
     );
 
-
-
     return (
       <View style={styles.container}>
+        <View style={styles.feedHeader}>
+          <Text style={styles.feedText}>WHO'S FREE</Text>
+        </View>
         <FeedList events={this.props.events} />
-        { /* <TouchableOpacity onPress={this.props.logout}>
+        <TouchableOpacity onPress={this.props.logout}>
           <Text>Logout</Text>
-        </TouchableOpacity> */ }
-          <NavigationBar
-            title={{ title: '' }}
-            rightButton={ rightNavButton }
-            leftButton={ leftNavButton }
-            tintColor={ 'transparent' }
-            style={styles.feedNavBar}
-          />
+        </TouchableOpacity>
+        <NavigationBar
+          title={{ title: '' }}
+          rightButton={ rightNavButton }
+          leftButton={ leftNavButton }
+          tintColor={ 'transparent' }
+          style={styles.feedNavBar}
+        />
       </View>
     );
   }

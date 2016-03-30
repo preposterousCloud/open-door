@@ -36,6 +36,8 @@
 		C482CE401CAB09310003F5D0 /* opendoorlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = C482CE3E1CAB09310003F5D0 /* opendoorlogo.png */; };
 		C482CE411CAB09310003F5D0 /* opendoortext.png in Resources */ = {isa = PBXBuildFile; fileRef = C482CE3F1CAB09310003F5D0 /* opendoortext.png */; };
 		C482CE431CAB0ECE0003F5D0 /* opendoorsplash.png in Resources */ = {isa = PBXBuildFile; fileRef = C482CE421CAB0ECE0003F5D0 /* opendoorsplash.png */; };
+		C4EAA3671CAC5E8F005DD8EA /* DroidSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4EAA3661CAC5E8F005DD8EA /* DroidSans.ttf */; };
+		C4EAA3761CAC82C6005DD8EA /* DroidSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4EAA3751CAC82C6005DD8EA /* DroidSans-Bold.ttf */; };
 		EF4E0D5996734ECE93AE9BF3 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35E5AA4078CB4B1FBA6D0E3C /* FontAwesome.ttf */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +179,8 @@
 		C482CE3E1CAB09310003F5D0 /* opendoorlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = opendoorlogo.png; path = opendoor/opendoorlogo.png; sourceTree = "<group>"; };
 		C482CE3F1CAB09310003F5D0 /* opendoortext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = opendoortext.png; path = opendoor/opendoortext.png; sourceTree = "<group>"; };
 		C482CE421CAB0ECE0003F5D0 /* opendoorsplash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = opendoorsplash.png; path = opendoor/opendoorsplash.png; sourceTree = "<group>"; };
+		C4EAA3661CAC5E8F005DD8EA /* DroidSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DroidSans.ttf; sourceTree = "<group>"; };
+		C4EAA3751CAC82C6005DD8EA /* DroidSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DroidSans-Bold.ttf"; sourceTree = "<group>"; };
 		D23BD0457CDB4D239E90FCCD /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		D26CACDBF06044B1849E681B /* RCTContacts.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTContacts.xcodeproj; path = "../node_modules/react-native-contacts/ios/RCTContacts.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -396,6 +400,8 @@
 		F84B8C6B7E05462BA255F590 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C4EAA3751CAC82C6005DD8EA /* DroidSans-Bold.ttf */,
+				C4EAA3661CAC5E8F005DD8EA /* DroidSans.ttf */,
 				0669A4016F0A44D691BA3A23 /* Entypo.ttf */,
 				8AC339052560443FAF0A35B4 /* EvilIcons.ttf */,
 				35E5AA4078CB4B1FBA6D0E3C /* FontAwesome.ttf */,
@@ -644,6 +650,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4EAA3761CAC82C6005DD8EA /* DroidSans-Bold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C482CE431CAB0ECE0003F5D0 /* opendoorsplash.png in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
@@ -654,6 +661,7 @@
 				57B02E4CFB304A06A8D5ED22 /* Ionicons.ttf in Resources */,
 				9DCC590247D14BA8A4C55080 /* MaterialIcons.ttf in Resources */,
 				B60134C9013F47798A224567 /* Octicons.ttf in Resources */,
+				C4EAA3671CAC5E8F005DD8EA /* DroidSans.ttf in Resources */,
 				964B046A02B94CD699327C39 /* Zocial.ttf in Resources */,
 				C482CE411CAB09310003F5D0 /* opendoortext.png in Resources */,
 				C482CE401CAB09310003F5D0 /* opendoorlogo.png in Resources */,
