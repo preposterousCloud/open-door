@@ -40,6 +40,7 @@ module.exports = (app) => {
   app.post('/api/friends/remove', [Auth.ensureUserIsUser((req, jwt) => {
     return req.body.friends[0] === jwt.userId || req.body.friends[1] === jwt.userId;
   }), User.removeFriendship]);
+  app.delete('/api/friends/unfriend', Auth.ensureUserHasValidJwt, User.removeFriendship);
 
   // TODO - ADD SECURITY TO REQUEST FRIENDSHIP
   app.post('/api/friends/request', User.requestFriendship);
