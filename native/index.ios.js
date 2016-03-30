@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { store } from './sharedNative/reducers/reducers.js';
 import Login from './components/Login.js';
 import MainContainer from './components/MainContainer';
-import sharedStyles from './styles/Shared/sharedStyles';
+import sharedStyles from './styles/styles.js';
 
 const configureScene = (route) => {
   const sceneConfig = route.sceneConfig || Navigator.SceneConfigs.FloatFromBottom;

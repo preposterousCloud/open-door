@@ -3,6 +3,7 @@
 const db = require('../db/database').db;
 const Auth = require('./Auth');
 const HttpError = require('./Errors').HttpError;
+const imgur = require('imgur');
 
 const _mapEvent = (event) => {
   return { name: event.name,
@@ -29,7 +30,7 @@ module.exports.createEvent = function createUser(req, res, next) {
   if (!req.body.name) {
     next(new HttpError(404, 'Make sure to include a user name and appropriate properties'));
   } else {
-    console.log(req.body);
+    const eventToCreate = req.body;
     db.Event.createEvent({
       hostUserId: req.jwt.userId,
       hostUserName: req.body.hostUserName,
@@ -40,7 +41,22 @@ module.exports.createEvent = function createUser(req, res, next) {
       location: req.body.location,
       users: req.body.friends,
       groups: req.body.groups })
-    .then((event) => res.json(_mapEvent(event)))
+    .then((createdEvent) => {
+      if (eventToCreate.base64Image) {
+        imgur.uploadBase64(eventToCreate.base64Image)
+        .then((imgurResponse) => {
+          const updatedEvent = { eventPictureUri: imgurResponse.data.link };
+          createdEvent.update(updatedEvent)
+          .then(eventWithPicture => res.json(eventWithPicture));
+        })
+        .catch((err) => {
+          delete createdEvent.eventPictureUri;
+          res.json(createdEvent);
+        });
+      } else {
+        res.json(_mapEvent(event));
+      }
+    })
     .catch((err) => {
       next(err);
     });
@@ -51,10 +67,24 @@ module.exports.updateEvent = function updateEvent(req, res, next) {
   const eventId = req.params.id;
   db.Event.findOne({ where: { id: eventId } })
   .then((event) => {
-    event.updateEvent(req.body)
-    .then((event) => {
-      res.json(event);
-    });
+    const newEventInfo = req.body;
+    if (newEventInfo.base64Image) {
+      // send it up to imgur
+      imgur.uploadBase64(newEventInfo.base64Image)
+      .then((imgurResponse) => {
+        newEventInfo.eventPictureUri = imgurResponse.data.link;
+        delete newEventInfo.base64Image;
+        event.update(newEventInfo)
+        .then(event => res.json(event));
+      })
+      .catch((err) => {
+        res.json({ message: 'error updating user' });
+        console.error(err.message);
+      });
+    } else {
+      event.updateEvent(newEventInfo)
+      .then((event) => res.json(event));
+    }
   })
   .catch(err => {
     next(err);

@@ -1,5 +1,5 @@
 import React, { Text, View } from 'react-native';
-import styles from '../../../styles/Feed/feedStyles.js';
+import styles from '../../../styles/styles.js';
 
 const GroupsListRow = (rowText) => (
   <View>

@@ -12,7 +12,7 @@ import EditEvent from './EditEvent';
 import EventDetail from '../Feed/EventDetail.js';
 import OpenDoor from '../Shared/OpenDoor';
 import ClosedDoor from '../Shared/ClosedDoor';
-import styles from '../../styles/Door/doorStyles.js';
+import styles from '../../styles/styles.js';
 
 const LoadingWheelContainer = require('../Shared/ComponentHelpers').LoadingWheelContainer;
 
@@ -60,7 +60,7 @@ const SetDoor = class SetDoor extends React.Component {
           leftButton={ { title: '<', handler: this.props.swipeLeft } }
           rightButton={ { title: 'Settings', handler: goToSettings }}
         />
-        <View style={styles.container}>
+        <View style={styles.centerContainer}>
           <TouchableOpacity onPress={toggleDoor}>
             {(() => (this.props.currentEvent) ?
               <OpenDoor styles={{ size: 100, color: 'green' }} /> :

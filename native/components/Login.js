@@ -15,7 +15,7 @@ import { navToFull } from './Shared/NavHelpers';
 import MainContainer from './MainContainer';
 import OpenDoor from './Shared/OpenDoor';
 import Button from './Shared/Button';
-import styles from '../styles/Shared/sharedStyles';
+import styles from '../styles/styles';
 const actions = require('../sharedNative/actions/actions');
 
 
@@ -93,7 +93,7 @@ const Login = class Login extends React.Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.centerContainer}>
         <StatusBar barStyle="light-content" />
         <OpenDoor styles = {{ size: 200, color: 'green' }} />
         <TextInput

@@ -6,13 +6,14 @@ import { backButton, cancelButtonNav, cancelButton } from '../Shared/Buttons.js'
 import { navToFull, popScene } from '../Shared/NavHelpers.js';
 import { getTruthies } from '../Shared/HelperFunctions.js';
 import { GroupList, UserList } from '../Shared/StatefulSelectList';
-const actions = require('../../sharedNative/actions/actions');
-const api = require('../../sharedNative/utils/api.js');
+import * as actions from '../../sharedNative/actions/actions';
+import * as api from '../../sharedNative/utils/api.js';
 import NavBar from '../Shared/NavBar.js';
 import VibePicker from './VibePicker.js';
-import styles2 from '../../styles/Door/doorStyles.js';
 import StyledTextInput from '../Shared/StyledTextInput.js';
 import socialStyles from '../../styles/Social/socialStyles.js';
+import SelectProfilePic from '../Profile/SelectProfilePic';
+import styles from '../../styles/styles.js';
 
 const InviteSelects = (props) => {
   return (
@@ -50,6 +51,7 @@ class EditEvent extends React.Component {
     this.navToFriends = this.navToFriends.bind(this);
     this.toggleInviteGroup = this.toggleInviteGroup.bind(this);
     this.toggleInviteFriend = this.toggleInviteFriend.bind(this);
+    this.navToEventPhoto = this.navToEventPhoto.bind(this);
   }
   componentDidMount() {
     if (this.props.route.event.id) {
@@ -103,10 +105,10 @@ class EditEvent extends React.Component {
   }
   navToEventPhoto() {
     navToFull({
-      component: View,
-      onPhotoSelect: (imageObj) => {
+      component: SelectProfilePic,
+      updateProfPic: (imageObj) => {
         // Trigger callback to update photo in state
-        console.log('selected image', imageObj)
+        this.setState({ event: { ...this.state.event, imageObj } });
         popScene();
       }
     })
@@ -123,6 +125,10 @@ class EditEvent extends React.Component {
       } else {
         this.state.event.friends = getTruthies(this.state.event.invitedFriends);
         this.state.event.groups = getTruthies(this.state.event.invitedGroups);
+        if (this.state.event.imageObj) {
+          this.state.event.base64Image = this.state.event.imageObj.base64Image;
+          delete this.state.event.imageObj;
+        }
         this.state.onSubmit(this.state.event);
         popScene();
       }
@@ -138,13 +144,13 @@ class EditEvent extends React.Component {
         <StyledTextInput onChangeText={updateEventName} placeholder={this.state.event.name} />
         <StyledTextInput onChangeText={updateEventLocation} placeholder={this.state.event.location} />
         <VibePicker changeVibe={changeVibe} initialVibe={this.state.event.vibe} />
-        <TouchableOpacity onPress={this.navToFriends} style={socialStyles.categoryButton} >
+        <TouchableOpacity onPress={this.navToFriends} style={styles.categoryButton} >
           <Text>FRIENDS</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.navToGroups} style={socialStyles.categoryButton} >
+        <TouchableOpacity onPress={this.navToGroups} style={styles.categoryButton} >
           <Text>GROUPS</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>{}} style={socialStyles.categoryButton} >
+        <TouchableOpacity onPress={this.navToEventPhoto} style={styles.categoryButton} >
           <Text>SET PHOTO</Text>
         </TouchableOpacity>
       </View>

@@ -1,7 +1,7 @@
 import React, { View, Text, TouchableOpacity, NativeModules } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
-import styles from '../../styles/Profile/profileStyles.js';
+import styles from '../../styles/styles.js';
 import { cancelButtonNav } from '../Shared/Buttons';
 import { navToFull } from '../Shared/NavHelpers';
 const CameraRollView = require('../Camera/CameraRollView');

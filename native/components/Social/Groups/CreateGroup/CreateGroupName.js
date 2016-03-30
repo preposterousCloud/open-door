@@ -1,7 +1,7 @@
 import React, { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
 const actions = require('../../../../sharedNative/actions/actions');
-import styles from '../../../../styles/Social/socialStyles.js';
+import styles from '../../../../styles/styles.js';
 
 const CreateGroupName = (props) => {
   let groupName;

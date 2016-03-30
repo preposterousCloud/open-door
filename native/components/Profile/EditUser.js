@@ -10,9 +10,8 @@ import NavBar from '../Shared/NavBar.js';
 const SelectProfilePic = require('./SelectProfilePic');
 import CirclePic from '../Shared/CirclePic';
 import VibePicker from '../Door/VibePicker.js';
-import styles2 from '../../styles/Door/doorStyles.js';
 import StyledTextInput from '../Shared/StyledTextInput.js';
-import socialStyles from '../../styles/Social/socialStyles.js';
+import styles from '../../styles/styles.js';
 import { LoadingWheelContainer } from '../Shared/ComponentHelpers';
 class EditUser extends React.Component {
   constructor(props) {

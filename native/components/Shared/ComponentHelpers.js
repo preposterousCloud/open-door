@@ -4,7 +4,7 @@ import Swipeout from 'react-native-swipeout';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { refreshUser } from '../../sharedNative/actions/actions.js';
 import { arrayToDataSource } from './HelperFunctions.js';
-import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
+import styles from '../../styles/styles.js'; // fix this path
 
 const LoadingWheel = (props) => {
   const style = props.style || { height: 150, width: 150 };
@@ -25,9 +25,9 @@ LoadingWheel.propTypes = {
 
 const chooseRowStyle = (style) => {
   if (style === 'grey') {
-    return [socialStyles.greyedOutListEntryView, socialStyles.greyedOutListEntryViewText];
+    return [styles.greyedOutListEntryView, styles.greyedOutListEntryViewText];
   } else if (style === 'blue') {
-    return [socialStyles.highlightedListEntryView, socialStyles.highlightedListEntryViewText];
+    return [styles.highlightedListEntryView, styles.highlightedListEntryViewText];
   }
 };
 
@@ -55,11 +55,11 @@ const makeClickableRow = (action, text, distinguished, rowStyle, swipeFunction) 
       <View>
           <TouchableOpacity
             onPress={actionAppliedToUser}
-            style={socialStyles.group}
+            style={styles.group}
           >
             <View style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
               distStyle[0] :
-              socialStyles.listEntryView}
+              styles.listEntryView}
             >
               <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
               distStyle[1] :
@@ -92,11 +92,11 @@ const makeClickableRow = (action, text, distinguished, rowStyle, swipeFunction) 
 };
 
 const UserList = (props) => (
-  <View style={socialStyles.container}>
+  <View style={styles.container}>
     <ListView
       dataSource={arrayToDataSource(props.listData)}
       renderRow={props.rowComponent}
-      style={socialStyles.listView}
+      style={styles.listView}
     />
   </View>
 );
@@ -132,13 +132,13 @@ const makeSelectableRow = (action, getChecklist) => {
       <View>
         <TouchableOpacity
           onPress={runList}
-          style={socialStyles.group}
+          style={styles.group}
         >
-          <View style={socialStyles.listEntryView}>
+          <View style={styles.listEntryView}>
             <Text>{contactMapper[user.id] || user.userName}</Text>
             {(() => (checklist[user.id]) ?
-              <View style={socialStyles.checkboxFilled}></View> :
-              <View style={socialStyles.checkboxEmpty}></View>
+              <View style={styles.checkboxFilled}></View> :
+              <View style={styles.checkboxEmpty}></View>
             )()}
           </View>
         </TouchableOpacity>

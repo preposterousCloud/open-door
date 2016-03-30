@@ -2,8 +2,7 @@ import React, { View, Text, TouchableOpacity, TextInput, ListView, Alert } from 
 import { connect } from 'react-redux';
 import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../../Shared/NavBar.js';
-import styles from '../../../../styles/Social/socialStyles.js';
-import feedStyles from '../../../../styles/Feed/feedStyles.js';
+import styles from '../../../../styles/styles.js';
 import { getAllUsers, addFriendToGroup } from '../../../../sharedNative/actions/actions.js';
 import { makeClickableRow, UserList } from '../../../Shared/ComponentHelpers.js';
 import { exitButton } from '../../../Shared/Buttons.js';

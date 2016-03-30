@@ -9,7 +9,7 @@ import React, {
 import { connect } from 'react-redux';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { refreshUser, getAllUsers } from '../../sharedNative/actions/actions.js';
-import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
+import styles from '../../styles/styles.js'; // fix this path
 
 const arrayToDataSource = (array = []) => {
   return (new ListView.DataSource(
