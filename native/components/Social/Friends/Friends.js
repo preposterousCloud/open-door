@@ -40,7 +40,7 @@ const Friends = (props) => {
     makeClickableRow(respondToReq, reqNames, reqIds, 'blue'),
     ['pendingRequests', 'received']
   );
-
+  const requestCount = store.getState().pendingRequests.received.length;
   return (
     <View>
       <NavBar
@@ -57,7 +57,7 @@ const Friends = (props) => {
       >
         <FriendsListContainer tabLabel="Friends List" />
         <FriendRequestsContainer
-          tabLabel={`Requests (${store.getState().pendingRequests.received.length})`}
+          tabLabel={`Requests ${requestCount ? `(${requestCount})` : ''}`}
         />
       </ScrollableTabView>
     </View>
