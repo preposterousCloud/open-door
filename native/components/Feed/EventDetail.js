@@ -19,7 +19,13 @@ class EventDetail extends React.Component {
     };
     this.contactMapper = store.getState().contactMap;
     this.defaultMargin = 10;
-    this.swiperItemStyles = { marginHorizontal: this.defaultMargin, marginTop: 0, flexDirection: 'column', flex: 1, height: 200 };
+    this.swiperItemStyles = {
+      marginHorizontal: this.defaultMargin,
+      marginTop: 0,
+      flexDirection: 'column',
+      flex: 1,
+      height: 200,
+    };
   }
   componentDidMount() {
     api.getEvent(this.props.event.id, store.getState().jwt)
@@ -49,7 +55,14 @@ class EventDetail extends React.Component {
     return event.Groups.length ?
       (<View style={{ flexDirection: 'row', margin: 5 }}>
         {event.Groups.map((group, index) => {
-          return (<CirclePic key={index} size={40} source={{ uri: group.groupPictureUri }} style={{ margin: 4 }} />);
+          return (
+            <CirclePic
+              key={index}
+              size={40}
+              source={{ uri: group.groupPictureUri }}
+              style={{ margin: 4 }}
+            />
+          );
         })}
        </View>
       ) :
@@ -59,7 +72,14 @@ class EventDetail extends React.Component {
     return event.Users.length ?
       (<View style={{ flexDirection: 'row', margin: 5 }}>
         {event.Users.map((user, index) => {
-          return (<CirclePic key={index} size={40} source={{ uri: user.profilePictureUri }} style={{ margin: 4 }} />);
+          return (
+            <CirclePic
+              key={index}
+              size={40}
+              source={{ uri: user.profilePictureUri }}
+              style={{ margin: 4 }}
+            />
+          );
         })}
        </View>
       ) :
@@ -95,7 +115,7 @@ class EventDetail extends React.Component {
       <View style={[this.swiperItemStyles]}>
         <Image
           source={ eventPictureSource }
-          style={{ width: width - (2 * this.defaultMargin) }}
+          style={{ width: width - (2 * this.defaultMargin), height: 200 }}
         />
       </View>
     );
@@ -107,7 +127,6 @@ class EventDetail extends React.Component {
       swipesToRender = this.generateEventDetails();
     } else {
       swipesToRender = [this.generateEventDetails(), photoViews];
-      console.log(swipesToRender);
     }
     return (
       <Swiper style={styles.wrapper} height={200}>
