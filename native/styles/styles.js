@@ -5,7 +5,11 @@ const radius = 50;
 module.exports = StyleSheet.create({
   // General BG Style
   bg: {
-    backgroundColor: 'purple',
+    backgroundColor: '#0BE3',
+  },
+  bgImg: {
+    flex: 1,
+    resizeMode: 'stretch',
   },
   // Containers
   container: {
@@ -38,7 +42,6 @@ module.exports = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   feedNavBar: {
-    backgroundColor: 'blue',
     height: height/10,
   },
   // Lists
@@ -91,6 +94,7 @@ module.exports = StyleSheet.create({
     top: 30,
     fontSize: 24,
     fontFamily: 'DroidSans',
+    color: '#FFF4'
   },
   // Forms
   userInput: {
@@ -147,6 +151,7 @@ module.exports = StyleSheet.create({
     backgroundColor: 'green',
     height: 40,
     width: 40,
+    alignItems: 'stretch',
   },
   navIcon: {
     width: 30,
