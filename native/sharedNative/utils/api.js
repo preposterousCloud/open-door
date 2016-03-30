@@ -275,3 +275,14 @@ export const rejectFriend = (requesterId, toFriendId, jwt) => {
     headers: buildHeaders(jwt),
   });
 };
+
+export const removeFriendship = (userToUnfriendId, jwt) => {
+  const url = `${config.apiUrl}friends/unfriend`;
+  return fetch(url, {
+    method: 'DELETE',
+    body: JSON.stringify({ userToUnfriendId }),
+    headers: buildHeaders(jwt),
+  })
+  .then(validateBody)
+  .catch(catchErr);
+};
