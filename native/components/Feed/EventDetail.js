@@ -46,7 +46,7 @@ class EventDetail extends React.Component {
     return event.Groups.length ?
       (<View style={{ flexDirection: 'row', margin: 5 }}>
         {event.Groups.map((group, index) => {
-          return (<CirclePic key={index} size={40} source={{ uri: group.groupPictureUri }} />);
+          return (<CirclePic key={index} size={40} source={{ uri: group.groupPictureUri }} style={{ margin: 4 }} />);
         })}
        </View>
       ) :
