@@ -3,7 +3,7 @@ import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import Groups from './Groups/Groups.js';
 import Friends from './Friends/Friends.js';
-import styles from '../../styles/Social/socialStyles.js';
+import styles from '../../styles/styles.js';
 
 const groupsNav = () => {
   store.getState().navigation.navigator.push({

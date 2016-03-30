@@ -8,8 +8,7 @@ import AddFriends from './AddFriends.js';
 import { confirmFriend, rejectFriend } from '../../../sharedNative/actions/actions.js';
 import { makeClickableRow, makeListContainer } from '../../Shared/ComponentHelpers.js';
 import { exitButton, enterButton } from '../../Shared/Buttons.js';
-import styles from '../../../styles/Social/socialStyles.js';
-import feedStyles from '../../../styles/Feed/feedStyles.js';
+import styles from '../../../styles/styles.js';
 
 const Friends = (props) => {
   const logUser = (user) => {

@@ -3,7 +3,7 @@ import React, { Alert, View, Text, TouchableOpacity, Image } from 'react-native'
 import NavBar from '../Shared/NavBar.js';
 import EditUser from './EditUser';
 import { navToFull } from '../Shared/NavHelpers';
-import styles from '../../styles/Profile/profileStyles.js';
+import styles from '../../styles/styles.js';
 import { backButton, editButton } from '../Shared/Buttons';
 import CirclePic from '../Shared/CirclePic';
 const actions = require('../../sharedNative/actions/actions');

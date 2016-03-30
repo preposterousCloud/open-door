@@ -10,10 +10,10 @@ import * as actions from '../../sharedNative/actions/actions';
 import * as api from '../../sharedNative/utils/api.js';
 import NavBar from '../Shared/NavBar.js';
 import VibePicker from './VibePicker.js';
-import styles2 from '../../styles/Door/doorStyles.js';
 import StyledTextInput from '../Shared/StyledTextInput.js';
 import socialStyles from '../../styles/Social/socialStyles.js';
 import SelectProfilePic from '../Profile/SelectProfilePic';
+import styles from '../../styles/styles.js';
 
 const InviteSelects = (props) => {
   return (
@@ -144,10 +144,10 @@ class EditEvent extends React.Component {
         <StyledTextInput onChangeText={updateEventName} placeholder={this.state.event.name} />
         <StyledTextInput onChangeText={updateEventLocation} placeholder={this.state.event.location} />
         <VibePicker changeVibe={changeVibe} initialVibe={this.state.event.vibe} />
-        <TouchableOpacity onPress={this.navToFriends} style={socialStyles.categoryButton} >
+        <TouchableOpacity onPress={navToFriends} style={styles.categoryButton} >
           <Text>FRIENDS</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.navToGroups} style={socialStyles.categoryButton} >
+        <TouchableOpacity onPress={navToGroups} style={styles.categoryButton} >
           <Text>GROUPS</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={this.navToEventPhoto} style={socialStyles.categoryButton} >

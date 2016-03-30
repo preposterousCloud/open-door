@@ -8,7 +8,7 @@ import React, {
 import { reducer, store } from '../../../sharedNative/reducers/reducers.js';
 const actions = require('../../../sharedNative/actions/actions');
 import GroupsListRow from './GroupsListRow.js';
-import styles from '../../../styles/Social/socialStyles.js';
+import styles from '../../../styles/styles.js';
 
 const convertGroupsToDataSource = (groups) => {
   groups = groups || [];

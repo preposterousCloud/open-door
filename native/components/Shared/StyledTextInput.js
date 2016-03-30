@@ -1,7 +1,7 @@
 import React, { View, Text, TextInput } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { setFilterText, clearFilterText } from '../../sharedNative/actions/actions.js';
-import styles from '../../styles/Social/socialStyles.js';
+import styles from '../../styles/styles.js';
 
 
 // things it shoudl be passed:

@@ -3,8 +3,7 @@ import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import * as actions from '../../sharedNative/actions/actions';
-import socialStyles from '../../styles/Social/socialStyles.js';
-import doorStyles from '../../styles/Door/doorStyles.js';
+import styles from '../../styles/styles.js';
 
 const SelectList = class SelectList extends React.Component {
   constructor(props) {
@@ -19,16 +18,16 @@ const SelectList = class SelectList extends React.Component {
     return (
       <TouchableOpacity
         onPress={clickThisRow}
-        style={socialStyles.group}
+        style={styles.group}
       >
-        <View style={socialStyles.listEntryView}>
+        <View style={styles.listEntryView}>
           <Text>{rowData[this.props.itemPropertyToDisplay]}</Text>
            {(() => (
              this.props.pendingSelections
              [this.props.pendingSelectionsProperty]
              [rowData.id]) ?
-              <View style={socialStyles.checkboxFilled} /> :
-              <View style={socialStyles.checkboxEmpty} />
+              <View style={styles.checkboxFilled} /> :
+              <View style={styles.checkboxEmpty} />
            )()}
         </View>
       </TouchableOpacity>
@@ -40,7 +39,7 @@ const SelectList = class SelectList extends React.Component {
         <ListView
           dataSource={ this.props.itemsToSelectFrom }
           renderRow={this.ItemView}
-          style={doorStyles.listView}
+          style={styles.listView}
         />
       </View>
     );

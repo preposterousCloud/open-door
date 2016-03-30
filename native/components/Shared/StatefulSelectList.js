@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../sharedNative/actions/actions';
 import { arrayToDataSource } from '../Shared/HelperFunctions.js';
-import socialStyles from '../../styles/Social/socialStyles.js';
-import doorStyles from '../../styles/Door/doorStyles.js';
+import styles from '../../styles/styles.js';
 
 export const SelectList = class SelectList extends React.Component {
   constructor(props) {
@@ -25,15 +24,15 @@ export const SelectList = class SelectList extends React.Component {
     };
     const Checkbox = (props) => {
       return (props.checked ?
-        <View style={socialStyles.checkboxFilled} /> :
-        <View style={socialStyles.checkboxEmpty} />);
+        <View style={styles.checkboxFilled} /> :
+        <View style={styles.checkboxEmpty} />);
     };
     return (
       <TouchableOpacity
         onPress={clickThisRow}
-        style={socialStyles.group}
+        style={styles.group}
       >
-        <View style={socialStyles.listEntryView}>
+        <View style={styles.listEntryView}>
           <Text>{rowData[this.props.displayProp]}</Text>
           <Checkbox checked={this.state.selectedItems[rowData.id]} />
         </View>
@@ -46,7 +45,7 @@ export const SelectList = class SelectList extends React.Component {
         <ListView
           dataSource={ arrayToDataSource(this.state.dataArray) }
           renderRow={this.ItemView}
-          style={doorStyles.listView}
+          style={styles.listView}
         />
       </View>
     );
