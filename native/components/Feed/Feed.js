@@ -26,25 +26,25 @@ class Feed extends React.Component {
   }
 
   render() {
-    const rightNavButton = {
-      title: (
+    const rightNavButton = (
+      <TouchableOpacity onPress={this.props.swipeRight}>
         <Image
           source={ require('../../static/opendoorlogogreen.png') }
-          style={ styles.navIcon }
-        />),
-      handler: this.props.swipeRight,
-      style: styles.feedNav,
-    };
+          style={styles.navIcon}
+        />
+      </TouchableOpacity>
+    );
 
-    const leftNavButton = {
-      title: (
+    const leftNavButton = (
+       <TouchableOpacity onPress={this.props.swipeLeft}>
         <Image
           source={ require('../../static/socialman.png') }
-          style={ styles.navIcon }
-        />),
-      handler: this.props.swipeLeft,
-      style: styles.feedNav,
-    };
+          style={styles.navIcon}
+        />
+      </TouchableOpacity>
+    );
+
+
 
     return (
       <View style={styles.container}>

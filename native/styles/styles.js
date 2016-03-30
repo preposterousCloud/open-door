@@ -132,14 +132,14 @@ module.exports = StyleSheet.create({
   },
   feedNav: {
     backgroundColor: 'green',
-    // alignSelf: 'flex-end',
     height: 40,
+    width: 40,
   },
   navIcon: {
     width: 40,
     height: 40,
-    top: 40,
-    alignSelf: 'center',
+    marginLeft: 20,
+    marginRight: 20,
   },
   // Profile and Group Pic
   profilePic: {
