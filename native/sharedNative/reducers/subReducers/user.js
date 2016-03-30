@@ -14,8 +14,10 @@ function user(state = { userName: '', Events: [] }, action) {
     case 'SET_ACTIVE_EVENT':
       return { ...state, currentEvent: action.data };
     case 'REMOVE_FRIEND_FROM_USER': {
-      const filteredFriends = state.friends.filter(friend => friend.id !== action.removalId);
-      return { ...state, friends: filteredFriends };
+      return {
+        ...state,
+        friends: state.friends.filter(friend => friend.id !== action.removalId),
+      };
     }
     default:
       return state;
