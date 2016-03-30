@@ -1,10 +1,12 @@
 import React, { Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import styles from '../../styles/styles.js';
-const { width, height } = Dimensions.get('window');
 import Accordion from 'react-native-accordion';
-const api = require('../../sharedNative/utils/api.js');
+import * as api from '../../sharedNative/utils/api.js';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import vibes from '../Door/vibes.js';
+import CirclePic from '../Shared/CirclePic';
+
+const { width, height } = Dimensions.get('window');
 
 class EventDetail extends React.Component {
   constructor(props) {
@@ -12,8 +14,9 @@ class EventDetail extends React.Component {
     this.state = {
       imageShowing: props.imageShowing,
       imageSource: require('../../sharedNative/images/dino-storm.jpg'),
-      contactMapper: store.getState().contactMap,
     };
+    this.contactMapper = store.getState().contactMap;
+    this.defaultMargin = 10;
   }
   componentDidMount() {
     api.getEvent(this.props.event.id, store.getState().jwt)
@@ -36,8 +39,28 @@ class EventDetail extends React.Component {
   }
   getInvitedUsers(event) {
     return event.Users.length ?
-      event.Users.map(user => this.state.contactMapper[user.id] || user.userName).join(', ') :
+      event.Users.map(user => this.contactMapper[user.id] || user.userName).join(', ') :
       'None';
+  }
+  getInvitedGroupPics(event) {
+    return event.Groups.length ?
+      (<View style={{ flexDirection: 'row', margin: 5 }}>
+        {event.Groups.map((group, index) => {
+          return (<CirclePic key={index} size={40} source={{ uri: group.groupPictureUri }} />);
+        })}
+       </View>
+      ) :
+      <Text> None </Text>;
+  }
+  getInvitedUserPics(event) {
+    return event.Users.length ?
+      (<View style={{ flexDirection: 'row', margin: 5 }}>
+        {event.Users.map((user, index) => {
+          return (<CirclePic key={index} size={40} source={{ uri: user.profilePictureUri }} style={{ margin: 4 }} />);
+        })}
+       </View>
+      ) :
+      <Text> None </Text>;
   }
   render() {
     const toggleImage = () => {
@@ -54,20 +77,23 @@ class EventDetail extends React.Component {
       }
     }
     return (
-      <View style={styles.imageContainer}>
+      <View style={[styles.imageContainer, { margin: this.defaultMargin }]}>
         {this.state.imageShowing ?
           <TouchableOpacity onPress={toggleImage} >
             <Image
-              source={eventPictureSource}
-              style={{ width, height: 300 }}
+              source={this.state.event && this.state.event.vibe ?
+                vibes[this.state.event.vibe].src :
+                this.state.imageSource}
+              style={{ width: width - (2 * this.defaultMargin) }}
             />
           </TouchableOpacity> :
           <TouchableOpacity onPress={toggleImage} >
-            <Text>Name: {this.state.event.name}</Text>
-            <Text>Vibe: {this.state.event.vibe}</Text>
-            <Text>Location: {this.state.event.location}</Text>
-            <Text>Groups Invited: {this.getInvitedGroups(this.state.event)}</Text>
-            <Text>Users Invited: {this.getInvitedUsers(this.state.event)}</Text>
+            <Text style = {styles.standardText }>Users Invited:</Text>
+            {this.getInvitedUserPics(this.state.event)}
+            <Text style = {styles.standardText }>Groups Invited:</Text>
+            {this.getInvitedGroupPics(this.state.event)}
+            <Text style = {styles.standardText }>Vibe: {this.state.event.vibe}</Text>
+            <Text style = {styles.standardText }>Where: {this.state.event.location}</Text>
           </TouchableOpacity>
         }
       </View>
