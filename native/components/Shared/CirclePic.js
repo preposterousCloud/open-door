@@ -5,12 +5,15 @@ const CirclePic = (props) => {
   return (
     <View>
       <Image
-        source={{ uri: props.source.uri }}
+        source={{ uri: props.uri || props.source.uri }}
         style={styles.profilePic}
       />
     </View>
   );
 };
 
-CirclePic.propTypes = { source: React.PropTypes.objects };
+CirclePic.propTypes = {
+  source: React.PropTypes.object,
+  uri: React.PropTypes.string,
+};
 module.exports = CirclePic;
