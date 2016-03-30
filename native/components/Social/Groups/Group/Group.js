@@ -36,9 +36,9 @@ const Group = (props) => {
     UserList
   );
 
-  const changeGroupPic = encodedImage => {
+  const changeGroupPic = imageObj => {
     // set loading here
-    store.dispatch(actions.updateGroupPic(props.route.focus.id, encodedImage))
+    store.dispatch(actions.updateGroupPic(props.route.focus.id, imageObj.base64Image))
     .then(newPicLink => {
       props.route.focus.groupPictureUri = newPicLink;
       return 'tacos';
@@ -58,7 +58,7 @@ const Group = (props) => {
       />
       <TouchableOpacity onPress={() => navToFull({
         component: SelectProfilePic,
-        onSubmit: changeGroupPic,
+        updateProfPic: changeGroupPic,
       })}
       >
         <CirclePic uri={props.route.focus.groupPictureUri} />
