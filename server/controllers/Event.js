@@ -30,7 +30,7 @@ module.exports.createEvent = function createUser(req, res, next) {
   if (!req.body.name) {
     next(new HttpError(404, 'Make sure to include a user name and appropriate properties'));
   } else {
-    console.log(req.body);
+    const eventToCreate = req.body;
     db.Event.createEvent({
       hostUserId: req.jwt.userId,
       hostUserName: req.body.hostUserName,
@@ -41,7 +41,22 @@ module.exports.createEvent = function createUser(req, res, next) {
       location: req.body.location,
       users: req.body.friends,
       groups: req.body.groups })
-    .then((event) => res.json(_mapEvent(event)))
+    .then((createdEvent) => {
+      if (eventToCreate.base64Image) {
+        imgur.uploadBase64(eventToCreate.base64Image)
+        .then((imgurResponse) => {
+          const updatedEvent = { eventPictureUri: imgurResponse.data.link };
+          createdEvent.update(updatedEvent)
+          .then(eventWithPicture => res.json(eventWithPicture));
+        })
+        .catch((err) => {
+          delete createdEvent.eventPictureUri;
+          res.json(createdEvent);
+        });
+      } else {
+        res.json(_mapEvent(event));
+      }
+    })
     .catch((err) => {
       next(err);
     });
