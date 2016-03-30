@@ -4,7 +4,6 @@ module.exports = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#DF2309',
   },
   listView: {
     backgroundColor: '#FFF',
@@ -13,6 +12,32 @@ module.exports = StyleSheet.create({
   scrollView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  greyedOutListEntryView: {
+    flexDirection: 'row',
+    padding: 20,
+    borderTopWidth: 1,
+    borderColor: '#DDD',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#EEE',
+  },
+  greyedOutListEntryViewText: {
+    color: '#777',
+    justifyContent: 'space-between',
+  },
+  highlightedListEntryView: {
+    flexDirection: 'row',
+    padding: 20,
+    borderTopWidth: 1,
+    borderColor: '#DDD',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#BCDAE4',
+  },
+  highlightedListEntryViewText: {
+    color: '#023242',
+    justifyContent: 'space-between',
   },
   listEntryView: {
     flexDirection: 'row',
@@ -24,8 +49,11 @@ module.exports = StyleSheet.create({
   },
   userInput: {
     height: 50,
+    width: 300,
     padding: 4,
-    margin: 40,
+    marginLeft: 40,
+    marginRight: 40,
+    marginBottom: 10,
     fontSize: 18,
     borderWidth: 1,
     borderColor: '#616161',
@@ -47,17 +75,30 @@ module.exports = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#DDD',
   },
+  tabBar: {
+    borderTopWidth: 3,
+    borderBottomWidth: 1,
+    borderColor: '#007AFF',
+  },
+  categoryButton: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    padding: 20,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: '#DDD',
+  },
   checkboxEmpty: {
     width: 20,
     height: 20,
     borderWidth: 1,
-    borderColor: '#227DF4',
+    borderColor: '#007AFF',
   },
   checkboxFilled: {
     width: 20,
     height: 20,
     borderWidth: 1,
-    borderColor: '#227DF4',
-    backgroundColor: '#227DF4',
+    borderColor: '#007AFF',
+    backgroundColor: '#007AFF',
   },
 });

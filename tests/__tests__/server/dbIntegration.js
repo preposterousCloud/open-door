@@ -12,10 +12,10 @@ describe('Data Integration Tests', () => {
     resetDbWithDummy(db)
     .then(() => done());
   });
-  
-  //We set this the first time we find it so we can use it in later tests
+
+  // We set this the first time we find it so we can use it in later tests
   var user2;
-  
+
   pit('Make sure user can see all of the parties they should have access to', () => {
     return db.User.findOne({ where: { userName: 'user2' },
       include: [{ model: db.Group }] })
@@ -37,13 +37,32 @@ describe('Data Integration Tests', () => {
     });
   });
 
+  pit('Should properly validate passwords', () => {
+    return db.User.findOne({ where: { userName: 'vcipriani' } })
+    .then(user => {
+      user.checkPasswordAndIssueJwt('wrongpw')
+      // following line shouldn't fire because checkpassword should throw
+      .then((result) => expect(true).toBe(false))
+      .catch((err) => {
+        // Nothing to test.  The fact that checkPasswordAndIssueJwt error'd is good
+      })
+      .then(() => {
+        user.checkPasswordAndIssueJwt('food')
+        .then(jwt => {
+          // The JWT token should always be 60 char
+          expect(jwt.length).toBe(60);
+        });
+      });
+    });
+  });
+
   pit('Make sure Event has host', () => {
     return db.Event.findOne({})
     .then((data) => {
-      expect(data.dataValues.hostUserId).toBe(1);
+      expect(data.dataValues.hostUserId);
     });
   });
-  
+
   pit('Make sure Event can be closed and user cannot see it', () => {
     return db.Event.findOne({ where: { name: 'Partay #2' } })
     .then((event) => {
