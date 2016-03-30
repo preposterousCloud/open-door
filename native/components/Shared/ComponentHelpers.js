@@ -7,7 +7,7 @@ import { arrayToDataSource } from './HelperFunctions.js';
 import socialStyles from '../../styles/Social/socialStyles.js'; // fix this path
 
 const LoadingWheel = (props) => {
-  const style = props.style || { height: 40, width: 40 };
+  const style = props.style || { height: 150, width: 150 };
   return props.isLoading ?
     <Image style={ style } source={require('../../sharedNative/images/loading.gif')} /> :
     <View />;

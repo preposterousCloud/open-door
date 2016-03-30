@@ -13,7 +13,7 @@ import VibePicker from '../Door/VibePicker.js';
 import styles2 from '../../styles/Door/doorStyles.js';
 import StyledTextInput from '../Shared/StyledTextInput.js';
 import socialStyles from '../../styles/Social/socialStyles.js';
-
+import { LoadingWheelContainer } from '../Shared/ComponentHelpers';
 class EditUser extends React.Component {
   constructor(props) {
     super(props);
@@ -38,10 +38,10 @@ class EditUser extends React.Component {
       Alert.alert('You need a username!', '', [cancelButton]);
     } else {
       const userObj = this.state.user;
-      userObj.base64Image = this.state.user.image.base64Image;
+      userObj.base64Image = this.state.user.image ? this.state.user.image.base64Image : null;
       delete userObj.image;
-      this.props.route.onSubmit(userObj);
-      popScene();
+      this.props.route.onSubmit(userObj)
+      .then(() => popScene());
     }
   }
   updateUserName(userName) {
@@ -72,6 +72,7 @@ class EditUser extends React.Component {
             this.state.user.image.imageObj.node.image : { uri: this.props.route.user.profilePictureUri } }
           />
         </TouchableOpacity>
+        <LoadingWheelContainer />
         <StyledTextInput
           onChangeText={this.updateUserName}
           placeholder={this.props.route.user.userName}
