@@ -22,10 +22,11 @@ const AddFriends = (props) => {
   const alertRequestSent = (target) => {
     const userReqIds = store.getState().pendingRequests.sent.map(user => user.id);
     const userReqs = store.getState().pendingRequests;
+    const targetUser = contactMapper[target.id] || target.userName;
     if (userReqIds.length > 0 && userReqIds.indexOf(target.id) >= 0) {
-      Alert.alert(`You already sent a friend request to ${contactMapper[target.id] || target.userName}!`);
+      Alert.alert(`You already sent a friend request to ${targetUser}!`);
     } else {
-      Alert.alert(`Send a friend request to ${contactMapper[target.id] || target.userName}?`, '', [
+      Alert.alert(`Send a friend request to ${targetUser}?`, '', [
         cancelButton,
         { text: 'Add',
           onPress: () => store.dispatch(requestFriend(target.id)),
@@ -48,7 +49,6 @@ const AddFriends = (props) => {
       filterId.indexOf(targetUser.id) < 0 && targetUser.userName.match(re)
     ));
     const alreadySent = state.pendingRequests.sent.map(user => user.id);
-    console.log(targetUsers)
     return {
       listComponent: UserList,
       rowComponent: makeClickableRow(alertRequestSent, 'userName', alreadySent, 'grey'),

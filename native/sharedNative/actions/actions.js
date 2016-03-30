@@ -140,6 +140,14 @@ export function setUsersInContacts(contactMap) {
     contactMap,
   };
 }
+
+export function removeFriendFromUser(removalId) {
+  return {
+    type: a.REMOVE_FRIEND_FROM_USER,
+    removalId,
+  };
+}
+
 /** *****************************************************
  * Synchronous Action Creators
  * ************************************************** */
@@ -375,6 +383,19 @@ export const rejectFriend = (toId) => {
     .catch(catchErr);
   };
 };
+
+export function removeFriendship(userToUnfriendId) {
+  return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
+    return api.removeFriendship(userToUnfriendId, jwt)
+    .then(removedUserId => {
+      if (removedUserId) {
+        return dispatch(removeFriendFromUser(removedUserId));
+      }
+      return false;
+    });
+  };
+}
 
 export function storeGroup(groupName) {
   return (dispatch, getState) => {

@@ -20,6 +20,8 @@ export const CLEAR_ITEMS_IN_SELECTION_LIST = 'CLEAR_ITEMS_IN_SELECTION_LIST';
 export const SET_USER_GROUP_MEMBERS = 'SET_USER_GROUP_MEMBERS';
 export const SET_JWT = 'SET_JWT';
 export const SET_USERS_IN_CONTACTS = 'SET_USERS_IN_CONTACTS';
+export const REMOVE_FRIEND_FROM_USER = 'REMOVE_FRIEND_FROM_USER';
+
 /**
  * The SELECTION_LISTS is an enumeration of the state properties under state.app.pendingSelections
  */
