@@ -15,10 +15,11 @@ class EventDetail extends React.Component {
     this.state = {
       imageShowing: props.imageShowing,
       imageSource: require('../../sharedNative/images/dino-storm.jpg'),
-      event: { Users: [], Groups: [] },
+      event: { Users: [], Groups: [], uploadedPictures: [] },
     };
     this.contactMapper = store.getState().contactMap;
     this.defaultMargin = 10;
+    this.swiperItemStyles = { marginHorizontal: this.defaultMargin, marginTop: 0, flexDirection: 'column', flex: 1, height: 200 };
   }
   componentDidMount() {
     api.getEvent(this.props.event.id, store.getState().jwt)
@@ -66,7 +67,7 @@ class EventDetail extends React.Component {
   }
   generateEventDetails() {
     return (
-      <View style={[{ margin: this.defaultMargin, flexDirection: 'column', flex: 1, height: 200 }]}>
+      <View style={[this.swiperItemStyles]}>
         <Text style = {styles.standardText }>Users Invited:</Text>
         {this.getInvitedUserPics(this.state.event)}
         <Text style = {styles.standardText }>Groups Invited:</Text>
@@ -77,22 +78,40 @@ class EventDetail extends React.Component {
     );
   }
   generatePhotoSlides() {
+    if (!this.state.event.eventPictureUri &&
+      ((this.state.event.uploadedPictures && this.state.event.uploadedPictures.length === 0) ||
+      (!!this.state.event.uploadedPictures === false))) {
+      return null;
+    }
+    let eventPictureSource;
+    if (this.state.event) {
+      if (this.state.event.eventPictureUri) {
+        eventPictureSource = { uri: this.state.event.eventPictureUri };
+      } else if (this.state.event.vibe) {
+        eventPictureSource = vibes[this.state.event.vibe].src;
+      }
+    }
     return (
-      <View style={[{ margin: this.defaultMargin, flexDirection: 'column', flex: 1, height: 200 }]}>
+      <View style={[this.swiperItemStyles]}>
         <Image
-          source={ this.state.imageSource }
+          source={ eventPictureSource }
           style={{ width: width - (2 * this.defaultMargin) }}
         />
       </View>
     );
   }
   render() {
+    const photoViews = this.generatePhotoSlides();
+    let swipesToRender;
+    if (!photoViews) {
+      swipesToRender = this.generateEventDetails();
+    } else {
+      swipesToRender = [this.generateEventDetails(), photoViews];
+      console.log(swipesToRender);
+    }
     return (
       <Swiper style={styles.wrapper} height={200}>
-        <View>
-          { this.generateEventDetails() }
-        </View>
-        { this.generatePhotoSlides() }
+        {swipesToRender}
       </Swiper>
     );
   }
