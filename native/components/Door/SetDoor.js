@@ -25,7 +25,6 @@ const SetDoor = class SetDoor extends React.Component {
     };
     const createEvent = (event) => {
       this.props.onEventSubmit(event);
-      this.setState({ doorOpen: true });
     };
     const updateEvent = (event) => {
       this.props.onEventUpdate(event);
@@ -44,7 +43,6 @@ const SetDoor = class SetDoor extends React.Component {
           },
         });
       } else {
-        this.setState({ doorOpen: false });
         this.props.closeDoor();
       }
     };
