@@ -54,7 +54,7 @@ module.exports.createEvent = function createUser(req, res, next) {
           res.json(createdEvent);
         });
       } else {
-        res.json(_mapEvent(event));
+        res.json(_mapEvent(createdEvent));
       }
     })
     .catch((err) => {
