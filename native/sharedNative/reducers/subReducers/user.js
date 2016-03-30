@@ -3,16 +3,20 @@ import { combineReducers } from 'redux';
 function user(state = { userName: '', Events: [] }, action) {
   switch (action.type) {
     case 'SET_USER': {
-      return Object.assign({}, state, action.data);
+      return { ...state, ...action.data };
     }
     case 'CLEAR_USER': {
       return {};
     }
     case 'SET_USER_EVENTS': {
-      return Object.assign({}, state, { Events: action.data });
+      return { ...state, Events: action.data };
     }
     case 'SET_ACTIVE_EVENT':
-      return Object.assign({}, state, { currentEvent: action.data });
+      return { ...state, currentEvent: action.data };
+    case 'REMOVE_FRIEND_FROM_USER': {
+      const filteredFriends = state.friends.filter(friend => friend.id !== action.removalId);
+      return { ...state, friends: filteredFriends };
+    }
     default:
       return state;
   }
