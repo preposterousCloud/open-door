@@ -108,7 +108,7 @@ class EditEvent extends React.Component {
       component: SelectProfilePic,
       updateProfPic: (imageObj) => {
         // Trigger callback to update photo in state
-        this.setState({ imageObj });
+        this.setState({ event: { ...this.state.event, imageObj } });
         popScene();
       }
     })
@@ -127,6 +127,7 @@ class EditEvent extends React.Component {
         this.state.event.groups = getTruthies(this.state.event.invitedGroups);
         if (this.state.event.imageObj) {
           this.state.event.base64Image = this.state.event.imageObj.base64Image;
+          delete this.state.event.imageObj;
         }
         this.state.onSubmit(this.state.event);
         popScene();
