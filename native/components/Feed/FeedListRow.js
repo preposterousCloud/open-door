@@ -12,7 +12,7 @@ const FeedListRow = (event) => {
   
   const header = (
     <View>
-      <View style={[styles.listEntryView, { flexDirection: 'row', alignItems: 'center', padding: 15 }]}>
+      <View style={[styles.listEntryView, { flexDirection: 'row', alignItems: 'center', padding: 10 }]}>
         <Text style={styles.standardText}> {event.name} </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text style={styles.standardText}> { contactMapper[event.hostUser.id] || event.hostUser.userName} </Text>
