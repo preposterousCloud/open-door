@@ -33,7 +33,9 @@ const Friends = (props) => {
   const reqIds = store.getState().pendingRequests.received.map(user => user.id);
   const reqNames = store.getState().pendingRequests.received.map(user => user.userName);
 
-  const FriendsListContainer = makeListContainer(makeClickableRow(logUser), ['user', 'friends']);
+  const FriendsListContainer = makeListContainer(
+    makeClickableRow(logUser),
+    ['user', 'friends']);
   const FriendRequestsContainer = makeListContainer(
     makeClickableRow(respondToReq, reqNames, reqIds, 'blue'),
     ['pendingRequests', 'received']
@@ -47,7 +49,7 @@ const Friends = (props) => {
         rightButton={enterButton(AddFriends, props.user)}
       />
       <ScrollableTabView
-        locked={true}
+        locked
         tabBarUnderlineColor={'#227DF4'}
         tabBarActiveTextColor={'#227DF4'}
         tabBarBackgroundColor={'#FFF'}
