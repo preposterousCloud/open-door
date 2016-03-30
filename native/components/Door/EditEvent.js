@@ -46,6 +46,10 @@ class EditEvent extends React.Component {
         preSelectedGroups: [],
       },
     };
+    this.navToGroups = this.navToGroups.bind(this);
+    this.navToFriends = this.navToFriends.bind(this);
+    this.toggleInviteGroup = this.toggleInviteGroup.bind(this);
+    this.toggleInviteFriend = this.toggleInviteFriend.bind(this);
   }
   componentDidMount() {
     if (this.props.route.event.id) {
@@ -69,6 +73,44 @@ class EditEvent extends React.Component {
       this.setState({ event });
     }
   }
+  toggleInviteFriend(friend) {
+    const event = this.state.event;
+    event.invitedFriends[friend.id] = !event.invitedFriends[friend.id];
+    this.setState({ event });
+  }
+  toggleInviteGroup(group) {
+    const event = this.state.event;
+    event.invitedGroups[group.id] = !event.invitedGroups[group.id];
+    this.setState({ event });
+  }
+  navToGroups() {
+    navToFull({
+      component: InviteSelects,
+      title: 'Invite Groups',
+      listComponent: GroupList,
+      onItemClick: this.toggleInviteGroup,
+      preSelected: this.state.event.preSelectedGroups,
+    });
+  }
+  navToFriends() {
+    navToFull({
+      component: InviteSelects,
+      title: 'Invite Friends',
+      listComponent: UserList,
+      onItemClick: this.toggleInviteFriend,
+      preSelected: this.state.event.preSelectedFriends,
+    });
+  }
+  navToEventPhoto() {
+    navToFull({
+      component: View,
+      onPhotoSelect: (imageObj) => {
+        // Trigger callback to update photo in state
+        console.log('selected image', imageObj)
+        popScene();
+      }
+    })
+  }
   render() {
     const updateLocalEvent = (update) => {
       const event = this.state.event;
@@ -88,31 +130,6 @@ class EditEvent extends React.Component {
     const updateEventName = name => updateLocalEvent({ name });
     const updateEventLocation = location => updateLocalEvent({ location });
     const changeVibe = vibe => updateLocalEvent({ vibe });
-    const toggleInviteFriend = (friend) => {
-      const event = this.state.event;
-      event.invitedFriends[friend.id] = !event.invitedFriends[friend.id];
-      this.setState({ event });
-    };
-    const navToFriends = () => navToFull({
-      component: InviteSelects,
-      title: 'Invite Friends',
-      listComponent: UserList,
-      onItemClick: toggleInviteFriend,
-      preSelected: this.state.event.preSelectedFriends,
-    });
-    const toggleInviteGroup = (group) => {
-      const event = this.state.event;
-      event.invitedGroups[group.id] = !event.invitedGroups[group.id];
-      this.setState({ event });
-    };
-    const navToGroups = () => navToFull({
-      component: InviteSelects,
-      title: 'Invite Groups',
-      listComponent: GroupList,
-      onItemClick: toggleInviteGroup,
-      preSelected: this.state.event.preSelectedGroups,
-    });
-
     return this.state.event ? (
       <View>
         <NavBar title={'Edit Event'} leftButton={cancelButtonNav}
@@ -121,11 +138,14 @@ class EditEvent extends React.Component {
         <StyledTextInput onChangeText={updateEventName} placeholder={this.state.event.name} />
         <StyledTextInput onChangeText={updateEventLocation} placeholder={this.state.event.location} />
         <VibePicker changeVibe={changeVibe} initialVibe={this.state.event.vibe} />
-        <TouchableOpacity onPress={navToFriends} style={socialStyles.categoryButton} >
+        <TouchableOpacity onPress={this.navToFriends} style={socialStyles.categoryButton} >
           <Text>FRIENDS</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={navToGroups} style={socialStyles.categoryButton} >
+        <TouchableOpacity onPress={this.navToGroups} style={socialStyles.categoryButton} >
           <Text>GROUPS</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{}} style={socialStyles.categoryButton} >
+          <Text>SET PHOTO</Text>
         </TouchableOpacity>
       </View>
     ) : null;

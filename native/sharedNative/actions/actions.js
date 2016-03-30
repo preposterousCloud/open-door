@@ -423,6 +423,7 @@ export function updateGroupPic(groupId, encodedGroupPic) {
     const jwt = getState().app.jwt;
     return api.updateGroupPic(groupId, encodedGroupPic, jwt)
     .then(newPicLink => {
+      // TODO - We should update the group object
       dispatch(setLoading(false));
       return newPicLink;
     })

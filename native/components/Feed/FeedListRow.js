@@ -3,6 +3,7 @@ import styles from '../../styles/Feed/feedStyles.js';
 const { width, height } = Dimensions.get('window');
 import Accordion from 'react-native-accordion';
 import EventDetail from './EventDetail';
+import CirclePic from '../Shared/CirclePic';
 
 const FeedListRow = (event) => {
   const header = (
@@ -11,6 +12,9 @@ const FeedListRow = (event) => {
         <Text style={styles.group}>
           {event.name}
         </Text>
+        <CirclePic source={ { uri: event.hostUser.profilePictureUri }}
+          style={{ height: 25, width: 25 }} size={40}
+        />
       </View>
     </View>
   );
