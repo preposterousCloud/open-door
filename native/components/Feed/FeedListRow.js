@@ -4,17 +4,20 @@ const { width, height } = Dimensions.get('window');
 import Accordion from 'react-native-accordion';
 import EventDetail from './EventDetail';
 import CirclePic from '../Shared/CirclePic';
+import { store } from '../../sharedNative/reducers/reducers.js';
 
 const FeedListRow = (event) => {
+  // Dirty hack - I'm sorry :(
+  const contactMapper = store.getState().contactMap;
+  
   const header = (
     <View>
-      <View style={styles.listEntryView}>
-        <Text style={styles.group}>
-          {event.name}
-        </Text>
-        <CirclePic source={ { uri: event.hostUser.profilePictureUri }}
-          style={{ height: 25, width: 25 }} size={40}
-        />
+      <View style={[styles.listEntryView, { flexDirection: 'row', alignItems: 'center', padding: 15 }]}>
+        <Text style={styles.standardText}> {event.name} </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={styles.standardText}> { contactMapper[event.hostUser.id] || event.hostUser.userName} </Text>
+          <CirclePic source={ { uri: event.hostUser.profilePictureUri }} size={40} />
+        </View>
       </View>
     </View>
   );
