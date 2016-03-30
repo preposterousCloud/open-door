@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const radius = 50;
 module.exports = StyleSheet.create({
@@ -36,6 +36,10 @@ module.exports = StyleSheet.create({
   },
   navBar: {
     backgroundColor: 'transparent',
+  },
+  feedNavBar: {
+    backgroundColor: 'blue',
+    height: height/10,
   },
   // Lists
   listView: {
@@ -125,6 +129,17 @@ module.exports = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#DDD',
+  },
+  feedNav: {
+    backgroundColor: 'green',
+    // alignSelf: 'flex-end',
+    height: 40,
+  },
+  navIcon: {
+    width: 40,
+    height: 40,
+    top: 40,
+    alignSelf: 'center',
   },
   // Profile and Group Pic
   profilePic: {

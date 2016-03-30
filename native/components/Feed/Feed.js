@@ -2,6 +2,7 @@ import React, {
   Text,
   View,
   Component,
+  Image,
   TouchableOpacity,
  } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
@@ -20,33 +21,44 @@ class Feed extends React.Component {
   //   const events = api.getEvents(nextProps.user.events.map(event => event.id));
   //   this.setState({ events });
   // }
-
   componentWillMount() {
     store.dispatch(getAllUsers());
   }
 
   render() {
     const rightNavButton = {
-      title: 'My Door',
+      title: (
+        <Image
+          source={ require('../../static/opendoorlogogreen.png') }
+          style={ styles.navIcon }
+        />),
       handler: this.props.swipeRight,
+      style: styles.feedNav,
     };
 
     const leftNavButton = {
-      title: 'Social',
+      title: (
+        <Image
+          source={ require('../../static/socialman.png') }
+          style={ styles.navIcon }
+        />),
       handler: this.props.swipeLeft,
+      style: styles.feedNav,
     };
 
     return (
       <View style={styles.container}>
-        <NavBar
-          title={this.props.userName}
-          rightButton={rightNavButton}
-          leftButton={leftNavButton}
-        />
         <FeedList events={this.props.events} />
-        <TouchableOpacity onPress={this.props.logout}>
+        { /* <TouchableOpacity onPress={this.props.logout}>
           <Text>Logout</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */ }
+          <NavigationBar
+            title={{ title: '' }}
+            rightButton={ rightNavButton }
+            leftButton={ leftNavButton }
+            tintColor={ 'transparent' }
+            style={styles.feedNavBar}
+          />
       </View>
     );
   }
