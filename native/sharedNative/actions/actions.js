@@ -193,6 +193,23 @@ export function createUser(userName, pw, phone) {
   };
 }
 
+/**
+ * Refreshes user based on the jwt token we have.  This should always match the signed in user.
+ */
+export function refreshUser() {
+  return (dispatch, getState) => {
+    const jwt = getState().app.jwt;
+    dispatch(setLoading(true));
+
+    return api.getUserByJwt(jwt)
+    .then(user => {
+      dispatch(setUser(user));
+      dispatch(sortPendingFriendRequests(user));
+    })
+    .then(dispatch(setLoading(false)));
+  };
+}
+
 export function setInLocalStorage(key, value) {
   return (dispatch) => {
     return localStore.save(key, value);
@@ -302,7 +319,8 @@ export function getAllUsers() {
     const importContacts = getAllContacts(addressBook => {
       const usersAndContacts = addressBook.forEach(contact => {
         contact.phoneNumbers.forEach((phone) => {
-          const sanitizedPhone = phone.number.replace(/\D|1(?=\d{9})/igm, '').replace(/1(?=\d{9})/igm, '');
+          const sanitizedPhone = phone.number
+            .replace(/\D|1(?=\d{9})/igm, '').replace(/1(?=\d{9})/igm, '');
           contactNumbers.push(sanitizedPhone);
           localContactMap[sanitizedPhone] = `${contact.givenName} ${contact.familyName}`;
         });
@@ -319,23 +337,6 @@ export function getAllUsers() {
         return matchingContacts;
       });
     });
-  };
-}
-
-/**
- * Refreshes user based on the jwt token we have.  This should always match the signed in user.
- */
-export function refreshUser() {
-  return (dispatch, getState) => {
-    const jwt = getState().app.jwt;
-    dispatch(setLoading(true));
-
-    return api.getUserByJwt(jwt)
-    .then(user => {
-      dispatch(setUser(user));
-      dispatch(sortPendingFriendRequests(user));
-    })
-    .then(dispatch(setLoading(false)));
   };
 }
 
@@ -410,6 +411,21 @@ export function addFriendToGroup(groupId, userId) {
     const myId = getState().user.id;
     const jwt = getState().app.jwt;
     return api.addToGroup(groupId, userId, myId, jwt)
+    .then(group => {
+      if (group) {
+        dispatch(setUserGroupMembers(group.Users));
+        return group;
+      }
+      return false;
+    });
+  };
+}
+
+export function removeFromGroup(groupId, userToRemoveId) {
+  return (dispatch, getState) => {
+    const myId = getState().user.id;
+    const jwt = getState().app.jwt;
+    return api.removeFromGroup(groupId, userToRemoveId, myId, jwt)
     .then(group => {
       if (group) {
         dispatch(setUserGroupMembers(group.Users));

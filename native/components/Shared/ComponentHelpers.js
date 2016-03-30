@@ -25,7 +25,7 @@ const chooseRowStyle = (style) => {
   }
 };
 
-const makeClickableRow = (action, text, distinguished, rowStyle, canDelete) => {
+const makeClickableRow = (action, text, distinguished, rowStyle, swipeFunction) => {
   const distStyle = distinguished && rowStyle ? chooseRowStyle(rowStyle) : null;
   const contactMapper = store.getState().contactMap;
   return (rowData) => {
@@ -44,12 +44,8 @@ const makeClickableRow = (action, text, distinguished, rowStyle, canDelete) => {
         </Text>
       );
     }
-    const swipeoutBtns = [
-      {
-        text: 'Button',
-      },
-    ];
-    let notSwipeable = () => (
+
+    const ClickableRow = () => (
       <View>
           <TouchableOpacity
             onPress={actionAppliedToUser}
@@ -70,32 +66,22 @@ const makeClickableRow = (action, text, distinguished, rowStyle, canDelete) => {
           </TouchableOpacity>
       </View>
     );
-    let swipeable = () => (
-      <View>
-        <Swipeout
-          right={swipeoutBtns}
-        >
-          <TouchableOpacity
-            onPress={actionAppliedToUser}
-            style={socialStyles.group}
-          >
-            <View style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-              distStyle[0] :
-              socialStyles.listEntryView}
-            >
-              <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-              distStyle[1] :
-              null}
-              >
-                {rowData.userName ? (contactMapper[rowData.id] || rowData.userName) : rowData[text]}
-              </Text>
-              {withDistinguished}
-            </View>
-          </TouchableOpacity>
-        </Swipeout>
-      </View>
-    );
-    return canDelete ? swipeable() : notSwipeable();
+
+    if (swipeFunction) {
+      const swipeoutBtns = [{
+        text: 'Remove',
+        onPress: () => store.dispatch(swipeFunction(rowData.id)),
+      }];
+      const SwipeAndClickRow = () => (
+        <View>
+          <Swipeout right={swipeoutBtns} >
+            <ClickableRow />
+          </Swipeout>
+        </View>
+      );
+      return <SwipeAndClickRow />;
+    }
+    return <ClickableRow />;
   };
 };
 

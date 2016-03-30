@@ -56,4 +56,7 @@ module.exports = (app) => {
   app.put('/api/friends/groups', [Auth.ensureUserIsUser((req, jwt) => {
     return req.body.myId === (jwt.userId);
   }), Group.addMember]);
+  app.delete('/api/friends/groups', [Auth.ensureUserIsUser((req, jwt) => {
+    return req.body.myId === (jwt.userId);
+  }), Group.removeMember]);
 };
