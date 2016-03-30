@@ -103,10 +103,8 @@ module.exports.removeMember = (req, res, next) => {
       },
     })
     .then(group => {
-      console.log('just before we try to call group.deleteUsers');
       group.removeUsers(req.body.userToRemoveId)
       .then(() => {
-        console.log('just after we try to call group.deleteUsers');
         db.Group.findOne({ where: { id: group.id }, include: [{ model: db.User }] })
         .then((updatedGroup) => {
           res.json(updatedGroup);
