@@ -173,15 +173,7 @@ module.exports.rejectFriendship = function addFriendship(req, res, next) {
 };
 
 module.exports.removeFriendship = function removeFriendship(req, res, next) {
-  db.User.removeFriendship(req.body.friends[0], req.body.friends[1])
-  .then(resultsRemoved => {
-    if (resultsRemoved[0] > 0) {
-      res.status(201).send('Friendship removed');
-      return;
-    }
-    res.status(200).send('Friendship not found to begin with.');
-  })
-  .catch(err => {
-    next(err);
-  });
+  db.User.removeFriendship(req.jwt.userId, req.body.userToUnfriendId)
+  .then(resultsRemoved => res.json(req.body.userToUnfriendId))
+  .catch(next);
 };
