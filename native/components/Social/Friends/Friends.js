@@ -2,6 +2,7 @@ import React, { View, Text, TouchableOpacity, ListView, Alert } from 'react-nati
 import { connect } from 'react-redux';
 import { store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
+const actions = require('../../../sharedNative/actions/actions.js');
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import AddFriends from './AddFriends.js';
 import { confirmFriend, rejectFriend } from '../../../sharedNative/actions/actions.js';
@@ -34,8 +35,9 @@ const Friends = (props) => {
   const reqNames = store.getState().pendingRequests.received.map(user => user.userName);
 
   const FriendsListContainer = makeListContainer(
-    makeClickableRow(logUser),
-    ['user', 'friends']);
+    makeClickableRow(logUser, null, null, null, actions.removeFriendship),
+    ['user', 'friends']
+  );
   const FriendRequestsContainer = makeListContainer(
     makeClickableRow(respondToReq, reqNames, reqIds, 'blue'),
     ['pendingRequests', 'received']
