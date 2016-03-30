@@ -144,10 +144,10 @@ class EditEvent extends React.Component {
         <StyledTextInput onChangeText={updateEventName} placeholder={this.state.event.name} />
         <StyledTextInput onChangeText={updateEventLocation} placeholder={this.state.event.location} />
         <VibePicker changeVibe={changeVibe} initialVibe={this.state.event.vibe} />
-        <TouchableOpacity onPress={navToFriends} style={styles.categoryButton} >
+        <TouchableOpacity onPress={this.navToFriends} style={styles.categoryButton} >
           <Text>FRIENDS</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={navToGroups} style={styles.categoryButton} >
+        <TouchableOpacity onPress={this.navToGroups} style={styles.categoryButton} >
           <Text>GROUPS</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={this.navToEventPhoto} style={socialStyles.categoryButton} >
