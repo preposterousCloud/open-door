@@ -17,6 +17,7 @@ module.exports = function Event(sequelizeInstance) {
       startDateUtc: Sequelize.DATE,
       endDateUtc: Sequelize.DATE,
       location: Sequelize.STRING,
+      eventPictureUri: Sequelize.STRING,
     },
     {
       instanceMethods: {
