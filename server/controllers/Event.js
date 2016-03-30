@@ -3,6 +3,7 @@
 const db = require('../db/database').db;
 const Auth = require('./Auth');
 const HttpError = require('./Errors').HttpError;
+const imgur = require('imgur');
 
 const _mapEvent = (event) => {
   return { name: event.name,
@@ -51,10 +52,24 @@ module.exports.updateEvent = function updateEvent(req, res, next) {
   const eventId = req.params.id;
   db.Event.findOne({ where: { id: eventId } })
   .then((event) => {
-    event.updateEvent(req.body)
-    .then((event) => {
-      res.json(event);
-    });
+    const newEventInfo = req.body;
+    if (newEventInfo.base64Image) {
+      // send it up to imgur
+      imgur.uploadBase64(newEventInfo.base64Image)
+      .then((imgurResponse) => {
+        newEventInfo.eventPictureUri = imgurResponse.data.link;
+        delete newEventInfo.base64Image;
+        event.update(newEventInfo)
+        .then(event => res.json(event));
+      })
+      .catch((err) => {
+        res.json({ message: 'error updating user' });
+        console.error(err.message);
+      });
+    } else {
+      event.updateEvent(newEventInfo)
+      .then((event) => res.json(event));
+    }
   })
   .catch(err => {
     next(err);
