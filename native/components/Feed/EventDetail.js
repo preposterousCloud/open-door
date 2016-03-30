@@ -45,24 +45,25 @@ class EventDetail extends React.Component {
         imageShowing: !this.state.imageShowing,
       });
     };
+    let eventPictureSource = this.state.imageSource;
+    if (this.state.event) {
+      if (this.state.event.eventPictureUri) {
+        eventPictureSource = { uri: this.state.event.eventPictureUri };
+      } else if (this.state.event.vibe) {
+        eventPictureSource = vibes[this.state.event.vibe].src;
+      }
+    }
     return (
       <View style={styles.imageContainer}>
         {this.state.imageShowing ?
           <TouchableOpacity onPress={toggleImage} >
             <Image
-              source={this.state.event && this.state.event.vibe ?
-                vibes[this.state.event.vibe].src :
-                this.state.imageSource}
+              source={eventPictureSource}
               style={{ width, height: 300 }}
             />
           </TouchableOpacity> :
           <TouchableOpacity onPress={toggleImage} >
             <Text>Name: {this.state.event.name}</Text>
-            <Text>
-            Host: 
-            {this.state.contactMapper[this.state.event.hostUser.id] ||
-            this.state.event.hostUser.userName}
-            </Text>
             <Text>Vibe: {this.state.event.vibe}</Text>
             <Text>Location: {this.state.event.location}</Text>
             <Text>Groups Invited: {this.getInvitedGroups(this.state.event)}</Text>
