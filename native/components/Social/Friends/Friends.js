@@ -2,6 +2,7 @@ import React, { View, Text, TouchableOpacity, ListView, Alert } from 'react-nati
 import { connect } from 'react-redux';
 import { store } from '../../../sharedNative/reducers/reducers.js';
 import NavBar from '../../Shared/NavBar.js';
+const actions = require('../../../sharedNative/actions/actions.js');
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import AddFriends from './AddFriends.js';
 import { confirmFriend, rejectFriend } from '../../../sharedNative/actions/actions.js';
@@ -33,12 +34,15 @@ const Friends = (props) => {
   const reqIds = store.getState().pendingRequests.received.map(user => user.id);
   const reqNames = store.getState().pendingRequests.received.map(user => user.userName);
 
-  const FriendsListContainer = makeListContainer(makeClickableRow(logUser), ['user', 'friends']);
+  const FriendsListContainer = makeListContainer(
+    makeClickableRow(logUser, null, null, null, actions.removeFriendship),
+    ['user', 'friends']
+  );
   const FriendRequestsContainer = makeListContainer(
     makeClickableRow(respondToReq, reqNames, reqIds, 'blue'),
     ['pendingRequests', 'received']
   );
-
+  const requestCount = store.getState().pendingRequests.received.length;
   return (
     <View>
       <NavBar
@@ -47,7 +51,7 @@ const Friends = (props) => {
         rightButton={enterButton(AddFriends, props.user)}
       />
       <ScrollableTabView
-        locked={true}
+        locked
         tabBarUnderlineColor={'#227DF4'}
         tabBarActiveTextColor={'#227DF4'}
         tabBarBackgroundColor={'#FFF'}
@@ -55,7 +59,7 @@ const Friends = (props) => {
       >
         <FriendsListContainer tabLabel="Friends List" />
         <FriendRequestsContainer
-          tabLabel={`Requests (${store.getState().pendingRequests.received.length})`}
+          tabLabel={`Requests ${requestCount ? `(${requestCount})` : ''}`}
         />
       </ScrollableTabView>
     </View>
