@@ -150,7 +150,7 @@ class EditEvent extends React.Component {
         <TouchableOpacity onPress={this.navToGroups} style={styles.categoryButton} >
           <Text>GROUPS</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.navToEventPhoto} style={socialStyles.categoryButton} >
+        <TouchableOpacity onPress={this.navToEventPhoto} style={styles.categoryButton} >
           <Text>SET PHOTO</Text>
         </TouchableOpacity>
       </View>
