@@ -49,16 +49,15 @@ module.exports.updateUser = function createUser(req, res, next) {
         // newUser = get updated properties from user
         const newUserInfo = req.body;
         // if we recieved a new base64 encoded profile profile picture
-        if (newUserInfo.encodedProfPic) {
+        if (newUserInfo.base64Image) {
           // send it up to imgur
-          imgur.uploadBase64(newUserInfo.encodedProfPic)
+          imgur.uploadBase64(newUserInfo.base64Image)
           .then((imgurResponse) => {
             newUserInfo.profilePictureUri = imgurResponse.data.link;
-            delete newUserInfo.encodedProfPic;
+            delete newUserInfo.base64Image;
             user.update(newUserInfo)
             .then(user => {
-              console.log('updated user:', user);
-              res.json(newUserInfo)
+              res.json(newUserInfo);
             });
           })
           .catch((err) => {

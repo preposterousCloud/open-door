@@ -1,19 +1,17 @@
 
-import React, { View, Text, Alert, TouchableOpacity, Image } from 'react-native';
-import { store } from '../../sharedNative/reducers/reducers.js';
+import React, { Alert, View, Text, TouchableOpacity, Image } from 'react-native';
 import NavBar from '../Shared/NavBar.js';
 import EditUser from './EditUser';
+import { navToFull } from '../Shared/NavHelpers';
 import styles from '../../styles/Profile/profileStyles.js';
 import { backButton, editButton } from '../Shared/Buttons';
-import { navToFull } from '../Shared/NavHelpers';
 import CirclePic from '../Shared/CirclePic';
 const actions = require('../../sharedNative/actions/actions');
 const profPic = require('../../sharedNative/images/dino-profile.jpeg');
 
 const Profile = (props) => {
-  const profilePage = this;
-  const updateUser = (newUserInfo) => {
-    props.updateUser(newUserInfo)
+  const updateUser = (user) => {
+    return props.updateUser(user)
     .then(updatedUser => {
       if (!updatedUser) {
         Alert.alert('Username Taken!', 'Try a different one?', [
@@ -25,16 +23,16 @@ const Profile = (props) => {
             onPress: () => {
               navToFull({
                 component: EditUser,
-                user: props.route.user,
+                user: props.user,
                 onSubmit: updateUser,
               });
             },
             style: 'default',
           },
         ]);
-      } else {
-        store.dispatch(actions.setUser(updatedUser));
+        return null;
       }
+      return updatedUser;
     });
   };
   return (
@@ -42,21 +40,21 @@ const Profile = (props) => {
     <NavBar
       title={ 'Profile' }
       leftButton={backButton}
-      rightButton={editButton(EditUser, props.route.user, updateUser)}
+      rightButton={editButton(EditUser, props.user, updateUser)}
     />
     <View>
-      <CirclePic uri={store.getState().user.profilePictureUri} />
+      <CirclePic source={ { uri: props.user.profilePictureUri }} />
       <View style={styles.listEntryView}>
-        <Text style={styles.group}>Username: {store.getState().user.userName}</Text>
+        <Text style={styles.group}>Username: { props.user.userName }</Text>
       </View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>
-          Default Location: {store.getState().user.defaultLocation || 'None'}
+          Default Location: {props.user.defaultLocation || 'None'}
         </Text>
       </View>
       <View style={styles.listEntryView}>
         <Text style={styles.group}>
-          Default Vibe: {store.getState().user.defaultVibe || 'None'}
+          Default Vibe: {props.user.defaultVibe || 'None'}
         </Text>
       </View>
     </View>
@@ -65,7 +63,8 @@ const Profile = (props) => {
 };
 
 Profile.propTypes = {
-  route: React.PropTypes.object,
+  user: React.PropTypes.object,
+  updateUser: React.PropTypes.func,
 };
 
 module.exports = Profile;
