@@ -39,7 +39,7 @@ module.exports = StyleSheet.create({
   },
   // Lists
   listView: {
-    backgroundColor: '#FFF',
+    backgroundColor: 'transparent',
     height: 620,
   },
   listEntryView: {

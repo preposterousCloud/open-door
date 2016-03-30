@@ -8,6 +8,7 @@ const NavBar = (props) => (
       title={{ title: props.title }}
       rightButton={props.rightButton}
       leftButton={props.leftButton}
+      tintColor={ 'transparent' }
     />
   </View>
 );
