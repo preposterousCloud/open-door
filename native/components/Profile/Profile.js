@@ -1,19 +1,17 @@
 
-import React, { View, Text, Alert, TouchableOpacity, Image } from 'react-native';
-import { store } from '../../sharedNative/reducers/reducers.js';
+import React, { Alert, View, Text, TouchableOpacity, Image } from 'react-native';
 import NavBar from '../Shared/NavBar.js';
 import EditUser from './EditUser';
+import { navToFull } from '../Shared/NavHelpers';
 import styles from '../../styles/Profile/profileStyles.js';
 import { backButton, editButton } from '../Shared/Buttons';
-import { navToFull } from '../Shared/NavHelpers';
 import CirclePic from '../Shared/CirclePic';
 const actions = require('../../sharedNative/actions/actions');
 const profPic = require('../../sharedNative/images/dino-profile.jpeg');
 
 const Profile = (props) => {
-  const profilePage = this;
-  const updateUser = (newUserInfo) => {
-    props.updateUser(newUserInfo)
+  const updateUser = (user) => {
+    return props.updateUser(user)
     .then(updatedUser => {
       if (!updatedUser) {
         Alert.alert('Username Taken!', 'Try a different one?', [
@@ -32,7 +30,9 @@ const Profile = (props) => {
             style: 'default',
           },
         ]);
+        return null;
       }
+      return updatedUser;
     });
   };
   return (
@@ -64,6 +64,7 @@ const Profile = (props) => {
 
 Profile.propTypes = {
   user: React.PropTypes.object,
+  updateUser: React.PropTypes.func,
 };
 
 module.exports = Profile;
