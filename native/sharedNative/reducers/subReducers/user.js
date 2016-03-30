@@ -1,11 +1,24 @@
 import { combineReducers } from 'redux';
 
-function user(state = {}, action) {
+function user(state = { userName: '', Events: [] }, action) {
   switch (action.type) {
-    case 'SET_USER':
-      return action.user || state;
+    case 'SET_USER': {
+      return { ...state, ...action.data };
+    }
+    case 'CLEAR_USER': {
+      return {};
+    }
+    case 'SET_USER_EVENTS': {
+      return { ...state, Events: action.data };
+    }
     case 'SET_ACTIVE_EVENT':
-      return Object.assign({}, state, { currentEvent: action.data });
+      return { ...state, currentEvent: action.data };
+    case 'REMOVE_FRIEND_FROM_USER': {
+      return {
+        ...state,
+        friends: state.friends.filter(friend => friend.id !== action.removalId),
+      };
+    }
     default:
       return state;
   }
@@ -21,5 +34,27 @@ function allUsers(state = [], action) {
   }
 }
 
+function contactMap(state = {}, action) {
+  switch (action.type) {
+    case 'SET_USERS_IN_CONTACTS': {
+      return action.contactMap || state;
+    }
+    default:
+      return state;
+  }
+}
+
+function pendingRequests(state = {}, action) {
+  switch (action.type) {
+    case 'SET_PENDING_FRIEND_REQUESTS': {
+      return action.reqs || state;
+    }
+    default:
+      return state;
+  }
+}
+
 module.exports.user = user;
 module.exports.allUsers = allUsers;
+module.exports.contactMap = contactMap;
+module.exports.pendingRequests = pendingRequests;

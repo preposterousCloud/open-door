@@ -34,6 +34,7 @@ const _InjectDBConfig = (params) => {
   const Event = require('../models/Event')(sequelize);
 
   User.belongsToMany(User, { as: 'friend', through: 'rel_user_friends', unique: true });
+  User.belongsToMany(User, { as: 'request', through: 'rel_user_requested_friends', unique: true });
 
   User.belongsToMany(Group, { through: 'rel_user_group' });
   Group.belongsToMany(User, { through: 'rel_user_group' });

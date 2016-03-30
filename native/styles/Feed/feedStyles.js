@@ -18,7 +18,9 @@ module.exports = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: '#DDD',
   },
-  navBar: {
-    // enter some styles here
+  imageContainer: {
+    flex: 1,
+  },
+  image: {
   },
 });
