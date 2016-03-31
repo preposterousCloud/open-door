@@ -183,13 +183,16 @@ export function getAllContacts(cb) {
  * ************************************************** */
 export function createUser(userName, pw, phone) {
   return (dispatch, getState) => {
+    dispatch(setLoading(true));
     const jwt = getState().app.jwt;
     return api.postUser(userName, pw, phone, jwt)
     .then(response => {
       dispatch(setJwt(response.jwt));
       dispatch(setUser(response.user));
+      dispatch(setInLocalStorage('jwt', response.jwt));
       return response.user;
-    });
+    })
+    .catch(err => ({ err }));
   };
 }
 

@@ -34,23 +34,8 @@ const Login = class Login extends React.Component {
     });
     store.dispatch(actions.checkForJwtAndLogin());
   }
-  AlertInvalidCredentials() {
-    Alert.alert('Invalid Credentials', '', [
-      {
-        text: 'Ok',
-        onPress: () => console.log('OK Pressed'),
-        style: 'default',
-      },
-    ]);
-  }
-  AlertServerError() {
-    Alert.alert('Unknown Server Error', 'Try again later.', [
-      {
-        text: 'Ok',
-        onPress: () => console.log('OK Pressed'),
-        style: 'default',
-      },
-    ]);
+  displayAlert(title, subTitle = '', text = 'OK', onPress = () => null) {
+    Alert.alert(title, subTitle, [{ text, onPress, style: 'default' }]);
   }
   navigateToLoggedInApp() {
     navToFull({ name: 'Main' });
@@ -60,28 +45,45 @@ const Login = class Login extends React.Component {
     this.setState({ phone: sanitizedPhone });
     store.dispatch(attemptLogin(this.state.userName, this.state.password))
     .then(res => {
-      console.log('res', res);
       if (res.err) {
         switch (res.err.status) {
           case 401: {
-            this.AlertInvalidCredentials();
+            this.displayAlert('Invalid Credentials');
             break;
           }
           default:
-            this.AlertServerError();
+            this.displayAlert('Unknown Server Error', 'Try again later');
             break;
         }
       } else {
         // Set JWT to state
         this.navigateToLoggedInApp();
       }
+    })
+    .catch((err) => {
+      console.warn(err);
     });
   }
   signupUser() {
     const sanitizedPhone = this.state.phone.replace(/\D/igm, '');
     this.setState({ phone: sanitizedPhone });
     store.dispatch(createUser(this.state.userName, this.state.password, this.state.phone))
-    .then(this.navigateToLoggedInApp)
+    .then(res => {
+      if (res.err) {
+        switch (res.err.status) {
+          case 403: {
+            this.displayAlert('Username taken');
+            break;
+          }
+          default:
+            this.displayAlert('Unknown Server Error', 'Try again later');
+            break;
+        }
+      } else {
+        // Set JWT to state
+        this.navigateToLoggedInApp();
+      }
+    })
     .catch((err) => {
       console.warn(err);
     });
