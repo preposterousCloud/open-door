@@ -60,7 +60,6 @@ const Login = class Login extends React.Component {
     this.setState({ phone: sanitizedPhone });
     store.dispatch(attemptLogin(this.state.userName, this.state.password))
     .then(res => {
-      console.log('res', res);
       if (res.err) {
         switch (res.err.status) {
           case 401: {
@@ -75,13 +74,31 @@ const Login = class Login extends React.Component {
         // Set JWT to state
         this.navigateToLoggedInApp();
       }
+    })
+    .catch((err) => {
+      console.warn(err);
     });
   }
   signupUser() {
     const sanitizedPhone = this.state.phone.replace(/\D/igm, '');
     this.setState({ phone: sanitizedPhone });
     store.dispatch(createUser(this.state.userName, this.state.password, this.state.phone))
-    .then(this.navigateToLoggedInApp)
+    .then(res => {
+      if (res.err) {
+        switch (res.err.status) {
+          case 403: {
+            this.AlertInvalidCredentials();
+            break;
+          }
+          default:
+            this.AlertServerError();
+            break;
+        }
+      } else {
+        // Set JWT to state
+        this.navigateToLoggedInApp();
+      }
+    })
     .catch((err) => {
       console.warn(err);
     });
