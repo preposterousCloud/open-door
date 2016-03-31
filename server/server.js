@@ -9,7 +9,7 @@ const path = require('path');
 const app = express();
 
 app.use(morgan('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: 100000000}));
 app.use(express.static(path.join(__dirname, '../web')));
 
 require('./controllers/routes.js')(app, express);
