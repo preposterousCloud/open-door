@@ -111,7 +111,7 @@ module.exports = function User(sequelizeInstance) {
              { model: seq.models.User }],
             where: {
               hostUserId: user.id,
-              endDateUtc: null,
+              endDateUtc: { $gt: Date.now() },
             },
           };
           const getCurrentEvent = seq.models.Event.findAll(eventQuery)

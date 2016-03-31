@@ -47,7 +47,7 @@ class Feed extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.feedHeader}>
-          <Text style={styles.feedText}>WHO'S FREE</Text>
+          <Text style={styles.feedText}>WHO'S FREE?</Text>
         </View>
         <FeedList events={this.props.events} />
         <NavigationBar
