@@ -5,6 +5,7 @@ import React, {
   TouchableOpacity,
   TextInput,
   StatusBar,
+  Image,
 } from 'react-native';
 import { connect } from 'react-redux';
 const localStore = require('react-native-simple-store');
@@ -17,6 +18,7 @@ import { OpenDoor } from './Shared/Icons';
 import Button from './Shared/Button';
 import styles from '../styles/styles';
 const actions = require('../sharedNative/actions/actions');
+const logo = require('../ios/opendoor/opendoorlogo.png');
 
 
 const Login = class Login extends React.Component {
@@ -97,7 +99,7 @@ const Login = class Login extends React.Component {
     return (
       <View style={styles.centerContainer}>
         <StatusBar barStyle="light-content" />
-        <OpenDoor styles = {{ size: 200, color: 'green' }} />
+        <Image source={logo} style={{ height: 100, width: 100 }} />
         <TextInput
           autoCapitalize={'none'}
           autoCorrect={false}
@@ -105,20 +107,25 @@ const Login = class Login extends React.Component {
           placeholder={'Phone Number (optional)'}
           value={this.state.phone}
           style={styles.userInput}
-          returnKeyType={'go'}
+          keyboardType={'number-pad'}
+          returnKeyType={'next'}
+          onSubmitEditing={() => this.refs.userName.focus()}
           onChangeText={(text) => this.updateFormProp('phone', text)}
         />
         <TextInput
+          ref={'userName'}
           autoCapitalize={'none'}
           autoCorrect={false}
           maxLength={16}
           placeholder={'User Name (required)'}
           value={this.state.userName}
           style={styles.userInput}
-          returnKeyType={'go'}
+          returnKeyType={'next'}
+          onSubmitEditing={() => this.refs.password.focus()}
           onChangeText={(text) => this.updateFormProp('userName', text)}
         />
         <TextInput
+          ref={'password'}
           autoCapitalize={'none'}
           autoCorrect={false}
           maxLength={16}
