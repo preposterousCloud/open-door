@@ -25,25 +25,28 @@ const Social = (props) => {
     });
   };
   return (
-    <View>
+    <View style={styles.container}>
+      <View style={styles.feedHeader}>
+        <Text style={styles.feedText}> SOCIAL </Text>
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={showFriends}
+          style={styles.socialF}
+        >
+          <Text>FRIENDS</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={groupsNav}
+          style={styles.socialG}
+        >
+          <Text>GROUPS</Text>
+        </TouchableOpacity>
+      </View>
       <NavBar
-        title={ 'Social' }
+        title={ '' }
         rightButton={rightNavButton}
       />
-    <View>
-      <TouchableOpacity
-        onPress={showFriends}
-        style={styles.socialF}
-      >
-        <Text>FRIENDS</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={groupsNav}
-        style={styles.socialG}
-      >
-        <Text>GROUPS</Text>
-      </TouchableOpacity>
-    </View>
   </View>
   );
 };
