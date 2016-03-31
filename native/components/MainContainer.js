@@ -17,17 +17,8 @@ import Feed from './Feed/Feed.js';
 import Social from './Social/Social.js';
 import SetDoorContainer from './Door/SetDoorContainer';
 import styles from '../styles/styles.js';
+import { BackgroundImage } from './Shared/Background';
 
-const BackgroundImage = ({ source, children, style, ...props }) => {
-  return (
-      <Image
-        source={source}
-        style={{flex: 1, width: null, height: null, ...style}}
-        {...props}>
-        {children}
-      </Image>
-  );
-}
 
 const FeedContainer = connect((state, ownProps) => ({
   user: state.user,
