@@ -5,6 +5,7 @@ import React, {
   TouchableOpacity,
   TextInput,
   StatusBar,
+  Image,
 } from 'react-native';
 import { connect } from 'react-redux';
 const localStore = require('react-native-simple-store');
@@ -17,6 +18,7 @@ import { OpenDoor } from './Shared/Icons';
 import Button from './Shared/Button';
 import styles from '../styles/styles';
 const actions = require('../sharedNative/actions/actions');
+const logo = require('../ios/opendoor/opendoorlogo.png');
 
 
 const Login = class Login extends React.Component {
@@ -97,6 +99,7 @@ const Login = class Login extends React.Component {
     return (
       <View style={styles.centerContainer}>
         <StatusBar barStyle="light-content" />
+        <Image source={logo} style={{ height: 100, width: 100 }} />
         <TextInput
           autoCapitalize={'none'}
           autoCorrect={false}
