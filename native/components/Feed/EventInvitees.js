@@ -9,7 +9,7 @@ import _ from 'lodash';
 
 const { width, height } = Dimensions.get('window');
 
-class EventDetail extends React.Component {
+class EventInvitees extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -107,9 +107,9 @@ class EventDetail extends React.Component {
   }
 }
 
-EventDetail.propTypes = {
+EventInvitees.propTypes = {
   event: React.PropTypes.object,
 };
 
 
-module.exports = EventDetail;
+module.exports = EventInvitees;
