@@ -86,14 +86,16 @@ module.exports = function Event(sequelizeInstance) {
           }
 
           const userInvites = this.findAll({
-            include: [{
-              model: seq.models.User,
-              where: { id: user.id },
-            }, {
-              model: seq.models.User,
-              as: 'hostUser',
-            }],
-            where: { endDateUtc: null },
+            include: [
+              {
+                model: seq.models.User,
+                where: { id: user.id },
+              }, {
+                model: seq.models.User,
+                as: 'hostUser',
+              },
+            ],
+            where: { endDateUtc: { $gt: Date.now() } },
           })
           .then(events => {
             // The events don't include the invited users and its Sequelize can't do it in one pass
@@ -113,20 +115,23 @@ module.exports = function Event(sequelizeInstance) {
                 as: 'hostUser',
               }, {
                 model: seq.models.User,
-              }],
-            where: { endDateUtc: null },
+              },
+            ],
+            where: { endDateUtc: { $gt: Date.now() } },
           });
 
           const personalEvents = this.findAll({
-            include: [{
-              model: seq.models.User,
-              as: 'hostUser',
-            }, {
-              model: seq.models.User,
-            }, {
-              model: seq.models.Group,
-            }],
-            where: { hostUserId: user.id, endDateUtc: null },
+            include: [
+              {
+                model: seq.models.User,
+                as: 'hostUser',
+              }, {
+                model: seq.models.User,
+              }, {
+                model: seq.models.Group,
+              },
+            ],
+            where: { hostUserId: user.id, endDateUtc: { $gt: Date.now() } },
           });
 
           return Promise.all([userInvites, groupInvites, personalEvents])
