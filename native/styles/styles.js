@@ -49,11 +49,28 @@ module.exports = StyleSheet.create({
     backgroundColor: 'transparent',
     height: 620,
   },
+  feedListRow: {
+    paddingTop: 25,
+    paddingBottom: 25,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderBottomWidth: 1,
+    borderColor: '#DDD3',
+  },
+  feedListEntryView: {
+    padding: 10,
+    alignItems: 'center',
+  },
+  feedListEntryTextView: {
+    alignItems: 'center',
+    marginRight: 50,
+  },
   listEntryView: {
     flexDirection: 'row',
     padding: 20,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#DDD3',
     justifyContent: 'space-between',
   },
   greyedOutListEntryView: {
@@ -95,6 +112,15 @@ module.exports = StyleSheet.create({
     fontSize: 24,
     fontFamily: 'DroidSans',
     color: '#FFF4'
+  },
+  standardText: {
+    color: '#FFF',
+    fontFamily: 'DroidSans',
+  },
+  rowHeader: {
+    color: '#FFF',
+    fontFamily: 'DroidSans',
+    fontSize: 17,
   },
   // Forms
   userInput: {
@@ -164,6 +190,11 @@ module.exports = StyleSheet.create({
     width: radius * 2,
     height: radius * 2,
     borderRadius: radius,
+    flex: 1,
+  },
+  feedEventHostPic: {
+    marginLeft: 40,
+    alignSelf: 'flex-start',
   },
   // Footer
   footer: {
@@ -181,11 +212,5 @@ module.exports = StyleSheet.create({
   pullLeft: {
     flex: 1,
     justifyContent: 'flex-end',
-  },
-  pullRight: {
-    paddingRight: 10,
-  },
-  standardText: {
-    fontSize: 17,
   },
 });

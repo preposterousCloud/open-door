@@ -11,13 +11,17 @@ const FeedListRow = (event) => {
   const contactMapper = store.getState().contactMap;
   
   const header = (
-    <View>
-      <View style={[styles.listEntryView, { flexDirection: 'row', alignItems: 'center', padding: 10 }]}>
-        <Text style={styles.standardText}> {event.name} </Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={styles.standardText}> { contactMapper[event.hostUser.id] || event.hostUser.userName} </Text>
-          <CirclePic source={ { uri: event.hostUser.profilePictureUri }} size={40} />
-        </View>
+    <View style={styles.feedListRow}>
+      <View style={styles.feedListEntryView}>
+        <CirclePic
+          source={ { uri: event.hostUser.profilePictureUri }}
+          size={60}
+          style={styles.feedEventHostPic}
+        />
+      </View>
+      <View style={styles.feedListEntryTextView}>
+        <Text style={styles.rowHeader}> {event.name.toUpperCase()} </Text>
+        <Text style={styles.standardText}> { contactMapper[event.hostUser.id] || event.hostUser.userName} </Text>
       </View>
     </View>
   );
