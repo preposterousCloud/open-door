@@ -54,15 +54,16 @@ module.exports = StyleSheet.create({
     paddingBottom: 15,
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
     borderBottomWidth: 1,
     borderColor: '#DDD3',
   },
   feedListEntryView: {
+    flex: 1,
     padding: 10,
     alignItems: 'center',
   },
   feedListEntryTextView: {
+    flex: 2,
     alignItems: 'center',
     marginRight: 50,
   },
@@ -222,8 +223,8 @@ module.exports = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   hrule: {
-    fontSize: 50,
-    bottom: 10,
+    fontSize: 45,
+    bottom: 5,
     color: '#FFF4',
   },
   elipsis: {
