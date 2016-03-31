@@ -3,9 +3,12 @@ import React, {
   View,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  ScrollView,
   TextInput,
   StatusBar,
   Image,
+  Dimensions,
 } from 'react-native';
 import { connect } from 'react-redux';
 const localStore = require('react-native-simple-store');
@@ -21,6 +24,7 @@ const actions = require('../sharedNative/actions/actions');
 const nameText = require('../ios/opendoor/opendoortext.png');
 const logo = require('../ios/opendoor/opendoorlogo.png');
 
+const { height, width } = Dimensions.get('window');
 
 const Login = class Login extends React.Component {
   constructor(props) {
@@ -98,7 +102,7 @@ const Login = class Login extends React.Component {
   }
   render() {
     return (
-      <View style={styles.centerContainerNoMargin}>
+      <ScrollView contentContainerStyle={styles.centerContainerNoMargin}>
         <StatusBar barStyle="light-content" />
         <Image source={nameText} style={{ margin: 10, marginTop: 20, height: 70, width: 250 }} />
         <TextInput
@@ -144,7 +148,7 @@ const Login = class Login extends React.Component {
           <Button text={'Signup'} onClick={this.signupUser} />
         </View>
         <Image source={logo} style={{ marginTop: 40, height: 150, width: 150 }} />
-      </View>
+      </ScrollView>
     );
   }
 };
