@@ -13,7 +13,7 @@ import { store } from '../sharedNative/reducers/reducers';
 import { attemptLogin, createUser } from '../sharedNative/actions/actions';
 import { navToFull } from './Shared/NavHelpers';
 import MainContainer from './MainContainer';
-import OpenDoor from './Shared/OpenDoor';
+import { OpenDoor } from './Shared/Icons';
 import Button from './Shared/Button';
 import styles from '../styles/styles';
 const actions = require('../sharedNative/actions/actions');
@@ -102,7 +102,7 @@ const Login = class Login extends React.Component {
           autoCapitalize={'none'}
           autoCorrect={false}
           maxLength={16}
-          placeholder={'Phone Number'}
+          placeholder={'Phone Number (optional)'}
           value={this.state.phone}
           style={styles.userInput}
           returnKeyType={'go'}
@@ -112,7 +112,7 @@ const Login = class Login extends React.Component {
           autoCapitalize={'none'}
           autoCorrect={false}
           maxLength={16}
-          placeholder={'User Name'}
+          placeholder={'User Name (required)'}
           value={this.state.userName}
           style={styles.userInput}
           returnKeyType={'go'}
@@ -122,7 +122,7 @@ const Login = class Login extends React.Component {
           autoCapitalize={'none'}
           autoCorrect={false}
           maxLength={16}
-          placeholder={'Password'}
+          placeholder={'Password (required)'}
           value={this.state.password}
           style={styles.userInput}
           returnKeyType={'go'}
