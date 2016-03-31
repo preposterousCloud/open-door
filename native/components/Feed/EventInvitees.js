@@ -5,6 +5,7 @@ import * as api from '../../sharedNative/utils/api.js';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import vibes from '../Door/vibes.js';
 import CirclePic from '../Shared/CirclePic';
+import _ from 'lodash';
 
 const { width, height } = Dimensions.get('window');
 
@@ -48,7 +49,7 @@ class EventDetail extends React.Component {
           return (
             <CirclePic
               key={index}
-              size={40}
+              size={30}
               source={{ uri: group.groupPictureUri }}
               style={{ margin: 4 }}
             />
@@ -65,7 +66,7 @@ class EventDetail extends React.Component {
           return (
             <CirclePic
               key={index}
-              size={40}
+              size={30}
               source={{ uri: user.profilePictureUri }}
               style={{ margin: 4 }}
             />
@@ -77,8 +78,10 @@ class EventDetail extends React.Component {
   }
   generateEventDetails() {
     return (
-      <View style={[this.swiperItemStyles]}>
-        {this.getInvitedUserPics(this.state.event)}{this.getInvitedGroupPics(this.state.event)}
+      <View style={styles.inviteeBubbles}>
+        {this.props.event.Groups.length ? this.getInvitedGroupPics(this.state.event) : <View></View>}
+        <Text>{this.props.event.Groups.length && this.props.event.Users.length ? '|' : ''}</Text>
+        {this.props.event.Users.length ? this.getInvitedUserPics(this.state.event) : <View></View>}
       </View>
     );
   }

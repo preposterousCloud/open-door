@@ -196,6 +196,11 @@ module.exports = StyleSheet.create({
     marginLeft: 40,
     alignSelf: 'flex-start',
   },
+  inviteeBubbles: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
   // Footer
   footer: {
     flex: 1,
