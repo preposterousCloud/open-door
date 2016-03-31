@@ -29,21 +29,13 @@ const BackgroundImage = ({ source, children, style, ...props }) => {
   );
 }
 
-const FeedContainer = connect((state, ownProps) => {
-  return {
-    user: state.user,
-    events: state.user.Events,
-    userName: state.user.userName,
-    swipeLeft: ownProps.swipeLeft,
-    swipeRight: ownProps.swipeRight,
-  };
-}, (dispatch, ownProps) => {
-  return {
-    logout: () => {
-      dispatch(actions.logout());
-    },
-  };
-})(Feed);
+const FeedContainer = connect((state, ownProps) => ({
+  user: state.user,
+  events: state.user.Events,
+  userName: state.user.userName,
+  swipeLeft: ownProps.swipeLeft,
+  swipeRight: ownProps.swipeRight,
+}))(Feed);
 
 const SocialContainer = connect((state, ownProps) => {
   return {
