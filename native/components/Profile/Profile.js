@@ -5,7 +5,8 @@ import NavBar from '../Shared/NavBar.js';
 import { BackgroundImage } from '../Shared/BackgroundImage.js';
 import EditUser from './EditUser';
 import { navToFull } from '../Shared/NavHelpers';
-import styles from '../../styles/styles.js';
+import { centerContainerNoMargin, profileLineContainer, topBuffer,
+  stackVertical, center, white, bold } from '../../styles/styles.js';
 import { backButton, editButton } from '../Shared/Buttons';
 
 import CirclePic from '../Shared/CirclePic';
@@ -38,6 +39,7 @@ const Profile = (props) => {
       return updatedUser;
     });
   };
+  const logout = () => store.dispatch(actions.logout());
   return (
       <BackgroundImage source={require('../../static/bgLibrary/everything.png')}>
         <NavBar
@@ -45,24 +47,24 @@ const Profile = (props) => {
           leftButton={backButton}
           rightButton={editButton(EditUser, props.user, updateUser)}
         />
-        <View style={styles.centerContainerNoMargin}>
+        <View style={centerContainerNoMargin}>
           <CirclePic size={200} source={ { uri: props.user.profilePictureUri }} />
-          <View style={{ height: 20 }} />
-          <View style={[styles.profileLineContainer, styles.stackVertical, styles.center]}>
-            <Text style={[styles.white]}>username</Text>
-            <Text style={[styles.bold, styles.white]}>{ props.user.userName }</Text>
+          <View style={topBuffer} />
+          <View style={[profileLineContainer, stackVertical, center]}>
+            <Text style={[white]}>username</Text>
+            <Text style={[bold, white]}>{ props.user.userName }</Text>
           </View>
-          <View style={[styles.profileLineContainer, styles.stackVertical, styles.center]}>
-            <Text style={[styles.white]}>default address</Text>
-            <Text style={[styles.bold, styles.white]}>{props.user.defaultLocation || 'None'}</Text>
+          <View style={[profileLineContainer, stackVertical, center]}>
+            <Text style={[white]}>default address</Text>
+            <Text style={[bold, white]}>{props.user.defaultLocation || 'None'}</Text>
           </View>
-          <View style={[styles.profileLineContainer, styles.stackVertical, styles.center]}>
-            <Text style={[styles.white]}>default vibe</Text>
-            <Text style={[styles.bold, styles.white]}>{props.user.defaultVibe || 'None'}</Text>
+          <View style={[profileLineContainer, stackVertical, center]}>
+            <Text style={[white]}>default vibe</Text>
+            <Text style={[bold, white]}>{props.user.defaultVibe || 'None'}</Text>
           </View>
-          <TouchableOpacity style={{ bottom: 0 }} onPress={() => store.dispatch(actions.logout())} >
-            <View style={{ paddingTop: 20 }}>
-              <Text style={[styles.bold, { bottom: 0, color: 'white' }]}>
+          <TouchableOpacity onPress={logout} >
+            <View style={topBuffer}>
+              <Text style={[bold, white]}>
                 logout
               </Text>
             </View>

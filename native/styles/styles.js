@@ -236,5 +236,40 @@ module.exports = StyleSheet.create({
     bottom: 20,
     color: '#FFF4',
     alignSelf: 'flex-end',
-  }
+  },
+  // text
+  bold: {
+    fontWeight: '800',
+    fontSize: 20,
+  },
+  white: {
+    color: 'white',
+  },
+  stackVertical: {
+    flexDirection: 'column',
+  },
+  shadow: {
+    textShadowColor: 'black',
+    textShadowOffset: { width: 0, height: 0.5 },
+    textShadowRadius: 0.1,
+  },
+  flex: {
+    flex: 1,
+  },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profileLineContainer: {
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingBottom: 5,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderColor: '#DDD3',
+    justifyContent: 'space-between',
+  },
+  topBuffer: {
+    paddingTop: 20,
+  },
 });
