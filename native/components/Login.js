@@ -102,7 +102,7 @@ const Login = class Login extends React.Component {
   }
   render() {
     return (
-      <ScrollView contentContainerStyle={styles.centerContainerNoMargin}>
+      <ScrollView scrollEnabled={false} contentContainerStyle={styles.centerContainerNoMargin}>
         <StatusBar barStyle="light-content" />
         <Image source={nameText} style={{ margin: 10, marginTop: 20, height: 70, width: 250 }} />
         <TextInput
