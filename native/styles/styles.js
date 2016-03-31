@@ -54,6 +54,7 @@ module.exports = StyleSheet.create({
     backgroundColor: 'transparent',
     height: 620,
   },
+  //// Feed Specific
   feedListRow: {
     paddingTop: 15,
     paddingBottom: 15,
@@ -72,6 +73,60 @@ module.exports = StyleSheet.create({
     alignItems: 'center',
     marginRight: 50,
   },
+  feedHeader: {
+    justifyContent: 'flex-end',
+  },
+  feedText: {
+    flex: 1,
+    flexDirection: 'column',
+    textAlign: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: 50,
+    top: 30,
+    fontSize: 24,
+    fontFamily: 'DroidSans',
+    color: '#FFF4'
+  },
+  eventDetailContainer: {
+    borderWidth: 1,
+    borderTopWidth: 0,
+    borderColor: '#FFF4',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  eventDetailBoxes: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  vibeText: {
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  locText: {
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  vibeTextHeader: {
+    fontFamily: 'DroidSans-Bold',
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  locTextHeader: {
+    fontFamily: 'DroidSans-Bold',
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  ////----------------
   listEntryView: {
     flexDirection: 'row',
     padding: 20,
@@ -187,7 +242,6 @@ module.exports = StyleSheet.create({
     borderColor: '#DDD',
   },
   feedNav: {
-    backgroundColor: 'green',
     height: 40,
     width: 40,
     alignItems: 'stretch',

@@ -88,12 +88,20 @@ class EventDetail extends React.Component {
   generateEventDetails() {
     return (
       <View style={[this.swiperItemStyles]}>
+        <View style={styles.eventDetailContainer}>
+          <View style={styles.eventDetailBoxes}>
+            <Text style = {styles.vibeTextHeader }>Vibe</Text>
+            <Text style = {styles.locTextHeader }>Where</Text>
+          </View>
+          <View style={styles.eventDetailBoxes}>
+            <Text style = {styles.vibeText }>{this.state.event.vibe}</Text>
+            <Text style = {styles.locText }>{this.state.event.location}</Text>
+          </View>
+        </View>
         <Text style = {styles.standardText }>Users Invited:</Text>
         {this.getInvitedUserPics(this.state.event)}
         <Text style = {styles.standardText }>Groups Invited:</Text>
         {this.getInvitedGroupPics(this.state.event)}
-        <Text style = {styles.standardText }>Vibe: {this.state.event.vibe}</Text>
-        <Text style = {styles.standardText }>Where: {this.state.event.location}</Text>
       </View>
     );
   }
