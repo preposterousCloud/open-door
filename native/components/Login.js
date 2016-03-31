@@ -13,7 +13,7 @@ import { store } from '../sharedNative/reducers/reducers';
 import { attemptLogin, createUser } from '../sharedNative/actions/actions';
 import { navToFull } from './Shared/NavHelpers';
 import MainContainer from './MainContainer';
-import OpenDoor from './Shared/OpenDoor';
+import { OpenDoor } from './Shared/Icons';
 import Button from './Shared/Button';
 import styles from '../styles/styles';
 const actions = require('../sharedNative/actions/actions');
