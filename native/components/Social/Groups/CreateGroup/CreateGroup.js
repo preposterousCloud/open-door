@@ -37,27 +37,41 @@ const getChecklist = () => {
   return store.getState().checklist;
 };
 
-const submitGroup = () => {
-  const name = store.getState().groupName;
-  if (name) {
-    store.dispatch(actions.storeGroup(name))
-    .then(() => {
-      getFriends();
-    });
-  } else {
-    const groupNames = ['Teen Titans', 'Captian\'s Crew', 'Lazy Leopards', 'Penguin Pals'];
-    Alert.alert(
-      'Your group needs a name!',
-      `How about ${groupNames[Math.floor(Math.random() * groupNames.length)]}?`,
-      [cancelButton]);
-  }
-};
-
 const CreateGroup = class CreateGroup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      groupName: '',
+    };
+    this.updateGroupName = this.updateGroupName.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  updateGroupName(newVal) {
+    this.setState({
+      groupName: newVal,
+    });
+  }
+  onSubmit() {
+    if (this.state.groupName) {
+      store.dispatch(actions.storeGroup(this.state.groupName))
+      .then(() => {
+        getFriends();
+      });
+    } else {
+      const groupNames = ['Teen Titans', 'Captian\'s Crew', 'Lazy Leopards', 'Penguin Pals'];
+      Alert.alert(
+        'Your group needs a name!',
+        `How about ${groupNames[Math.floor(Math.random() * groupNames.length)]}?`,
+        [cancelButton]);
+    }
+  }
   componentDidMount() {
     getFriends();
   }
-
+  componentWillUnmount() {
+    // Clears out the existing checkboxes and resets state
+    createChecklist();
+  }
   render() {
     const CreateGroupShowFriendsListContainer = makeListContainer(
       makeSelectableRow(checkCheckbox, getChecklist),
@@ -69,7 +83,7 @@ const CreateGroup = class CreateGroup extends React.Component {
     };
     const rightNavButton = {
       title: '✓',
-      handler: submitGroup,
+      handler: this.onSubmit,
     };
     return (
       <View>
@@ -78,7 +92,7 @@ const CreateGroup = class CreateGroup extends React.Component {
           leftButton={leftNavButton}
           rightButton={rightNavButton}
         />
-        <CreateGroupName />
+        <CreateGroupName onUpdate={this.updateGroupName} onSubmit={this.onSubmit} />
         <CreateGroupShowFriendsListContainer />
       </View>
     );
