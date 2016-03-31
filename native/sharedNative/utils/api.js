@@ -31,7 +31,7 @@ const validateBody = res => {
 };
 
 const catchErr = (err) => {
-  console.error(err);
+  console.warn(err);
   return null;
 };
 
@@ -245,8 +245,7 @@ export const postUser = (userName, pw, phone, jwt) => {
     body: JSON.stringify({ userName, pw, phone }),
     headers: buildHeaders(),
   })
-  .then(validateBody)
-  .catch(catchErr);
+  .then(validateBody);
 };
 
 export const requestFriend = (requesterId, toFriendId, jwt) => {

@@ -34,23 +34,8 @@ const Login = class Login extends React.Component {
     });
     store.dispatch(actions.checkForJwtAndLogin());
   }
-  AlertInvalidCredentials() {
-    Alert.alert('Invalid Credentials', '', [
-      {
-        text: 'Ok',
-        onPress: () => console.log('OK Pressed'),
-        style: 'default',
-      },
-    ]);
-  }
-  AlertServerError() {
-    Alert.alert('Unknown Server Error', 'Try again later.', [
-      {
-        text: 'Ok',
-        onPress: () => console.log('OK Pressed'),
-        style: 'default',
-      },
-    ]);
+  displayAlert(title, subTitle = '', text = 'OK', onPress = () => null) {
+    Alert.alert(title, subTitle, [{ text, onPress, style: 'default' }]);
   }
   navigateToLoggedInApp() {
     navToFull({ name: 'Main' });
@@ -63,11 +48,11 @@ const Login = class Login extends React.Component {
       if (res.err) {
         switch (res.err.status) {
           case 401: {
-            this.AlertInvalidCredentials();
+            this.displayAlert('Invalid Credentials');
             break;
           }
           default:
-            this.AlertServerError();
+            this.displayAlert('Unknown Server Error', 'Try again later');
             break;
         }
       } else {
@@ -87,11 +72,11 @@ const Login = class Login extends React.Component {
       if (res.err) {
         switch (res.err.status) {
           case 403: {
-            this.AlertInvalidCredentials();
+            this.displayAlert('Username taken');
             break;
           }
           default:
-            this.AlertServerError();
+            this.displayAlert('Unknown Server Error', 'Try again later');
             break;
         }
       } else {

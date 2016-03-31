@@ -192,10 +192,7 @@ export function createUser(userName, pw, phone) {
       dispatch(setInLocalStorage('jwt', response.jwt));
       return response.user;
     })
-    .catch(err => {
-      // We eat the actual error and return it as a normal object;
-      return { err };
-    });
+    .catch(err => ({ err }));
   };
 }
 
