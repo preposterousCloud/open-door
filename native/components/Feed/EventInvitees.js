@@ -42,46 +42,59 @@ class EventDetail extends React.Component {
       event.Users.map(user => this.contactMapper[user.id] || user.userName).join(', ') :
       'None';
   }
-  getInvitedGroupPics(event) {
+  getInvitedGroupPics(event, limit) {
     return event.Groups.length ?
       (<View style={{ flexDirection: 'row', margin: 5 }}>
         {event.Groups.map((group, index) => {
-          return (
+          return (index <= limit ?
             <CirclePic
               key={index}
               size={30}
               source={{ uri: group.groupPictureUri }}
               style={{ margin: 4 }}
-            />
+            /> :
+            <View></View>
           );
         })}
        </View>
       ) :
       <Text></Text>;
   }
-  getInvitedUserPics(event) {
+  getInvitedUserPics(event, limit) {
     return event.Users.length ?
       (<View style={{ flexDirection: 'row', margin: 5 }}>
         {event.Users.map((user, index) => {
-          return (
+          console.log(index, limit, user)
+          return (index <= limit ?
             <CirclePic
               key={index}
               size={30}
               source={{ uri: user.profilePictureUri }}
               style={{ margin: 4 }}
-            />
+            /> :
+            <View></View>
           );
         })}
        </View>
       ) :
       <Text></Text>;
   }
+  renderDivider(event) {
+    return event.Groups.length && event.Users.length ?
+    (
+      <Text style={styles.hrule}>|</Text>
+    ) :
+    <Text></Text>
+  }
   generateEventDetails() {
+    const groupDispLimit = this.state.event.Users.length > 2 ? 1 : 2;
+    const userDispLimit = this.state.event.Groups.length > 2 ? 1 : 2;
     return (
       <View style={styles.inviteeBubbles}>
-        {this.props.event.Groups.length ? this.getInvitedGroupPics(this.state.event) : <View></View>}
-        <Text>{this.props.event.Groups.length && this.props.event.Users.length ? '|' : ''}</Text>
-        {this.props.event.Users.length ? this.getInvitedUserPics(this.state.event) : <View></View>}
+        {this.props.event.Groups.length ? this.getInvitedGroupPics(this.state.event, groupDispLimit) : <View></View>}
+        {this.renderDivider(this.state.event)}
+        {this.props.event.Users.length ? this.getInvitedUserPics(this.state.event, userDispLimit) : <View></View>}
+        {this.props.event.Groups.length + this.props.event.Users.length > 4 ? <Text style={styles.elipsis}>...</Text> : <Text></Text>}
       </View>
     );
   }

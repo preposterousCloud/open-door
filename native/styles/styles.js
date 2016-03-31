@@ -121,6 +121,8 @@ module.exports = StyleSheet.create({
     color: '#FFF',
     fontFamily: 'DroidSans',
     fontSize: 17,
+    fontWeight: '500',
+    marginBottom: 5,
   },
   // Forms
   userInput: {
@@ -200,6 +202,7 @@ module.exports = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
+    top: 15,
   },
   // Footer
   footer: {
@@ -218,4 +221,15 @@ module.exports = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
+  hrule: {
+    fontSize: 50,
+    bottom: 10,
+    color: '#FFF4',
+  },
+  elipsis: {
+    fontSize: 20,
+    bottom: 20,
+    color: '#FFF4',
+    alignSelf: 'flex-end',
+  }
 });
