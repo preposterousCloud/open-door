@@ -1,5 +1,6 @@
 
 import React, { Alert, View, Text, TouchableOpacity, Image } from 'react-native';
+import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import EditUser from './EditUser';
 import { navToFull } from '../Shared/NavHelpers';
@@ -58,6 +59,13 @@ const Profile = (props) => {
         </Text>
       </View>
     </View>
+    <TouchableOpacity onPress={() => store.dispatch(actions.logout())} >
+      <View style={styles.listEntryView}>
+        <Text style={{ bottom: 0, color: 'red' }}>
+          Logout
+        </Text>
+      </View>
+    </TouchableOpacity>
   </View>
   );
 };
