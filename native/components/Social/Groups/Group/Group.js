@@ -10,7 +10,7 @@ import { makeClickableRow, makeListContainer, UserList } from '../../../Shared/C
 import { exitButton, enterButton } from '../../../Shared/Buttons.js';
 import { navToFull, popScene } from '../../../Shared/NavHelpers.js';
 const SelectProfilePic = require('../../../Profile/SelectProfilePic');
-import { BackgroundImage } from '../../../Shared/Background';
+import { BackgroundImage } from '../../../Shared/BackgroundImage';
 
 const currentGroup = (members) => {
   store.dispatch(actions.setUserGroupMembers(members));

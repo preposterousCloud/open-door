@@ -10,7 +10,7 @@ import { makeClickableRow, makeListContainer } from '../../Shared/ComponentHelpe
 import CirclePic from '../../Shared/CirclePic';
 import { exitButton, enterButton } from '../../Shared/Buttons';
 import styles from '../../../styles/styles';
-import { BackgroundImage } from '../../Shared/Background';
+import { BackgroundImage } from '../../Shared/BackgroundImage';
 import NavigationBar from 'react-native-navbar';
 
 const FriendRow = (props) => {
