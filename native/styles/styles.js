@@ -88,8 +88,7 @@ module.exports = StyleSheet.create({
     color: '#FFF4'
   },
   eventDetailContainer: {
-    borderWidth: 1,
-    borderTopWidth: 0,
+    borderBottomWidth: 1,
     borderColor: '#FFF4',
     paddingTop: 10,
     paddingBottom: 10,
@@ -99,18 +98,6 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  vibeText: {
-    flex: 1,
-    flexDirection: 'row',
-    color: '#FFF',
-    textAlign: 'center',
-  },
-  locText: {
-    flex: 1,
-    flexDirection: 'row',
-    color: '#FFF',
-    textAlign: 'center',
   },
   vibeTextHeader: {
     fontFamily: 'DroidSans-Bold',
@@ -125,6 +112,23 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     color: '#FFF',
     textAlign: 'center',
+  },
+  vibeText: {
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  locText: {
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  feedDetailInvitees: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    alignItems: 'center',
   },
   ////----------------
   listEntryView: {

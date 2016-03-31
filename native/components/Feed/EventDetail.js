@@ -98,10 +98,12 @@ class EventDetail extends React.Component {
             <Text style = {styles.locText }>{this.state.event.location}</Text>
           </View>
         </View>
-        <Text style = {styles.standardText }>Users Invited:</Text>
-        {this.getInvitedUserPics(this.state.event)}
-        <Text style = {styles.standardText }>Groups Invited:</Text>
-        {this.getInvitedGroupPics(this.state.event)}
+        <View style={styles.feedDetailInvitees}>
+          <Text style = {styles.standardText }>Users Invited</Text>
+          {this.getInvitedUserPics(this.state.event)}
+          <Text style = {styles.standardText }>Groups Invited</Text>
+          {this.getInvitedGroupPics(this.state.event)}
+        </View>
       </View>
     );
   }
@@ -137,7 +139,7 @@ class EventDetail extends React.Component {
       swipesToRender = [this.generateEventDetails(), photoViews];
     }
     return (
-      <Swiper style={styles.wrapper} height={200}>
+      <Swiper style={styles.wrapper} height={275}>
         {swipesToRender}
       </Swiper>
     );
