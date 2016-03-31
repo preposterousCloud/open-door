@@ -1,6 +1,7 @@
 import React, { Image } from 'react-native';
 
 export const BackgroundImage = ({ source, children, style, ...props }) => {
+  source = source || require('../../static/bg.jpg')
   return (
       <Image
         source={source}
