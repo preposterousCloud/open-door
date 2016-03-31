@@ -17,7 +17,7 @@ import Feed from './Feed/Feed.js';
 import Social from './Social/Social.js';
 import SetDoorContainer from './Door/SetDoorContainer';
 import styles from '../styles/styles.js';
-import { BackgroundImage } from './Shared/Background';
+import { BackgroundImage } from './Shared/BackgroundImage';
 
 
 const FeedContainer = connect((state, ownProps) => ({

@@ -8,7 +8,7 @@ import { makeClickableRow, UserList } from '../../Shared/ComponentHelpers.js';
 import { exitButton, cancelButton } from '../../Shared/Buttons.js';
 import { getAllUsersArray } from '../../Shared/HelperFunctions.js';
 import styles from '../../../styles/styles.js';
-import { BackgroundImage } from '../../Shared/Background';
+import { BackgroundImage } from '../../Shared/BackgroundImage';
 
 const AddFriends = (props) => {
   const contactMapper = store.getState().contactMap;

@@ -2,7 +2,7 @@
 import React, { Alert, View, Text, TouchableOpacity, Image } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
-import BackgroundImage from '../Shared/BackgroundImage.js';
+import { BackgroundImage } from '../Shared/BackgroundImage.js';
 import EditUser from './EditUser';
 import { navToFull } from '../Shared/NavHelpers';
 import styles from '../../styles/styles.js';

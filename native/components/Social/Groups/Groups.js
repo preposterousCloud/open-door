@@ -8,7 +8,7 @@ import Group from './Group/Group.js';
 import { makeClickableRow, makeListContainer } from '../../Shared/ComponentHelpers.js';
 import { exitButton, enterButton } from '../../Shared/Buttons.js';
 import { navTo } from '../../Shared/NavHelpers.js';
-import { BackgroundImage } from '../../Shared/Background';
+import { BackgroundImage } from '../../Shared/BackgroundImage';
 
 const Groups = (props) => {
   const logGroup = (group) => {

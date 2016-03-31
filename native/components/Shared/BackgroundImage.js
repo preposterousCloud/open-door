@@ -10,4 +10,4 @@ export const BackgroundImage = ({ source, children, style, ...props }) => {
         {children}
       </Image>
   );
-}
+};
