@@ -2,6 +2,7 @@ import React, {
   View,
   Text,
   TouchableOpacity,
+  Image,
   } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import actions from '../../sharedNative/actions/actions';
@@ -14,8 +15,8 @@ import OpenDoor from '../Shared/OpenDoor';
 import ClosedDoor from '../Shared/ClosedDoor';
 import styles from '../../styles/styles.js';
 
-const dinoPattern = require('../../sharedNative/images/dino-pattern.gif');
-const dinoBaby = require('../../sharedNative/images/dino-baby.gif');
+const logoGreen = require('../../static/opendoorlogogreenlg.png');
+const logoRed = require('../../static/opendoorlogoredlg.png');
 
 const LoadingWheelContainer = require('../Shared/ComponentHelpers').LoadingWheelContainer;
 
@@ -56,6 +57,7 @@ const SetDoor = class SetDoor extends React.Component {
         onSubmit: updateEvent,
       });
     };
+    const doorIndicatorSource = this.props.currentEvent ? logoGreen : logoRed;
     return (
       <View>
         <NavBar
@@ -65,10 +67,7 @@ const SetDoor = class SetDoor extends React.Component {
         />
         <View style={styles.centerContainer}>
           <TouchableOpacity onPress={toggleDoor}>
-            {(() => (this.props.currentEvent) ?
-              <OpenDoor styles={{ size: 100, color: 'green' }} /> :
-              <ClosedDoor styles={{ size: 100, color: 'red' }} />
-            )()}
+            <Image source={doorIndicatorSource} style={{ width: 200, height: 200 }} />
           </TouchableOpacity>
         </View>
         <View>
