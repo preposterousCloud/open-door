@@ -10,6 +10,7 @@ import { makeClickableRow, makeListContainer, UserList } from '../../../Shared/C
 import { exitButton, enterButton } from '../../../Shared/Buttons.js';
 import { navToFull, popScene } from '../../../Shared/NavHelpers.js';
 const SelectProfilePic = require('../../../Profile/SelectProfilePic');
+import { BackgroundImage } from '../../../Shared/Background';
 
 const currentGroup = (members) => {
   store.dispatch(actions.setUserGroupMembers(members));
@@ -49,7 +50,7 @@ const Group = (props) => {
   };
 
   return (
-    <View>
+    <BackgroundImage>
       <NavBar
         title={ props.route.focus.name }
         leftButton={exitButton}
@@ -63,7 +64,7 @@ const Group = (props) => {
         <CirclePic uri={props.route.focus.groupPictureUri} />
       </TouchableOpacity>
       <GroupListContainer />
-    </View>
+    </BackgroundImage>
   );
 };
 

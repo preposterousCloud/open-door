@@ -9,7 +9,7 @@ const Auth = require('../controllers/Auth');
 
 module.exports = function User(sequelizeInstance) {
   const seq = sequelizeInstance;
-
+  const defaultProfilePicture = 'http://i0.wp.com/www.artifacting.com/blog/wp-content/uploads/2010/11/Yoda.jpg?zoom=2&resize=200%2C126';
   seq.define('rel_user_requested_friends', {
     sender: Sequelize.BOOLEAN,
   });
@@ -21,7 +21,8 @@ module.exports = function User(sequelizeInstance) {
     defaultVibe: { type: Sequelize.STRING, defaultValue: 'jam' },
     profilePictureUri: {
       type: Sequelize.STRING,
-      defaultValue: 'http://i0.wp.com/www.artifacting.com/blog/wp-content/uploads/2010/11/Yoda.jpg?zoom=2&resize=200%2C126',
+      // Replicating this in createUser because it is not catching a null value
+      defaultValue: 'defaultProfilePicture',
     },
   }, {
     defaultScope: {
@@ -89,10 +90,12 @@ module.exports = function User(sequelizeInstance) {
 
         return Promise.all([removeFriendFromOne, removeFriendFromTwo]);
       },
-      createUser: function createUser(userName, pw, phone, defaultLocation, defaultVibe) {
+      createUser: function createUser(userName, pw, phone, defaultLocation, defaultVibe, profilePictureUri) {
+        profilePictureUri = profilePictureUri || defaultProfilePicture;
         // Use bcrypt to hash/salt the pw then call raw create
         return Auth.saltAndHash(pw)
-        .then(hashedPw => this.rawCreate({ userName, pw: hashedPw, defaultLocation, defaultVibe, phone: phone }));
+        .then(hashedPw => this.rawCreate({ userName, pw: hashedPw, defaultLocation, defaultVibe,
+          phone: phone, profilePictureUri: profilePictureUri }));
       },
       getUser: function getUser(whereObj) {
         return this.findOne({ where: whereObj,
