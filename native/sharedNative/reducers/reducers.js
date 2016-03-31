@@ -1,6 +1,6 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { groupName, userGroupMembers } from './subReducers/groups.js';
+import { userGroupMembers } from './subReducers/groups.js';
 import { checklist, checkboxChecked, filterText } from './subReducers/common.js';
 import navigation from './subReducers/navigation.js';
 import { user, allUsers, contactMap, pendingRequests } from './subReducers/user.js';
@@ -52,7 +52,6 @@ const reducer = combineReducers({
   allUsers,
   contactMap,
   pendingRequests,
-  groupName, // NOT IN USE (usage: live typing)
   userGroupMembers,
   checklist,
   checkboxChecked,

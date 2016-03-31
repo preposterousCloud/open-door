@@ -67,14 +67,6 @@ export function setPendingFriendRequests(reqs) {
   };
 }
 
-// NOT IN USE (usage: live typing)
-export function liveUpdateGroupName(name) {
-  return {
-    type: a.SET_GROUPNAME_INPUT_DISP,
-    groupName: name,
-  };
-}
-
 export function setSwiperIndex(index) {
   return {
     type: a.SET_SWIPER_INDEX,
