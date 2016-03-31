@@ -39,7 +39,7 @@ const Profile = (props) => {
     });
   };
   return (
-      <BackgroundImage source={require('../../static/bg.jpg')}>
+      <BackgroundImage source={require('../../static/bgLibrary/everything.png')}>
         <NavBar
           title={ 'Profile' }
           leftButton={backButton}
