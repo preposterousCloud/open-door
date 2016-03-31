@@ -12,6 +12,8 @@ const _mapEvent = (event) => {
     updatedAt: event.updatedAt,
     location: event.location,
     hostUserId: event.hostUserId,
+    startDateUtc: event.startDateUtc,
+    endDateUtc: event.endDateUtc,
   };
 };
 
