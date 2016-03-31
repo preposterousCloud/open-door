@@ -8,6 +8,7 @@ import { makeListContainer, makeSelectableRow } from '../../../Shared/ComponentH
 import styles from '../../../../styles/styles.js';
 import NavBar from '../../../Shared/NavBar.js';
 import CreateGroupName from './CreateGroupName.js';
+import { BackgroundImage } from '../../../Shared/BackgroundImage';
 
 const cancelNewGroup = () => {
   store.getState().navigation.navigator.pop();
@@ -86,15 +87,22 @@ const CreateGroup = class CreateGroup extends React.Component {
       handler: this.onSubmit,
     };
     return (
-      <View>
-        <NavBar
-          title={'Create Group'}
-          leftButton={leftNavButton}
-          rightButton={rightNavButton}
-        />
-        <CreateGroupName onUpdate={this.updateGroupName} onSubmit={this.onSubmit} />
-        <CreateGroupShowFriendsListContainer />
-      </View>
+      <BackgroundImage>
+        <View style={styles.container}>
+          <View style={styles.feedHeader}>
+            <Text style={styles.feedText}> CREATE GROUP </Text>
+          </View>
+          <View style={styles.container}>
+            <CreateGroupName onUpdate={this.updateGroupName} onSubmit={this.onSubmit} />
+            <CreateGroupShowFriendsListContainer />
+          </View>
+          <NavBar
+            title={''}
+            leftButton={leftNavButton}
+            rightButton={rightNavButton}
+          />
+        </View>
+      </BackgroundImage>
     );
   }
 };
