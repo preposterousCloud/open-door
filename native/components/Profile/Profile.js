@@ -48,23 +48,22 @@ const Profile = (props) => {
         <View style={styles.centerContainerNoMargin}>
           <CirclePic size={200} source={ { uri: props.user.profilePictureUri }} />
           <View style={{ height: 20 }} />
-          <View style={styles.listEntryView}>
-            <Text style={styles.standardText}>Username: { props.user.userName }</Text>
+          <View style={[styles.profileLineContainer, styles.stackVertical, styles.center]}>
+            <Text style={[styles.white]}>username</Text>
+            <Text style={[styles.bold, styles.white]}>{ props.user.userName }</Text>
           </View>
-          <View style={styles.listEntryView}>
-            <Text style={styles.standardText}>
-              Default Location: {props.user.defaultLocation || 'None'}
-            </Text>
+          <View style={[styles.profileLineContainer, styles.stackVertical, styles.center]}>
+            <Text style={[styles.white]}>default address</Text>
+            <Text style={[styles.bold, styles.white]}>{props.user.defaultLocation || 'None'}</Text>
           </View>
-          <View style={styles.listEntryView}>
-            <Text style={styles.standardText}>
-              Default Vibe: {props.user.defaultVibe || 'None'}
-            </Text>
+          <View style={[styles.profileLineContainer, styles.stackVertical, styles.center]}>
+            <Text style={[styles.white]}>default vibe</Text>
+            <Text style={[styles.bold, styles.white]}>{props.user.defaultVibe || 'None'}</Text>
           </View>
-          <TouchableOpacity onPress={() => store.dispatch(actions.logout())} >
-            <View style={styles.listEntryView}>
-              <Text style={{ bottom: 0, color: 'red' }}>
-                Logout
+          <TouchableOpacity style={{ bottom: 0 }} onPress={() => store.dispatch(actions.logout())} >
+            <View style={{ paddingTop: 20 }}>
+              <Text style={[styles.bold, { bottom: 0, color: 'white' }]}>
+                logout
               </Text>
             </View>
           </TouchableOpacity>
