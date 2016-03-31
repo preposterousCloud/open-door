@@ -55,7 +55,7 @@ const CreateGroup = class CreateGroup extends React.Component {
     if (this.state.groupName) {
       store.dispatch(actions.storeGroup(this.state.groupName))
       .then(() => {
-        getFriends();
+        store.getState().navigation.navigator.pop();
       });
     } else {
       const groupNames = ['Teen Titans', 'Captian\'s Crew', 'Lazy Leopards', 'Penguin Pals'];

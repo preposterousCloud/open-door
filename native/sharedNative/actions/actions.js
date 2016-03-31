@@ -401,7 +401,6 @@ export function storeGroup(groupName) {
     .then(user => {
       if (user) {
         dispatch(refreshUser());
-        getState().navigation.navigator.pop();
         return true;
       }
       return false;
