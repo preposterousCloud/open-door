@@ -50,9 +50,6 @@ class Feed extends React.Component {
           <Text style={styles.feedText}>WHO'S FREE</Text>
         </View>
         <FeedList events={this.props.events} />
-        <TouchableOpacity onPress={this.props.logout}>
-          <Text>Logout</Text>
-        </TouchableOpacity>
         <NavigationBar
           title={{ title: '' }}
           rightButton={ rightNavButton }
