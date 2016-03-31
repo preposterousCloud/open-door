@@ -4,19 +4,6 @@ const actions = require('../../../../sharedNative/actions/actions');
 import styles from '../../../../styles/styles.js';
 
 const CreateGroupName = (props) => {
-  let groupName;
-
-  const confirmNewGroup = () => {
-    const finalGroupName = store.getState().groupName;
-    store.dispatch(actions.storeGroup(finalGroupName));
-  };
-
-  const updateGroupName = (newGroupName) => {
-    groupName = newGroupName;
-    store.dispatch(actions.liveUpdateGroupName(groupName));
-    store.dispatch(actions.refreshUser());
-  };
-
   return (
     <View>
       <TextInput
@@ -24,14 +11,20 @@ const CreateGroupName = (props) => {
         autoCorrect={false}
         maxLength={32}
         placeholder={'Group Name'}
-        value={groupName}
+        value={props.groupName}
         style={styles.userInput}
         returnKeyType={'done'}
-        onChangeText={updateGroupName}
-        onSubmitEditing={confirmNewGroup}
+        onChangeText={ props.onUpdate }
+        onSubmitEditing={ props.onSubmit }
       />
     </View>
   );
+};
+
+CreateGroupName.propTypes = {
+  groupName: React.PropTypes.string,
+  onUpdate: React.PropTypes.func,
+  onSubmit: React.PropTypes.func,
 };
 
 module.exports = CreateGroupName;
