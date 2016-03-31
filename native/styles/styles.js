@@ -50,8 +50,8 @@ module.exports = StyleSheet.create({
     height: 620,
   },
   feedListRow: {
-    paddingTop: 25,
-    paddingBottom: 25,
+    paddingTop: 15,
+    paddingBottom: 15,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',

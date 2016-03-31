@@ -3,6 +3,7 @@ import styles from '../../styles/styles.js';
 const { width, height } = Dimensions.get('window');
 import Accordion from 'react-native-accordion';
 import EventDetail from './EventDetail';
+import EventInvitees from './EventInvitees';
 import CirclePic from '../Shared/CirclePic';
 import { store } from '../../sharedNative/reducers/reducers.js';
 
@@ -22,6 +23,7 @@ const FeedListRow = (event) => {
       <View style={styles.feedListEntryTextView}>
         <Text style={styles.rowHeader}> {event.name.toUpperCase()} </Text>
         <Text style={styles.standardText}> { contactMapper[event.hostUser.id] || event.hostUser.userName} </Text>
+        <EventInvitees event={event} />
       </View>
     </View>
   );
