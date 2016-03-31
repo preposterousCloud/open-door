@@ -62,7 +62,7 @@ let Friends = (props) => {
     <BackgroundImage source={require('../../../static/bg.jpg')}>
       <View style={styles.container}>
         <View style = {styles.feedHeader}>
-          <Text style={styles.feedText}> FRIENDS </Text>
+          <Text style={styles.feedText}> YOUR WORLD </Text>
         </View>
         <View style={styles.container}>
           <ScrollableTabView

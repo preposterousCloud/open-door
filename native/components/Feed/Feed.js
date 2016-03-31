@@ -24,7 +24,20 @@ class Feed extends React.Component {
   componentWillMount() {
     store.dispatch(getAllUsers());
   }
-
+  getTimeOfDayDescription() {
+    const date = new Date();
+    const hours = date.getHours();
+    if (hours >= 4 && hours < 11) {
+      return 'Morning';
+    }
+    if (hours >= 11 && hours < 18) {
+      return 'Day';
+    }
+    if (hours >= 18 || hours < 4) {
+      return 'Night';
+    }
+    return 'Day';
+  }
   render() {
     const rightNavButton = (
       <TouchableOpacity onPress={this.props.swipeRight}>
@@ -47,7 +60,7 @@ class Feed extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.feedHeader}>
-          <Text style={styles.feedText}>WHO'S FREE?</Text>
+          <Text style={styles.feedText}>YOUR {this.getTimeOfDayDescription().toUpperCase()}</Text>
         </View>
         <FeedList events={this.props.events} />
         <NavigationBar

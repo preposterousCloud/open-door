@@ -27,7 +27,7 @@ const Social = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.feedHeader}>
-        <Text style={styles.feedText}> SOCIAL </Text>
+        <Text style={styles.feedText}> YOUR WORLD </Text>
       </View>
       <View style={styles.container}>
         <TouchableOpacity
