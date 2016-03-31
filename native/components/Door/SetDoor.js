@@ -14,6 +14,9 @@ import OpenDoor from '../Shared/OpenDoor';
 import ClosedDoor from '../Shared/ClosedDoor';
 import styles from '../../styles/styles.js';
 
+const dinoPattern = require('../../sharedNative/images/dino-pattern.gif');
+const dinoBaby = require('../../sharedNative/images/dino-baby.gif');
+
 const LoadingWheelContainer = require('../Shared/ComponentHelpers').LoadingWheelContainer;
 
 const SetDoor = class SetDoor extends React.Component {
