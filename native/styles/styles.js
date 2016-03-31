@@ -28,6 +28,11 @@ module.exports = StyleSheet.create({
     alignItems: 'center',
     margin: 20,
   },
+  centerContainerNoMargin: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
   scrollView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -128,10 +133,9 @@ module.exports = StyleSheet.create({
   // Forms
   userInput: {
     height: 50,
-    width: 300,
     padding: 4,
-    marginLeft: 40,
-    marginRight: 40,
+    marginLeft: 20,
+    marginRight: 20,
     marginBottom: 10,
     fontSize: 18,
     borderWidth: 1,

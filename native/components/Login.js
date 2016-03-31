@@ -18,6 +18,7 @@ import { OpenDoor } from './Shared/Icons';
 import Button from './Shared/Button';
 import styles from '../styles/styles';
 const actions = require('../sharedNative/actions/actions');
+const nameText = require('../ios/opendoor/opendoortext.png');
 const logo = require('../ios/opendoor/opendoorlogo.png');
 
 
@@ -97,9 +98,9 @@ const Login = class Login extends React.Component {
   }
   render() {
     return (
-      <View style={styles.centerContainer}>
+      <View style={styles.centerContainerNoMargin}>
         <StatusBar barStyle="light-content" />
-        <Image source={logo} style={{ height: 100, width: 100 }} />
+        <Image source={nameText} style={{ margin: 10, marginTop: 20, height: 70, width: 250 }} />
         <TextInput
           autoCapitalize={'none'}
           autoCorrect={false}
@@ -137,8 +138,12 @@ const Login = class Login extends React.Component {
           onSubmitEditing={this.loginToApp}
           secureTextEntry
         />
-        <Button text={'Login'} onClick={this.loginToApp} />
-        <Button text={'Signup'} onClick={this.signupUser} />
+        <View style={{ justifyContent: 'space-around', flexDirection: 'row' }}>
+          <Button text={'Login'} onClick={this.loginToApp} />
+          <View style={{ width: 40 }} />
+          <Button text={'Signup'} onClick={this.signupUser} />
+        </View>
+        <Image source={logo} style={{ marginTop: 40, height: 150, width: 150 }} />
       </View>
     );
   }
