@@ -45,12 +45,12 @@ class EventDetail extends React.Component {
   getInvitedGroups(event) {
     return event.Groups.length ?
       event.Groups.map(group => group.name).join(', ') :
-      'None';
+      '';
   }
   getInvitedUsers(event) {
     return event.Users.length ?
       event.Users.map(user => this.contactMapper[user.id] || user.userName).join(', ') :
-      'None';
+      '';
   }
   getInvitedGroupPics(event) {
     return event.Groups.length ?
@@ -67,7 +67,7 @@ class EventDetail extends React.Component {
         })}
        </View>
       ) :
-      <Text> None </Text>;
+      <Text></Text>;
   }
   getInvitedUserPics(event) {
     return event.Users.length ?
@@ -108,7 +108,9 @@ class EventDetail extends React.Component {
         <View style={styles.feedDetailInvitees}>
           <Text style = {styles.standardText }>Users Invited</Text>
           {this.getInvitedUserPics(this.state.event)}
-          <Text style = {styles.standardText }>Groups Invited</Text>
+          <Text style = {styles.standardText }>
+          {this.props.event.Groups.length ? 'Groups Invited' : ''}
+          </Text>
           {this.getInvitedGroupPics(this.state.event)}
         </View>
         </BackgroundImage>
