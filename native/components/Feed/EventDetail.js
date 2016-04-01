@@ -3,7 +3,7 @@ import styles from '../../styles/styles.js';
 import Accordion from 'react-native-accordion';
 import * as api from '../../sharedNative/utils/api.js';
 import { store } from '../../sharedNative/reducers/reducers.js';
-import { BackgroundImage } from '../Shared/BackgroundImage'
+import { BackgroundImage } from '../Shared/BackgroundImage';
 import vibes from '../Door/vibes.js';
 import CirclePic from '../Shared/CirclePic';
 import Swiper from 'react-native-swiper';
@@ -40,7 +40,7 @@ class EventDetail extends React.Component {
       if (this.state) {
         this.setState({ event });
       }
-    })
+    });
   }
   getInvitedGroups(event) {
     return event.Groups.length ?
@@ -95,26 +95,26 @@ class EventDetail extends React.Component {
           style={styles.eventDetailBg}
           blur={'dark'}
         >
-        <View style={styles.eventDetailContainer}>
-          <View style={styles.eventDetailBoxes}>
-            <Text style = {styles.vibeTextHeader }>Vibe</Text>
-            <Text style = {styles.locTextHeader }>Where</Text>
+          <View style={styles.eventDetailContainer}>
+            <View style={styles.eventDetailBoxes}>
+              <Text style = {styles.vibeTextHeader }>Vibe</Text>
+              <Text style = {styles.locTextHeader }>Where</Text>
+            </View>
+            <View style={styles.eventDetailBoxes}>
+              <Text style = {styles.vibeText }>{vibes[this.props.event.vibe || 'kick'].name}</Text>
+              <Text style = {styles.locText }>{this.props.event.location}</Text>
+            </View>
           </View>
-          <View style={styles.eventDetailBoxes}>
-            <Text style = {styles.vibeText }>{vibes[this.props.event.vibe].name}</Text>
-            <Text style = {styles.locText }>{this.state.event.location}</Text>
+          <View style={styles.feedDetailInvitees}>
+            <Text style = {styles.standardText}>
+              {(this.props.event && this.props.event.Users && this.props.event.Users.length) ? 'Users Invited' : ''}
+            </Text>
+              {this.getInvitedUserPics(this.state.event)}
+            <Text style = {styles.standardText }>
+              {(this.props.event && this.props.event.Groups && this.props.event.Groups.length) ? 'Groups Invited' : ''}
+            </Text>
+              {this.getInvitedGroupPics(this.state.event)}
           </View>
-        </View>
-        <View style={styles.feedDetailInvitees}>
-          <Text style = {styles.standardText }>
-            {this.props.event.Users.length ? 'Users Invited' : ''}
-          </Text>
-            {this.getInvitedUserPics(this.state.event)}
-          <Text style = {styles.standardText }>
-            {this.props.event.Groups.length ? 'Groups Invited' : ''}
-          </Text>
-            {this.getInvitedGroupPics(this.state.event)}
-        </View>
         </BackgroundImage>
       </View>
     );
@@ -150,7 +150,6 @@ class EventDetail extends React.Component {
     } else {
       swipesToRender = [this.generateEventDetails(), photoViews];
     }
-    console.log(this.props)
     return (
       <Swiper style={styles.wrapper} height={275} loop={false}>
         {swipesToRender}

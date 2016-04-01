@@ -25,6 +25,6 @@ CirclePic.propTypes = {
   source: React.PropTypes.object,
   uri: React.PropTypes.string,
   size: React.PropTypes.number,
-  style: React.PropTypes.object,
+  style: React.PropTypes.any,
 };
 module.exports = CirclePic;

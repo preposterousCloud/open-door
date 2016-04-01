@@ -63,7 +63,7 @@ const AddFriends = (props) => {
         <View style={styles.feedHeader}>
           <Text style={styles.feedText}>ADD FRIEND</Text>
         </View>
-        <View style={styles.container}>
+        <View style={[styles.container, { marginHorizontal: 20 }]}>
           <FilterTextInput />
           <AddFriendsListContainer />
         </View>
