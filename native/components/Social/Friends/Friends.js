@@ -21,18 +21,15 @@ const FriendListRow = (props) => {
   }];
   return (
     <Swipeout right={removeFriendButton} backgroundColor={'transparent'}>
-      <View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
-          <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-            <CirclePic source={{ uri: props.profilePictureUri }}
-              size={40}
-              style={{ margin: 5 }}
-            />
-          </View>
-          <View style={{ flexDirection: 'column', flex: 3 }}>
-            <Text style={styles.mediumText}>{props.userName}</Text>
-            <Text style={styles.mediumText}>{props.userName}</Text>
-          </View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
+        <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
+          <CirclePic source={{ uri: props.profilePictureUri }}
+            size={40}
+          />
+        </View>
+        <View style={{ flexDirection: 'column', flex: 4, alignItems: 'flex-start' }}>
+          <Text style={styles.mediumText}>{props.userName}</Text>
+          <Text style={styles.mediumText}>{props.userName}</Text>
         </View>
       </View>
     </Swipeout>

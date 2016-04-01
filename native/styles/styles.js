@@ -198,6 +198,9 @@ module.exports = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
   },
+  navButtonMargin: {
+    marginHorizontal: 20,
+  },
   // Profile and Group Pic
   profilePic: {
     width: radius * 2,
