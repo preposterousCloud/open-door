@@ -8,6 +8,7 @@ import { makeClickableRow, UserList } from '../../Shared/ComponentHelpers.js';
 import { exitButton, cancelButton } from '../../Shared/Buttons.js';
 import { getAllUsersArray } from '../../Shared/HelperFunctions.js';
 import styles from '../../../styles/styles.js';
+import { BackgroundImage } from '../../Shared/BackgroundImage';
 
 const AddFriends = (props) => {
   const contactMapper = store.getState().contactMap;
@@ -57,14 +58,21 @@ const AddFriends = (props) => {
   })(UserList);
 
   return (
-    <View>
-      <NavBar
-        title={ 'Add Friend' }
-        leftButton={exitButton}
-      />
-      <FilterTextInput />
-      <AddFriendsListContainer />
-    </View>
+    <BackgroundImage source={require('../../../static/bg.jpg')}>
+      <View style={styles.container}>
+        <View style={styles.feedHeader}>
+          <Text style={styles.feedText}>ADD FRIEND</Text>
+        </View>
+        <View style={[styles.container, { marginHorizontal: 20 }]}>
+          <FilterTextInput />
+          <AddFriendsListContainer />
+        </View>
+        <NavBar
+          title={ '' }
+          leftButton={exitButton}
+        />
+      </View>
+    </BackgroundImage>
   );
 };
 

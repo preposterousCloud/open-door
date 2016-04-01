@@ -3,18 +3,27 @@ import styles from '../../styles/styles.js';
 const { width, height } = Dimensions.get('window');
 import Accordion from 'react-native-accordion';
 import EventDetail from './EventDetail';
+import EventInvitees from './EventInvitees';
 import CirclePic from '../Shared/CirclePic';
+import { store } from '../../sharedNative/reducers/reducers.js';
 
 const FeedListRow = (event) => {
+  // Dirty hack - I'm sorry :(
+  const contactMapper = store.getState().contactMap;
+  
   const header = (
-    <View>
-      <View style={styles.listEntryView}>
-        <Text style={styles.group}>
-          {event.name}
-        </Text>
-        <CirclePic source={ { uri: event.hostUser.profilePictureUri }}
-          style={{ height: 25, width: 25 }} size={40}
+    <View style={styles.feedListRow}>
+      <View style={styles.feedListEntryView}>
+        <CirclePic
+          source={ { uri: event.hostUser.profilePictureUri }}
+          size={60}
+          style={styles.feedEventHostPic}
         />
+      </View>
+      <View style={styles.feedListEntryTextView}>
+        <Text style={styles.rowHeader}> {event.name.toUpperCase()} </Text>
+        <Text style={styles.standardText}> { contactMapper[event.hostUser.id] || event.hostUser.userName} </Text>
+        <EventInvitees event={event} />
       </View>
     </View>
   );
@@ -27,7 +36,7 @@ const FeedListRow = (event) => {
       content={content}
       easing="easeOutCubic"
       animationDuration={600}
-      underlayColor="#2AE"
+      underlayColor="#0002"
     />
   );
 };

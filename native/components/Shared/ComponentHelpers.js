@@ -19,7 +19,7 @@ const LoadingWheelContainer = connect(state => {
   };})(LoadingWheel);
 
 LoadingWheel.propTypes = {
-  style: React.PropTypes.object,
+  style: React.PropTypes.any,
   isLoading: React.PropTypes.bool,
 };
 
@@ -121,11 +121,9 @@ const makeSelectableRow = (action, getChecklist) => {
   return (user) => {
     let checklist = getChecklist();
     const runList = () => {
-      const actionAppliedToUser = action.bind(null, user);
-      const appliedChecklist = getChecklist.bind(null, user);
-      actionAppliedToUser();
-      checklist = appliedChecklist();
-      makeListContainer(UserList, ['user', 'friends']);
+      action(user);
+      checklist = getChecklist();
+      // Warning - somehow refresh user makes this work - DONT REMOVE
       store.dispatch(refreshUser());
     };
     const rowData = () => (

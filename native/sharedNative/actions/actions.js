@@ -67,14 +67,6 @@ export function setPendingFriendRequests(reqs) {
   };
 }
 
-// NOT IN USE (usage: live typing)
-export function liveUpdateGroupName(name) {
-  return {
-    type: a.SET_GROUPNAME_INPUT_DISP,
-    groupName: name,
-  };
-}
-
 export function setSwiperIndex(index) {
   return {
     type: a.SET_SWIPER_INDEX,
@@ -164,11 +156,13 @@ export function sortPendingFriendRequests(user) {
           sortedReqs.sent.push({
             id: req.id,
             userName: req.userName,
+            profilePictureUri: req.profilePictureUri,
           });
         } else {
           sortedReqs.received.push({
             id: req.id,
             userName: req.userName,
+            profilePictureUri: req.profilePictureUri,
           });
         }
       });
@@ -191,13 +185,16 @@ export function getAllContacts(cb) {
  * ************************************************** */
 export function createUser(userName, pw, phone) {
   return (dispatch, getState) => {
+    dispatch(setLoading(true));
     const jwt = getState().app.jwt;
     return api.postUser(userName, pw, phone, jwt)
     .then(response => {
       dispatch(setJwt(response.jwt));
       dispatch(setUser(response.user));
+      dispatch(setInLocalStorage('jwt', response.jwt));
       return response.user;
-    });
+    })
+    .catch(err => ({ err }));
   };
 }
 
@@ -409,7 +406,6 @@ export function storeGroup(groupName) {
     .then(user => {
       if (user) {
         dispatch(refreshUser());
-        getState().navigation.navigator.pop();
         return true;
       }
       return false;

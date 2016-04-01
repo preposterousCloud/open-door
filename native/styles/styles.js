@@ -5,7 +5,11 @@ const radius = 50;
 module.exports = StyleSheet.create({
   // General BG Style
   bg: {
-    backgroundColor: 'purple',
+    backgroundColor: '#0BE3',
+  },
+  bgImg: {
+    flex: 1,
+    resizeMode: 'stretch',
   },
   // Containers
   container: {
@@ -24,6 +28,11 @@ module.exports = StyleSheet.create({
     alignItems: 'center',
     margin: 20,
   },
+  centerContainerNoMargin: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
   scrollView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -36,21 +45,98 @@ module.exports = StyleSheet.create({
   },
   navBar: {
     backgroundColor: 'transparent',
+    margin: 20,
   },
   feedNavBar: {
-    backgroundColor: 'blue',
-    height: height/10,
+    height: height / 10,
   },
   // Lists
   listView: {
     backgroundColor: 'transparent',
     height: 620,
   },
+  // Feed Specific
+  feedListRow: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    flex: 1,
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: '#DDD3',
+  },
+  feedListEntryView: {
+    flex: 1,
+    padding: 10,
+    alignItems: 'center',
+  },
+  feedListEntryTextView: {
+    flex: 2,
+    alignItems: 'center',
+    marginRight: 50,
+  },
+  feedHeader: {
+    justifyContent: 'flex-end',
+  },
+  feedText: {
+    flex: 1,
+    flexDirection: 'column',
+    textAlign: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: 50,
+    top: 30,
+    fontSize: 24,
+    fontFamily: 'DroidSans',
+    color: '#FFF4',
+  },
+  eventDetailContainer: {
+    borderBottomWidth: 1,
+    borderColor: '#FFF4',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  eventDetailBoxes: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  vibeTextHeader: {
+    fontFamily: 'DroidSans-Bold',
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  locTextHeader: {
+    fontFamily: 'DroidSans-Bold',
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  vibeText: {
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  locText: {
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  feedDetailInvitees: {
+    paddingTop: 20,
+    paddingBottom: 200,
+    alignItems: 'center',
+  },
   listEntryView: {
     flexDirection: 'row',
     padding: 20,
-    borderTopWidth: 1,
-    borderColor: '#DDD',
+    borderBottomWidth: 1,
+    borderColor: '#DDD3',
+    backgroundColor: 'transparent',
     justifyContent: 'space-between',
   },
   greyedOutListEntryView: {
@@ -79,19 +165,34 @@ module.exports = StyleSheet.create({
     color: '#023242',
     justifyContent: 'space-between',
   },
+  standardText: {
+    color: '#FFF',
+    fontFamily: 'DroidSans',
+  },
+  mediumText: {
+    color: '#FFF',
+    fontFamily: 'DroidSans',
+    fontSize: 15,
+  },
+  rowHeader: {
+    color: '#FFF',
+    fontFamily: 'DroidSans',
+    fontSize: 17,
+    fontWeight: '500',
+    marginBottom: 5,
+  },
   // Forms
   userInput: {
+    flex: 1,
     height: 50,
-    width: 300,
+    width: width * 0.8,
     padding: 4,
-    marginLeft: 40,
-    marginRight: 40,
-    marginBottom: 10,
     fontSize: 18,
-    borderWidth: 1,
-    borderColor: '#616161',
-    borderRadius: 4,
-    color: '#616161',
+    color: 'white',
+  },
+  underlined: {
+    borderBottomWidth: 2,
+    borderBottomColor: 'white',
   },
   checkboxEmpty: {
     width: 20,
@@ -131,21 +232,35 @@ module.exports = StyleSheet.create({
     borderColor: '#DDD',
   },
   feedNav: {
-    backgroundColor: 'green',
-    // alignSelf: 'flex-end',
     height: 40,
+    width: 40,
+    alignItems: 'stretch',
   },
   navIcon: {
-    width: 40,
-    height: 40,
-    top: 40,
-    alignSelf: 'center',
+    width: 30,
+    height: 30,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  navButtonMargin: {
+    marginHorizontal: 20,
   },
   // Profile and Group Pic
   profilePic: {
     width: radius * 2,
     height: radius * 2,
     borderRadius: radius,
+    flex: 1,
+  },
+  feedEventHostPic: {
+    marginLeft: 40,
+    alignSelf: 'flex-start',
+  },
+  inviteeBubbles: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    top: 15,
   },
   // Footer
   footer: {
@@ -164,7 +279,62 @@ module.exports = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
-  pullRight: {
-    paddingRight: 10,
+  hrule: {
+    fontSize: 45,
+    bottom: 5,
+    color: '#FFF4',
+  },
+  elipsis: {
+    fontSize: 20,
+    bottom: 20,
+    color: '#FFF4',
+    alignSelf: 'flex-end',
+  },
+  // text
+  bold: {
+    fontWeight: '800',
+    fontSize: 20,
+  },
+  white: {
+    color: 'white',
+  },
+  stackVertical: {
+    flexDirection: 'column',
+  },
+  shadow: {
+    textShadowColor: 'black',
+    textShadowOffset: { width: 0, height: 0.5 },
+    textShadowRadius: 0.1,
+  },
+  flex: {
+    flex: 1,
+  },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profileLineContainer: {
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingBottom: 5,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderColor: '#DDD3',
+    justifyContent: 'space-between',
+  },
+  topBuffer: {
+    paddingTop: 20,
+  },
+  loginTextLogo: {
+    margin: 10,
+    marginTop: 20,
+    height: 70,
+    width: 250,
+  },
+  vibePicker: {
+    width,
+  },
+  width80pct: {
+    width: width * 0.8,
   },
 });

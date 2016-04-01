@@ -3,8 +3,12 @@ import React, {
   View,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  ScrollView,
   TextInput,
   StatusBar,
+  Image,
+  Dimensions,
 } from 'react-native';
 import { connect } from 'react-redux';
 const localStore = require('react-native-simple-store');
@@ -13,11 +17,15 @@ import { store } from '../sharedNative/reducers/reducers';
 import { attemptLogin, createUser } from '../sharedNative/actions/actions';
 import { navToFull } from './Shared/NavHelpers';
 import MainContainer from './MainContainer';
-import OpenDoor from './Shared/OpenDoor';
+import { OpenDoor } from './Shared/Icons';
 import Button from './Shared/Button';
 import styles from '../styles/styles';
 const actions = require('../sharedNative/actions/actions');
+const nameText = require('../ios/opendoor/opendoortext.png');
+const logo = require('../ios/opendoor/opendoorlogo.png');
+import { BackgroundImage } from './Shared/BackgroundImage.js';
 
+const { height, width } = Dimensions.get('window');
 
 const Login = class Login extends React.Component {
   constructor(props) {
@@ -34,23 +42,8 @@ const Login = class Login extends React.Component {
     });
     store.dispatch(actions.checkForJwtAndLogin());
   }
-  AlertInvalidCredentials() {
-    Alert.alert('Invalid Credentials', '', [
-      {
-        text: 'Ok',
-        onPress: () => console.log('OK Pressed'),
-        style: 'default',
-      },
-    ]);
-  }
-  AlertServerError() {
-    Alert.alert('Unknown Server Error', 'Try again later.', [
-      {
-        text: 'Ok',
-        onPress: () => console.log('OK Pressed'),
-        style: 'default',
-      },
-    ]);
+  displayAlert(title, subTitle = '', text = 'OK', onPress = () => null) {
+    Alert.alert(title, subTitle, [{ text, onPress, style: 'default' }]);
   }
   navigateToLoggedInApp() {
     navToFull({ name: 'Main' });
@@ -60,28 +53,45 @@ const Login = class Login extends React.Component {
     this.setState({ phone: sanitizedPhone });
     store.dispatch(attemptLogin(this.state.userName, this.state.password))
     .then(res => {
-      console.log('res', res);
       if (res.err) {
         switch (res.err.status) {
           case 401: {
-            this.AlertInvalidCredentials();
+            this.displayAlert('Invalid Credentials');
             break;
           }
           default:
-            this.AlertServerError();
+            this.displayAlert('Unknown Server Error', 'Try again later');
             break;
         }
       } else {
         // Set JWT to state
         this.navigateToLoggedInApp();
       }
+    })
+    .catch((err) => {
+      console.warn(err);
     });
   }
   signupUser() {
     const sanitizedPhone = this.state.phone.replace(/\D/igm, '');
     this.setState({ phone: sanitizedPhone });
     store.dispatch(createUser(this.state.userName, this.state.password, this.state.phone))
-    .then(this.navigateToLoggedInApp)
+    .then(res => {
+      if (res.err) {
+        switch (res.err.status) {
+          case 403: {
+            this.displayAlert('Username taken');
+            break;
+          }
+          default:
+            this.displayAlert('Unknown Server Error', 'Try again later');
+            break;
+        }
+      } else {
+        // Set JWT to state
+        this.navigateToLoggedInApp();
+      }
+    })
     .catch((err) => {
       console.warn(err);
     });
@@ -93,44 +103,64 @@ const Login = class Login extends React.Component {
   }
   render() {
     return (
-      <View style={styles.centerContainer}>
-        <StatusBar barStyle="light-content" />
-        <OpenDoor styles = {{ size: 200, color: 'green' }} />
-        <TextInput
-          autoCapitalize={'none'}
-          autoCorrect={false}
-          maxLength={16}
-          placeholder={'Phone Number'}
-          value={this.state.phone}
-          style={styles.userInput}
-          returnKeyType={'go'}
-          onChangeText={(text) => this.updateFormProp('phone', text)}
-        />
-        <TextInput
-          autoCapitalize={'none'}
-          autoCorrect={false}
-          maxLength={16}
-          placeholder={'User Name'}
-          value={this.state.userName}
-          style={styles.userInput}
-          returnKeyType={'go'}
-          onChangeText={(text) => this.updateFormProp('userName', text)}
-        />
-        <TextInput
-          autoCapitalize={'none'}
-          autoCorrect={false}
-          maxLength={16}
-          placeholder={'Password'}
-          value={this.state.password}
-          style={styles.userInput}
-          returnKeyType={'go'}
-          onChangeText={(text) => this.updateFormProp('password', text)}
-          onSubmitEditing={this.loginToApp}
-          secureTextEntry
-        />
-        <Button text={'Login'} onClick={this.loginToApp} />
-        <Button text={'Signup'} onClick={this.signupUser} />
-      </View>
+      <BackgroundImage source={require('../static/bgLibrary/orangewhite.png')}>
+        <ScrollView scrollEnabled={false} >
+          <StatusBar barStyle="light-content" />
+          <View style={styles.center}>
+            <Image source={nameText} style={styles.loginTextLogo} />
+            <View style={styles.underlined}>
+              <TextInput
+                autoCapitalize={'none'}
+                autoCorrect={false}
+                maxLength={16}
+                placeholder={'Phone Number (optional)'}
+                value={this.state.phone}
+                style={styles.userInput}
+                keyboardType={'number-pad'}
+                returnKeyType={'next'}
+                onSubmitEditing={() => this.refs.userName.focus()}
+                onChangeText={(text) => this.updateFormProp('phone', text)}
+              />
+            </View>
+            <View style={styles.underlined}>
+              <TextInput
+                ref={'userName'}
+                autoCapitalize={'none'}
+                autoCorrect={false}
+                maxLength={16}
+                placeholder={'User Name (required)'}
+                value={this.state.userName}
+                style={styles.userInput}
+                returnKeyType={'next'}
+                onSubmitEditing={() => this.refs.password.focus()}
+                onChangeText={(text) => this.updateFormProp('userName', text)}
+              />
+            </View>
+            <View style={styles.underlined}>
+              <TextInput
+                ref={'password'}
+                autoCapitalize={'none'}
+                autoCorrect={false}
+                maxLength={16}
+                placeholder={'Password (required)'}
+                value={this.state.password}
+                style={styles.userInput}
+                returnKeyType={'go'}
+                onChangeText={(text) => this.updateFormProp('password', text)}
+                onSubmitEditing={this.loginToApp}
+                secureTextEntry
+              />
+            </View>
+            <View style={styles.topBuffer} />
+            <View style={{ justifyContent: 'space-around', flexDirection: 'row' }}>
+              <Button text={'Login'} onClick={this.loginToApp} />
+              <View style={{ width: 40 }} />
+              <Button text={'Signup'} onClick={this.signupUser} />
+            </View>
+            <Image source={logo} style={{ marginTop: 40, height: 150, width: 150 }} />
+          </View>
+        </ScrollView>
+      </BackgroundImage>
     );
   }
 };

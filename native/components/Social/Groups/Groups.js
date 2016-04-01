@@ -8,6 +8,8 @@ import Group from './Group/Group.js';
 import { makeClickableRow, makeListContainer } from '../../Shared/ComponentHelpers.js';
 import { exitButton, enterButton } from '../../Shared/Buttons.js';
 import { navTo } from '../../Shared/NavHelpers.js';
+import { BackgroundImage } from '../../Shared/BackgroundImage';
+
 const Groups = (props) => {
   const logGroup = (group) => {
     console.log(`You clicked on ${group.name}, id:${group.id}`);
@@ -17,14 +19,21 @@ const Groups = (props) => {
   const GroupsListContainer = makeListContainer(makeClickableRow(logGroup, 'name'), ['user', 'Groups']);
 
   return (
-    <View>
-      <NavBar
-        title={ 'Groups' }
-        leftButton={exitButton}
-        rightButton={enterButton(CreateGroup)}
-      />
-      <GroupsListContainer />
-    </View>
+    <BackgroundImage>
+      <View style={styles.container}>
+        <View style={styles.feedHeader}>
+          <Text style={styles.feedText}> GROUPS </Text>
+        </View>
+        <View style={styles.container}>
+          <GroupsListContainer />
+        </View>
+        <NavBar
+          title={ '' }
+          leftButton={exitButton}
+          rightButton={enterButton(CreateGroup)}
+        />
+      </View>
+    </BackgroundImage>
   );
 };
 

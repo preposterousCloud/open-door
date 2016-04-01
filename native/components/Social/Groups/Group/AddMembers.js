@@ -7,6 +7,7 @@ import { getAllUsers, addFriendToGroup } from '../../../../sharedNative/actions/
 import { makeClickableRow, UserList } from '../../../Shared/ComponentHelpers.js';
 import { exitButton } from '../../../Shared/Buttons.js';
 import { SelectList } from '../../../Shared/StatefulSelectList.js';
+import { BackgroundImage } from '../../../Shared/BackgroundImage';
 
 // remove and import cancelButton from Buttons
 const cancelButton = {
@@ -62,24 +63,31 @@ const AddMembers = class AddMembers extends React.Component {
   }
   render() {
     return (
-      <View>
-        <NavBar
-          title={ 'Add Members' }
-          leftButton={exitButton}
-        />
-        <TextInput
-          autoCapitalize={'none'}
-          autoCorrect={false}
-          maxLength={16}
-          placeholder={'userName'}
-          value={this.state.userName}
-          style={styles.userInput}
-          returnKeyType={'go'}
-          onChangeText={this.updateUserName}
-          onSubmitEditing={this.something}
-        />
-        <AddMembersListContainer onRowClick={this.alertRequestSent} />
-      </View>
+      <BackgroundImage>
+        <View style={styles.container}>
+          <View style={styles.feedHeader}>
+            <Text style={styles.feedText}> GROUPS </Text>
+          </View>
+          <View style={styles.container}>
+            <TextInput
+              autoCapitalize={'none'}
+              autoCorrect={false}
+              maxLength={16}
+              placeholder={'userName'}
+              value={this.state.userName}
+              style={styles.userInput}
+              returnKeyType={'go'}
+              onChangeText={this.updateUserName}
+              onSubmitEditing={this.something}
+            />
+            <AddMembersListContainer onRowClick={this.alertRequestSent} />
+          </View>
+          <NavBar
+            leftButton={exitButton}
+            style={styles.feedNavBar}
+          />
+        </View>
+      </BackgroundImage>
     );
   }
 };

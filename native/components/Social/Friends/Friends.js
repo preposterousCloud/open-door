@@ -1,23 +1,35 @@
 import React, { View, Text, TouchableOpacity, ListView, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { store } from '../../../sharedNative/reducers/reducers.js';
-import NavBar from '../../Shared/NavBar.js';
-const actions = require('../../../sharedNative/actions/actions.js');
+import { store } from '../../../sharedNative/reducers/reducers';
+import NavBar from '../../Shared/NavBar';
+import * as actions from '../../../sharedNative/actions/actions';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import AddFriends from './AddFriends.js';
-import { confirmFriend, rejectFriend } from '../../../sharedNative/actions/actions.js';
-import { makeClickableRow, makeListContainer } from '../../Shared/ComponentHelpers.js';
-import { exitButton, enterButton } from '../../Shared/Buttons.js';
-import styles from '../../../styles/styles.js';
+import AddFriends from './AddFriends';
+import { confirmFriend, rejectFriend } from '../../../sharedNative/actions/actions';
+import { makeClickableRow, makeListContainer } from '../../Shared/ComponentHelpers';
+import CirclePic from '../../Shared/CirclePic';
+import { exitButton, enterButton } from '../../Shared/Buttons';
+import styles from '../../../styles/styles';
+import { BackgroundImage } from '../../Shared/BackgroundImage';
+import Swipeout from 'react-native-swipeout';
+import { UserRow } from '../../Shared/UserRow';
+
+const FriendListRow = (props) => {
+  const removeFriendButton = [{
+    text: 'Remove',
+    onPress: () => store.dispatch(actions.removeFriendship(props.id)),
+  }];
+  return (
+    <Swipeout right={removeFriendButton} backgroundColor={'transparent'}>
+      <UserRow {...props} />
+    </Swipeout>
+  );
+};
+
+FriendListRow.propTypes = { user: React.PropTypes.object };
 
 const Friends = (props) => {
-  const logUser = (user) => {
-    console.log(`You clicked on ${user.userName}, id:${user.id}. Req: `, store.getState());
-  };
-
   const respondToReq = (target) => {
-    const userReqIds = store.getState().pendingRequests.sent.map(user => user.id);
-    const userReqs = store.getState().pendingRequests;
     Alert.alert(`How do you wanna respond to ${target.userName}?`, '', [
       { text: 'Reject',
         onPress: () => store.dispatch(rejectFriend(target.id)),
@@ -29,39 +41,55 @@ const Friends = (props) => {
       },
     ]);
   };
+  const logUser = (user) => {
+    console.log(`You clicked on ${user.userName}, id:${user.id}. Req: `, store.getState());
+  };
 
-  const reqIds = store.getState().pendingRequests.received.map(user => user.id);
-  const reqNames = store.getState().pendingRequests.received.map(user => user.userName);
-
+  const FriendRequestRow = (props) => {
+    return (
+      <TouchableOpacity onPress={respondToReq.bind(null, props)}>
+        <UserRow {...props} />
+      </TouchableOpacity>
+    );
+  };
   const FriendsListContainer = makeListContainer(
-    makeClickableRow(logUser, null, null, null, actions.removeFriendship),
+    FriendListRow,
     ['user', 'friends']
   );
   const FriendRequestsContainer = makeListContainer(
-    makeClickableRow(respondToReq, reqNames, reqIds, 'blue'),
+    FriendRequestRow,
     ['pendingRequests', 'received']
   );
   const requestCount = store.getState().pendingRequests.received.length;
   return (
-    <View>
+    <BackgroundImage source={require('../../../static/bg.jpg')}>
+      <View style={styles.container}>
+        <View style = {styles.feedHeader}>
+          <Text style={styles.feedText}> FRIENDS </Text>
+        </View>
+        <View style={styles.container}>
+          <ScrollableTabView
+            locked
+            tabBarUnderlineColor={'#FFF'}
+            tabBarActiveTextColor={'#FFF'}
+            tabBarBackgroundColor={'transparent'}
+          >
+            {/* I removed this style from ScrollableTabView style={styles.tabBar} */}
+            <View tabLabel="Friends List" >
+              <FriendsListContainer />
+            </View>
+            <View tabLabel={`Requests ${requestCount ? `(${requestCount})` : ''}`}>
+              <FriendRequestsContainer />
+            </View>
+          </ScrollableTabView>
+        </View>
       <NavBar
-        title={ 'Friends' }
         leftButton={exitButton}
         rightButton={enterButton(AddFriends, props.user)}
+        tintColor={ 'transparent' }
       />
-      <ScrollableTabView
-        locked
-        tabBarUnderlineColor={'#227DF4'}
-        tabBarActiveTextColor={'#227DF4'}
-        tabBarBackgroundColor={'#FFF'}
-        style={styles.tabBar}
-      >
-        <FriendsListContainer tabLabel="Friends List" />
-        <FriendRequestsContainer
-          tabLabel={`Requests ${requestCount ? `(${requestCount})` : ''}`}
-        />
-      </ScrollableTabView>
-    </View>
+      </View>
+    </BackgroundImage>
   );
 };
 

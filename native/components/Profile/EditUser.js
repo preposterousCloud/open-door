@@ -1,4 +1,4 @@
-import React, { Text, TouchableOpacity, View, Alert } from 'react-native';
+import React, { Text, TouchableOpacity, View, Alert, ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { Button } from '../Shared/Button';
@@ -12,6 +12,7 @@ import CirclePic from '../Shared/CirclePic';
 import VibePicker from '../Door/VibePicker.js';
 import StyledTextInput from '../Shared/StyledTextInput.js';
 import styles from '../../styles/styles.js';
+import { BackgroundImage } from '../Shared/BackgroundImage.js';
 import { LoadingWheelContainer } from '../Shared/ComponentHelpers';
 class EditUser extends React.Component {
   constructor(props) {
@@ -55,36 +56,49 @@ class EditUser extends React.Component {
   updateProfPic(image) {
     this.updateLocalUser({ image });
   }
+  getProfilePictureSource() {
+    if (this.state.user.image && this.state.user.image.imageObj.node.image) {
+      return this.state.user.image.imageObj.node.image;
+    }
+    return { uri: this.props.route.user.profilePictureUri };
+  }
   render() {
     return (
-      <View>
+      <BackgroundImage source={require('../../static/bgLibrary/everything.png')}>
         <NavBar title={'Edit Profile'} leftButton={cancelButtonNav}
           rightButton={{ title: 'Save', handler: this.submitUser }}
         />
-        <TouchableOpacity
-          onPress={() => navToFull({
-            component: SelectProfilePic,
-            updateProfPic: this.updateProfPic,
-          })}
-        >
-          <CirclePic source={ (this.state.user.image && this.state.user.image.imageObj.node.image) ?
-            this.state.user.image.imageObj.node.image : { uri: this.props.route.user.profilePictureUri } }
+        <ScrollView scrollEnabled={false} >
+        <View style={styles.centerContainerNoMargin}>
+          <TouchableOpacity
+            onPress={() => navToFull({
+              component: SelectProfilePic,
+              updateProfPic: this.updateProfPic,
+            })}
+          >
+            <CirclePic source={this.getProfilePictureSource()} />
+          </TouchableOpacity>
+          <LoadingWheelContainer />
+          <StyledTextInput
+            onChangeText={this.updateUserName}
+            placeholder={this.props.route.user.userName}
           />
-        </TouchableOpacity>
-        <LoadingWheelContainer />
-        <StyledTextInput
-          onChangeText={this.updateUserName}
-          placeholder={this.props.route.user.userName}
-        />
-        <StyledTextInput
-          onChangeText={this.updateDefaultLocation}
-          placeholder={this.props.route.user.defaultLocation}
-        />
-        <VibePicker
-          changeVibe={this.updateDefaultVibe}
-          initialVibe={this.props.route.user.defaultVibe}
-        />
-      </View>
+          <Text style={styles.white} >username</Text>
+          <StyledTextInput
+            onChangeText={this.updateDefaultLocation}
+            placeholder={this.props.route.user.defaultLocation}
+          />
+          <Text style={styles.white} >default location</Text>
+          <View style={styles.vibePicker}>
+            <VibePicker
+              changeVibe={this.updateDefaultVibe}
+              initialVibe={this.props.route.user.defaultVibe}
+            />
+          </View>
+          <Text style={[styles.white]} >default vibe</Text>
+        </View>
+        </ScrollView>
+      </BackgroundImage>
     );
   }
 }

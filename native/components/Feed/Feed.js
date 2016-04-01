@@ -24,41 +24,52 @@ class Feed extends React.Component {
   componentWillMount() {
     store.dispatch(getAllUsers());
   }
-
+  getTimeOfDayDescription() {
+    const date = new Date();
+    const hours = date.getHours();
+    if (hours >= 4 && hours < 11) {
+      return 'Morning';
+    }
+    if (hours >= 11 && hours < 18) {
+      return 'Day';
+    }
+    if (hours >= 18 || hours < 4) {
+      return 'Night';
+    }
+    return 'Day';
+  }
   render() {
-    const rightNavButton = {
-      title: (
+    const rightNavButton = (
+      <TouchableOpacity onPress={this.props.swipeRight}>
         <Image
           source={ require('../../static/opendoorlogogreen.png') }
-          style={ styles.navIcon }
-        />),
-      handler: this.props.swipeRight,
-      style: styles.feedNav,
-    };
+          style={styles.navIcon}
+        />
+      </TouchableOpacity>
+    );
 
-    const leftNavButton = {
-      title: (
+    const leftNavButton = (
+       <TouchableOpacity onPress={this.props.swipeLeft}>
         <Image
           source={ require('../../static/socialman.png') }
-          style={ styles.navIcon }
-        />),
-      handler: this.props.swipeLeft,
-      style: styles.feedNav,
-    };
+          style={styles.navIcon}
+        />
+      </TouchableOpacity>
+    );
 
     return (
       <View style={styles.container}>
+        <View style={styles.feedHeader}>
+          <Text style={styles.feedText}>YOUR {this.getTimeOfDayDescription().toUpperCase()}</Text>
+        </View>
         <FeedList events={this.props.events} />
-        { /* <TouchableOpacity onPress={this.props.logout}>
-          <Text>Logout</Text>
-        </TouchableOpacity> */ }
-          <NavigationBar
-            title={{ title: '' }}
-            rightButton={ rightNavButton }
-            leftButton={ leftNavButton }
-            tintColor={ 'transparent' }
-            style={styles.feedNavBar}
-          />
+        <NavigationBar
+          title={{ title: '' }}
+          rightButton={ rightNavButton }
+          leftButton={ leftNavButton }
+          tintColor={ 'transparent' }
+          style={styles.feedNavBar}
+        />
       </View>
     );
   }

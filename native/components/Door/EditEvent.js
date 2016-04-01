@@ -125,6 +125,8 @@ class EditEvent extends React.Component {
       } else {
         this.state.event.friends = getTruthies(this.state.event.invitedFriends);
         this.state.event.groups = getTruthies(this.state.event.invitedGroups);
+        this.state.event.startDateUtc = Date.now();
+        this.state.event.endDateUtc = Date.now() + (4 * 3.6e+6); // 4 hours in ms
         if (this.state.event.imageObj) {
           this.state.event.base64Image = this.state.event.imageObj.base64Image;
           delete this.state.event.imageObj;
@@ -150,7 +152,7 @@ class EditEvent extends React.Component {
         <TouchableOpacity onPress={this.navToGroups} style={styles.categoryButton} >
           <Text>GROUPS</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.navToEventPhoto} style={socialStyles.categoryButton} >
+        <TouchableOpacity onPress={this.navToEventPhoto} style={styles.categoryButton} >
           <Text>SET PHOTO</Text>
         </TouchableOpacity>
       </View>

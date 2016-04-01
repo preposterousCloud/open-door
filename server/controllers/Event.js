@@ -12,6 +12,8 @@ const _mapEvent = (event) => {
     updatedAt: event.updatedAt,
     location: event.location,
     hostUserId: event.hostUserId,
+    startDateUtc: event.startDateUtc,
+    endDateUtc: event.endDateUtc,
   };
 };
 
@@ -54,7 +56,7 @@ module.exports.createEvent = function createUser(req, res, next) {
           res.json(createdEvent);
         });
       } else {
-        res.json(_mapEvent(event));
+        res.json(_mapEvent(createdEvent));
       }
     })
     .catch((err) => {

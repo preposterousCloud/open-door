@@ -4,6 +4,7 @@ import NavBar from '../Shared/NavBar.js';
 import Groups from './Groups/Groups.js';
 import Friends from './Friends/Friends.js';
 import styles from '../../styles/styles.js';
+import { RightArrow } from '../Shared/Icons';
 
 const groupsNav = () => {
   store.getState().navigation.navigator.push({
@@ -12,10 +13,11 @@ const groupsNav = () => {
 };
 
 const Social = (props) => {
-  const rightNavButton = {
-    title: '>',
-    handler: props.swipeRight,
-  };
+  const rightNavButton = (
+      <TouchableOpacity onPress={props.swipeRight}>
+        <RightArrow style={{ size: 40, color: 'white' }} />
+      </TouchableOpacity>
+    );
   const showFriends = () => {
     store.getState().navigation.navigator.push({
       component: Friends,
@@ -25,25 +27,28 @@ const Social = (props) => {
     });
   };
   return (
-    <View>
+    <View style={styles.container}>
+      <View style={styles.feedHeader}>
+        <Text style={styles.feedText}> YOUR WORLD </Text>
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={showFriends}
+          style={styles.socialF}
+        >
+          <Text>FRIENDS</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={groupsNav}
+          style={styles.socialG}
+        >
+          <Text>GROUPS</Text>
+        </TouchableOpacity>
+      </View>
       <NavBar
-        title={ 'Social' }
+        title={ '' }
         rightButton={rightNavButton}
       />
-    <View>
-      <TouchableOpacity
-        onPress={showFriends}
-        style={styles.socialF}
-      >
-        <Text>FRIENDS</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={groupsNav}
-        style={styles.socialG}
-      >
-        <Text>GROUPS</Text>
-      </TouchableOpacity>
-    </View>
   </View>
   );
 };

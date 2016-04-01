@@ -31,6 +31,8 @@
     <string/>
     <key>UIAppFonts</key>
     <array>
+      <string>DroidSans-Bold.ttf</string>
+      <string>DroidSans.ttf</string>
       <string>Entypo.ttf</string>
       <string>EvilIcons.ttf</string>
       <string>FontAwesome.ttf</string>

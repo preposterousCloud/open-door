@@ -17,21 +17,28 @@ const _mapUser = (user) => {
 };
 
 module.exports.createUser = function createUser(req, res, next) {
-  if (!req.body.userName || !req.body.pw || !req.body.phone) {
+  if (!req.body.userName || !req.body.pw) {
     res.status(404).send('Make sure to include a user name and appropriate properties');
   } else {
-    db.User.createUser(req.body.userName, req.body.pw, req.body.phone)
-    .then((user) => {
-      const resObj = {
-        user: _mapUser(user),
-      };
-      Auth.issueJwtToken({ userId: user.id })
-      .then((token) => {
-        resObj.jwt = token;
-        res.json(resObj);
-      });
-    })
-    .catch(next);
+    db.User.findOne({ where: { userName: req.body.userName } })
+    .then((conflictingUser) => {
+      if (conflictingUser) {
+        next(new HttpError(403, 'Username taken'));
+      } else {
+        db.User.createUser(req.body.userName, req.body.pw, req.body.phone)
+        .then((user) => {
+          const resObj = {
+            user: _mapUser(user),
+          };
+          Auth.issueJwtToken({ userId: user.id })
+          .then((token) => {
+            resObj.jwt = token;
+            res.json(resObj);
+          });
+        })
+        .catch(next);
+      }
+    });
   }
 };
 

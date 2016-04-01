@@ -1,13 +1,18 @@
 
 import React, { Alert, View, Text, TouchableOpacity, Image } from 'react-native';
+import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
+import { BackgroundImage } from '../Shared/BackgroundImage.js';
 import EditUser from './EditUser';
 import { navToFull } from '../Shared/NavHelpers';
-import styles from '../../styles/styles.js';
+import { centerContainerNoMargin, profileLineContainer, topBuffer,
+  stackVertical, center, white, bold } from '../../styles/styles.js';
 import { backButton, editButton } from '../Shared/Buttons';
+
 import CirclePic from '../Shared/CirclePic';
 const actions = require('../../sharedNative/actions/actions');
 const profPic = require('../../sharedNative/images/dino-profile.jpeg');
+import vibes from '../Door/vibes.js';
 
 const Profile = (props) => {
   const updateUser = (user) => {
@@ -35,30 +40,42 @@ const Profile = (props) => {
       return updatedUser;
     });
   };
+  const logout = () => store.dispatch(actions.logout());
   return (
-    <View>
-    <NavBar
-      title={ 'Profile' }
-      leftButton={backButton}
-      rightButton={editButton(EditUser, props.user, updateUser)}
-    />
-    <View>
-      <CirclePic source={ { uri: props.user.profilePictureUri }} />
-      <View style={styles.listEntryView}>
-        <Text style={styles.group}>Username: { props.user.userName }</Text>
-      </View>
-      <View style={styles.listEntryView}>
-        <Text style={styles.group}>
-          Default Location: {props.user.defaultLocation || 'None'}
-        </Text>
-      </View>
-      <View style={styles.listEntryView}>
-        <Text style={styles.group}>
-          Default Vibe: {props.user.defaultVibe || 'None'}
-        </Text>
-      </View>
-    </View>
-  </View>
+      <BackgroundImage source={require('../../static/bgLibrary/everything.png')}>
+        <NavBar
+          title={ 'Profile' }
+          leftButton={backButton}
+          rightButton={editButton(EditUser, props.user, updateUser)}
+        />
+        <View style={centerContainerNoMargin}>
+          <CirclePic size={200} source={ { uri: props.user.profilePictureUri }} />
+          <View style={topBuffer} />
+          <View style={[profileLineContainer, stackVertical, center]}>
+            <Text style={[white]}>username</Text>
+            <Text style={[bold, white]}>{ props.user.userName }</Text>
+          </View>
+          <View style={[profileLineContainer, stackVertical, center]}>
+            <Text style={[white]}>default address</Text>
+            <Text style={[bold, white]}>{props.user.defaultLocation || 'None'}</Text>
+          </View>
+          <View style={[profileLineContainer, stackVertical, center]}>
+            <Text style={[white]}>default vibe</Text>
+            <Text style={[bold, white]}>
+              {(vibes && props.user && props.user.defaultVibe &&
+                vibes[props.user.defaultVibe] && vibes[props.user.defaultVibe].name)
+                || 'None'}
+            </Text>
+          </View>
+          <TouchableOpacity onPress={logout} >
+            <View style={topBuffer}>
+              <Text style={[bold, white]}>
+                logout
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </BackgroundImage>
   );
 };
 
