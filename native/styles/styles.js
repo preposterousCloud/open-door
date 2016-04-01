@@ -334,4 +334,7 @@ module.exports = StyleSheet.create({
   vibePicker: {
     width,
   },
+  width80pct: {
+    width: width * 0.8,
+  },
 });
