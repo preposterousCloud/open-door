@@ -13,6 +13,7 @@ import styles from '../../../styles/styles';
 import { BackgroundImage } from '../../Shared/BackgroundImage';
 import NavigationBar from 'react-native-navbar';
 import Swipeout from 'react-native-swipeout';
+import { UserRow } from '../../Shared/UserRow';
 
 const FriendListRow = (props) => {
   const removeFriendButton = [{
@@ -21,17 +22,7 @@ const FriendListRow = (props) => {
   }];
   return (
     <Swipeout right={removeFriendButton} backgroundColor={'transparent'}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
-        <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-          <CirclePic source={{ uri: props.profilePictureUri }}
-            size={40}
-          />
-        </View>
-        <View style={{ flexDirection: 'column', flex: 4, alignItems: 'flex-start' }}>
-          <Text style={styles.mediumText}>{props.userName}</Text>
-          <Text style={styles.mediumText}>{props.userName}</Text>
-        </View>
-      </View>
+      <UserRow {...props} />
     </Swipeout>
   );
 };
@@ -58,17 +49,7 @@ const Friends = (props) => {
   const FriendRequestRow = (props) => {
     return (
       <TouchableOpacity onPress={respondToReq.bind(null, props)}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
-          <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-            <CirclePic source={{ uri: props.profilePictureUri }}
-              size={40}
-            />
-          </View>
-          <View style={{ flexDirection: 'column', flex: 4, alignItems: 'flex-start' }}>
-            <Text style={styles.mediumText}>{props.userName}</Text>
-            <Text style={styles.mediumText}>{props.userName}</Text>
-          </View>
-        </View>
+        <UserRow {...props} />
       </TouchableOpacity>
     );
   };
