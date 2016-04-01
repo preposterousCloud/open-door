@@ -1,10 +1,10 @@
 import React, { TouchableOpacity } from 'react-native';
 import { popScene, navTo, navToFull } from './NavHelpers.js';
-import { XIcon, Plus } from './Icons';
+import { XIcon, PersonAdd } from './Icons';
 
 const exitButton = (
   <TouchableOpacity onPress={popScene}>
-    <XIcon style={{ size: 40, color: 'red' }} />
+    <XIcon style={{ size: 40, color: 'white' }} />
   </TouchableOpacity>
 );
 
@@ -20,7 +20,7 @@ const cancelButtonNav = {
 
 const enterButton = (component, focus) => (
   <TouchableOpacity onPress={ navTo.bind(null, component, focus) }>
-    <Plus style={{ size: 40, color: 'darkblue' }} />
+    <PersonAdd style={{ size: 40, color: 'white' }} />
   </TouchableOpacity>
 );
 

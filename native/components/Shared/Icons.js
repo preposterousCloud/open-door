@@ -34,7 +34,7 @@ List.propTypes = {
 };
 
 export const LeftArrow = (props) => (
-  <Icon name="android-arrow-back" size={props.style.size} color={props.style.color} />
+  <Icon name="ios-arrow-thin-left" size={props.style.size} color={props.style.color} />
 );
 
 LeftArrow.propTypes = {
@@ -42,7 +42,7 @@ LeftArrow.propTypes = {
 };
 
 export const RightArrow = (props) => (
-  <Icon name="android-arrow-forward" size={props.style.size} color={props.style.color} />
+  <Icon name="ios-arrow-thin-right" size={props.style.size} color={props.style.color} />
 );
 
 RightArrow.propTypes = {
@@ -62,5 +62,14 @@ export const Plus = (props) => (
 );
 
 Plus.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+
+export const PersonAdd = (props) => (
+  <Icon name="ios-personadd" size={props.style.size} color={props.style.color} />
+);
+
+PersonAdd.propTypes = {
   style: React.PropTypes.object.isRequired,
 };
