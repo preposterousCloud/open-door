@@ -11,6 +11,8 @@ import { exitButton, enterButton } from '../../../Shared/Buttons.js';
 import { navToFull, popScene } from '../../../Shared/NavHelpers.js';
 const SelectProfilePic = require('../../../Profile/SelectProfilePic');
 import { BackgroundImage } from '../../../Shared/BackgroundImage';
+import { UserRow } from '../../../Shared/UserRow';
+import SwipeOut from 'react-native-swipeout';
 
 const currentGroup = (members) => {
   store.dispatch(actions.setUserGroupMembers(members));
@@ -22,16 +24,11 @@ const getGroups = (id) => {
     currentGroup(groups[id]);
   });
 };
-
 const Group = (props) => {
   getGroups(props.route.focus.id);
-  const listGroupMembers = (member) => {
-    console.log(`You clicked on ${member.userName}, id:${member.id}`);
-  };
 
   const GroupListContainer = makeListContainer(
-    makeClickableRow(listGroupMembers, null, null, null,
-      actions.removeFromGroup.bind(null, props.route.focus.id)),
+    UserRow,
     ['userGroupMembers'],
     UserList
   );
