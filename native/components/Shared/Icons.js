@@ -40,3 +40,27 @@ export const LeftArrow = (props) => (
 LeftArrow.propTypes = {
   style: React.PropTypes.object.isRequired,
 };
+
+export const RightArrow = (props) => (
+  <Icon name="android-arrow-forward" size={props.style.size} color={props.style.color} />
+);
+
+RightArrow.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+export const XIcon = (props) => (
+  <Icon name="ios-close-outline" size={props.style.size} color={props.style.color} />
+);
+
+XIcon.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+export const Plus = (props) => (
+  <Icon name="ios-plus-outline" size={props.style.size} color={props.style.color} />
+);
+
+Plus.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
