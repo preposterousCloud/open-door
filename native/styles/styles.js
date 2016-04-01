@@ -276,6 +276,13 @@ module.exports = StyleSheet.create({
   navButtonMargin: {
     marginHorizontal: 20,
   },
+  // Door-Specific
+  noHost: {
+    textAlign: 'center',
+    color: '#FFF3',
+    bottom: 175,
+    fontSize: 17,
+  },
   // Profile and Group Pic
   profilePic: {
     width: radius * 2,
