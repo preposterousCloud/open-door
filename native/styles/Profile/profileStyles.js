@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+const { width } = Dimensions.get('window');
 
+const radius = 50;
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
@@ -34,5 +36,10 @@ module.exports = StyleSheet.create({
   },
   pullRight: {
     paddingRight: 10,
+  },
+  profilePic: {
+    width: radius * 2,
+    height: radius * 2,
+    borderRadius: radius,
   },
 });

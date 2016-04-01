@@ -8,6 +8,8 @@ module.exports = StyleSheet.create({
   },
   listView: {
     backgroundColor: '#FFF',
+    height: 600,
+    flex: 1,
   },
   listEntryView: {
     flexDirection: 'row',

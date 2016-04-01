@@ -1,81 +1,108 @@
-import React, { View, Text } from 'react-native';
-import { connect } from 'react-redux'
+import React, { View, Text, Alert } from 'react-native';
+import { connect } from 'react-redux';
 
 import { reducer, store } from '../../../../sharedNative/reducers/reducers.js';
-const actions = require('../../../../sharedNative/actions/actions.js')
-
-import common from '../../../Shared/Misc.js'
-import styles from '../../../../styles/Social/socialStyles.js';
+const actions = require('../../../../sharedNative/actions/actions.js');
+import { cancelButton } from '../../../Shared/Buttons';
+import { makeListContainer, makeSelectableRow } from '../../../Shared/ComponentHelpers.js';
+import styles from '../../../../styles/styles.js';
 import NavBar from '../../../Shared/NavBar.js';
 import CreateGroupName from './CreateGroupName.js';
-import { getAllUsers } from '../../../../sharedNative/actions/actions.js';
-
-const allUsers = () => {
-  store.dispatch(getAllUsers())
-  .then((allUsers) => {
-    createChecklist(allUsers);
-  })
-}
+import { BackgroundImage } from '../../../Shared/BackgroundImage';
 
 const cancelNewGroup = () => {
   store.getState().navigation.navigator.pop();
 };
 
-const createChecklist = (users) => {
-  let userChecklist = {};
+const createChecklist = (users = []) => {
+  const userChecklist = {};
   users.forEach((user) => {
     userChecklist[user.id] = false;
   });
   store.dispatch(actions.setUserChecklist(userChecklist));
-}
+};
+
+const getFriends = () => {
+  const friends = store.getState().user.friends;
+  createChecklist(friends);
+};
 
 const checkCheckbox = (user) => {
   const oldList = store.getState().checklist;
   store.dispatch(actions.markCheckbox(user.id, oldList));
   const newList = store.getState().checklist;
   return newList;
-}
+};
 
 const getChecklist = () => {
   return store.getState().checklist;
-}
-
-const submitGroup = () => {
-  const name = store.getState().groupName;
-  allUsers();
-  store.dispatch(actions.storeGroup(name));
-}
+};
 
 const CreateGroup = class CreateGroup extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      groupName: '',
+    };
+    this.updateGroupName = this.updateGroupName.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
-
+  updateGroupName(newVal) {
+    this.setState({
+      groupName: newVal,
+    });
+  }
+  onSubmit() {
+    if (this.state.groupName) {
+      store.dispatch(actions.storeGroup(this.state.groupName))
+      .then(() => {
+        store.getState().navigation.navigator.pop();
+      });
+    } else {
+      const groupNames = ['Teen Titans', 'Captian\'s Crew', 'Lazy Leopards', 'Penguin Pals'];
+      Alert.alert(
+        'Your group needs a name!',
+        `How about ${groupNames[Math.floor(Math.random() * groupNames.length)]}?`,
+        [cancelButton]);
+    }
+  }
   componentDidMount() {
-    allUsers();
+    getFriends();
   }
-  
-  // CHANGE ONCE FRIENDS FEATURE IS IMPLEMENTED
+  componentWillUnmount() {
+    // Clears out the existing checkboxes and resets state
+    createChecklist();
+  }
   render() {
-    const CreateGroupShowFriendsListContainer = common.makeListContainer(common.makeSelectableRow(checkCheckbox, getChecklist), ['allUsers']);
+    const CreateGroupShowFriendsListContainer = makeListContainer(
+      makeSelectableRow(checkCheckbox, getChecklist),
+      ['user', 'friends']
+    );
     const leftNavButton = {
       title: 'X',
       handler: cancelNewGroup,
     };
     const rightNavButton = {
       title: '✓',
-      handler: submitGroup,
+      handler: this.onSubmit,
     };
     return (
-      <View>
-        <NavBar
-          title={'Create Group'}
-          leftButton={leftNavButton}
-          rightButton={rightNavButton}
-        />
-        <CreateGroupName />
-        <CreateGroupShowFriendsListContainer />
-      </View>
+      <BackgroundImage>
+        <View style={styles.container}>
+          <View style={styles.feedHeader}>
+            <Text style={styles.feedText}> CREATE GROUP </Text>
+          </View>
+          <View style={styles.container}>
+            <CreateGroupName onUpdate={this.updateGroupName} onSubmit={this.onSubmit} />
+            <CreateGroupShowFriendsListContainer />
+          </View>
+          <NavBar
+            title={''}
+            leftButton={leftNavButton}
+            rightButton={rightNavButton}
+          />
+        </View>
+      </BackgroundImage>
     );
   }
 };

@@ -3,7 +3,7 @@ import { store } from '../../sharedNative/reducers/reducers.js';
 import NavBar from '../Shared/NavBar.js';
 import Groups from './Groups/Groups.js';
 import Friends from './Friends/Friends.js';
-import styles from '../../styles/Social/socialStyles.js';
+import styles from '../../styles/styles.js';
 
 const groupsNav = () => {
   store.getState().navigation.navigator.push({
@@ -25,25 +25,28 @@ const Social = (props) => {
     });
   };
   return (
-    <View>
+    <View style={styles.container}>
+      <View style={styles.feedHeader}>
+        <Text style={styles.feedText}> YOUR WORLD </Text>
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={showFriends}
+          style={styles.socialF}
+        >
+          <Text>FRIENDS</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={groupsNav}
+          style={styles.socialG}
+        >
+          <Text>GROUPS</Text>
+        </TouchableOpacity>
+      </View>
       <NavBar
-        title={ 'Social' }
+        title={ '' }
         rightButton={rightNavButton}
       />
-    <View>
-      <TouchableOpacity
-        onPress={showFriends}
-        style={styles.socialF}
-      >
-        <Text>FRIENDS</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={groupsNav}
-        style={styles.socialG}
-      >
-        <Text>GROUPS</Text>
-      </TouchableOpacity>
-    </View>
   </View>
   );
 };

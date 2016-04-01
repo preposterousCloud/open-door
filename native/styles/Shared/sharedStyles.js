@@ -1,10 +1,24 @@
 import { StyleSheet } from 'react-native';
 
 module.exports = StyleSheet.create({
+  bg: {
+    backgroundColor: 'purple',
+  },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#AAA',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: 20,
+  },
+  userInput: {
+    height: 50,
+    padding: 5,
+    margin: 5,
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: '#616161',
+    borderRadius: 4,
+    color: '#616161',
   },
   listView: {
     paddingTop: 20,
@@ -14,6 +28,6 @@ module.exports = StyleSheet.create({
     flex: 1,
   },
   navBar: {
-    // enter some styles here
+    backgroundColor: 'transparent',
   },
 });
