@@ -151,10 +151,10 @@ class EditEvent extends React.Component {
     }
     return this.state.event ? (
       <BackgroundImage source={backgroundImageSource} event blur={'light'}>
-        <View style={{ backgroundColor: '#0008', height: 800 }}>
-          <NavBar title={'Edit Event'} leftButton={cancelButtonNav}
-          rightButton={{ title: 'Save', handler: submitEvent }}
-          />
+        <View style={[styles.container, { backgroundColor: '#0008', height: 800 }]}>
+          <View style={styles.feedHeader}>
+            <Text style={styles.feedText}> EDIT EVENT</Text>
+          </View>
           <View style={styles.centerContainerNoMargin}>
             <StyledTextInput onChangeText={updateEventName} placeholder={this.state.event.name} />
             <StyledTextInput onChangeText={updateEventLocation} placeholder={this.state.event.location} />
@@ -176,7 +176,12 @@ class EditEvent extends React.Component {
                 <Text style={[styles.white, styles.large]}>photo</Text>
               </TouchableOpacity>
             </View>
+            
           </View>
+          <NavBar  
+            leftButton={cancelButtonNav}
+            rightButton={{ title: 'Save', handler: submitEvent }}
+          />
         </View>
       </BackgroundImage>
     ) : null;
