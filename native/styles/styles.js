@@ -340,4 +340,8 @@ module.exports = StyleSheet.create({
   width80pct: {
     width: width * 0.8,
   },
+  fullScreen: {
+    width,
+    height,
+  },
 });

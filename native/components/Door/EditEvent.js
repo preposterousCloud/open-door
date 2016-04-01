@@ -150,30 +150,32 @@ class EditEvent extends React.Component {
       }
     }
     return this.state.event ? (
-      <BackgroundImage source={backgroundImageSource} >
-        <NavBar title={'Edit Event'} leftButton={cancelButtonNav}
-        rightButton={{ title: 'Save', handler: submitEvent }}
-        />
-        <View style={styles.centerContainerNoMargin}>
-          <StyledTextInput onChangeText={updateEventName} placeholder={this.state.event.name} />
-          <StyledTextInput onChangeText={updateEventLocation} placeholder={this.state.event.location} />
-          <View style={styles.vibePicker}>
-            <VibePicker changeVibe={changeVibe} initialVibe={this.state.event.vibe} />
-          </View>
-          <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
-            <TouchableOpacity onPress={this.navToFriends} >
-              <Text style={[styles.white, styles.large]}>friends</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
-            <TouchableOpacity onPress={this.navToGroups} >
-              <Text style={[styles.white, styles.large]}>groups</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
-            <TouchableOpacity onPress={this.navToEventPhoto} >
-              <Text style={[styles.white, styles.large]}>photo</Text>
-            </TouchableOpacity>
+      <BackgroundImage source={backgroundImageSource} event blur={'light'}>
+        <View style={{ backgroundColor: '#0008', height: 800 }}>
+          <NavBar title={'Edit Event'} leftButton={cancelButtonNav}
+          rightButton={{ title: 'Save', handler: submitEvent }}
+          />
+          <View style={styles.centerContainerNoMargin}>
+            <StyledTextInput onChangeText={updateEventName} placeholder={this.state.event.name} />
+            <StyledTextInput onChangeText={updateEventLocation} placeholder={this.state.event.location} />
+            <View style={[styles.vibePicker]}>
+              <VibePicker changeVibe={changeVibe} initialVibe={this.state.event.vibe} />
+            </View>
+            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
+              <TouchableOpacity onPress={this.navToFriends} >
+                <Text style={[styles.white, styles.large]}>friends</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
+              <TouchableOpacity onPress={this.navToGroups} >
+                <Text style={[styles.white, styles.large]}>groups</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
+              <TouchableOpacity onPress={this.navToEventPhoto} >
+                <Text style={[styles.white, styles.large]}>photo</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </BackgroundImage>

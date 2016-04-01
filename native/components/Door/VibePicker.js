@@ -1,5 +1,5 @@
 import React, { Text, TouchableOpacity, View, Picker } from 'react-native';
-
+import styles from '../../styles/styles.js';
 import vibes from './vibes.js';
 
 class VibePicker extends React.Component {
@@ -21,6 +21,7 @@ class VibePicker extends React.Component {
       <Picker
         selectedValue={this.state.selectedVibe}
         onValueChange={this.changePickerValue}
+        itemStyle={styles.white}
       >
         {
           Object.keys(vibes).map((vibe, index) => (
