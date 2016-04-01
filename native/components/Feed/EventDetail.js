@@ -3,7 +3,7 @@ import styles from '../../styles/styles.js';
 import Accordion from 'react-native-accordion';
 import * as api from '../../sharedNative/utils/api.js';
 import { store } from '../../sharedNative/reducers/reducers.js';
-import { BackgroundImage } from '../Shared/BackgroundImage'
+import { BackgroundImage } from '../Shared/BackgroundImage';
 import vibes from '../Door/vibes.js';
 import CirclePic from '../Shared/CirclePic';
 import Swiper from 'react-native-swiper';
@@ -40,7 +40,7 @@ class EventDetail extends React.Component {
       if (this.state) {
         this.setState({ event });
       }
-    })
+    });
   }
   getInvitedGroups(event) {
     return event.Groups.length ?
@@ -150,7 +150,6 @@ class EventDetail extends React.Component {
     } else {
       swipesToRender = [this.generateEventDetails(), photoViews];
     }
-    console.log(this.props)
     return (
       <Swiper style={styles.wrapper} height={275} loop={false}>
         {swipesToRender}
