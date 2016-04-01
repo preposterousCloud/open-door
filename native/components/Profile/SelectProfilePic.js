@@ -1,6 +1,6 @@
 import React, { View, Text, TouchableOpacity, NativeModules } from 'react-native';
+import NavigationBar from 'react-native-navbar';
 import { store } from '../../sharedNative/reducers/reducers.js';
-import NavBar from '../Shared/NavBar.js';
 import styles from '../../styles/styles.js';
 import { cancelButtonNav } from '../Shared/Buttons';
 import { navToFull } from '../Shared/NavHelpers';
@@ -21,7 +21,11 @@ const SelectProfilePic = class SelectProfilePic extends React.Component {
   render() {
     return (
       <View>
-        <NavBar title={'Select Picture'} leftButton={cancelButtonNav} />
+        <NavigationBar
+          tintColor={ 'transparent' }
+          title={{ title: 'Edit Profile' }}
+          leftButton={cancelButtonNav}
+        />
         <CameraRollView
           batchSize={20}
           groupTypes ={'All'}

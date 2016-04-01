@@ -1,4 +1,5 @@
 import React, { Text, TouchableOpacity, View, Alert, ScrollView } from 'react-native';
+import NavigationBar from 'react-native-navbar';
 import { StyleSheet } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { Button } from '../Shared/Button';
@@ -6,7 +7,6 @@ import { backButton, cancelButtonNav, cancelButton } from '../Shared/Buttons.js'
 import { navToFull, popScene } from '../Shared/NavHelpers.js';
 const actions = require('../../sharedNative/actions/actions');
 const api = require('../../sharedNative/utils/api.js');
-import NavBar from '../Shared/NavBar.js';
 const SelectProfilePic = require('./SelectProfilePic');
 import CirclePic from '../Shared/CirclePic';
 import VibePicker from '../Door/VibePicker.js';
@@ -14,6 +14,7 @@ import StyledTextInput from '../Shared/StyledTextInput.js';
 import styles from '../../styles/styles.js';
 import { BackgroundImage } from '../Shared/BackgroundImage.js';
 import { LoadingWheelContainer } from '../Shared/ComponentHelpers';
+
 class EditUser extends React.Component {
   constructor(props) {
     super(props);
@@ -66,7 +67,10 @@ class EditUser extends React.Component {
   render() {
     return (
       <BackgroundImage source={require('../../static/bgLibrary/everything.png')}>
-        <NavBar title={'Edit Profile'} leftButton={cancelButtonNav}
+        <NavigationBar
+          tintColor={ 'transparent' }
+          title={{ title: 'Edit Profile' }}
+          leftButton={cancelButtonNav}
           rightButton={{ title: 'Save', handler: this.submitUser }}
         />
         <ScrollView scrollEnabled={false} >
