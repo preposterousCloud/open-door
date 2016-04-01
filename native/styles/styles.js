@@ -46,6 +46,14 @@ module.exports = StyleSheet.create({
   setDoorContainer: {
     borderColor: '#FFF3',
     borderWidth: 1,
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: 200,
+    marginBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 4,
+    backgroundColor: '#0002',
   },
   // Nav
   tabBar: {
