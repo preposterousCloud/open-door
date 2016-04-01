@@ -8,6 +8,7 @@ import { navToFull } from '../Shared/NavHelpers';
 import { centerContainerNoMargin, profileLineContainer, topBuffer,
   stackVertical, center, white, bold } from '../../styles/styles.js';
 import { backButton, editButton } from '../Shared/Buttons';
+import NavigationBar from 'react-native-navbar';
 
 import CirclePic from '../Shared/CirclePic';
 const actions = require('../../sharedNative/actions/actions');
@@ -43,10 +44,11 @@ const Profile = (props) => {
   const logout = () => store.dispatch(actions.logout());
   return (
       <BackgroundImage source={require('../../static/bgLibrary/everything.png')}>
-        <NavBar
-          title={ 'Profile' }
+        <NavigationBar
+          title={{ title: 'Profile' }}
           leftButton={backButton}
           rightButton={editButton(EditUser, props.user, updateUser)}
+          tintColor={ 'transparent' }
         />
         <View style={centerContainerNoMargin}>
           <CirclePic size={200} source={ { uri: props.user.profilePictureUri }} />

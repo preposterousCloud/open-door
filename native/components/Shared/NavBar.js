@@ -5,7 +5,6 @@ import styles from '../../styles/styles.js';
 const NavBar = (props) => (
   <View style={styles.navBar}>
     <NavigationBar
-      title={{ title: props.title }}
       rightButton={props.rightButton}
       leftButton={props.leftButton}
       tintColor={ 'transparent' }
@@ -14,7 +13,6 @@ const NavBar = (props) => (
 );
 
 NavBar.propTypes = {
-  title: React.PropTypes.string,
   rightButton: React.PropTypes.object,
   leftButton: React.PropTypes.object,
 };

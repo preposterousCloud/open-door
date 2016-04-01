@@ -50,7 +50,11 @@ RightArrow.propTypes = {
 };
 
 export const XIcon = (props) => (
-  <Icon name="ios-close-outline" size={props.style.size} color={props.style.color} style={{ marginBottom: 30 }} />
+  <Icon name="ios-close-empty"
+    size={props.style.size}
+    color={props.style.color}
+    style={{ marginBottom: 30 }}
+  />
 );
 
 XIcon.propTypes = {
@@ -58,7 +62,7 @@ XIcon.propTypes = {
 };
 
 export const Plus = (props) => (
-  <Icon name="ios-plus-outline" size={props.style.size} color={props.style.color} />
+  <Icon name="ios-plus-empty" size={props.style.size} color={props.style.color} />
 );
 
 Plus.propTypes = {
@@ -67,7 +71,11 @@ Plus.propTypes = {
 
 
 export const PersonAdd = (props) => (
-  <Icon name="ios-personadd" size={props.style.size} color={props.style.color} style={{ marginBottom: 30 }}/>
+  <Icon name="ios-personadd"
+    size={props.style.size}
+    color={props.style.color}
+    style={{ marginBottom: 30 }}
+  />
 );
 
 PersonAdd.propTypes = {

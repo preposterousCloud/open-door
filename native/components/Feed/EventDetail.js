@@ -88,7 +88,7 @@ class EventDetail extends React.Component {
   }
   generateEventDetails() {
     return (
-      <View style={[this.swiperItemStyles]}>
+      <View key={Math.random()} style={[this.swiperItemStyles]}>
         <BackgroundImage
           source={{ uri: this.props.event.eventPictureUri }}
           children={null}
@@ -107,11 +107,13 @@ class EventDetail extends React.Component {
           </View>
           <View style={styles.feedDetailInvitees}>
             <Text style = {styles.standardText}>
-              {(this.props.event && this.props.event.Users && this.props.event.Users.length) ? 'Users Invited' : ''}
+              {(this.props.event && this.props.event.Users &&
+                this.props.event.Users.length) ? 'Users Invited' : ''}
             </Text>
               {this.getInvitedUserPics(this.state.event)}
             <Text style = {styles.standardText }>
-              {(this.props.event && this.props.event.Groups && this.props.event.Groups.length) ? 'Groups Invited' : ''}
+              {(this.props.event && this.props.event.Groups &&
+                this.props.event.Groups.length) ? 'Groups Invited' : ''}
             </Text>
               {this.getInvitedGroupPics(this.state.event)}
           </View>
@@ -134,7 +136,7 @@ class EventDetail extends React.Component {
       }
     }
     return (
-      <View style={[this.swiperItemStyles]}>
+      <View key={Math.random()} style={[this.swiperItemStyles]}>
         <Image
           source={ eventPictureSource }
           style={{ width, height: 275 }}
