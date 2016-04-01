@@ -47,7 +47,7 @@ module.exports = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   feedNavBar: {
-    height: height/10,
+    height: height / 10,
   },
   // Lists
   listView: {
@@ -118,7 +118,7 @@ module.exports = StyleSheet.create({
     top: 30,
     fontSize: 24,
     fontFamily: 'DroidSans',
-    color: '#FFF4'
+    color: '#FFF4',
   },
   standardText: {
     color: '#FFF',
@@ -138,16 +138,15 @@ module.exports = StyleSheet.create({
   },
   // Forms
   userInput: {
+    flex: 1,
     height: 50,
+    width: width * 0.8,
     padding: 4,
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 10,
     fontSize: 18,
     borderWidth: 1,
-    borderColor: '#616161',
+    borderColor: 'white',
     borderRadius: 4,
-    color: '#616161',
+    color: 'white',
   },
   checkboxEmpty: {
     width: 20,
@@ -245,5 +244,40 @@ module.exports = StyleSheet.create({
     bottom: 20,
     color: '#FFF4',
     alignSelf: 'flex-end',
-  }
+  },
+  // text
+  bold: {
+    fontWeight: '800',
+    fontSize: 20,
+  },
+  white: {
+    color: 'white',
+  },
+  stackVertical: {
+    flexDirection: 'column',
+  },
+  shadow: {
+    textShadowColor: 'black',
+    textShadowOffset: { width: 0, height: 0.5 },
+    textShadowRadius: 0.1,
+  },
+  flex: {
+    flex: 1,
+  },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profileLineContainer: {
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingBottom: 5,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderColor: '#DDD3',
+    justifyContent: 'space-between',
+  },
+  topBuffer: {
+    paddingTop: 20,
+  },
 });
