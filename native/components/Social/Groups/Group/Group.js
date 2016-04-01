@@ -63,9 +63,9 @@ const Group = (props) => {
           <GroupListContainer />
         </View>
         <NavBar
-          title={''}
           leftButton={exitButton}
           rightButton={enterButton(AddMembers, props.route.focus)}
+          style={styles.feedNavBar}
         />
       </View>
     </BackgroundImage>
