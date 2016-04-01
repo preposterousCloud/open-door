@@ -16,6 +16,11 @@ module.exports = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  eventDetailComponent: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
   imageContainer: {
     flex: 1,
   },
@@ -27,6 +32,7 @@ module.exports = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     margin: 20,
+    marginTop: 0,
   },
   centerContainerNoMargin: {
     flex: 1,
@@ -37,6 +43,10 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
+  setDoorContainer: {
+    borderColor: '#FFF3',
+    borderWidth: 1,
+  },
   // Nav
   tabBar: {
     borderTopWidth: 3,
@@ -46,6 +56,8 @@ module.exports = StyleSheet.create({
   navBar: {
     backgroundColor: 'transparent',
     margin: 20,
+    marginBottom: 0,
+    marginTop: 0,
   },
   navBarTop: {
     backgroundColor: 'transparent',
@@ -215,19 +227,24 @@ module.exports = StyleSheet.create({
   },
   // Buttons
   socialF: {
+    flex: 1,
     justifyContent: 'center',
-    flexDirection: 'row',
-    padding: 50,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#DDD3',
+    alignItems: 'center',
   },
   socialG: {
+    flex: 1,
     justifyContent: 'center',
-    flexDirection: 'row',
-    padding: 50,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#DDD3',
+    alignItems: 'center',
+  },
+  socialText: {
+    fontFamily: 'DroidSans',
+    color: '#FFFB',
+    fontSize: 25,
   },
   categoryButton: {
     justifyContent: 'center',
