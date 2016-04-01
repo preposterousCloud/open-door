@@ -61,7 +61,11 @@ const Profile = (props) => {
           </View>
           <View style={[profileLineContainer, stackVertical, center]}>
             <Text style={[white]}>default vibe</Text>
-            <Text style={[bold, white]}>{vibes[props.user.defaultVibe].name || 'None'}</Text>
+            <Text style={[bold, white]}>
+              {(vibes && props.user && props.user.defaultVibe &&
+                vibes[props.user.defaultVibe] && vibes[props.user.defaultVibe].name)
+                || 'None'}
+            </Text>
           </View>
           <TouchableOpacity onPress={logout} >
             <View style={topBuffer}>
