@@ -137,10 +137,11 @@ module.exports = StyleSheet.create({
     width: width * 0.8,
     padding: 4,
     fontSize: 18,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 4,
     color: 'white',
+  },
+  underlined: {
+    borderBottomWidth: 2,
+    borderBottomColor: 'white',
   },
   checkboxEmpty: {
     width: 20,
@@ -270,5 +271,14 @@ module.exports = StyleSheet.create({
   },
   topBuffer: {
     paddingTop: 20,
+  },
+  loginTextLogo: {
+    margin: 10,
+    marginTop: 20,
+    height: 70,
+    width: 250,
+  },
+  vibePicker: {
+    width,
   },
 });
