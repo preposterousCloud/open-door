@@ -77,6 +77,7 @@ module.exports = StyleSheet.create({
     padding: 20,
     borderBottomWidth: 1,
     borderColor: '#DDD3',
+    backgroundColor: 'transparent',
     justifyContent: 'space-between',
   },
   greyedOutListEntryView: {
@@ -122,6 +123,11 @@ module.exports = StyleSheet.create({
   standardText: {
     color: '#FFF',
     fontFamily: 'DroidSans',
+  },
+  mediumText: {
+    color: '#FFF',
+    fontFamily: 'DroidSans',
+    fontSize: 15,
   },
   rowHeader: {
     color: '#FFF',
@@ -190,6 +196,9 @@ module.exports = StyleSheet.create({
     height: 30,
     marginLeft: 20,
     marginRight: 20,
+  },
+  navButtonMargin: {
+    marginHorizontal: 20,
   },
   // Profile and Group Pic
   profilePic: {

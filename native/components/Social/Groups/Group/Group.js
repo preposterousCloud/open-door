@@ -51,19 +51,26 @@ const Group = (props) => {
 
   return (
     <BackgroundImage>
-      <NavBar
-        title={ props.route.focus.name }
-        leftButton={exitButton}
-        rightButton={enterButton(AddMembers, props.route.focus)}
-      />
-      <TouchableOpacity onPress={() => navToFull({
-        component: SelectProfilePic,
-        updateProfPic: changeGroupPic,
-      })}
-      >
-        <CirclePic uri={props.route.focus.groupPictureUri} />
-      </TouchableOpacity>
-      <GroupListContainer />
+      <View style={styles.container}>
+        <View style={styles.feedHeader}>
+          <Text style={styles.feedText}> { props.route.focus.name } </Text>
+        </View>
+        <View style={styles.container}>
+          <TouchableOpacity onPress={() => navToFull({
+            component: SelectProfilePic,
+            updateProfPic: changeGroupPic,
+          })}
+          >
+            <CirclePic uri={props.route.focus.groupPictureUri} />
+          </TouchableOpacity>
+          <GroupListContainer />
+        </View>
+        <NavBar
+          title={''}
+          leftButton={exitButton}
+          rightButton={enterButton(AddMembers, props.route.focus)}
+        />
+      </View>
     </BackgroundImage>
   );
 };

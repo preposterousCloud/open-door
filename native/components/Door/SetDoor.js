@@ -28,13 +28,12 @@ const goToSettings = () => {
 const SetDoor = class SetDoor extends React.Component {
   render() {
     const SettingsButton = (
-      <TouchableOpacity onPress={goToSettings}>
+      <TouchableOpacity onPress={goToSettings} style={styles.navButtonMargin}>
         <SettingsGear style={{ size: 50, color: 'grey' }} />
       </TouchableOpacity>
     );
-
     const FeedButton = (
-      <TouchableOpacity onPress={this.props.swipeLeft}>
+      <TouchableOpacity onPress={this.props.swipeLeft} style={styles.navButtonMargin}>
         <LeftArrow style={{ size: 50, color: 'darkgreen' }} />
       </TouchableOpacity>
     );
@@ -74,29 +73,30 @@ const SetDoor = class SetDoor extends React.Component {
         <View style={styles.feedHeader}>
           <Text style={styles.feedText}>YOUR DOOR</Text>
         </View>
-        <View style={styles.centerContainer}>
-          <TouchableOpacity onPress={toggleDoor}>
-            <Image source={doorIndicatorSource} style={{ width: 200, height: 200 }} />
-          </TouchableOpacity>
-        </View>
-        <View>
-          { /* (() => (!this.props.user.Events) ?
-            <Text>You aren't invited to any events</Text> :
-            <Text>You're invited to {this.props.user.Events.length} events</Text>
-          )()
-           */ }
-          {(() => (!this.props.currentEvent) ?
-            <Text>You aren't hosting an event right now</Text> :
-            (<View>
-              <EventDetail imageShowing event={this.props.currentEvent} />
-              <TouchableOpacity onPress={navToEditEvent} >
-                <Text style={styles.standardText}>Edit Event</Text>
-              </TouchableOpacity>
-            </View>)
-          )()}
+        <View style={styles.container}>
+          <View style={styles.centerContainer}>
+            <TouchableOpacity onPress={toggleDoor}>
+              <Image source={doorIndicatorSource} style={{ width: 200, height: 200 }} />
+            </TouchableOpacity>
+          </View>
+          <View>
+            { /* (() => (!this.props.user.Events) ?
+              <Text>You aren't invited to any events</Text> :
+              <Text>You're invited to {this.props.user.Events.length} events</Text>
+            )()
+            */ }
+            {(() => (!this.props.currentEvent) ?
+              <Text>You aren't hosting an event right now</Text> :
+              (<View>
+                <EventDetail imageShowing event={this.props.currentEvent} />
+                <TouchableOpacity onPress={navToEditEvent} >
+                  <Text style={styles.standardText}>Edit Event</Text>
+                </TouchableOpacity>
+              </View>)
+            )()}
+          </View>
         </View>
         <NavigationBar
-          title={{ title: '' }}
           leftButton={FeedButton}
           rightButton={SettingsButton}
           tintColor={ 'transparent' }
