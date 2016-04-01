@@ -7,23 +7,35 @@ import styles from '../../styles/styles.js';
 // things it shoudl be passed:
   // onChangeText, placeholder
   // defaultValue={props.}
-const StyledTextInput = (props) => (
-  <View>
-    <TextInput
-      autoCapitalize={'none'}
-      autoCorrect={false}
-      maxLength={props.maxLength || 25}
-      placeholder={props.placeholder || ''}
-      value={props.value || undefined}
-      style={styles.userInput}
-      returnKeyType={props.returnKeyType || 'go'}
-      onChangeText={props.onChangeText || (() => null)}
-      keyboardType={props.keyboardType || 'default'}
-      onSubmitEditing={props.onSubmitEditing}
-      secureTextEntry={props.secureTextEntry || false}
-    />
-  </View>
-);
+class StyledTextInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { focused: false };
+  }
+
+  render() {
+    const borderBottomColor = this.state.focused ? '#FFF' : '#AAA';
+    return (
+      <View style={[styles.underlined, { borderBottomColor }]}>
+        <TextInput
+          autoCapitalize={'none'}
+          autoCorrect={false}
+          maxLength={this.props.maxLength || 25}
+          placeholder={this.props.placeholder || ''}
+          value={this.props.value || undefined}
+          style={styles.userInput}
+          onFocus={() => this.setState({ focused: true })}
+          onBlur={() => this.setState({ focused: false })}
+          returnKeyType={this.props.returnKeyType || 'next'}
+          onChangeText={this.props.onChangeText || (() => null)}
+          keyboardType={this.props.keyboardType || 'default'}
+          onSubmitEditing={this.props.onSubmitEditing}
+          secureTextEntry={this.props.secureTextEntry || false}
+        />
+      </View>
+    );
+  }
+}
 
 StyledTextInput.propTypes = {
   onChangeText: React.PropTypes.func.isRequired,
