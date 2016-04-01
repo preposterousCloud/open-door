@@ -102,3 +102,14 @@ export const People = (props) => (
 People.propTypes = {
   style: React.PropTypes.object.isRequired,
 };
+
+export const Edit = (props) => (
+  <Icon name="edit"
+    size={props.style.size}
+    color={props.style.color}
+  />
+);
+
+Edit.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
