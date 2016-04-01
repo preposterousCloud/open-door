@@ -16,6 +16,11 @@ module.exports = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  eventDetailComponent: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
   imageContainer: {
     flex: 1,
   },
@@ -27,6 +32,7 @@ module.exports = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     margin: 20,
+    marginTop: 0,
   },
   centerContainerNoMargin: {
     flex: 1,
