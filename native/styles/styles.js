@@ -222,18 +222,23 @@ module.exports = StyleSheet.create({
   // Buttons
   socialF: {
     justifyContent: 'center',
-    flexDirection: 'row',
-    padding: 50,
+    flex: 1,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#DDD3',
+    alignItems: 'center',
   },
   socialG: {
     justifyContent: 'center',
-    flexDirection: 'row',
-    padding: 50,
+    flex: 1,
     borderBottomWidth: 1,
     borderColor: '#DDD',
+    alignItems: 'center',
+  },
+  socialText: {
+    fontFamily: 'DroidSans',
+    color: '#FFF',
+    fontSize: 25,
   },
   categoryButton: {
     justifyContent: 'center',
