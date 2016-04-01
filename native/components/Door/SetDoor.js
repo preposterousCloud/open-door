@@ -10,7 +10,7 @@ import { navTo, navToFull } from '../Shared/NavHelpers.js';
 import ProfileContainer from '../Profile/ProfileContainer.js';
 import EditEvent from './EditEvent';
 import EventDetail from '../Feed/EventDetail.js';
-import { SettingsGear, LeftArrow } from '../Shared/Icons';
+import { Person, LeftArrow } from '../Shared/Icons';
 import styles from '../../styles/styles.js';
 import NavigationBar from 'react-native-navbar';
 
@@ -29,12 +29,12 @@ const SetDoor = class SetDoor extends React.Component {
   render() {
     const SettingsButton = (
       <TouchableOpacity onPress={goToSettings} style={styles.navButtonMargin}>
-        <SettingsGear style={{ size: 50, color: 'grey' }} />
+        <Person style={{ size: 50, color: 'white' }} />
       </TouchableOpacity>
     );
     const FeedButton = (
       <TouchableOpacity onPress={this.props.swipeLeft} style={styles.navButtonMargin}>
-        <LeftArrow style={{ size: 50, color: 'darkgreen' }} />
+        <LeftArrow style={{ size: 50, color: 'white' }} />
       </TouchableOpacity>
     );
     const createEvent = (event) => {

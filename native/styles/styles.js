@@ -47,6 +47,12 @@ module.exports = StyleSheet.create({
     backgroundColor: 'transparent',
     margin: 20,
   },
+  navBarTop: {
+    backgroundColor: 'transparent',
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 20,
+  },
   feedNavBar: {
     height: height / 10,
   },
@@ -191,7 +197,7 @@ module.exports = StyleSheet.create({
     color: 'white',
   },
   underlined: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: 'white',
   },
   checkboxEmpty: {
@@ -295,6 +301,9 @@ module.exports = StyleSheet.create({
     fontWeight: '800',
     fontSize: 20,
   },
+  large: {
+    fontSize: 20,
+  },
   white: {
     color: 'white',
   },
@@ -336,5 +345,9 @@ module.exports = StyleSheet.create({
   },
   width80pct: {
     width: width * 0.8,
+  },
+  fullScreen: {
+    width,
+    height,
   },
 });

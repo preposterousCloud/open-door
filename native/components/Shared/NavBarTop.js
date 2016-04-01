@@ -3,7 +3,7 @@ import NavigationBar from 'react-native-navbar';
 import styles from '../../styles/styles.js';
 
 const NavBar = (props) => (
-  <View style={styles.navBar}>
+  <View style={styles.navBarTop}>
     <NavigationBar
       rightButton={props.rightButton}
       leftButton={props.leftButton}

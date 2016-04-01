@@ -1,13 +1,14 @@
 
 import React, { Alert, View, Text, TouchableOpacity, Image } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
-import NavBar from '../Shared/NavBar.js';
+import NavBarTop from '../Shared/NavBarTop.js';
 import { BackgroundImage } from '../Shared/BackgroundImage.js';
 import EditUser from './EditUser';
 import { navToFull } from '../Shared/NavHelpers';
 import { centerContainerNoMargin, profileLineContainer, topBuffer,
   stackVertical, center, white, bold } from '../../styles/styles.js';
-import { backButton, editButton } from '../Shared/Buttons';
+import { backButton, editButton, exitButton } from '../Shared/Buttons';
+import NavigationBar from 'react-native-navbar';
 
 import CirclePic from '../Shared/CirclePic';
 const actions = require('../../sharedNative/actions/actions');
@@ -43,10 +44,11 @@ const Profile = (props) => {
   const logout = () => store.dispatch(actions.logout());
   return (
       <BackgroundImage source={require('../../static/bgLibrary/everything.png')}>
-        <NavBar
-          title={ 'Profile' }
-          leftButton={backButton}
+        <NavBarTop
+          title={{ title: 'Profile' }}
+          leftButton={exitButton}
           rightButton={editButton(EditUser, props.user, updateUser)}
+          tintColor={ 'transparent' }
         />
         <View style={centerContainerNoMargin}>
           <CirclePic size={200} source={ { uri: props.user.profilePictureUri }} />

@@ -1,11 +1,12 @@
 import React, { View, Text, TouchableOpacity, NativeModules } from 'react-native';
+import NavigationBar from 'react-native-navbar';
 import { store } from '../../sharedNative/reducers/reducers.js';
-import NavBar from '../Shared/NavBar.js';
 import styles from '../../styles/styles.js';
 import { cancelButtonNav } from '../Shared/Buttons';
 import { navToFull } from '../Shared/NavHelpers';
 const CameraRollView = require('../Camera/CameraRollView');
 const actions = require('../../sharedNative/actions/actions');
+import { BackgroundImage } from '../Shared/BackgroundImage.js';
 
 const SelectProfilePic = class SelectProfilePic extends React.Component {
   constructor(props) {
@@ -19,15 +20,24 @@ const SelectProfilePic = class SelectProfilePic extends React.Component {
     });
   }
   render() {
+    const backgroundImageSource = require('../../static/bgLibrary/beigeblue.png');
     return (
       <View>
-        <NavBar title={'Select Picture'} leftButton={cancelButtonNav} />
+      <BackgroundImage source={backgroundImageSource} event blur={'light'}>
+        <NavigationBar
+          tintColor={ 'transparent' }
+          title={{ title: 'SELECT A PICTURE' }}
+          leftButton={cancelButtonNav}
+        />
+        <View style={{ paddingLeft: 4, paddingRight: 8 }} >
         <CameraRollView
           batchSize={20}
           groupTypes ={'All'}
           imagesPerRow={3}
           onPress={ this.onPhotoSelection }
         />
+        </View>
+        </BackgroundImage>
       </View>
     );
   }
