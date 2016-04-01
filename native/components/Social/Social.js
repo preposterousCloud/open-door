@@ -15,7 +15,7 @@ const groupsNav = () => {
 const Social = (props) => {
   const rightNavButton = (
       <TouchableOpacity onPress={props.swipeRight}>
-        <RightArrow style={{ size: 40, color: 'darkblue' }} />
+        <RightArrow style={{ size: 40, color: 'white' }} />
       </TouchableOpacity>
     );
   const showFriends = () => {
