@@ -40,7 +40,7 @@ class EventDetail extends React.Component {
       if (this.state) {
         this.setState({ event });
       }
-    });
+    })
   }
   getInvitedGroups(event) {
     return event.Groups.length ?
@@ -101,7 +101,7 @@ class EventDetail extends React.Component {
             <Text style = {styles.locTextHeader }>Where</Text>
           </View>
           <View style={styles.eventDetailBoxes}>
-            <Text style = {styles.vibeText }>{this.state.event.vibe}</Text>
+            <Text style = {styles.vibeText }>{vibes[this.props.event.vibe].name}</Text>
             <Text style = {styles.locText }>{this.state.event.location}</Text>
           </View>
         </View>

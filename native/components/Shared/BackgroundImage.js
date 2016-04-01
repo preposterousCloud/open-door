@@ -3,7 +3,6 @@ const { BlurView, VibrancyView } = require('react-native-blur');
 
 export const BackgroundImage = ({ source, children, style, ...props, blur }) => {
   source = source || require('../../static/bg.jpg')
-  console.log(blur)
   return blur ? (
     <Image
       source={source}
