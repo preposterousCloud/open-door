@@ -1,6 +1,6 @@
 import React, { TouchableOpacity } from 'react-native';
 import { popScene, navTo, navToFull } from './NavHelpers.js';
-import { XIcon, Plus } from './Icons';
+import { XIcon, Plus, Edit } from './Icons';
 
 const exitButton = (
   <TouchableOpacity onPress={popScene}>
@@ -24,14 +24,16 @@ const enterButton = (component, focus) => (
   </TouchableOpacity>
 );
 
-const editButton = (component, user, onSubmit) => ({
-  title: 'Edit',
-  handler: navToFull.bind(null, {
+const editButton = (component, user, onSubmit) => (
+  <TouchableOpacity onPress={ navToFull.bind(null, {
     component,
     user,
     onSubmit,
-  }),
-});
+  })}
+  >
+    <Edit style={{ size: 20, color: 'white' }} />
+  </TouchableOpacity>
+);
 
 const cancelButton = {
   text: 'Cancel',
