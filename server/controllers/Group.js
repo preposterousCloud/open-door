@@ -14,6 +14,7 @@ const _mapGroup = (group) => {
       return {
         id: member.id,
         userName: member.userName,
+        profilePictureUri: member.profilePictureUri,
       };
     })),
   };

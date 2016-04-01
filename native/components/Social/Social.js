@@ -4,6 +4,7 @@ import NavBar from '../Shared/NavBar.js';
 import Groups from './Groups/Groups.js';
 import Friends from './Friends/Friends.js';
 import styles from '../../styles/styles.js';
+import { RightArrow, PersonAddOutline, GroupsOutline } from '../Shared/Icons';
 
 const groupsNav = () => {
   store.getState().navigation.navigator.push({
@@ -12,10 +13,11 @@ const groupsNav = () => {
 };
 
 const Social = (props) => {
-  const rightNavButton = {
-    title: '>',
-    handler: props.swipeRight,
-  };
+  const rightNavButton = (
+      <TouchableOpacity onPress={props.swipeRight}>
+        <RightArrow style={{ size: 40, color: 'white', alignSelf: 'flex-start' }} />
+      </TouchableOpacity>
+    );
   const showFriends = () => {
     store.getState().navigation.navigator.push({
       component: Friends,
@@ -34,13 +36,15 @@ const Social = (props) => {
           onPress={showFriends}
           style={styles.socialF}
         >
-          <Text>FRIENDS</Text>
+          <PersonAddOutline style={{ size: 60, color: 'white' }} />
+          <Text style={styles.socialText}>FRIENDS</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={groupsNav}
           style={styles.socialG}
         >
-          <Text>GROUPS</Text>
+          <GroupsOutline style={{ size: 60, color: 'white' }} />
+          <Text style={styles.socialText}>GROUPS</Text>
         </TouchableOpacity>
       </View>
       <NavBar

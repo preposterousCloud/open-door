@@ -2,6 +2,7 @@ import React, { Text, TouchableOpacity, View, Alert } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { Button } from '../Shared/Button';
+import { BackgroundImage } from '../Shared/BackgroundImage.js';
 import { backButton, cancelButtonNav, cancelButton } from '../Shared/Buttons.js';
 import { navToFull, popScene } from '../Shared/NavHelpers.js';
 import { getTruthies } from '../Shared/HelperFunctions.js';
@@ -138,24 +139,51 @@ class EditEvent extends React.Component {
     const updateEventName = name => updateLocalEvent({ name });
     const updateEventLocation = location => updateLocalEvent({ location });
     const changeVibe = vibe => updateLocalEvent({ vibe });
+    const defaultEventPictureSource = require('../../static/bgLibrary/everycolor.png');
+    console.log('imageObj', this.state.event.imageObj);
+    let backgroundImageSource = defaultEventPictureSource;
+    if (this.state.event) {
+      if (this.state.event.imageObj) {
+        backgroundImageSource = { uri: this.state.event.imageObj.imageObj.node.image.uri};
+      } else if (this.state.event.eventPictureUri) {
+        backgroundImageSource = { uri: this.state.event.eventPictureUri };
+      }
+    }
     return this.state.event ? (
-      <View>
-        <NavBar title={'Edit Event'} leftButton={cancelButtonNav}
-          rightButton={{ title: 'Save', handler: submitEvent }}
-        />
-        <StyledTextInput onChangeText={updateEventName} placeholder={this.state.event.name} />
-        <StyledTextInput onChangeText={updateEventLocation} placeholder={this.state.event.location} />
-        <VibePicker changeVibe={changeVibe} initialVibe={this.state.event.vibe} />
-        <TouchableOpacity onPress={this.navToFriends} style={styles.categoryButton} >
-          <Text>FRIENDS</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={this.navToGroups} style={styles.categoryButton} >
-          <Text>GROUPS</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={this.navToEventPhoto} style={styles.categoryButton} >
-          <Text>SET PHOTO</Text>
-        </TouchableOpacity>
-      </View>
+      <BackgroundImage source={backgroundImageSource} event blur={'light'}>
+        <View style={[styles.container, { backgroundColor: '#0008', height: 800 }]}>
+          <View style={styles.feedHeader}>
+            <Text style={styles.feedText}> EDIT EVENT</Text>
+          </View>
+          <View style={styles.centerContainerNoMargin}>
+            <StyledTextInput onChangeText={updateEventName} placeholder={this.state.event.name} />
+            <StyledTextInput onChangeText={updateEventLocation} placeholder={this.state.event.location} />
+            <View style={[styles.vibePicker]}>
+              <VibePicker changeVibe={changeVibe} initialVibe={this.state.event.vibe} />
+            </View>
+            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
+              <TouchableOpacity onPress={this.navToFriends} >
+                <Text style={[styles.white, styles.large]}>friends</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
+              <TouchableOpacity onPress={this.navToGroups} >
+                <Text style={[styles.white, styles.large]}>groups</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
+              <TouchableOpacity onPress={this.navToEventPhoto} >
+                <Text style={[styles.white, styles.large]}>photo</Text>
+              </TouchableOpacity>
+            </View>
+            
+          </View>
+          <NavBar  
+            leftButton={cancelButtonNav}
+            rightButton={{ title: 'Save', handler: submitEvent }}
+          />
+        </View>
+      </BackgroundImage>
     ) : null;
   }
 }

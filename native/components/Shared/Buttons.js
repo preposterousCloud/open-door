@@ -1,9 +1,12 @@
+import React, { TouchableOpacity } from 'react-native';
 import { popScene, navTo, navToFull } from './NavHelpers.js';
+import { XIcon, Plus, Edit } from './Icons';
 
-const exitButton = {
-  title: 'X',
-  handler: popScene,
-};
+const exitButton = (
+  <TouchableOpacity onPress={popScene}>
+    <XIcon style={{ size: 40, color: 'white' }} />
+  </TouchableOpacity>
+);
 
 const backButton = {
   title: 'Back',
@@ -15,19 +18,22 @@ const cancelButtonNav = {
   handler: popScene,
 };
 
-const enterButton = (component, focus) => ({
-  title: '+',
-  handler: navTo.bind(null, component, focus),
-});
+const enterButton = (component, focus) => (
+  <TouchableOpacity onPress={ navTo.bind(null, component, focus) }>
+    <Plus style={{ size: 40, color: 'white' }} />
+  </TouchableOpacity>
+);
 
-const editButton = (component, user, onSubmit) => ({
-  title: 'Edit',
-  handler: navToFull.bind(null, {
+const editButton = (component, user, onSubmit) => (
+  <TouchableOpacity onPress={ navToFull.bind(null, {
     component,
     user,
     onSubmit,
-  }),
-});
+  })}
+  >
+    <Edit style={{ size: 20, color: 'white' }} />
+  </TouchableOpacity>
+);
 
 const cancelButton = {
   text: 'Cancel',

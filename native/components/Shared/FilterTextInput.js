@@ -4,6 +4,11 @@ import { setFilterText, clearFilterText } from '../../sharedNative/actions/actio
 import styles from '../../styles/styles.js';
 
 class FilterTextInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { focused: false };
+  }
+
   componentDidMount() {
     store.dispatch(clearFilterText());
   }
@@ -13,14 +18,17 @@ class FilterTextInput extends React.Component {
   }
 
   render() {
+    const borderBottomColor = this.state.focused ? '#FFF' : '#AAA';
     return (
-      <View>
+      <View style={[styles.underlined, { borderBottomColor }]}>
         <TextInput
           autoCapitalize={'none'}
           autoCorrect={false}
           maxLength={16}
           placeholder={'userName'}
           style={styles.userInput}
+          onFocus={() => this.setState({ focused: true })}
+          onBlur={() => this.setState({ focused: false })}
           returnKeyType={'go'}
           onChangeText={this.filterUsers}
         />

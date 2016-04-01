@@ -18,7 +18,7 @@ ClosedDoor.propTypes = {
 };
 
 export const SettingsGear = (props) => (
-  <Icon name="gear-a" size={props.style.size} color={props.style.color} />
+  <Icon name="ios-gear-outline" size={props.style.size} color={props.style.color} />
 );
 
 SettingsGear.propTypes = {
@@ -34,9 +34,98 @@ List.propTypes = {
 };
 
 export const LeftArrow = (props) => (
-  <Icon name="android-arrow-back" size={props.style.size} color={props.style.color} />
+  <Icon name="ios-arrow-thin-left" size={props.style.size} color={props.style.color} />
 );
 
 LeftArrow.propTypes = {
   style: React.PropTypes.object.isRequired,
 };
+
+export const RightArrow = (props) => (
+  <Icon name="ios-arrow-thin-right" size={props.style.size} color={props.style.color} />
+);
+
+RightArrow.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+export const XIcon = (props) => (
+  <Icon name="ios-close-empty"
+    size={props.style.size}
+    color={props.style.color}
+  />
+);
+
+XIcon.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+export const Plus = (props) => (
+  <Icon name="ios-plus-empty" size={props.style.size} color={props.style.color} />
+);
+
+Plus.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+export const PersonAdd = (props) => (
+  <Icon name="ios-personadd"
+    size={props.style.size}
+    color={props.style.color}
+  />
+);
+
+PersonAdd.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+export const PersonAddOutline = (props) => (
+  <Icon name="ios-personadd-outline" size={props.style.size} color={props.style.color} style={{ marginTop: 30 }}/>
+);
+
+PersonAddOutline.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+export const GroupsOutline = (props) => (
+  <Icon name="ios-people-outline" size={props.style.size} color={props.style.color} style={{ marginTop: 30 }}/>
+);
+
+GroupsOutline.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+export const Edit = (props) => (
+  <Icon name="edit"
+    size={props.style.size}
+    color={props.style.color}
+  />
+);
+
+Edit.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+export const Person = (props) => (
+ <Icon name="ios-person-outline"
+   size={props.style.size}
+   color={props.style.color}
+ />
+);
+
+Person.propTypes = {
+ style: React.PropTypes.object.isRequired,
+};
+
+export const People = (props) => (
+ <Icon name="ios-people-outline"
+   size={props.style.size}
+   color={props.style.color}
+   style={{paddingBottom: 100}}
+ />
+);
+
+People.propTypes = {
+ style: React.PropTypes.object.isRequired,
+};
+

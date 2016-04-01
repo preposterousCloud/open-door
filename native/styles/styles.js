@@ -16,6 +16,11 @@ module.exports = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  eventDetailComponent: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
   imageContainer: {
     flex: 1,
   },
@@ -27,6 +32,7 @@ module.exports = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     margin: 20,
+    marginTop: 0,
   },
   centerContainerNoMargin: {
     flex: 1,
@@ -37,6 +43,18 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
+  setDoorContainer: {
+    borderColor: '#FFF3',
+    borderWidth: 1,
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: 200,
+    marginBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 4,
+    backgroundColor: '#0002',
+  },
   // Nav
   tabBar: {
     borderTopWidth: 3,
@@ -45,6 +63,13 @@ module.exports = StyleSheet.create({
   },
   navBar: {
     backgroundColor: 'transparent',
+    margin: 20,
+  },
+  navBarTop: {
+    backgroundColor: 'transparent',
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 20,
   },
   feedNavBar: {
     height: height / 10,
@@ -54,6 +79,7 @@ module.exports = StyleSheet.create({
     backgroundColor: 'transparent',
     height: 620,
   },
+  // Feed Specific
   feedListRow: {
     paddingTop: 15,
     paddingBottom: 15,
@@ -71,6 +97,63 @@ module.exports = StyleSheet.create({
     flex: 2,
     alignItems: 'center',
     marginRight: 50,
+  },
+  feedHeader: {
+    justifyContent: 'flex-end',
+  },
+  feedText: {
+    flex: 1,
+    flexDirection: 'column',
+    textAlign: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: 50,
+    top: 30,
+    fontSize: 24,
+    fontFamily: 'DroidSans',
+    color: '#FFF4',
+  },
+  eventDetailContainer: {
+    borderBottomWidth: 1,
+    borderColor: '#FFF4',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  eventDetailBoxes: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  vibeTextHeader: {
+    fontFamily: 'DroidSans-Bold',
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  locTextHeader: {
+    fontFamily: 'DroidSans-Bold',
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  vibeText: {
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  locText: {
+    flex: 1,
+    flexDirection: 'row',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  feedDetailInvitees: {
+    paddingTop: 20,
+    paddingBottom: 200,
+    alignItems: 'center',
   },
   listEntryView: {
     flexDirection: 'row',
@@ -106,20 +189,6 @@ module.exports = StyleSheet.create({
     color: '#023242',
     justifyContent: 'space-between',
   },
-  feedHeader: {
-    justifyContent: 'flex-end',
-  },
-  feedText: {
-    flex: 1,
-    flexDirection: 'column',
-    textAlign: 'center',
-    justifyContent: 'flex-end',
-    marginBottom: 50,
-    top: 30,
-    fontSize: 24,
-    fontFamily: 'DroidSans',
-    color: '#FFF4',
-  },
   standardText: {
     color: '#FFF',
     fontFamily: 'DroidSans',
@@ -146,7 +215,7 @@ module.exports = StyleSheet.create({
     color: 'white',
   },
   underlined: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: 'white',
   },
   checkboxEmpty: {
@@ -165,18 +234,23 @@ module.exports = StyleSheet.create({
   // Buttons
   socialF: {
     justifyContent: 'center',
-    flexDirection: 'row',
-    padding: 50,
+    flex: 1,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#DDD3',
+    alignItems: 'center',
   },
   socialG: {
     justifyContent: 'center',
-    flexDirection: 'row',
-    padding: 50,
+    flex: 1,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#DDD3',
+    alignItems: 'center',
+  },
+  socialText: {
+    fontFamily: 'DroidSans',
+    color: '#FFFB',
+    fontSize: 25,
   },
   categoryButton: {
     justifyContent: 'center',
@@ -187,7 +261,6 @@ module.exports = StyleSheet.create({
     borderColor: '#DDD',
   },
   feedNav: {
-    backgroundColor: 'green',
     height: 40,
     width: 40,
     alignItems: 'stretch',
@@ -200,6 +273,13 @@ module.exports = StyleSheet.create({
   },
   navButtonMargin: {
     marginHorizontal: 20,
+  },
+  // Door-Specific
+  noHost: {
+    textAlign: 'center',
+    color: '#FFF3',
+    bottom: 175,
+    fontSize: 17,
   },
   // Profile and Group Pic
   profilePic: {
@@ -251,6 +331,9 @@ module.exports = StyleSheet.create({
     fontWeight: '800',
     fontSize: 20,
   },
+  large: {
+    fontSize: 20,
+  },
   white: {
     color: 'white',
   },
@@ -289,5 +372,12 @@ module.exports = StyleSheet.create({
   },
   vibePicker: {
     width,
+  },
+  width80pct: {
+    width: width * 0.8,
+  },
+  fullScreen: {
+    width,
+    height,
   },
 });

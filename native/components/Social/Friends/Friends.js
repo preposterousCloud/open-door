@@ -11,8 +11,8 @@ import CirclePic from '../../Shared/CirclePic';
 import { exitButton, enterButton } from '../../Shared/Buttons';
 import styles from '../../../styles/styles';
 import { BackgroundImage } from '../../Shared/BackgroundImage';
-import NavigationBar from 'react-native-navbar';
 import Swipeout from 'react-native-swipeout';
+import { UserRow } from '../../Shared/UserRow';
 
 const FriendListRow = (props) => {
   const removeFriendButton = [{
@@ -21,26 +21,15 @@ const FriendListRow = (props) => {
   }];
   return (
     <Swipeout right={removeFriendButton} backgroundColor={'transparent'}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
-        <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-          <CirclePic source={{ uri: props.profilePictureUri }}
-            size={40}
-          />
-        </View>
-        <View style={{ flexDirection: 'column', flex: 4, alignItems: 'flex-start' }}>
-          <Text style={styles.mediumText}>{props.userName}</Text>
-          <Text style={styles.mediumText}>{props.userName}</Text>
-        </View>
-      </View>
+      <UserRow {...props} />
     </Swipeout>
   );
 };
+
 FriendListRow.propTypes = { user: React.PropTypes.object };
 
 const Friends = (props) => {
   const respondToReq = (target) => {
-    const userReqIds = store.getState().pendingRequests.sent.map(user => user.id);
-    const userReqs = store.getState().pendingRequests;
     Alert.alert(`How do you wanna respond to ${target.userName}?`, '', [
       { text: 'Reject',
         onPress: () => store.dispatch(rejectFriend(target.id)),
@@ -55,15 +44,20 @@ const Friends = (props) => {
   const logUser = (user) => {
     console.log(`You clicked on ${user.userName}, id:${user.id}. Req: `, store.getState());
   };
-  const reqIds = store.getState().pendingRequests.received.map(user => user.id);
-  const reqNames = store.getState().pendingRequests.received.map(user => user.userName);
 
+  const FriendRequestRow = (props) => {
+    return (
+      <TouchableOpacity onPress={respondToReq.bind(null, props)}>
+        <UserRow {...props} />
+      </TouchableOpacity>
+    );
+  };
   const FriendsListContainer = makeListContainer(
     FriendListRow,
     ['user', 'friends']
   );
   const FriendRequestsContainer = makeListContainer(
-    makeClickableRow(respondToReq, reqNames, reqIds, 'blue'),
+    FriendRequestRow,
     ['pendingRequests', 'received']
   );
   const requestCount = store.getState().pendingRequests.received.length;
@@ -89,11 +83,10 @@ const Friends = (props) => {
             </View>
           </ScrollableTabView>
         </View>
-      <NavigationBar
+      <NavBar
         leftButton={exitButton}
         rightButton={enterButton(AddFriends, props.user)}
         tintColor={ 'transparent' }
-        style={styles.feedNavBar}
       />
       </View>
     </BackgroundImage>
