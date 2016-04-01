@@ -6,6 +6,7 @@ import { cancelButtonNav } from '../Shared/Buttons';
 import { navToFull } from '../Shared/NavHelpers';
 const CameraRollView = require('../Camera/CameraRollView');
 const actions = require('../../sharedNative/actions/actions');
+import { BackgroundImage } from '../Shared/BackgroundImage.js';
 
 const SelectProfilePic = class SelectProfilePic extends React.Component {
   constructor(props) {
@@ -19,11 +20,13 @@ const SelectProfilePic = class SelectProfilePic extends React.Component {
     });
   }
   render() {
+    const backgroundImageSource = require('../../static/bgLibrary/beigeblue.png');
     return (
       <View>
+      <BackgroundImage source={backgroundImageSource} event blur={'light'}>
         <NavigationBar
           tintColor={ 'transparent' }
-          title={{ title: 'Edit Profile' }}
+          title={{ title: 'SELECT A PICTURE' }}
           leftButton={cancelButtonNav}
         />
         <CameraRollView
@@ -32,6 +35,7 @@ const SelectProfilePic = class SelectProfilePic extends React.Component {
           imagesPerRow={3}
           onPress={ this.onPhotoSelection }
         />
+        </BackgroundImage>
       </View>
     );
   }
