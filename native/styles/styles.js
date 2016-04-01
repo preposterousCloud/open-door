@@ -43,6 +43,10 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
+  setDoorContainer: {
+    borderColor: '#FFF3',
+    borderWidth: 1,
+  },
   // Nav
   tabBar: {
     borderTopWidth: 3,

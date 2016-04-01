@@ -88,10 +88,10 @@ const SetDoor = class SetDoor extends React.Component {
             {(() => (!this.props.currentEvent) ?
               <Text>You aren't hosting an event right now</Text> :
               (<View>
-                <EventDetail imageShowing event={this.props.currentEvent} />
-                <TouchableOpacity onPress={navToEditEvent} >
+                <TouchableOpacity onPress={navToEditEvent} style={styles.setDoorContainer}>
                   <Text style={styles.standardText}>Edit Event</Text>
                 </TouchableOpacity>
+                <EventDetail imageShowing event={this.props.currentEvent} />
               </View>)
             )()}
           </View>
