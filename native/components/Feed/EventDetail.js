@@ -93,6 +93,7 @@ class EventDetail extends React.Component {
           source={{ uri: this.props.event.eventPictureUri }}
           children={null}
           style={styles.eventDetailBg}
+          blur={'dark'}
         >
         <View style={styles.eventDetailContainer}>
           <View style={styles.eventDetailBoxes}>

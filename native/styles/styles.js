@@ -127,7 +127,7 @@ module.exports = StyleSheet.create({
   },
   feedDetailInvitees: {
     paddingTop: 20,
-    paddingBottom: 20,
+    paddingBottom: 200,
     alignItems: 'center',
   },
   ////----------------
