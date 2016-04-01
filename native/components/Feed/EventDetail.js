@@ -88,7 +88,7 @@ class EventDetail extends React.Component {
   }
   generateEventDetails() {
     return (
-      <View style={[this.swiperItemStyles]}>
+      <View key={Math.random()} style={[this.swiperItemStyles]}>
         <BackgroundImage
           source={{ uri: this.props.event.eventPictureUri }}
           children={null}
@@ -134,7 +134,7 @@ class EventDetail extends React.Component {
       }
     }
     return (
-      <View style={[this.swiperItemStyles]}>
+      <View key={Math.random()} style={[this.swiperItemStyles]}>
         <Image
           source={ eventPictureSource }
           style={{ width, height: 275 }}
