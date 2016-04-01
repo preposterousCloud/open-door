@@ -36,7 +36,7 @@ const FeedListRow = (event) => {
       content={content}
       easing="easeOutCubic"
       animationDuration={600}
-      underlayColor="#2AE"
+      underlayColor="#0002"
     />
   );
 };

@@ -3,6 +3,7 @@ import styles from '../../styles/styles.js';
 import Accordion from 'react-native-accordion';
 import * as api from '../../sharedNative/utils/api.js';
 import { store } from '../../sharedNative/reducers/reducers.js';
+import { BackgroundImage } from '../Shared/BackgroundImage';
 import vibes from '../Door/vibes.js';
 import CirclePic from '../Shared/CirclePic';
 import Swiper from 'react-native-swiper';
@@ -20,11 +21,11 @@ class EventDetail extends React.Component {
     this.contactMapper = store.getState().contactMap;
     this.defaultMargin = 10;
     this.swiperItemStyles = {
-      marginHorizontal: this.defaultMargin,
+      marginHorizontal: 0,
       marginTop: 0,
       flexDirection: 'column',
       flex: 1,
-      height: 200,
+      height: 275,
     };
   }
   componentDidMount() {
@@ -44,12 +45,12 @@ class EventDetail extends React.Component {
   getInvitedGroups(event) {
     return event.Groups.length ?
       event.Groups.map(group => group.name).join(', ') :
-      'None';
+      '';
   }
   getInvitedUsers(event) {
     return event.Users.length ?
       event.Users.map(user => this.contactMapper[user.id] || user.userName).join(', ') :
-      'None';
+      '';
   }
   getInvitedGroupPics(event) {
     return event.Groups.length ?
@@ -66,7 +67,7 @@ class EventDetail extends React.Component {
         })}
        </View>
       ) :
-      <Text> None </Text>;
+      null;
   }
   getInvitedUserPics(event) {
     return event.Users.length ?
@@ -83,17 +84,38 @@ class EventDetail extends React.Component {
         })}
        </View>
       ) :
-      <Text> None </Text>;
+      null;
   }
   generateEventDetails() {
     return (
       <View style={[this.swiperItemStyles]}>
-        <Text style = {styles.standardText }>Users Invited:</Text>
-        {this.getInvitedUserPics(this.state.event)}
-        <Text style = {styles.standardText }>Groups Invited:</Text>
-        {this.getInvitedGroupPics(this.state.event)}
-        <Text style = {styles.standardText }>Vibe: {this.state.event.vibe}</Text>
-        <Text style = {styles.standardText }>Where: {this.state.event.location}</Text>
+        <BackgroundImage
+          source={{ uri: this.props.event.eventPictureUri }}
+          children={null}
+          style={styles.eventDetailBg}
+          blur={'dark'}
+        >
+          <View style={styles.eventDetailContainer}>
+            <View style={styles.eventDetailBoxes}>
+              <Text style = {styles.vibeTextHeader }>Vibe</Text>
+              <Text style = {styles.locTextHeader }>Where</Text>
+            </View>
+            <View style={styles.eventDetailBoxes}>
+              <Text style = {styles.vibeText }>{vibes[this.props.event.vibe || 'kick'].name}</Text>
+              <Text style = {styles.locText }>{this.props.event.location}</Text>
+            </View>
+          </View>
+          <View style={styles.feedDetailInvitees}>
+            <Text style = {styles.standardText}>
+              {(this.props.event && this.props.event.Users && this.props.event.Users.length) ? 'Users Invited' : ''}
+            </Text>
+              {this.getInvitedUserPics(this.state.event)}
+            <Text style = {styles.standardText }>
+              {(this.props.event && this.props.event.Groups && this.props.event.Groups.length) ? 'Groups Invited' : ''}
+            </Text>
+              {this.getInvitedGroupPics(this.state.event)}
+          </View>
+        </BackgroundImage>
       </View>
     );
   }
@@ -115,7 +137,7 @@ class EventDetail extends React.Component {
       <View style={[this.swiperItemStyles]}>
         <Image
           source={ eventPictureSource }
-          style={{ width: width - (2 * this.defaultMargin), height: 200 }}
+          style={{ width, height: 275 }}
         />
       </View>
     );
@@ -129,7 +151,7 @@ class EventDetail extends React.Component {
       swipesToRender = [this.generateEventDetails(), photoViews];
     }
     return (
-      <Swiper style={styles.wrapper} height={200}>
+      <Swiper style={styles.wrapper} height={275} loop={false}>
         {swipesToRender}
       </Swiper>
     );

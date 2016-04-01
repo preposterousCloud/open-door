@@ -19,7 +19,7 @@ const LoadingWheelContainer = connect(state => {
   };})(LoadingWheel);
 
 LoadingWheel.propTypes = {
-  style: React.PropTypes.object,
+  style: React.PropTypes.any,
   isLoading: React.PropTypes.bool,
 };
 

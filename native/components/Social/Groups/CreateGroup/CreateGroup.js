@@ -92,7 +92,7 @@ const CreateGroup = class CreateGroup extends React.Component {
           <View style={styles.feedHeader}>
             <Text style={styles.feedText}> CREATE GROUP </Text>
           </View>
-          <View style={styles.container}>
+          <View style={[styles.container, { marginHorizontal: 20 }]}>
             <CreateGroupName onUpdate={this.updateGroupName} onSubmit={this.onSubmit} />
             <CreateGroupShowFriendsListContainer />
           </View>

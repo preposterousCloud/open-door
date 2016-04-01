@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -33,6 +32,7 @@
 		B60134C9013F47798A224567 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B37CB52229A94271B3AF3593 /* Octicons.ttf */; };
 		B74A5300830146D995B0C7C5 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05F42E03FE524B0FA3DB1717 /* libRNVectorIcons.a */; };
 		BB2C819C3B7B4821BE6870C3 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0669A4016F0A44D691BA3A23 /* Entypo.ttf */; };
+		C433375A1CAE31CF00A9FDCB /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C43337581CAE30C200A9FDCB /* libRNBlur.a */; };
 		C482CE401CAB09310003F5D0 /* opendoorlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = C482CE3E1CAB09310003F5D0 /* opendoorlogo.png */; };
 		C482CE411CAB09310003F5D0 /* opendoortext.png in Resources */ = {isa = PBXBuildFile; fileRef = C482CE3F1CAB09310003F5D0 /* opendoortext.png */; };
 		C482CE431CAB0ECE0003F5D0 /* opendoorsplash.png in Resources */ = {isa = PBXBuildFile; fileRef = C482CE421CAB0ECE0003F5D0 /* opendoorsplash.png */; };
@@ -133,6 +133,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		C43337571CAE30C200A9FDCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C43337471CAE30C200A9FDCB /* RNBlur.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A68BD7BC1BC31318005F02DF;
+			remoteInfo = RNBlur;
+		};
 		C4A03D1E1CA6326D003FAC8B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D26CACDBF06044B1849E681B /* RCTContacts.xcodeproj */;
@@ -176,6 +183,7 @@
 		8AC339052560443FAF0A35B4 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		93E7248217CA4C00A539342C /* libRCTContacts.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTContacts.a; sourceTree = "<group>"; };
 		B37CB52229A94271B3AF3593 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		C43337471CAE30C200A9FDCB /* RNBlur.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNBlur.xcodeproj; path = "../node_modules/react-native-blur/ios/RNBlur.xcodeproj"; sourceTree = "<group>"; };
 		C482CE3E1CAB09310003F5D0 /* opendoorlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = opendoorlogo.png; path = opendoor/opendoorlogo.png; sourceTree = "<group>"; };
 		C482CE3F1CAB09310003F5D0 /* opendoortext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = opendoortext.png; path = opendoor/opendoortext.png; sourceTree = "<group>"; };
 		C482CE421CAB0ECE0003F5D0 /* opendoorsplash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = opendoorsplash.png; path = opendoor/opendoorsplash.png; sourceTree = "<group>"; };
@@ -210,6 +218,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				B74A5300830146D995B0C7C5 /* libRNVectorIcons.a in Frameworks */,
 				28A93B8CB64C4FB4A9D4B87A /* libRCTContacts.a in Frameworks */,
+				C433375A1CAE31CF00A9FDCB /* libRNBlur.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +350,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				C43337471CAE30C200A9FDCB /* RNBlur.xcodeproj */,
 				1EB4342A1CA9B36000716798 /* RCTCameraRoll.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -385,6 +395,14 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* opendoor.app */,
 				00E356EE1AD99517003FC87E /* opendoorTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C43337481CAE30C200A9FDCB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C43337581CAE30C200A9FDCB /* libRNBlur.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -532,6 +550,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = C43337481CAE30C200A9FDCB /* Products */;
+					ProjectRef = C43337471CAE30C200A9FDCB /* RNBlur.xcodeproj */;
+				},
+				{
 					ProductGroup = 1E7F25971C9C9390007734D1 /* Products */;
 					ProjectRef = 1097831C2EB147E9BAC2FE49 /* RNVectorIcons.xcodeproj */;
 				},
@@ -627,6 +649,13 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C43337581CAE30C200A9FDCB /* libRNBlur.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNBlur.a;
+			remoteRef = C43337571CAE30C200A9FDCB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		C4A03D1F1CA6326D003FAC8B /* libRCTContacts.a */ = {
