@@ -239,7 +239,7 @@ module.exports = StyleSheet.create({
   },
   socialText: {
     fontFamily: 'DroidSans',
-    color: '#FFF',
+    color: '#FFFB',
     fontSize: 25,
   },
   categoryButton: {
