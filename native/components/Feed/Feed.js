@@ -14,7 +14,6 @@ import NavBar from '../Shared/NavBar.js';
 import SetDoor from '../Door/SetDoor.js';
 import Social from '../Social/Social.js';
 import styles from '../../styles/styles.js';
-import { People } from '../Shared/Icons';
 
 class Feed extends React.Component {
   // componentWillReceiveProps(nextProps) {
@@ -43,15 +42,18 @@ class Feed extends React.Component {
     const rightNavButton = (
       <TouchableOpacity onPress={this.props.swipeRight}>
         <Image
-          source={ require('../../static/opendoorlogogreen.png') }
+          source={ require('../../static/opendoorlogosm.png') }
           style={styles.navIcon}
         />
       </TouchableOpacity>
     );
 
     const leftNavButton = (
-       <TouchableOpacity onPress={this.props.swipeLeft} >
-        <People style={{ size: 50, color: 'white' }} />
+       <TouchableOpacity onPress={this.props.swipeLeft}>
+        <Image
+          source={ require('../../static/socialman.png') }
+          style={styles.navIcon}
+        />
       </TouchableOpacity>
     );
 
@@ -60,12 +62,13 @@ class Feed extends React.Component {
         <View style={styles.feedHeader}>
           <Text style={styles.feedText}>YOUR {this.getTimeOfDayDescription().toUpperCase()}</Text>
         </View>
-        <View style={styles.container}>
-          <FeedList events={this.props.events} />
-        </View>
-        <NavBar
+        <FeedList events={this.props.events} />
+        <NavigationBar
+          title={{ title: '' }}
           rightButton={ rightNavButton }
           leftButton={ leftNavButton }
+          tintColor={ 'transparent' }
+          style={styles.feedNavBar}
         />
       </View>
     );

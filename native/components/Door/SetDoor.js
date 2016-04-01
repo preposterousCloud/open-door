@@ -10,7 +10,7 @@ import { navTo, navToFull } from '../Shared/NavHelpers.js';
 import ProfileContainer from '../Profile/ProfileContainer.js';
 import EditEvent from './EditEvent';
 import EventDetail from '../Feed/EventDetail.js';
-import { Person, LeftArrow } from '../Shared/Icons';
+import { SettingsGear, LeftArrow } from '../Shared/Icons';
 import styles from '../../styles/styles.js';
 import NavigationBar from 'react-native-navbar';
 
@@ -29,12 +29,12 @@ const SetDoor = class SetDoor extends React.Component {
   render() {
     const SettingsButton = (
       <TouchableOpacity onPress={goToSettings} style={styles.navButtonMargin}>
-        <Person style={{ size: 50, color: 'white' }} />
+        <SettingsGear style={{ size: 50, color: 'grey' }} />
       </TouchableOpacity>
     );
     const FeedButton = (
       <TouchableOpacity onPress={this.props.swipeLeft} style={styles.navButtonMargin}>
-        <LeftArrow style={{ size: 50, color: 'white' }} />
+        <LeftArrow style={{ size: 50, color: '#FFF' }} />
       </TouchableOpacity>
     );
     const createEvent = (event) => {
@@ -73,7 +73,7 @@ const SetDoor = class SetDoor extends React.Component {
         <View style={styles.feedHeader}>
           <Text style={styles.feedText}>YOUR DOOR</Text>
         </View>
-        <View style={styles.eventDetailComponent}>
+        <View style={styles.container}>
           <View style={styles.centerContainer}>
             <TouchableOpacity onPress={toggleDoor}>
               <Image source={doorIndicatorSource} style={{ width: 200, height: 200 }} />
@@ -88,14 +88,10 @@ const SetDoor = class SetDoor extends React.Component {
             {(() => (!this.props.currentEvent) ?
               <Text>You aren't hosting an event right now</Text> :
               (<View>
+                <EventDetail imageShowing event={this.props.currentEvent} />
                 <TouchableOpacity onPress={navToEditEvent} >
                   <Text style={styles.standardText}>Edit Event</Text>
                 </TouchableOpacity>
-                <View>
-                  <EventDetail imageShowing
-                    event={this.props.currentEvent}
-                  />
-                </View>
               </View>)
             )()}
           </View>
