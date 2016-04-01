@@ -127,12 +127,15 @@ module.exports = function User(sequelizeInstance) {
           return Promise.all([getCurrentEvent]).then((proms) => {
             user.dataValues.currentEvent = proms[0];
             user.dataValues.friends = user.dataValues.friend.map((friend) => {
-              return { id: friend.id, userName: friend.userName };
+              return { id: friend.id,
+                userName: friend.userName,
+                profilePictureUri: friend.profilePictureUri };
             });
             user.dataValues.requests = user.dataValues.request.map((friend) => {
               return {
                 id: friend.id,
                 userName: friend.userName,
+                profilePictureUri: friend.profilePictureUri,
                 sender: friend.rel_user_requested_friends.sender,
               };
             });
