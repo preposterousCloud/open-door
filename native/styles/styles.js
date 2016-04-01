@@ -54,7 +54,7 @@ module.exports = StyleSheet.create({
     backgroundColor: 'transparent',
     height: 620,
   },
-  //// Feed Specific
+  // Feed Specific
   feedListRow: {
     paddingTop: 15,
     paddingBottom: 15,
@@ -85,7 +85,7 @@ module.exports = StyleSheet.create({
     top: 30,
     fontSize: 24,
     fontFamily: 'DroidSans',
-    color: '#FFF4'
+    color: '#FFF4',
   },
   eventDetailContainer: {
     borderBottomWidth: 1,
@@ -130,7 +130,6 @@ module.exports = StyleSheet.create({
     paddingBottom: 200,
     alignItems: 'center',
   },
-  ////----------------
   listEntryView: {
     flexDirection: 'row',
     padding: 20,

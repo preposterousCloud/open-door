@@ -87,6 +87,7 @@ class EventDetail extends React.Component {
       null;
   }
   generateEventDetails() {
+    console.log('yur event:', this.props.event);
     return (
       <View style={[this.swiperItemStyles]}>
         <BackgroundImage
@@ -95,26 +96,26 @@ class EventDetail extends React.Component {
           style={styles.eventDetailBg}
           blur={'dark'}
         >
-        <View style={styles.eventDetailContainer}>
-          <View style={styles.eventDetailBoxes}>
-            <Text style = {styles.vibeTextHeader }>Vibe</Text>
-            <Text style = {styles.locTextHeader }>Where</Text>
+          <View style={styles.eventDetailContainer}>
+            <View style={styles.eventDetailBoxes}>
+              <Text style = {styles.vibeTextHeader }>Vibe</Text>
+              <Text style = {styles.locTextHeader }>Where</Text>
+            </View>
+            <View style={styles.eventDetailBoxes}>
+              <Text style = {styles.vibeText }>{vibes[this.props.event.vibe || 'kick'].name}</Text>
+              <Text style = {styles.locText }>{this.props.event.location}</Text>
+            </View>
           </View>
-          <View style={styles.eventDetailBoxes}>
-            <Text style = {styles.vibeText }>{vibes[this.props.event.vibe].name}</Text>
-            <Text style = {styles.locText }>{this.state.event.location}</Text>
+          <View style={styles.feedDetailInvitees}>
+            <Text style = {styles.standardText}>
+              {(this.props.event && this.props.event.Users && this.props.event.Users.length) ? 'Users Invited' : ''}
+            </Text>
+              {this.getInvitedUserPics(this.state.event)}
+            <Text style = {styles.standardText }>
+              {(this.props.event && this.props.event.Groups && this.props.event.Groups.length) ? 'Groups Invited' : ''}
+            </Text>
+              {this.getInvitedGroupPics(this.state.event)}
           </View>
-        </View>
-        <View style={styles.feedDetailInvitees}>
-          <Text style = {styles.standardText }>
-            {this.props.event.Users.length ? 'Users Invited' : ''}
-          </Text>
-            {this.getInvitedUserPics(this.state.event)}
-          <Text style = {styles.standardText }>
-            {this.props.event.Groups.length ? 'Groups Invited' : ''}
-          </Text>
-            {this.getInvitedGroupPics(this.state.event)}
-        </View>
         </BackgroundImage>
       </View>
     );
@@ -147,8 +148,10 @@ class EventDetail extends React.Component {
     let swipesToRender;
     if (!photoViews) {
       swipesToRender = this.generateEventDetails();
+      console.log('passed generateEventDetails 1');
     } else {
       swipesToRender = [this.generateEventDetails(), photoViews];
+      console.log('passed generateEventDetails 2');
     }
     return (
       <Swiper style={styles.wrapper} height={275} loop={false}>
