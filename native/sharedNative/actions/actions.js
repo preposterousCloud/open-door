@@ -156,11 +156,13 @@ export function sortPendingFriendRequests(user) {
           sortedReqs.sent.push({
             id: req.id,
             userName: req.userName,
+            profilePictureUri: req.profilePictureUri,
           });
         } else {
           sortedReqs.received.push({
             id: req.id,
             userName: req.userName,
+            profilePictureUri: req.profilePictureUri,
           });
         }
       });
