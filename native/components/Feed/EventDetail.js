@@ -67,7 +67,7 @@ class EventDetail extends React.Component {
         })}
        </View>
       ) :
-      <Text></Text>;
+      null;
   }
   getInvitedUserPics(event) {
     return event.Users.length ?
@@ -84,7 +84,7 @@ class EventDetail extends React.Component {
         })}
        </View>
       ) :
-      <Text> None </Text>;
+      null;
   }
   generateEventDetails() {
     return (
@@ -106,12 +106,14 @@ class EventDetail extends React.Component {
           </View>
         </View>
         <View style={styles.feedDetailInvitees}>
-          <Text style = {styles.standardText }>Users Invited</Text>
-          {this.getInvitedUserPics(this.state.event)}
           <Text style = {styles.standardText }>
-          {this.props.event.Groups.length ? 'Groups Invited' : ''}
+            {this.props.event.Users.length ? 'Users Invited' : ''}
           </Text>
-          {this.getInvitedGroupPics(this.state.event)}
+            {this.getInvitedUserPics(this.state.event)}
+          <Text style = {styles.standardText }>
+            {this.props.event.Groups.length ? 'Groups Invited' : ''}
+          </Text>
+            {this.getInvitedGroupPics(this.state.event)}
         </View>
         </BackgroundImage>
       </View>

@@ -165,20 +165,6 @@ module.exports = StyleSheet.create({
     color: '#023242',
     justifyContent: 'space-between',
   },
-  feedHeader: {
-    justifyContent: 'flex-end',
-  },
-  feedText: {
-    flex: 1,
-    flexDirection: 'column',
-    textAlign: 'center',
-    justifyContent: 'flex-end',
-    marginBottom: 50,
-    top: 30,
-    fontSize: 24,
-    fontFamily: 'DroidSans',
-    color: '#FFF4',
-  },
   standardText: {
     color: '#FFF',
     fontFamily: 'DroidSans',
