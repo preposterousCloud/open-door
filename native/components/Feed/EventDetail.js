@@ -3,6 +3,7 @@ import styles from '../../styles/styles.js';
 import Accordion from 'react-native-accordion';
 import * as api from '../../sharedNative/utils/api.js';
 import { store } from '../../sharedNative/reducers/reducers.js';
+import { BackgroundImage } from '../Shared/BackgroundImage'
 import vibes from '../Door/vibes.js';
 import CirclePic from '../Shared/CirclePic';
 import Swiper from 'react-native-swiper';
@@ -20,11 +21,11 @@ class EventDetail extends React.Component {
     this.contactMapper = store.getState().contactMap;
     this.defaultMargin = 10;
     this.swiperItemStyles = {
-      marginHorizontal: this.defaultMargin,
+      marginHorizontal: 0,
       marginTop: 0,
       flexDirection: 'column',
       flex: 1,
-      height: 200,
+      height: 275,
     };
   }
   componentDidMount() {
@@ -88,6 +89,11 @@ class EventDetail extends React.Component {
   generateEventDetails() {
     return (
       <View style={[this.swiperItemStyles]}>
+        <BackgroundImage
+          source={{ uri: this.props.event.eventPictureUri }}
+          children={null}
+          style={styles.eventDetailBg}
+        >
         <View style={styles.eventDetailContainer}>
           <View style={styles.eventDetailBoxes}>
             <Text style = {styles.vibeTextHeader }>Vibe</Text>
@@ -104,6 +110,7 @@ class EventDetail extends React.Component {
           <Text style = {styles.standardText }>Groups Invited</Text>
           {this.getInvitedGroupPics(this.state.event)}
         </View>
+        </BackgroundImage>
       </View>
     );
   }
@@ -125,7 +132,7 @@ class EventDetail extends React.Component {
       <View style={[this.swiperItemStyles]}>
         <Image
           source={ eventPictureSource }
-          style={{ width: width - (2 * this.defaultMargin), height: 200 }}
+          style={{ width, height: 275 }}
         />
       </View>
     );
@@ -138,8 +145,9 @@ class EventDetail extends React.Component {
     } else {
       swipesToRender = [this.generateEventDetails(), photoViews];
     }
+    console.log(this.props)
     return (
-      <Swiper style={styles.wrapper} height={275}>
+      <Swiper style={styles.wrapper} height={275} loop={false}>
         {swipesToRender}
       </Swiper>
     );
