@@ -31,6 +31,7 @@ const Groups = (props) => {
           title={ '' }
           leftButton={exitButton}
           rightButton={enterButton(CreateGroup)}
+          style={styles.feedNavBar}
         />
       </View>
     </BackgroundImage>

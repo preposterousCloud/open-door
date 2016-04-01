@@ -83,8 +83,8 @@ const AddMembers = class AddMembers extends React.Component {
             <AddMembersListContainer onRowClick={this.alertRequestSent} />
           </View>
           <NavBar
-            title={ '' }
             leftButton={exitButton}
+            style={styles.feedNavBar}
           />
         </View>
       </BackgroundImage>
