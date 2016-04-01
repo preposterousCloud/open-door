@@ -77,6 +77,7 @@ module.exports = StyleSheet.create({
     padding: 20,
     borderBottomWidth: 1,
     borderColor: '#DDD3',
+    backgroundColor: 'transparent',
     justifyContent: 'space-between',
   },
   greyedOutListEntryView: {
@@ -122,6 +123,11 @@ module.exports = StyleSheet.create({
   standardText: {
     color: '#FFF',
     fontFamily: 'DroidSans',
+  },
+  mediumText: {
+    color: '#FFF',
+    fontFamily: 'DroidSans',
+    fontSize: 15,
   },
   rowHeader: {
     color: '#FFF',
