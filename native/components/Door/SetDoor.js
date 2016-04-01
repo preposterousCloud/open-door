@@ -3,6 +3,7 @@ import React, {
   Text,
   TouchableOpacity,
   Image,
+  Dimensions,
   } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import actions from '../../sharedNative/actions/actions';
@@ -16,6 +17,7 @@ import NavigationBar from 'react-native-navbar';
 
 const logoGreen = require('../../static/opendoorlogogreenlg.png');
 const logoRed = require('../../static/opendoorlogoredlg.png');
+const { width, height } = Dimensions.get('window');
 
 const LoadingWheelContainer = require('../Shared/ComponentHelpers').LoadingWheelContainer;
 
@@ -67,6 +69,15 @@ const SetDoor = class SetDoor extends React.Component {
         onSubmit: updateEvent,
       });
     };
+    const doorSize = () => {
+      let heightConstant;
+      if (height >= 667) {
+        heightConstant = 4
+      } else if (height < 667) {
+        heightConstant = 6
+      }
+      return {width: height/heightConstant, height: height/heightConstant}
+    }
     const doorIndicatorSource = this.props.currentEvent ? logoGreen : logoRed;
     return (
       <View style={styles.container}>
@@ -76,7 +87,7 @@ const SetDoor = class SetDoor extends React.Component {
         <View style={styles.container}>
           <View style={styles.centerContainer}>
             <TouchableOpacity onPress={toggleDoor}>
-              <Image source={doorIndicatorSource} style={{ width: 200, height: 200 }} />
+              <Image source={doorIndicatorSource} style={doorSize()} />
             </TouchableOpacity>
           </View>
           <View>
