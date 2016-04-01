@@ -73,7 +73,7 @@ const SetDoor = class SetDoor extends React.Component {
         <View style={styles.feedHeader}>
           <Text style={styles.feedText}>YOUR DOOR</Text>
         </View>
-        <View style={styles.eventDetailComponent}>
+        <View style={styles.container}>
           <View style={styles.centerContainer}>
             <TouchableOpacity onPress={toggleDoor}>
               <Image source={doorIndicatorSource} style={{ width: 200, height: 200 }} />
@@ -88,14 +88,10 @@ const SetDoor = class SetDoor extends React.Component {
             {(() => (!this.props.currentEvent) ?
               <Text>You aren't hosting an event right now</Text> :
               (<View>
+                <EventDetail imageShowing event={this.props.currentEvent} />
                 <TouchableOpacity onPress={navToEditEvent} >
                   <Text style={styles.standardText}>Edit Event</Text>
                 </TouchableOpacity>
-                <View>
-                  <EventDetail imageShowing
-                    event={this.props.currentEvent}
-                  />
-                </View>
               </View>)
             )()}
           </View>
