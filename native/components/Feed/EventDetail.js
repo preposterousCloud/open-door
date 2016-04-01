@@ -87,7 +87,6 @@ class EventDetail extends React.Component {
       null;
   }
   generateEventDetails() {
-    console.log('yur event:', this.props.event);
     return (
       <View style={[this.swiperItemStyles]}>
         <BackgroundImage
@@ -148,10 +147,8 @@ class EventDetail extends React.Component {
     let swipesToRender;
     if (!photoViews) {
       swipesToRender = this.generateEventDetails();
-      console.log('passed generateEventDetails 1');
     } else {
       swipesToRender = [this.generateEventDetails(), photoViews];
-      console.log('passed generateEventDetails 2');
     }
     return (
       <Swiper style={styles.wrapper} height={275} loop={false}>
