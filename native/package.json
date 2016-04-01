@@ -10,6 +10,7 @@
     "react-dom": "0.14.7",
     "react-native": "0.21.0",
     "react-native-accordion": "0.2.4",
+    "react-native-blur": "^0.7.10",
     "react-native-contacts": "0.2.3",
     "react-native-navbar": "1.2.2",
     "react-native-scrollable-tab-view": "0.4.0",
