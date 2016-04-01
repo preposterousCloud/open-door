@@ -190,7 +190,7 @@ module.exports = StyleSheet.create({
     color: 'white',
   },
   underlined: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: 'white',
   },
   checkboxEmpty: {
@@ -292,6 +292,9 @@ module.exports = StyleSheet.create({
   // text
   bold: {
     fontWeight: '800',
+    fontSize: 20,
+  },
+  large: {
     fontSize: 20,
   },
   white: {
