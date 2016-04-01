@@ -55,6 +55,7 @@ class EditUser extends React.Component {
   }
   updateProfPic(image) {
     this.updateLocalUser({ image });
+    popScene();
   }
   getProfilePictureSource() {
     if (this.state.user.image && this.state.user.image.imageObj.node.image) {
