@@ -1,4 +1,4 @@
-import React, { Text, TouchableOpacity, View, Alert } from 'react-native';
+import React, { Text, TouchableOpacity, View, Alert, ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { Button } from '../Shared/Button';
@@ -68,6 +68,7 @@ class EditUser extends React.Component {
         <NavBar title={'Edit Profile'} leftButton={cancelButtonNav}
           rightButton={{ title: 'Save', handler: this.submitUser }}
         />
+        <ScrollView scrollEnabled={false} >
         <View style={styles.centerContainerNoMargin}>
           <TouchableOpacity
             onPress={() => navToFull({
@@ -82,15 +83,21 @@ class EditUser extends React.Component {
             onChangeText={this.updateUserName}
             placeholder={this.props.route.user.userName}
           />
+          <Text style={styles.white} >username</Text>
           <StyledTextInput
             onChangeText={this.updateDefaultLocation}
             placeholder={this.props.route.user.defaultLocation}
           />
-          <VibePicker
-            changeVibe={this.updateDefaultVibe}
-            initialVibe={this.props.route.user.defaultVibe}
-          />
+          <Text style={styles.white} >default location</Text>
+          <View style={styles.vibePicker}>
+            <VibePicker
+              changeVibe={this.updateDefaultVibe}
+              initialVibe={this.props.route.user.defaultVibe}
+            />
+          </View>
+          <Text style={[styles.white]} >default vibe</Text>
         </View>
+        </ScrollView>
       </BackgroundImage>
     );
   }

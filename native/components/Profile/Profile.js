@@ -12,6 +12,7 @@ import { backButton, editButton } from '../Shared/Buttons';
 import CirclePic from '../Shared/CirclePic';
 const actions = require('../../sharedNative/actions/actions');
 const profPic = require('../../sharedNative/images/dino-profile.jpeg');
+import vibes from '../Door/vibes.js';
 
 const Profile = (props) => {
   const updateUser = (user) => {
@@ -60,7 +61,11 @@ const Profile = (props) => {
           </View>
           <View style={[profileLineContainer, stackVertical, center]}>
             <Text style={[white]}>default vibe</Text>
-            <Text style={[bold, white]}>{props.user.defaultVibe || 'None'}</Text>
+            <Text style={[bold, white]}>
+              {(vibes && props.user && props.user.defaultVibe &&
+                vibes[props.user.defaultVibe] && vibes[props.user.defaultVibe].name)
+                || 'None'}
+            </Text>
           </View>
           <TouchableOpacity onPress={logout} >
             <View style={topBuffer}>
