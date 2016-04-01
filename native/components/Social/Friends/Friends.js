@@ -11,7 +11,6 @@ import CirclePic from '../../Shared/CirclePic';
 import { exitButton, enterButton } from '../../Shared/Buttons';
 import styles from '../../../styles/styles';
 import { BackgroundImage } from '../../Shared/BackgroundImage';
-import NavigationBar from 'react-native-navbar';
 import Swipeout from 'react-native-swipeout';
 import { UserRow } from '../../Shared/UserRow';
 
@@ -84,11 +83,10 @@ const Friends = (props) => {
             </View>
           </ScrollableTabView>
         </View>
-      <NavigationBar
+      <NavBar
         leftButton={exitButton}
         rightButton={enterButton(AddFriends, props.user)}
         tintColor={ 'transparent' }
-        style={styles.feedNavBar}
       />
       </View>
     </BackgroundImage>

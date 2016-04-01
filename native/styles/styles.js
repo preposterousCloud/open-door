@@ -45,6 +45,7 @@ module.exports = StyleSheet.create({
   },
   navBar: {
     backgroundColor: 'transparent',
+    margin: 20,
   },
   feedNavBar: {
     height: height / 10,

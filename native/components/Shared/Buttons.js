@@ -3,7 +3,7 @@ import { popScene, navTo, navToFull } from './NavHelpers.js';
 import { XIcon, PersonAdd } from './Icons';
 
 const exitButton = (
-  <TouchableOpacity onPress={popScene}>
+  <TouchableOpacity onPress={popScene} style={{ margin: 10 }}>
     <XIcon style={{ size: 40, color: 'white' }} />
   </TouchableOpacity>
 );
