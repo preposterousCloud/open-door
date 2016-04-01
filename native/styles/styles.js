@@ -64,8 +64,6 @@ module.exports = StyleSheet.create({
   navBar: {
     backgroundColor: 'transparent',
     margin: 20,
-    marginBottom: 0,
-    marginTop: 0,
   },
   navBarTop: {
     backgroundColor: 'transparent',
@@ -235,16 +233,16 @@ module.exports = StyleSheet.create({
   },
   // Buttons
   socialF: {
-    flex: 1,
     justifyContent: 'center',
+    flex: 1,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#DDD3',
     alignItems: 'center',
   },
   socialG: {
-    flex: 1,
     justifyContent: 'center',
+    flex: 1,
     borderBottomWidth: 1,
     borderColor: '#DDD3',
     alignItems: 'center',
