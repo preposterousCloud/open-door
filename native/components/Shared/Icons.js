@@ -113,3 +113,19 @@ export const Edit = (props) => (
 Edit.propTypes = {
   style: React.PropTypes.object.isRequired,
 };
+
+export const PersonAddOutline = (props) => (
+  <Icon name="ios-personadd-outline" size={props.style.size} color={props.style.color} style={{ marginTop: 30 }}/>
+);
+
+PersonAddOutline.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+export const GroupsOutline = (props) => (
+  <Icon name="ios-people-outline" size={props.style.size} color={props.style.color} style={{ marginTop: 30 }}/>
+);
+
+GroupsOutline.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};

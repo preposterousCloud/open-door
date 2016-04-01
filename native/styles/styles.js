@@ -16,6 +16,11 @@ module.exports = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  eventDetailComponent: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
   imageContainer: {
     flex: 1,
   },
@@ -27,6 +32,7 @@ module.exports = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     margin: 20,
+    marginTop: 0,
   },
   centerContainerNoMargin: {
     flex: 1,
@@ -36,6 +42,10 @@ module.exports = StyleSheet.create({
   scrollView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  setDoorContainer: {
+    borderColor: '#FFF3',
+    borderWidth: 1,
   },
   // Nav
   tabBar: {
@@ -216,18 +226,23 @@ module.exports = StyleSheet.create({
   // Buttons
   socialF: {
     justifyContent: 'center',
-    flexDirection: 'row',
-    padding: 50,
+    flex: 1,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#DDD3',
+    alignItems: 'center',
   },
   socialG: {
     justifyContent: 'center',
-    flexDirection: 'row',
-    padding: 50,
+    flex: 1,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#DDD3',
+    alignItems: 'center',
+  },
+  socialText: {
+    fontFamily: 'DroidSans',
+    color: '#FFFB',
+    fontSize: 25,
   },
   categoryButton: {
     justifyContent: 'center',
