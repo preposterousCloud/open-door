@@ -43,6 +43,10 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
+  setDoorContainer: {
+    borderColor: '#FFF3',
+    borderWidth: 1,
+  },
   // Nav
   tabBar: {
     borderTopWidth: 3,
@@ -232,12 +236,12 @@ module.exports = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#DDD3',
     alignItems: 'center',
   },
   socialText: {
     fontFamily: 'DroidSans',
-    color: '#FFF',
+    color: '#FFFB',
     fontSize: 25,
   },
   categoryButton: {
