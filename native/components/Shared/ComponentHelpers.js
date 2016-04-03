@@ -61,9 +61,9 @@ const makeClickableRow = (action, text, distinguished, rowStyle, swipeFunction) 
               distStyle[0] :
               styles.listEntryView}
             >
-              <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
+              <Text style={[styles.white, (distinguished && distinguished.indexOf(rowData.id) >= 0 ?
               distStyle[1] :
-              null}
+              null)]}
               >
                 {rowData.userName ? (contactMapper[rowData.id] || rowData.userName) : rowData[text]}
               </Text>

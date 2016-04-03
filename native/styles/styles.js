@@ -289,7 +289,7 @@ module.exports = StyleSheet.create({
     flex: 1,
   },
   feedEventHostPic: {
-    marginLeft: 40,
+    marginLeft: 10,
     alignSelf: 'flex-start',
   },
   inviteeBubbles: {

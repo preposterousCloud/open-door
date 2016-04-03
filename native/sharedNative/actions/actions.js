@@ -365,7 +365,10 @@ export const confirmFriend = (toId) => {
     .then(response => {
       return response;
     })
-    .then(() => dispatch(refreshUser()))
+    .then(() => {
+      dispatch(refreshUser());
+      dispatch(getUserEvents());
+    })
     .catch(catchErr);
   };
 };

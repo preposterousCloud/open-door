@@ -74,7 +74,7 @@ const SetDoor = class SetDoor extends React.Component {
       if (height >= 667) {
         heightConstant = 4
       } else if (height < 667) {
-        heightConstant = 6
+        heightConstant = 8
       }
       return {width: height/heightConstant, height: height/heightConstant}
     }

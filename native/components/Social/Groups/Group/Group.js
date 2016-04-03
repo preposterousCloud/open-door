@@ -52,7 +52,8 @@ const Group = (props) => {
         <View style={styles.feedHeader}>
           <Text style={styles.feedText}> { props.route.focus.name } </Text>
         </View>
-        <View style={styles.container}>
+        <View style={[styles.container]}>
+        <View style={styles.center}>
           <TouchableOpacity onPress={() => navToFull({
             component: SelectProfilePic,
             updateProfPic: changeGroupPic,
@@ -60,6 +61,7 @@ const Group = (props) => {
           >
             <CirclePic uri={props.route.focus.groupPictureUri} />
           </TouchableOpacity>
+          </View>
           <GroupListContainer />
         </View>
         <NavBar

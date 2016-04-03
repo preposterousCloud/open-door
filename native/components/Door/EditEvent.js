@@ -161,24 +161,24 @@ class EditEvent extends React.Component {
             <View style={[styles.vibePicker]}>
               <VibePicker changeVibe={changeVibe} initialVibe={this.state.event.vibe} />
             </View>
-            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
+            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, {marginTop: -20}]}>
               <TouchableOpacity onPress={this.navToFriends} >
                 <Text style={[styles.white, styles.large]}>friends</Text>
               </TouchableOpacity>
             </View>
-            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
+            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center]}>
               <TouchableOpacity onPress={this.navToGroups} >
                 <Text style={[styles.white, styles.large]}>groups</Text>
               </TouchableOpacity>
             </View>
-            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center, styles.topBuffer]}>
+            <View style={[styles.profileLineContainer, styles.stackVertical, styles.center]}>
               <TouchableOpacity onPress={this.navToEventPhoto} >
                 <Text style={[styles.white, styles.large]}>photo</Text>
               </TouchableOpacity>
             </View>
-            
+
           </View>
-          <NavBar  
+          <NavBar
             leftButton={cancelButtonNav}
             rightButton={{ title: 'Save', handler: submitEvent }}
           />
