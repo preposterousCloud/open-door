@@ -15,6 +15,7 @@ import StyledTextInput from '../Shared/StyledTextInput.js';
 import socialStyles from '../../styles/Social/socialStyles.js';
 import SelectProfilePic from '../Profile/SelectProfilePic';
 import styles from '../../styles/styles.js';
+import Checklist from '../Shared/Checklist';
 
 const InviteSelects = (props) => {
   return (
@@ -87,12 +88,23 @@ class EditEvent extends React.Component {
     this.setState({ event });
   }
   navToGroups() {
+    const component = () => (<Checklist
+      preSelected={(user) => user.userName === 'vcipriani'}
+      onSubmit={(checkedArr) => console.log(checkedArr)}
+      data={store.getState().user.friends}
+      displayTextRoute={['userName']}
+    />);
     navToFull({
-      component: InviteSelects,
-      title: 'Invite Groups',
-      listComponent: GroupList,
-      onItemClick: this.toggleInviteGroup,
-      preSelected: this.state.event.preSelectedGroups,
+      component,
+      // : Checklist,
+      // preSelected: () => true,
+      // onSubmit: (checkedArr) => console.log(checkedArr),
+      // data: store.getState().user.friends,
+      // displayTextRoute: ['userName'],
+      // title: 'Invite Groups',
+      // listComponent: GroupList,
+      // onItemClick: this.toggleInviteGroup,
+      // preSelected: this.state.event.preSelectedGroups,
     });
   }
   navToFriends() {
@@ -140,7 +152,6 @@ class EditEvent extends React.Component {
     const updateEventLocation = location => updateLocalEvent({ location });
     const changeVibe = vibe => updateLocalEvent({ vibe });
     const defaultEventPictureSource = require('../../static/bgLibrary/everycolor.png');
-    console.log('imageObj', this.state.event.imageObj);
     let backgroundImageSource = defaultEventPictureSource;
     if (this.state.event) {
       if (this.state.event.imageObj) {

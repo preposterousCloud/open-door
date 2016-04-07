@@ -7,7 +7,6 @@ import styles from '../../styles/styles.js';
 export const BackgroundImage = ({ source, children, style, ...props, blur, vibrancy, event }) => {
   source = source || require('../../static/bg.jpg')
   if (event) {
-    console.log('event mode');
     return (
       <BlurView blurType={blur || 'dark'} style={[styles.fullscreen, { backgroundColor: 'transparent' }]}>
       <Image
