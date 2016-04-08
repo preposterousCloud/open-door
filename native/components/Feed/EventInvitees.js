@@ -64,7 +64,6 @@ class EventInvitees extends React.Component {
     return event.Users.length ?
       (<View style={{ flexDirection: 'row', margin: 5 }}>
         {event.Users.map((user, index) => {
-          console.log(index, limit, user)
           return (index <= limit ?
             <CirclePic
               key={index}
