@@ -67,18 +67,30 @@ class Checklist extends React.Component {
     );
   }
   submit() {
-    const checked = this.state.data.filter((row) => row.checked);
-    this.props.onSubmit(checked);
+    const checkedItems = this.state.data.filter(row => row.checked).map(row => row.datum);
+    this.props.onSubmit(checkedItems);
   }
   render() {
     return (
       <View>
-        <TouchableOpacity
-          onPress={this.submit}
-          style={{ margin: 100 }}
+        <View
+          style={[styles.centerContainer,
+            { flexDirection: 'row', marginTop: 50 }]}
         >
-          <Text style={{ fontSize: 20 }}>Done!</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.submit}
+            style={{ flex: 1 }}
+          >
+            <Text style={{ fontSize: 20 }}>Submit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.submit}
+            style={{ flex: 1 }}
+          >
+            <Text style={{ fontSize: 20 }}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+
         <ListView
           dataSource={ arrayToDataSource(this.state.data) }
           renderRow={this.ItemView}
