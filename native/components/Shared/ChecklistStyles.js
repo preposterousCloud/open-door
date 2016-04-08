@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 module.exports = StyleSheet.create({
   navbar: {
-    backgroundColor: '#FFF3',
+    backgroundColor: '#FFF',
     paddingHorizontal: 10,
     flexDirection: 'row',
     borderBottomWidth: 1,
