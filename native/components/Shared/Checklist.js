@@ -1,5 +1,6 @@
-import React, { ListView, Text, TouchableOpacity, View } from 'react-native';
-import styles from '../../styles/styles.js';
+import React, { ListView, Text, StyleSheet, TouchableOpacity, View } from 'react-native';
+import styles from './ChecklistStyles.js';
+
 // inputs
   // data - array containing the data being shown in the checklist
     // ['frog', 'dog', 'pufferfish', ...]
@@ -26,10 +27,7 @@ const arrayToDataSource = (array = []) => {
 };
 
 const Checkbox = (props) => {
-  if (props.checked) {
-    return <View style={styles.checkboxFilled} />;
-  }
-  return <View style={styles.checkboxEmpty} />;
+  return <View style={[styles.checkbox, props.checked && styles.checkboxFilled]} />;
 };
 
 Checkbox.propTypes = { checked: React.PropTypes.bool };
@@ -55,10 +53,7 @@ class Checklist extends React.Component {
       this.forceUpdate();
     };
     return (
-      <TouchableOpacity
-        onPress={clickThisRow}
-        style={styles.group}
-      >
+      <TouchableOpacity onPress={clickThisRow} >
         <View style={styles.listEntryView}>
           <Text>{row.displayText}</Text>
           <Checkbox checked={row.checked} />
@@ -72,22 +67,14 @@ class Checklist extends React.Component {
   }
   render() {
     return (
-      <View>
-        <View
-          style={[styles.centerContainer,
-            { flexDirection: 'row', marginTop: 50 }]}
-        >
-          <TouchableOpacity
-            onPress={this.submit}
-            style={{ flex: 1 }}
-          >
-            <Text style={{ fontSize: 20 }}>Submit</Text>
+      <View style={{ width: React.Dimensions.width }}>
+        <View style={styles.toolbar} >
+          <TouchableOpacity onPress={this.submit} >
+            <Text style={styles.toolbarButton}>Submit</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.submit}
-            style={{ flex: 1 }}
-          >
-            <Text style={{ fontSize: 20 }}>Cancel</Text>
+          <Text style={styles.toolbarTitle}>This is the title</Text>
+          <TouchableOpacity onPress={this.submit} >
+            <Text style={styles.toolbarButton}>Cancel</Text>
           </TouchableOpacity>
         </View>
 
@@ -107,5 +94,6 @@ Checklist.propTypes = {
   data: React.PropTypes.array,
   displayTextRoute: React.PropTypes.array,
 };
+
 
 module.exports = Checklist;
