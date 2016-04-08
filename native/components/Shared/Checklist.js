@@ -26,12 +26,6 @@ const arrayToDataSource = (array = []) => {
   );
 };
 
-const Checkbox = (props) => {
-  return <View style={[styles.checkbox, props.checked && styles.checkboxFilled]} />;
-};
-
-Checkbox.propTypes = { checked: React.PropTypes.bool };
-
 class Checklist extends React.Component {
   constructor(props) {
     super(props);
@@ -56,7 +50,7 @@ class Checklist extends React.Component {
       <TouchableOpacity onPress={clickThisRow} >
         <View style={styles.listEntryView}>
           <Text>{row.displayText}</Text>
-          <Checkbox checked={row.checked} />
+          <View style={[styles.checkbox, row.checked && styles.checkboxFilled]} />
         </View>
       </TouchableOpacity>
     );
@@ -68,13 +62,13 @@ class Checklist extends React.Component {
   render() {
     return (
       <View style={{ width: React.Dimensions.width }}>
-        <View style={styles.toolbar} >
+        <View style={styles.navbar} >
           <TouchableOpacity onPress={this.submit} >
-            <Text style={styles.toolbarButton}>Submit</Text>
+            <Text style={styles.navbarButton}>{this.props.cancelText || 'Cancel'}</Text>
           </TouchableOpacity>
-          <Text style={styles.toolbarTitle}>This is the title</Text>
+          <Text style={styles.navbarTitle}>{this.props.title || 'Checklist'}</Text>
           <TouchableOpacity onPress={this.submit} >
-            <Text style={styles.toolbarButton}>Cancel</Text>
+            <Text style={styles.navbarButton}>{this.props.submitText || 'Submit'}</Text>
           </TouchableOpacity>
         </View>
 
@@ -93,6 +87,9 @@ Checklist.propTypes = {
   onSubmit: React.PropTypes.func,
   data: React.PropTypes.array,
   displayTextRoute: React.PropTypes.array,
+  title: React.PropTypes.string,
+  cancelText: React.PropTypes.string,
+  submitText: React.PropTypes.string,
 };
 
 
