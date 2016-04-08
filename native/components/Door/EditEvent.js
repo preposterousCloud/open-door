@@ -56,9 +56,8 @@ class EditEvent extends React.Component {
         }}
         data={store.getState().user.Groups}
         displayTextRoute={['name']}
-      />);
-    )
-    navToFull({ component });
+      />)
+    );
   }
   navToFriends() {
     navTo(() => (
