@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native';
 
 module.exports = StyleSheet.create({
   navbar: {
-    backgroundColor: '#FFF',
+    backgroundColor: '#FFF0',
     paddingHorizontal: 10,
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: '#3333',
+    borderColor: '#FFF',
   },
   navbarButton: {
     paddingTop: 30,
@@ -18,7 +18,7 @@ module.exports = StyleSheet.create({
   navbarTitle: {
     paddingTop: 30,
     paddingBottom: 10,
-    color: '#000',
+    color: '#FFF',
     textAlign: 'center',
     fontSize: 15,
     flex: 1,
@@ -48,5 +48,8 @@ module.exports = StyleSheet.create({
     borderColor: '#DDD3',
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
+  },
+  rowText: {
+    color: '#FFF',
   },
 });

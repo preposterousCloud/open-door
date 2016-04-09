@@ -48,28 +48,38 @@ class EditEvent extends React.Component {
   }
   navToGroups() {
     navTo(() => (
-      <Checklist
-        preSelected={group => this.state.invitedGroups.indexOf(group.id) > -1}
-        onSubmit={(invitedGroupsFull) => {
-          this.setState({ invitedGroups: getIds(invitedGroupsFull) });
-          popScene();
-        }}
-        data={store.getState().user.Groups}
-        displayTextRoute={['name']}
-      />)
+      <BackgroundImage>
+        <View style={{ marginHorizontal: 20 }}>
+          <Checklist
+            preSelected={group => this.state.invitedGroups.indexOf(group.id) > -1}
+            onSubmit={(invitedGroupsFull) => {
+              this.setState({ invitedGroups: getIds(invitedGroupsFull) });
+              popScene();
+            }}
+            data={store.getState().user.Groups}
+            displayTextRoute={['name']}
+            title={'Invite Groups'}
+          />
+        </View>
+      </BackgroundImage>)
     );
   }
   navToFriends() {
     navTo(() => (
-      <Checklist
-        preSelected={friend => this.state.invitedFriends.indexOf(friend.id) > -1}
-        onSubmit={invitedFriendsFull => {
-          this.setState({ invitedFriends: getIds(invitedFriendsFull) });
-          popScene();
-        }}
-        data={store.getState().user.friends}
-        displayTextRoute={['userName']}
-      />)
+      <BackgroundImage>
+      <View style={{ marginHorizontal: 20 }}>
+        <Checklist
+          preSelected={friend => this.state.invitedFriends.indexOf(friend.id) > -1}
+          onSubmit={invitedFriendsFull => {
+            this.setState({ invitedFriends: getIds(invitedFriendsFull) });
+            popScene();
+          }}
+          data={store.getState().user.friends}
+          displayTextRoute={['userName']}
+          title={'Invite Friends'}
+        />
+      </View>
+    </BackgroundImage>)
     );
   }
   navToEventPhoto() {

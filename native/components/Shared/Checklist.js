@@ -49,7 +49,7 @@ class Checklist extends React.Component {
     return (
       <TouchableOpacity onPress={clickThisRow} >
         <View style={styles.listEntryView}>
-          <Text>{row.displayText}</Text>
+          <Text style={styles.rowText}>{row.displayText}</Text>
           <View style={[styles.checkbox, row.checked && styles.checkboxFilled]} />
         </View>
       </TouchableOpacity>
