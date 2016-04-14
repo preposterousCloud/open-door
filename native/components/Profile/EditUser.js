@@ -7,7 +7,7 @@ import { backButton, cancelButtonNav, cancelButton } from '../Shared/Buttons.js'
 import { navToFull, popScene } from '../Shared/NavHelpers.js';
 const actions = require('../../sharedNative/actions/actions');
 const api = require('../../sharedNative/utils/api.js');
-const SelectProfilePic = require('./SelectProfilePic');
+const SelectPic = require('./SelectPic');
 import CirclePic from '../Shared/CirclePic';
 import VibePicker from '../Door/VibePicker.js';
 import StyledTextInput from '../Shared/StyledTextInput.js';
@@ -77,7 +77,7 @@ class EditUser extends React.Component {
         <View style={styles.centerContainerNoMargin}>
           <TouchableOpacity
             onPress={() => navToFull({
-              component: SelectProfilePic,
+              component: SelectPic,
               updateProfPic: this.updateProfPic,
             })}
           >

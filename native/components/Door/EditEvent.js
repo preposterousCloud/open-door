@@ -13,7 +13,7 @@ import NavBar from '../Shared/NavBar.js';
 import VibePicker from './VibePicker.js';
 import StyledTextInput from '../Shared/StyledTextInput.js';
 import socialStyles from '../../styles/Social/socialStyles.js';
-import SelectProfilePic from '../Profile/SelectProfilePic';
+import SelectPic from '../Profile/SelectPic';
 import styles from '../../styles/styles.js';
 import Checklist from '../Shared/Checklist';
 
@@ -84,7 +84,7 @@ class EditEvent extends React.Component {
   }
   navToEventPhoto() {
     navToFull({
-      component: SelectProfilePic,
+      component: SelectPic,
       updateProfPic: (imageObj) => {
         // Trigger callback to update photo in state
         this.setState({ event: { ...this.state.event, imageObj } });

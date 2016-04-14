@@ -8,7 +8,7 @@ const CameraRollView = require('../Camera/CameraRollView');
 const actions = require('../../sharedNative/actions/actions');
 import { BackgroundImage } from '../Shared/BackgroundImage.js';
 
-const SelectProfilePic = class SelectProfilePic extends React.Component {
+const SelectPic = class SelectPic extends React.Component {
   constructor(props) {
     super(props);
     this.onPhotoSelection = this.onPhotoSelection.bind(this);
@@ -43,8 +43,8 @@ const SelectProfilePic = class SelectProfilePic extends React.Component {
   }
 };
 
-SelectProfilePic.propTypes = {
+SelectPic.propTypes = {
   route: React.PropTypes.object,
 };
 
-module.exports = SelectProfilePic;
+module.exports = SelectPic;
