@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 const radius = 50;
+const navBarHeight = 200;
 module.exports = StyleSheet.create({
   // General BG Style
   bg: {
@@ -379,5 +380,9 @@ module.exports = StyleSheet.create({
   fullScreen: {
     width,
     height,
+  },
+  fullScreenUnderNavbar: {
+    width,
+    height: height - navBarHeight,
   },
 });

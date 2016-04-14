@@ -29,13 +29,13 @@ const SelectPic = class SelectPic extends React.Component {
           title={{ title: 'SELECT A PICTURE' }}
           leftButton={cancelButtonNav}
         />
-        <View style={{ paddingLeft: 4, paddingRight: 8 }} >
-        <CameraRollView
-          batchSize={20}
-          groupTypes ={'All'}
-          imagesPerRow={3}
-          onPress={ this.onPhotoSelection }
-        />
+        <View style={[{ paddingLeft: 4, paddingRight: 8 }, styles.fullScreenUnderNavbar]} >
+          <CameraRollView
+            batchSize={20}
+            groupTypes ={'All'}
+            imagesPerRow={3}
+            onPress={ this.onPhotoSelection }
+          />
         </View>
         </BackgroundImage>
       </View>
