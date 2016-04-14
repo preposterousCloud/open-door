@@ -297,9 +297,10 @@ module.exports = StyleSheet.create({
   // Door-Specific
   noHost: {
     textAlign: 'center',
-    color: '#FFF3',
+    color: '#FFFB',
     bottom: 175,
-    fontSize: 17,
+    fontSize: 32,
+    paddingHorizontal: 30,
   },
   // Profile and Group Pic
   profilePic: {
@@ -403,5 +404,27 @@ module.exports = StyleSheet.create({
   fullScreenUnderNavbar: {
     width,
     height: height - navBarHeight,
+  },
+  bottomNav: {
+    backgroundColor: '#FFF0',
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    borderColor: '#FFF',
+  },
+  navbarButton: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    fontSize: 24,
+    width: 100,
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  navbarTitle: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    color: '#FFF',
+    textAlign: 'center',
+    fontSize: 15,
+    flex: 1,
   },
 });
