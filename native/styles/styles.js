@@ -203,7 +203,12 @@ module.exports = StyleSheet.create({
   mediumText: {
     color: '#FFF',
     fontFamily: 'DroidSans',
-    fontSize: 15,
+    fontSize: 24,
+  },
+  smallText: {
+    color: '#FFF',
+    fontFamily: 'DroidSans',
+    fontSize: 19,
   },
   rowHeader: {
     color: '#FFF',

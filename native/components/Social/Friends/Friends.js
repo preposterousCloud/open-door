@@ -26,7 +26,7 @@ const FriendListRow = (props) => {
   );
 };
 
-FriendListRow.propTypes = { user: React.PropTypes.object };
+FriendListRow.propTypes = { id: React.PropTypes.number };
 
 const Friends = (props) => {
   const respondToReq = (target) => {
