@@ -39,18 +39,13 @@ const makeClickableRow = (action, text, uniqueItems, rowStyle, swipeFunction) =>
     const ClickableRow = () => {
       const distinguished = uniqueItems && uniqueItems.indexOf(rowData.id) >= 0;
       return (
-        <View>
-            <TouchableOpacity
-              onPress={actionAppliedToUser}
-              style={styles.group}
-            >
-              <View style={[styles.listEntryView, distinguished && uniqueItemStyles[0]]}>
-                <Text style={[styles.white, styles.listText, distinguished && uniqueItemStyles[1]]}>
-                  {rowData[text] || contactMapper[rowData.id] || rowData.userName}
-                </Text>
-              </View>
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={actionAppliedToUser} style={styles.group}>
+          <View style={[styles.listEntryView, distinguished && uniqueItemStyles[0]]}>
+            <Text style={[styles.white, styles.listText, distinguished && uniqueItemStyles[1]]}>
+              {rowData[text] || contactMapper[rowData.id] || rowData.userName}
+            </Text>
+          </View>
+        </TouchableOpacity>
       );
     };
 
