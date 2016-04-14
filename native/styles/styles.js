@@ -79,7 +79,7 @@ module.exports = StyleSheet.create({
   // Lists
   listView: {
     backgroundColor: 'transparent',
-    height: 620,
+    height,
   },
   // Feed Specific
   feedListRow: {
@@ -156,6 +156,17 @@ module.exports = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 200,
     alignItems: 'center',
+  },
+  rowPic: {
+    flexDirection: 'column',
+    flex: 1,
+    alignItems: 'center',
+    marginRight: 20,
+  },
+  userRowText: {
+    flexDirection: 'column',
+    flex: 4,
+    alignItems: 'flex-start',
   },
   listText: {
     color: '#FFF',
