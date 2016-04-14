@@ -222,15 +222,12 @@ module.exports = StyleSheet.create({
   checkboxEmpty: {
     width: 20,
     height: 20,
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#007AFF',
+    borderColor: '#FFF',
   },
   checkboxFilled: {
-    width: 20,
-    height: 20,
-    borderWidth: 1,
-    borderColor: '#007AFF',
-    backgroundColor: '#007AFF',
+    backgroundColor: '#FFF',
   },
   // Buttons
   socialF: {
