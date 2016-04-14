@@ -9,10 +9,7 @@ import styles from '../../../../styles/styles.js';
 import NavBar from '../../../Shared/NavBar.js';
 import CreateGroupName from './CreateGroupName.js';
 import { BackgroundImage } from '../../../Shared/BackgroundImage';
-
-const cancelNewGroup = () => {
-  store.getState().navigation.navigator.pop();
-};
+import { exitButton, saveButton } from '../../../Shared/Buttons.js';
 
 const createChecklist = (users = []) => {
   const userChecklist = {};
@@ -78,10 +75,6 @@ const CreateGroup = class CreateGroup extends React.Component {
       makeSelectableRow(checkCheckbox, getChecklist),
       ['user', 'friends']
     );
-    const leftNavButton = {
-      title: 'X',
-      handler: cancelNewGroup,
-    };
     const rightNavButton = {
       title: '✓',
       handler: this.onSubmit,
@@ -98,8 +91,8 @@ const CreateGroup = class CreateGroup extends React.Component {
           </View>
           <NavBar
             title={''}
-            leftButton={leftNavButton}
-            rightButton={rightNavButton}
+            leftButton={exitButton}
+            rightButton={saveButton(this.onSubmit)}
           />
         </View>
       </BackgroundImage>
