@@ -4,7 +4,7 @@ import Swipeout from 'react-native-swipeout';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { refreshUser } from '../../sharedNative/actions/actions.js';
 import { arrayToDataSource } from './HelperFunctions.js';
-import styles from '../../styles/styles.js'; // fix this path
+import styles, { checkboxEmpty, checkboxFilled } from '../../styles/styles.js';
 
 const LoadingWheel = (props) => {
   const style = props.style || { height: 150, width: 150 };
@@ -133,11 +133,8 @@ const makeSelectableRow = (action, getChecklist) => {
           style={styles.group}
         >
           <View style={styles.listEntryView}>
-            <Text>{contactMapper[user.id] || user.userName}</Text>
-            {(() => (checklist[user.id]) ?
-              <View style={styles.checkboxFilled}></View> :
-              <View style={styles.checkboxEmpty}></View>
-            )()}
+            <Text style={styles.white} >{contactMapper[user.id] || user.userName}</Text>
+            <View style={[checkboxEmpty, checklist[user.id] && checkboxFilled]} />
           </View>
         </TouchableOpacity>
       </View>
