@@ -15,7 +15,10 @@ const Groups = (props) => {
     navTo(Group, group);
   };
 
-  const GroupsListContainer = makeListContainer(makeClickableRow(logGroup, 'name'), ['user', 'Groups']);
+  const GroupsListContainer = makeListContainer(
+    makeClickableRow(logGroup, 'name'),
+    ['user', 'Groups']
+  );
 
   return (
     <BackgroundImage>
