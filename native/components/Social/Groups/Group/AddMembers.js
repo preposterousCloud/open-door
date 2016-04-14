@@ -92,4 +92,8 @@ const AddMembers = class AddMembers extends React.Component {
   }
 };
 
+AddMembers.propTypes = {
+  route: React.PropTypes.object,
+};
+
 module.exports = AddMembers;
