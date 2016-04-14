@@ -31,47 +31,28 @@ const chooseRowStyle = (style) => {
   }
 };
 
-const makeClickableRow = (action, text, distinguished, rowStyle, swipeFunction) => {
-  const distStyle = distinguished && rowStyle ? chooseRowStyle(rowStyle) : null;
+const makeClickableRow = (action, text, uniqueItems, rowStyle, swipeFunction) => {
+  const uniqueItemStyles = uniqueItems && rowStyle ? chooseRowStyle(rowStyle) : null;
   const contactMapper = store.getState().contactMap;
   return (rowData) => {
     const actionAppliedToUser = action.bind(null, rowData);
-    let withDistinguished;
-    // Right-side checkmark if already requested
-    if (distinguished) {
-      withDistinguished = (
-        <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-        distStyle[1] :
-        null}
-        >
-          {distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-          '✓' :
-          null}
-        </Text>
-      );
-    }
-
-    const ClickableRow = () => (
-      <View>
-          <TouchableOpacity
-            onPress={actionAppliedToUser}
-            style={styles.group}
-          >
-            <View style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-              distStyle[0] :
-              styles.listEntryView}
+    const ClickableRow = () => {
+      const distinguished = uniqueItems && uniqueItems.indexOf(rowData.id) >= 0;
+      return (
+        <View>
+            <TouchableOpacity
+              onPress={actionAppliedToUser}
+              style={styles.group}
             >
-              <Text style={[styles.white, (distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-              distStyle[1] :
-              null)]}
-              >
-                {rowData.userName ? (contactMapper[rowData.id] || rowData.userName) : rowData[text]}
-              </Text>
-              {withDistinguished}
-            </View>
-          </TouchableOpacity>
-      </View>
-    );
+              <View style={[styles.listEntryView, distinguished && uniqueItemStyles[0]]}>
+                <Text style={[styles.white, styles.listText, distinguished && uniqueItemStyles[1]]}>
+                  {rowData[text] || contactMapper[rowData.id] || rowData.userName}
+                </Text>
+              </View>
+            </TouchableOpacity>
+        </View>
+      );
+    };
 
     if (swipeFunction) {
       const swipeoutBtns = [{
