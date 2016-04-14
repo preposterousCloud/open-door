@@ -4,7 +4,7 @@ import { XIcon, Plus, Edit, Check } from './Icons';
 
 const exitButton = (
   <TouchableOpacity onPress={popScene}>
-    <XIcon style={{ size: 40, color: 'white' }} />
+    <XIcon style={{ size: 50, color: 'white' }} />
   </TouchableOpacity>
 );
 
@@ -20,13 +20,13 @@ const cancelButtonNav = {
 
 const enterButton = (component, focus) => (
   <TouchableOpacity onPress={ navTo.bind(null, component, focus) }>
-    <Plus style={{ size: 40, color: 'white' }} />
+    <Plus style={{ size: 50, color: 'white' }} />
   </TouchableOpacity>
 );
 
 const saveButton = (onSave) => (
   <TouchableOpacity onPress={onSave}>
-    <Check style={{ size: 40, color: 'white' }} />
+    <Check style={{ size: 50, color: 'white' }} />
   </TouchableOpacity>
 );
 
