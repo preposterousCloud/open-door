@@ -160,7 +160,7 @@ module.exports = StyleSheet.create({
   listText: {
     color: '#FFF',
     justifyContent: 'space-between',
-    fontSize: 20,
+    fontSize: 24,
   },
   listEntryView: {
     flexDirection: 'row',
