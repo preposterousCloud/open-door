@@ -65,6 +65,7 @@ module.exports = StyleSheet.create({
   navBar: {
     backgroundColor: 'transparent',
     margin: 20,
+    marginTop: 0,
   },
   navBarTop: {
     backgroundColor: 'transparent',
