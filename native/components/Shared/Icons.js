@@ -68,6 +68,15 @@ Plus.propTypes = {
   style: React.PropTypes.object.isRequired,
 };
 
+export const Check = (props) => (
+  <Icon name="ios-checkmark-empty" size={props.style.size} color={props.style.color} />
+);
+
+Check.propTypes = {
+  style: React.PropTypes.object.isRequired,
+};
+
+
 export const PersonAdd = (props) => (
   <Icon name="ios-personadd"
     size={props.style.size}
@@ -128,4 +137,3 @@ export const People = (props) => (
 People.propTypes = {
  style: React.PropTypes.object.isRequired,
 };
-
