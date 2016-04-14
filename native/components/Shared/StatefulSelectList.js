@@ -22,11 +22,6 @@ export const SelectList = class SelectList extends React.Component {
       this.setState({ selectedItems });
       this.props.onItemClick(rowData);
     };
-    const Checkbox = (props) => {
-      return (props.checked ?
-        <View style={styles.checkboxFilled} /> :
-        <View style={styles.checkboxEmpty} />);
-    };
     return (
       <TouchableOpacity
         onPress={clickThisRow}
@@ -34,7 +29,9 @@ export const SelectList = class SelectList extends React.Component {
       >
         <View style={styles.listEntryView}>
           <Text>{rowData[this.props.displayProp]}</Text>
-          <Checkbox checked={this.state.selectedItems[rowData.id]} />
+          <View
+            style={[styles.checkbox, this.state.selectedItems[rowData.id] && styles.checkboxFilled]}
+          />
         </View>
       </TouchableOpacity>
     );
