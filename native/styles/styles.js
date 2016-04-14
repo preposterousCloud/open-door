@@ -157,6 +157,11 @@ module.exports = StyleSheet.create({
     paddingBottom: 200,
     alignItems: 'center',
   },
+  listText: {
+    color: '#FFF',
+    justifyContent: 'space-between',
+    fontSize: 20,
+  },
   listEntryView: {
     flexDirection: 'row',
     padding: 20,
@@ -168,23 +173,23 @@ module.exports = StyleSheet.create({
   greyedOutListEntryView: {
     flexDirection: 'row',
     padding: 20,
-    borderTopWidth: 1,
-    borderColor: '#DDD',
+    borderBottomWidth: 1,
+    borderColor: '#DDD3',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#EEE',
+    backgroundColor: '#EEE0',
   },
   highlightedListEntryView: {
     flexDirection: 'row',
     padding: 20,
-    borderTopWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#DDD',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#BCDAE4',
   },
   greyedOutListEntryViewText: {
-    color: '#777',
+    color: '#FFF9',
     justifyContent: 'space-between',
   },
   highlightedListEntryViewText: {
