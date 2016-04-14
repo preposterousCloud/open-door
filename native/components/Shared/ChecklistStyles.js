@@ -26,12 +26,11 @@ module.exports = StyleSheet.create({
   checkbox: {
     width: 20,
     height: 20,
-    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#FFF',
+    borderColor: '#007AFF',
   },
   checkboxFilled: {
-    backgroundColor: '#FFF',
+    backgroundColor: '#007AFF',
   },
   feedListEntryView: {
     flex: 1,

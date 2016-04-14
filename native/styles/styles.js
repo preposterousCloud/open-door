@@ -219,7 +219,7 @@ module.exports = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'white',
   },
-  checkbox: {
+  checkboxEmpty: {
     width: 20,
     height: 20,
     borderRadius: 10,

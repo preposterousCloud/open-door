@@ -4,7 +4,7 @@ import Swipeout from 'react-native-swipeout';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { refreshUser } from '../../sharedNative/actions/actions.js';
 import { arrayToDataSource } from './HelperFunctions.js';
-import styles, { checkbox, checkboxFilled } from '../../styles/styles.js';
+import styles, { checkboxEmpty, checkboxFilled } from '../../styles/styles.js';
 
 const LoadingWheel = (props) => {
   const style = props.style || { height: 150, width: 150 };
@@ -134,7 +134,7 @@ const makeSelectableRow = (action, getChecklist) => {
         >
           <View style={styles.listEntryView}>
             <Text style={styles.white} >{contactMapper[user.id] || user.userName}</Text>
-            <View style={[checkbox, checklist[user.id] && checkboxFilled]} />
+            <View style={[checkboxEmpty, checklist[user.id] && checkboxFilled]} />
           </View>
         </TouchableOpacity>
       </View>
