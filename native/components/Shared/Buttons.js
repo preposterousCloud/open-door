@@ -24,6 +24,12 @@ const enterButton = (component, focus) => (
   </TouchableOpacity>
 );
 
+const saveButton = (onSave) => (
+  <TouchableOpacity onPress={onSave}>
+    <Plus style={{ size: 40, color: 'white' }} />
+  </TouchableOpacity>
+);
+
 const editButton = (component, user, onSubmit) => (
   <TouchableOpacity onPress={ navToFull.bind(null, {
     component,
@@ -46,6 +52,7 @@ module.exports = {
   backButton,
   cancelButtonNav,
   enterButton,
+  saveButton,
   cancelButton,
   editButton,
 };
