@@ -1,6 +1,6 @@
 import React, { TouchableOpacity } from 'react-native';
 import { popScene, navTo, navToFull } from './NavHelpers.js';
-import { XIcon, Plus, Edit } from './Icons';
+import { XIcon, Plus, Edit, Check } from './Icons';
 
 const exitButton = (
   <TouchableOpacity onPress={popScene}>
@@ -26,7 +26,7 @@ const enterButton = (component, focus) => (
 
 const saveButton = (onSave) => (
   <TouchableOpacity onPress={onSave}>
-    <Plus style={{ size: 40, color: 'white' }} />
+    <Check style={{ size: 40, color: 'white' }} />
   </TouchableOpacity>
 );
 
