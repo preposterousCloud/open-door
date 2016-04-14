@@ -75,10 +75,6 @@ const CreateGroup = class CreateGroup extends React.Component {
       makeSelectableRow(checkCheckbox, getChecklist),
       ['user', 'friends']
     );
-    const rightNavButton = {
-      title: '✓',
-      handler: this.onSubmit,
-    };
     return (
       <BackgroundImage>
         <View style={styles.container}>
