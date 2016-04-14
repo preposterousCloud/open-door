@@ -15,6 +15,7 @@ const SelectList = class SelectList extends React.Component {
   }
   ItemView(rowData) {
     const clickThisRow = this.props.onClick.bind(null, rowData);
+    const checked = this.props.pendingSelections[this.props.pendingSelectionsProperty][rowData.id];
     return (
       <TouchableOpacity
         onPress={clickThisRow}
@@ -22,13 +23,7 @@ const SelectList = class SelectList extends React.Component {
       >
         <View style={styles.listEntryView}>
           <Text>{rowData[this.props.itemPropertyToDisplay]}</Text>
-           {(() => (
-             this.props.pendingSelections
-             [this.props.pendingSelectionsProperty]
-             [rowData.id]) ?
-              <View style={styles.checkboxFilled} /> :
-              <View style={styles.checkboxEmpty} />
-           )()}
+          <View style={[styles.checkbox, checked && styles.checkboxFilled]} />
         </View>
       </TouchableOpacity>
     );
