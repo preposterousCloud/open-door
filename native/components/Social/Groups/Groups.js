@@ -12,7 +12,6 @@ import { BackgroundImage } from '../../Shared/BackgroundImage';
 
 const Groups = (props) => {
   const logGroup = (group) => {
-    console.log(`You clicked on ${group.name}, id:${group.id}`);
     navTo(Group, group);
   };
 
