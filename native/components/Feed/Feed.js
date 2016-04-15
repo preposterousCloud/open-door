@@ -52,7 +52,7 @@ class Feed extends React.Component {
     const leftNavButton = (
        <TouchableOpacity onPress={this.props.swipeLeft}>
         <Image
-          source={ require('../../static/socialman.png') }
+          source={ require('../../static/world-icon.png') }
           style={styles.navIcon}
         />
       </TouchableOpacity>

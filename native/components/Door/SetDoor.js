@@ -97,7 +97,9 @@ const SetDoor = class SetDoor extends React.Component {
             )()
             */ }
             {(() => (!this.props.currentEvent) ?
-              <Text style={styles.noHost}>You aren't hosting an event right now.</Text> :
+              <Text style={styles.noHost}>{`Your door is closed :(
+
+Press the red icon to open it!`}</Text> :
               (<View>
                 <TouchableOpacity onPress={navToEditEvent} style={styles.setDoorContainer}>
                   <Text style={styles.standardText}>Edit Event</Text>

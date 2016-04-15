@@ -286,8 +286,8 @@ module.exports = StyleSheet.create({
     alignItems: 'stretch',
   },
   navIcon: {
-    width: 30,
-    height: 30,
+    width: 31,
+    height: 31,
     marginLeft: 20,
     marginRight: 20,
   },
