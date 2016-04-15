@@ -26,7 +26,7 @@ const FriendListRow = (props) => {
   );
 };
 
-FriendListRow.propTypes = { user: React.PropTypes.object };
+FriendListRow.propTypes = { id: React.PropTypes.number };
 
 const Friends = (props) => {
   const respondToReq = (target) => {
@@ -61,6 +61,8 @@ const Friends = (props) => {
     ['pendingRequests', 'received']
   );
   const requestCount = store.getState().pendingRequests.received.length;
+  const ExitButton = () => exitButton;
+  const AddFriendsButton = () => enterButton(AddFriends, props.user);
   return (
     <BackgroundImage source={require('../../../static/bg.jpg')}>
       <View style={styles.container}>
@@ -75,24 +77,30 @@ const Friends = (props) => {
             tabBarBackgroundColor={'transparent'}
           >
             {/* I removed this style from ScrollableTabView style={styles.tabBar} */}
-            <View tabLabel="Friends List" >
+            <View tabLabel="Friends" style={{ height: 490 }}>
               <FriendsListContainer />
             </View>
-            <View tabLabel={`Requests ${requestCount ? `(${requestCount})` : ''}`}>
+            <View tabLabel={`Requests ${requestCount || ''}`} style={{ height: 490 }}>
               <FriendRequestsContainer />
             </View>
           </ScrollableTabView>
         </View>
-      <NavBar
-        leftButton={exitButton}
-        rightButton={enterButton(AddFriends, props.user)}
-        tintColor={ 'transparent' }
-      />
+      </View>
+      <View style={styles.bottomNav} >
+        <ExitButton />
+        <Text style={styles.navbarTitle}>{''}</Text>
+        <AddFriendsButton />
       </View>
     </BackgroundImage>
   );
 };
-
+//
+// <NavBar
+// leftButton={exitButton}
+// rightButton={enterButton(AddFriends, props.user)}
+// tintColor={ 'transparent' }
+// />
+//
 Friends.propTypes = {
   user: React.PropTypes.object,
 };

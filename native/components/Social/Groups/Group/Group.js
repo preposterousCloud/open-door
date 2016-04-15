@@ -9,7 +9,7 @@ import CirclePic from '../../../Shared/CirclePic';
 import { makeClickableRow, makeListContainer, UserList } from '../../../Shared/ComponentHelpers.js';
 import { exitButton, enterButton } from '../../../Shared/Buttons.js';
 import { navToFull, popScene } from '../../../Shared/NavHelpers.js';
-const SelectProfilePic = require('../../../Profile/SelectProfilePic');
+const SelectPic = require('../../../Profile/SelectPic');
 import { BackgroundImage } from '../../../Shared/BackgroundImage';
 import { UserRow } from '../../../Shared/UserRow';
 import SwipeOut from 'react-native-swipeout';
@@ -52,14 +52,16 @@ const Group = (props) => {
         <View style={styles.feedHeader}>
           <Text style={styles.feedText}> { props.route.focus.name } </Text>
         </View>
-        <View style={styles.container}>
+        <View style={[styles.container]}>
+        <View style={styles.center}>
           <TouchableOpacity onPress={() => navToFull({
-            component: SelectProfilePic,
+            component: SelectPic,
             updateProfPic: changeGroupPic,
           })}
           >
             <CirclePic uri={props.route.focus.groupPictureUri} />
           </TouchableOpacity>
+          </View>
           <GroupListContainer />
         </View>
         <NavBar

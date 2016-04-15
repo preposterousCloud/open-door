@@ -42,16 +42,17 @@ class Feed extends React.Component {
     const rightNavButton = (
       <TouchableOpacity onPress={this.props.swipeRight}>
         <Image
-          source={ require('../../static/opendoorlogogreen.png') }
+          source={ require('../../static/opendoorlogosm.png') }
           style={styles.navIcon}
         />
       </TouchableOpacity>
     );
 
+    // change to https://github.com/preposterousCloud/open-door/pull/210/commits/2fdc66cfd5d78ce17e3f91bbd29abb3a08a2eaf4
     const leftNavButton = (
        <TouchableOpacity onPress={this.props.swipeLeft}>
         <Image
-          source={ require('../../static/socialman.png') }
+          source={ require('../../static/world-icon.png') }
           style={styles.navIcon}
         />
       </TouchableOpacity>

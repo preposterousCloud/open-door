@@ -3,6 +3,7 @@ import React, {
   Text,
   TouchableOpacity,
   Image,
+  Dimensions,
   } from 'react-native';
 import { reducer, store } from '../../sharedNative/reducers/reducers.js';
 import actions from '../../sharedNative/actions/actions';
@@ -10,12 +11,13 @@ import { navTo, navToFull } from '../Shared/NavHelpers.js';
 import ProfileContainer from '../Profile/ProfileContainer.js';
 import EditEvent from './EditEvent';
 import EventDetail from '../Feed/EventDetail.js';
-import { SettingsGear, LeftArrow } from '../Shared/Icons';
+import { Person, LeftArrow } from '../Shared/Icons';
 import styles from '../../styles/styles.js';
 import NavigationBar from 'react-native-navbar';
 
 const logoGreen = require('../../static/opendoorlogogreenlg.png');
 const logoRed = require('../../static/opendoorlogoredlg.png');
+const { width, height } = Dimensions.get('window');
 
 const LoadingWheelContainer = require('../Shared/ComponentHelpers').LoadingWheelContainer;
 
@@ -29,12 +31,12 @@ const SetDoor = class SetDoor extends React.Component {
   render() {
     const SettingsButton = (
       <TouchableOpacity onPress={goToSettings} style={styles.navButtonMargin}>
-        <SettingsGear style={{ size: 50, color: 'grey' }} />
+        <Person style={{ size: 50, color: 'white' }} />
       </TouchableOpacity>
     );
     const FeedButton = (
       <TouchableOpacity onPress={this.props.swipeLeft} style={styles.navButtonMargin}>
-        <LeftArrow style={{ size: 50, color: 'darkgreen' }} />
+        <LeftArrow style={{ size: 50, color: '#FFF' }} />
       </TouchableOpacity>
     );
     const createEvent = (event) => {
@@ -67,6 +69,15 @@ const SetDoor = class SetDoor extends React.Component {
         onSubmit: updateEvent,
       });
     };
+    const doorSize = () => {
+      let heightConstant;
+      if (height >= 667) {
+        heightConstant = 4
+      } else if (height < 667) {
+        heightConstant = 8
+      }
+      return {width: height/heightConstant, height: height/heightConstant}
+    }
     const doorIndicatorSource = this.props.currentEvent ? logoGreen : logoRed;
     return (
       <View style={styles.container}>
@@ -76,7 +87,7 @@ const SetDoor = class SetDoor extends React.Component {
         <View style={styles.container}>
           <View style={styles.centerContainer}>
             <TouchableOpacity onPress={toggleDoor}>
-              <Image source={doorIndicatorSource} style={{ width: 200, height: 200 }} />
+              <Image source={doorIndicatorSource} style={doorSize()} />
             </TouchableOpacity>
           </View>
           <View>
@@ -86,12 +97,14 @@ const SetDoor = class SetDoor extends React.Component {
             )()
             */ }
             {(() => (!this.props.currentEvent) ?
-              <Text>You aren't hosting an event right now</Text> :
+              <Text style={styles.noHost}>{`Your door is closed :(
+
+Press the red icon to open it!`}</Text> :
               (<View>
-                <EventDetail imageShowing event={this.props.currentEvent} />
-                <TouchableOpacity onPress={navToEditEvent} >
+                <TouchableOpacity onPress={navToEditEvent} style={styles.setDoorContainer}>
                   <Text style={styles.standardText}>Edit Event</Text>
                 </TouchableOpacity>
+                <EventDetail imageShowing event={this.props.currentEvent} />
               </View>)
             )()}
           </View>

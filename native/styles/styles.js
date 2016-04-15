@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 const radius = 50;
+const navBarHeight = 200;
 module.exports = StyleSheet.create({
   // General BG Style
   bg: {
@@ -16,6 +17,11 @@ module.exports = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  eventDetailComponent: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
   imageContainer: {
     flex: 1,
   },
@@ -27,6 +33,7 @@ module.exports = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     margin: 20,
+    marginTop: 0,
   },
   centerContainerNoMargin: {
     flex: 1,
@@ -37,6 +44,18 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
+  setDoorContainer: {
+    borderColor: '#FFF3',
+    borderWidth: 1,
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: 200,
+    marginBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 4,
+    backgroundColor: '#0002',
+  },
   // Nav
   tabBar: {
     borderTopWidth: 3,
@@ -46,6 +65,13 @@ module.exports = StyleSheet.create({
   navBar: {
     backgroundColor: 'transparent',
     margin: 20,
+    marginTop: 0,
+  },
+  navBarTop: {
+    backgroundColor: 'transparent',
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 20,
   },
   feedNavBar: {
     height: height / 10,
@@ -53,7 +79,7 @@ module.exports = StyleSheet.create({
   // Lists
   listView: {
     backgroundColor: 'transparent',
-    height: 620,
+    height,
   },
   // Feed Specific
   feedListRow: {
@@ -131,6 +157,22 @@ module.exports = StyleSheet.create({
     paddingBottom: 200,
     alignItems: 'center',
   },
+  rowPic: {
+    flexDirection: 'column',
+    flex: 1,
+    alignItems: 'center',
+    marginRight: 20,
+  },
+  userRowText: {
+    flexDirection: 'column',
+    flex: 4,
+    alignItems: 'flex-start',
+  },
+  listText: {
+    color: '#FFF',
+    justifyContent: 'space-between',
+    fontSize: 24,
+  },
   listEntryView: {
     flexDirection: 'row',
     padding: 20,
@@ -142,23 +184,23 @@ module.exports = StyleSheet.create({
   greyedOutListEntryView: {
     flexDirection: 'row',
     padding: 20,
-    borderTopWidth: 1,
-    borderColor: '#DDD',
+    borderBottomWidth: 1,
+    borderColor: '#DDD3',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#EEE',
+    backgroundColor: '#EEE0',
   },
   highlightedListEntryView: {
     flexDirection: 'row',
     padding: 20,
-    borderTopWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#DDD',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#BCDAE4',
   },
   greyedOutListEntryViewText: {
-    color: '#777',
+    color: '#FFF9',
     justifyContent: 'space-between',
   },
   highlightedListEntryViewText: {
@@ -172,7 +214,12 @@ module.exports = StyleSheet.create({
   mediumText: {
     color: '#FFF',
     fontFamily: 'DroidSans',
-    fontSize: 15,
+    fontSize: 24,
+  },
+  smallText: {
+    color: '#FFF',
+    fontFamily: 'DroidSans',
+    fontSize: 19,
   },
   rowHeader: {
     color: '#FFF',
@@ -191,37 +238,39 @@ module.exports = StyleSheet.create({
     color: 'white',
   },
   underlined: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: 'white',
   },
-  checkboxEmpty: {
+  checkbox: {
     width: 20,
     height: 20,
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#007AFF',
+    borderColor: '#FFF',
   },
   checkboxFilled: {
-    width: 20,
-    height: 20,
-    borderWidth: 1,
-    borderColor: '#007AFF',
-    backgroundColor: '#007AFF',
+    backgroundColor: '#FFF',
   },
   // Buttons
   socialF: {
     justifyContent: 'center',
-    flexDirection: 'row',
-    padding: 50,
+    flex: 1,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#DDD3',
+    alignItems: 'center',
   },
   socialG: {
     justifyContent: 'center',
-    flexDirection: 'row',
-    padding: 50,
+    flex: 1,
     borderBottomWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#DDD3',
+    alignItems: 'center',
+  },
+  socialText: {
+    fontFamily: 'DroidSans',
+    color: '#FFFB',
+    fontSize: 25,
   },
   categoryButton: {
     justifyContent: 'center',
@@ -237,13 +286,21 @@ module.exports = StyleSheet.create({
     alignItems: 'stretch',
   },
   navIcon: {
-    width: 30,
-    height: 30,
+    width: 31,
+    height: 31,
     marginLeft: 20,
     marginRight: 20,
   },
   navButtonMargin: {
     marginHorizontal: 20,
+  },
+  // Door-Specific
+  noHost: {
+    textAlign: 'center',
+    color: '#FFFB',
+    bottom: 175,
+    fontSize: 32,
+    paddingHorizontal: 30,
   },
   // Profile and Group Pic
   profilePic: {
@@ -253,7 +310,7 @@ module.exports = StyleSheet.create({
     flex: 1,
   },
   feedEventHostPic: {
-    marginLeft: 40,
+    marginLeft: 10,
     alignSelf: 'flex-start',
   },
   inviteeBubbles: {
@@ -293,6 +350,9 @@ module.exports = StyleSheet.create({
   // text
   bold: {
     fontWeight: '800',
+    fontSize: 20,
+  },
+  large: {
     fontSize: 20,
   },
   white: {
@@ -336,5 +396,35 @@ module.exports = StyleSheet.create({
   },
   width80pct: {
     width: width * 0.8,
+  },
+  fullScreen: {
+    width,
+    height,
+  },
+  fullScreenUnderNavbar: {
+    width,
+    height: height - navBarHeight,
+  },
+  bottomNav: {
+    backgroundColor: '#FFF0',
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    borderColor: '#FFF',
+  },
+  navbarButton: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    fontSize: 24,
+    width: 100,
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  navbarTitle: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    color: '#FFF',
+    textAlign: 'center',
+    fontSize: 15,
+    flex: 1,
   },
 });

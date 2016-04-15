@@ -4,7 +4,7 @@ import Swipeout from 'react-native-swipeout';
 import { store } from '../../sharedNative/reducers/reducers.js';
 import { refreshUser } from '../../sharedNative/actions/actions.js';
 import { arrayToDataSource } from './HelperFunctions.js';
-import styles from '../../styles/styles.js'; // fix this path
+import styles, { checkbox, checkboxFilled } from '../../styles/styles.js';
 
 const LoadingWheel = (props) => {
   const style = props.style || { height: 150, width: 150 };
@@ -31,47 +31,23 @@ const chooseRowStyle = (style) => {
   }
 };
 
-const makeClickableRow = (action, text, distinguished, rowStyle, swipeFunction) => {
-  const distStyle = distinguished && rowStyle ? chooseRowStyle(rowStyle) : null;
+const makeClickableRow = (action, text, uniqueItems, rowStyle, swipeFunction) => {
+  const uniqueItemStyles = uniqueItems && rowStyle ? chooseRowStyle(rowStyle) : null;
   const contactMapper = store.getState().contactMap;
   return (rowData) => {
     const actionAppliedToUser = action.bind(null, rowData);
-    let withDistinguished;
-    // Right-side checkmark if already requested
-    if (distinguished) {
-      withDistinguished = (
-        <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-        distStyle[1] :
-        null}
-        >
-          {distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-          '✓' :
-          null}
-        </Text>
+    const ClickableRow = () => {
+      const distinguished = uniqueItems && uniqueItems.indexOf(rowData.id) >= 0;
+      return (
+        <TouchableOpacity onPress={actionAppliedToUser} style={styles.group}>
+          <View style={[styles.listEntryView, distinguished && uniqueItemStyles[0]]}>
+            <Text style={[styles.white, styles.listText, distinguished && uniqueItemStyles[1]]}>
+              {rowData[text] || contactMapper[rowData.id] || rowData.userName}
+            </Text>
+          </View>
+        </TouchableOpacity>
       );
-    }
-
-    const ClickableRow = () => (
-      <View>
-          <TouchableOpacity
-            onPress={actionAppliedToUser}
-            style={styles.group}
-          >
-            <View style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-              distStyle[0] :
-              styles.listEntryView}
-            >
-              <Text style={distinguished && distinguished.indexOf(rowData.id) >= 0 ?
-              distStyle[1] :
-              null}
-              >
-                {rowData.userName ? (contactMapper[rowData.id] || rowData.userName) : rowData[text]}
-              </Text>
-              {withDistinguished}
-            </View>
-          </TouchableOpacity>
-      </View>
-    );
+    };
 
     if (swipeFunction) {
       const swipeoutBtns = [{
@@ -133,11 +109,8 @@ const makeSelectableRow = (action, getChecklist) => {
           style={styles.group}
         >
           <View style={styles.listEntryView}>
-            <Text>{contactMapper[user.id] || user.userName}</Text>
-            {(() => (checklist[user.id]) ?
-              <View style={styles.checkboxFilled}></View> :
-              <View style={styles.checkboxEmpty}></View>
-            )()}
+            <Text style={styles.white} >{contactMapper[user.id] || user.userName}</Text>
+            <View style={[checkbox, checklist[user.id] && checkboxFilled]} />
           </View>
         </TouchableOpacity>
       </View>

@@ -12,11 +12,13 @@ import { BackgroundImage } from '../../Shared/BackgroundImage';
 
 const Groups = (props) => {
   const logGroup = (group) => {
-    console.log(`You clicked on ${group.name}, id:${group.id}`);
     navTo(Group, group);
   };
 
-  const GroupsListContainer = makeListContainer(makeClickableRow(logGroup, 'name'), ['user', 'Groups']);
+  const GroupsListContainer = makeListContainer(
+    makeClickableRow(logGroup, 'name'),
+    ['user', 'Groups']
+  );
 
   return (
     <BackgroundImage>
